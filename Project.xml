@@ -36,9 +36,9 @@
 	<source path="source" />
 	<assets path="assets" />
 	<assets path="mods" if="MODS_ALLOWED" />
+	<assets path="modsList.txt" if="MODS_ALLOWED"/>
 
-	<assets path="assets/compileData" embed="true" unless="linux" />
-	<assets path="assets/compileData/modsList.txt" if="MODS_ALLOWED"/>
+	<assets path="compileData" embed="true"/>
 
 	<!-- _______________________________ Libraries ______________________________ -->
 
@@ -70,11 +70,11 @@
 
 	<!-- _________________________________ Icon _______________________________ -->
 
-	<assets path="assets/compileData/iconOG.png" rename="icon.png" if="linux"/>
+	<assets path="compileData/iconOG.png" rename="icon.png" if="linux"/>
 
-	<icon path="assets/compileData/icon16" size="16" />
-	<icon path="assets/compileData/icon32" size="32" />
-	<icon path="assets/compileData/icon64" size="64" />
-	<icon path="assets/compileData/iconOG" />
+	<icon path="compileData/icon16.png" size="16" />
+	<icon path="compileData/icon32.png" size="32" />
+	<icon path="compileData/icon64.png" size="64" />
+	<icon path="compileData/iconOG.png" />
 
 </project>
