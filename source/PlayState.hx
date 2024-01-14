@@ -6,10 +6,19 @@ class PlayState extends FlxState
     {
         super.create();
 
+        Paths.clearStoredMemory();
+        Paths.clearUnusedMemory();
+
         add({
             var text = new FlxText(0, 0, 0, "Hello World", 64);
             text.screenCenter();
             text;
+        });
+
+        add({
+            var lowerText = new FlxText(5, FlxG.height - 24, 0, Date.now(), 12)
+            lowerText.setFormat(Paths.font('vcr.ttf'), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+            lowerText;
         });
     }
 

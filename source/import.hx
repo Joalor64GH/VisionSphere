@@ -1,4 +1,10 @@
 #if !macro
+
+#if sys
+import sys.io.File;
+import sys.FileSystem;
+#end
+
 import flixel.FlxG;
 import flixel.FlxState;
 import flixel.FlxSprite;
@@ -12,6 +18,8 @@ import flixel.group.FlxGroup.FlxTypedGroup;
 import lime.app.Application;
 
 import Paths;
+import CoolUtil;
 
 using StringTools;
+using CoolUtil;
 #end

@@ -20,6 +20,9 @@
 	<!--Desktop-->
 	<window if="desktop" orientation="landscape" fullscreen="false" resizable="true" />
 
+	<!--macOS-->
+	<window if="mac" orientation="auto" fullscreen="false" resizable="true" vsync="false" allow-high-dpi="true" />
+
 	<!--Mobile-->
 	<window if="mobile" orientation="landscape" fullscreen="true" width="0" height="0" />
 
@@ -28,8 +31,14 @@
 	<set name="BUILD_DIR" value="export/debug" if="debug" />
 	<set name="BUILD_DIR" value="export/release" unless="debug" />
 
+	<define name="MODS_ALLOWED" if="desktop" />
+
 	<source path="source" />
 	<assets path="assets" />
+	<assets path="mods" if="MODS_ALLOWED" />
+
+	<assets path="assets/compileData" embed="true" unless="linux" />
+	<assets path="assets/compileData/modsList.txt" if="MODS_ALLOWED"/>
 
 	<!-- _______________________________ Libraries ______________________________ -->
 
@@ -61,6 +70,11 @@
 
 	<!-- _________________________________ Icon _______________________________ -->
 
-	<icon path="assets/compileData/icon.png" />
+	<assets path="assets/compileData/iconOG.png" rename="icon.png" if="linux"/>
+
+	<icon path="assets/compileData/icon16" size="16" />
+	<icon path="assets/compileData/icon32" size="32" />
+	<icon path="assets/compileData/icon64" size="64" />
+	<icon path="assets/compileData/iconOG" />
 
 </project>
