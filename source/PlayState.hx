@@ -16,7 +16,7 @@ class PlayState extends FlxState
         });
 
         add({
-            var lowerText = new FlxText(5, FlxG.height - 24, 0, Date.now(), 12)
+            var lowerText = new FlxText(5, FlxG.height - 24, 0, Date.now(), 12);
             lowerText.setFormat(Paths.font('vcr.ttf'), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
             lowerText;
         });
