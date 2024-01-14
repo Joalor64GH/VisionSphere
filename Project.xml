@@ -3,7 +3,7 @@
 
 	<!-- _________________________ Application Settings _________________________ -->
 
-	<app title="HaxeFlixel Template" file="Template" main="Main" version="1.0.0" company="Joalor64GH" />
+	<app title="VisionSphere" file="VisionSphere" main="Main" version="0.1.0" company="Joalor64GH" />
 	<app preloader="flixel.system.FlxPreloader" />
 
 	<!--Minimum without FLX_NO_GAMEPAD: 11.8, without FLX_NO_NATIVE_CURSOR: 11.2-->
@@ -11,16 +11,16 @@
 
 	<!-- ____________________________ Window Settings ___________________________ -->
 
-	<!--These window settings apply to all targets-->
+	<!--All targets-->
 	<window width="1280" height="720" fps="60" background="#000000" hardware="true" vsync="false" />
 
-	<!--HTML5-specific-->
+	<!--HTML5-->
 	<window if="html5" resizable="false" />
 
-	<!--Desktop-specific-->
+	<!--Desktop-->
 	<window if="desktop" orientation="landscape" fullscreen="false" resizable="true" />
 
-	<!--Mobile-specific-->
+	<!--Mobile-->
 	<window if="mobile" orientation="landscape" fullscreen="true" width="0" height="0" />
 
 	<!-- _____________________________ Path Settings ____________________________ -->
@@ -29,22 +29,20 @@
 	<set name="BUILD_DIR" value="export/release" unless="debug" />
 
 	<source path="source" />
-
-	<assets path="assets/fonts" embed='true'/>
-	<assets path="assets/" rename="assets" exclude="*.mp3"/>
+	<assets path="assets" />
 
 	<!-- _______________________________ Libraries ______________________________ -->
 
 	<haxelib name="flixel" />
-
-	<!--In case you want to use the addons package-->
 	<haxelib name="flixel-addons" />
-	
-	<!--In case you want to use the ui package-->
 	<haxelib name="flixel-ui" />
-	<haxelib name="flixel-tools" />
+
+	<haxelib name="hxcpp-debug-server" if="desktop debug" />
 
 	<!-- ______________________________ Haxedefines _____________________________ -->
+
+	<!--Enable the Flixel core recording system-->
+	<haxedef name="FLX_RECORD" />
 
 	<!--Optimise inputs, be careful you will get null errors if you don't use conditionals in your game-->
 	<haxedef name="FLX_NO_MOUSE" if="mobile" />
@@ -61,7 +59,8 @@
 	<haxeflag name="--macro" value="allowPackage('flash')" />
 	<haxeflag name="--macro" value="include('my.pack')" />
 
-	<!-- _________________________________ Custom _______________________________ -->
+	<!-- _________________________________ Icon _______________________________ -->
 
-	<!--Place custom nodes like icons here (higher priority to override the HaxeFlixel icon)-->
+	<icon path="assets/compileData/icon.png" />
+
 </project>
