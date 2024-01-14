@@ -377,7 +377,7 @@ class Paths
 		return modFolders('data/' + key + '.json');
 
 	inline static public function modsSounds(path:String, key:String)
-		return modFolders(path + '/' + key + '.' + SOUND_EXT);
+		return modFolders(path + '/' + key + '.ogg');
 
 	inline static public function modsImages(key:String)
 		return modFolders('images/' + key + '.png');
