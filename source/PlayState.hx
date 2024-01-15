@@ -18,8 +18,8 @@ class PlayState extends FlxState
         });
 
         add({
-            lowerText = new FlxText(5, FlxG.height - 24, 0, Date.now().toString(), 12);
-            lowerText.setFormat(Paths.font('vcr.ttf'), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+            lowerText = new FlxText(5, FlxG.height - 24);
+            lowerText.setFormat(Paths.font('vcr.ttf'), 26, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
             lowerText;
         });
     }
@@ -28,6 +28,6 @@ class PlayState extends FlxState
     {
         super.update(elapsed);
 
-        lowerText.text = Date.now().toString();
+        lowerText.text = DateTools.format(Date.now(), "%F") + ' / ' + DateTools.format(Date.now(), "%r");
     }
 }
