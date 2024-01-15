@@ -28,6 +28,6 @@ class PlayState extends FlxState
     {
         super.update(elapsed);
 
-        lowerText.text = leDate.toString();
+        lowerText.text = Date.now().toString();
     }
 }
