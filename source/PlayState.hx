@@ -2,7 +2,6 @@ package;
 
 class PlayState extends FlxState
 {
-    var leDate = Date.now();
     var lowerText:FlxText;
 
     override public function create()
@@ -19,7 +18,7 @@ class PlayState extends FlxState
         });
 
         add({
-            lowerText = new FlxText(5, FlxG.height - 24, 0, leDate.toString(), 12);
+            lowerText = new FlxText(5, FlxG.height - 24, 0, Date.now().toString(), 12);
             lowerText.setFormat(Paths.font('vcr.ttf'), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
             lowerText;
         });
