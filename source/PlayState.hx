@@ -31,6 +31,9 @@ class PlayState extends FlxState
     {
         super.update(elapsed);
 
+        if (FlxG.keys.justPressed.M)
+            FlxG.switchState(new ModsState());
+
         lowerText.text = DateTools.format(Date.now(), "%F") + ' / ' + DateTools.format(Date.now(), "%r");
     }
 }
