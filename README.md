@@ -1,3 +1,5 @@
-# HaxeFlixel Template
+# VisionSphere
 
-Just a simple template for making games with Flixel.
+A work in progress console made in HaxeFlixel.
+
+Mostly based on Sega Dreamcast.

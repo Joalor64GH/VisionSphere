@@ -17,20 +17,22 @@ class MenuState extends FlxState
         Paths.clearStoredMemory();
         Paths.clearUnusedMemory();
 
+        FlxG.mouse.visible = true;
+
         var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('theme/daylight'));
         add(bg);
 
         var bar:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menu/bar'));
         add(bar);
 
-        var logo:FlxSprite = new FlxSprite(10, bar.y + 10).loadGraphic(Paths.image('menu/icon'));
+        var logo:FlxSprite = new FlxSprite(10, bar.y + 5).loadGraphic(Paths.image('menu/icon'));
         add(logo);
 
         btnPlay = new FlxSprite(150, 150).loadGraphic(Paths.image('menu/play'));
         add(btnPlay);
 
         #if MODS_ALLOWED
-        btnMods = new FlxSprite(FlxG.width-300,150).loadGraphic(Paths.image('menu/mods'));
+        btnMods = new FlxSprite(1130, 150).loadGraphic(Paths.image('menu/mods'));
         add(btnMods);
         #end
 
@@ -38,14 +40,14 @@ class MenuState extends FlxState
         btnCredits.screenCenter(XY);
         add(btnCredits);
 
-        btnMusic = new FlxSprite(150,FlxG.height-300).loadGraphic(Paths.image('menu/music'));
+        btnMusic = new FlxSprite(150, FlxG.height - 300).loadGraphic(Paths.image('menu/music'));
         add(btnMusic);
 
-        btnSettings = new FlxSprite(FlxG.width-300, FlxG.height-300).loadGraphic(Paths.image('menu/settings'));
+        btnSettings = new FlxSprite(1130, FlxG.height - 300).loadGraphic(Paths.image('menu/settings'));
         add(btnSettings);
 
         add({
-            dateText = new FlxText(900, 0);
+            dateText = new FlxText(900, 50);
             dateText.setFormat(Paths.font('vcr.ttf'), 30, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
             dateText;
         });
@@ -61,8 +63,26 @@ class MenuState extends FlxState
     {
         super.update(elapsed);
 
-        if (FlxG.keys.justPressed.M)
-            FlxG.switchState(new states.ModsState());
+        if (FlxG.mouse.overlaps(btnPlay))
+        {
+            FlxG.sound.play(Paths.sound('scroll'));
+            if (FlxG.mouse.pressed) 
+            {
+                FlxG.switchState(new states.PlayState());
+                FlxG.sound.play(Paths.sound('confirm'));
+            }
+        }
+        #if MODS_ALLOWED
+        else if (FlxG.mouse.overlaps(btnMods))
+        {
+            FlxG.sound.play(Paths.sound('scroll'));
+            if (FlxG.mouse.pressed) 
+            {
+                FlxG.switchState(new states.ModsState());
+                FlxG.sound.play(Paths.sound('confirm'));
+            }
+        }
+        #end
 
         dateText.text = DateTools.format(Date.now(), "%F") + ' / ' + DateTools.format(Date.now(), "%r");
     }

@@ -389,10 +389,12 @@ class ModsState extends FlxState
 			if(needaReset)
 			{
 				FlxG.camera.fade(FlxColor.BLACK, 0.5, false, FlxG.resetGame, false);
+				FlxG.sound.play(Paths.sound('cancel'));
 			}
 			else
 			{
 				FlxG.switchState(new states.MenuState());
+				FlxG.sound.play(Paths.sound('cancel'));
 			}
 		}
 

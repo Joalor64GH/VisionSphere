@@ -3,8 +3,6 @@ package states;
 class SplashState extends FlxState
 {
     var logo:FlxSprite;
-    var haxeflixel:FlxSprite;
-
     var text:FlxText;
 
     override public function create()
@@ -29,6 +27,12 @@ class SplashState extends FlxState
         logo.alpha = 0;
         add(logo);
 
+        add({
+            var daText = new FlxText(5, FlxG.height - 24, 0, "Press ENTER or SPACE to skip.", 12);
+            daText.setFormat(Paths.font('vcr.ttf'), 26, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+            daText;
+        });
+
         FlxTween.tween(text, {alpha: 1}, 2, {ease: FlxEase.quadOut});
 
         FlxG.camera.fade(FlxColor.BLACK, 0.33, true);
@@ -41,7 +45,7 @@ class SplashState extends FlxState
 
         new FlxTimer().start(5, function(tmr:FlxTimer)
         {
-            FlxTween.tween(text, {x: -1500, angle: 10, alpha: 0}, 1.2, {ease: FlxEase.expoInOut});
+            FlxTween.tween(text, {x: -1500, angle: 10, alpha: 0}, 0.1, {ease: FlxEase.expoInOut});
             FlxTween.tween(logo, {alpha: 1}, 1, {ease: FlxEase.quadOut});
         });
 
