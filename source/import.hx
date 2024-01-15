@@ -1,5 +1,4 @@
 #if !macro
-
 #if sys
 import sys.io.File;
 import sys.FileSystem;

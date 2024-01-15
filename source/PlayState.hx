@@ -11,6 +11,9 @@ class PlayState extends FlxState
         Paths.clearStoredMemory();
         Paths.clearUnusedMemory();
 
+        var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('theme/daylight'));
+        add(bg);
+
         add({
             var text = new FlxText(0, 0, 0, "Hello World", 64);
             text.screenCenter();
