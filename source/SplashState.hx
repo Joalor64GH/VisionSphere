@@ -20,8 +20,8 @@ class SplashState extends FlxState
         var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('titleBG'));
         add(bg);
 
-        text = new FlxText(0, 300, 0, "Created by Joalor64\nMade with HaxeFlixel", 12);
-        text.setFormat(Paths.font('vcr.ttf'), 30, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+        text = new FlxText(0, 350, 0, "Created by Joalor64\nMade with HaxeFlixel", 12);
+        text.setFormat(Paths.font('vcr.ttf'), 35, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
         text.screenCenter(X);
         text.alpha = 0;
         add(text);
@@ -50,9 +50,9 @@ class SplashState extends FlxState
 
         new FlxTimer().start(5, function(tmr:FlxTimer)
         {
-            FlxTween.tween(text, {alpha: 0}, 1.5, {ease: FlxEase.expoInOut});
-            FlxTween.tween(haxeflixel, {alpha: 0}, 1.5, {ease: FlxEase.expoInOut});
-            FlxTween.tween(logo, {alpha: 1}, 2.5, {ease: FlxEase.quadOut});
+            FlxTween.tween(text, {alpha: 0}, 0.01, {ease: FlxEase.expoInOut});
+            FlxTween.tween(haxeflixel, {alpha: 0}, 0.01, {ease: FlxEase.expoInOut});
+            FlxTween.tween(logo, {alpha: 1}, 1, {ease: FlxEase.quadOut});
         });
 
         new FlxTimer().start(10, function(tmr:FlxTimer)
