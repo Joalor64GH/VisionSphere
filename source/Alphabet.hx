@@ -3,6 +3,7 @@ package;
 import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.group.FlxSpriteGroup;
 import flixel.math.FlxPoint;
+import flixel.math.FlxMath;
 
 using StringTools;
 
