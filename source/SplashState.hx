@@ -11,7 +11,7 @@ class SplashState extends FlxState
 
         var logo:FlxSprite = new FlxSprite().loadGraphic(Paths.image('logo'));
         logo.screenCenter(XY);
-        logo.scale.set(-2, -2);
+        logo.scale.set(0.6, 0.6);
         add(logo);
 
         FlxG.camera.fade(FlxColor.BLACK, 0.33, true);
