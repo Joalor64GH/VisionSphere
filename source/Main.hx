@@ -16,7 +16,7 @@ class Main extends Sprite
 	{
 		super();
 
-		addChild(new FlxGame(gameWidth, gameHeight, SplashState, #if (flixel < "5.0.0") -1, #end 60, 60, true, false));
+		addChild(new FlxGame(gameWidth, gameHeight, states.SplashState, #if (flixel < "5.0.0") -1, #end 60, 60, true, false));
 
 		#if linux
 		var icon = Image.fromFile("icon.png");

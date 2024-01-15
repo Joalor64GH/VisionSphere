@@ -1,4 +1,7 @@
-package;
+package states;
+
+import objects.Alphabet;
+import objects.AttachedSprite;
 
 import flixel.math.FlxMath;
 import flixel.ui.FlxButton;
@@ -389,7 +392,7 @@ class ModsState extends FlxState
 			}
 			else
 			{
-				FlxG.switchState(new PlayState());
+				FlxG.switchState(new states.MenuState());
 			}
 		}
 

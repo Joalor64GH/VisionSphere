@@ -17,8 +17,10 @@ import flixel.group.FlxGroup.FlxTypedGroup;
 import lime.app.Application;
 
 import Paths;
-import CoolUtil;
+
+import util.CoolUtil;
+import util.Localization;
 
 using StringTools;
-using CoolUtil;
+using util.CoolUtil;
 #end

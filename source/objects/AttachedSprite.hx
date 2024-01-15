@@ -1,4 +1,4 @@
-package;
+package objects;
 
 using StringTools;
 
