@@ -5,7 +5,7 @@ class MenuState extends FlxState
     var dateText:FlxText;
 
     var btnPlay:FlxSprite;
-    var btnMmods:FlxSprite;
+    var btnMods:FlxSprite;
     var btnCredits:FlxSprite;
     var btnMusic:FlxSprite;
     var btnSettings:FlxSprite;
