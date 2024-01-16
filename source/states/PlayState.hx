@@ -1,4 +1,4 @@
-package;
+package states;
 
 class PlayState extends FlxState
 {
