@@ -10,12 +10,10 @@ import openfl.utils.AssetType;
 import openfl.utils.Assets as Assets;
 import openfl.display.BitmapData;
 
-import haxe.Json;
-
 using StringTools;
 
 /**
- * A simple modding system based off of Psych Engine.
+ * A simple modding extension based off of Psych Engine.
  * @author ShadowMario
  * @see https://github.com/ShadowMario/FNF-PsychEngine/
  */

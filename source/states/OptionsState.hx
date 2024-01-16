@@ -20,7 +20,7 @@ class OptionsState extends FlxState
         for (i in 0...options.length)
         {
             var optionTxt:FlxText = new FlxText(20, 20 + (i * 50), 0, options[i], 32);
-            optionTxt.setFormat(Paths.font('vcr.ttf'), 64, FlxColor.WHITE, FlxTextAlign.CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+            optionTxt.setFormat(Paths.font('vcr.ttf'), 60, FlxColor.WHITE, FlxTextAlign.CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
             optionTxt.ID = i;
             group.add(optionTxt);
         }

@@ -1,7 +1,5 @@
 package util;
 
-import haxe.Json;
-
 /**
  * A simple localization system.
  * Please credit me if you use it!

@@ -1,9 +1,10 @@
 package states;
 
+import flixel.tweens.FlxTween.CompleteCallback;
+
 class MenuState extends FlxState
 {
     var dateText:FlxText;
-    
     var btnPlay:FlxSprite;
     var btnMods:FlxSprite;
     var btnCredits:FlxSprite;
@@ -46,17 +47,13 @@ class MenuState extends FlxState
         btnSettings = new FlxSprite(875, FlxG.height - 300).loadGraphic(Paths.image('menu/settings'));
         add(btnSettings);
 
-        add({
-            dateText = new FlxText(900, 50);
-            dateText.setFormat(Paths.font('vcr.ttf'), 30, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-            dateText;
-        });
+        dateText = new FlxText(900, 50);
+        dateText.setFormat(Paths.font('vcr.ttf'), 30, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+        add(dateText);
 
-        add({
-            var daText = new FlxText(logo.x + 145, 50, 0, "VisionSphere v" + Application.current.meta.get('version'), 12);
-            daText.setFormat(Paths.font('vcr.ttf'), 30, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-            daText;
-        });
+        var daText = new FlxText(logo.x + 145, 50, 0, "VisionSphere v" + Application.current.meta.get('version'), 12);
+        daText.setFormat(Paths.font('vcr.ttf'), 30, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+        add(daText);
     }
 
     override public function update(elapsed:Float)
@@ -65,9 +62,9 @@ class MenuState extends FlxState
 
         if (FlxG.mouse.overlaps(btnPlay))
         {
-            btnPlay.angularVelocity = 30;
+            FlxTween.tween(btnPlay, {y: btnPlay.y + 50}, 0.6, {ease: FlxEase.quadInOut, type: PINGPONG});
 
-            FlxG.sound.play(Paths.sound('scroll'), 1, false);
+            FlxG.sound.play(Paths.sound('scroll'), 1, false, true);
 
             if (FlxG.mouse.pressed) 
             {
@@ -75,12 +72,15 @@ class MenuState extends FlxState
                 FlxG.sound.play(Paths.sound('confirm'));
             }
         }
+        else
+            FlxTween.completeTweensOf(btnPlay);
+        
         #if MODS_ALLOWED
-        else if (FlxG.mouse.overlaps(btnMods))
+        if (FlxG.mouse.overlaps(btnMods))
         {
-            btnMods.angularVelocity = 30;
+            FlxTween.tween(btnMods, {y: btnMods.y + 50}, 0.6, {ease: FlxEase.quadInOut, type: PINGPONG});
 
-            FlxG.sound.play(Paths.sound('scroll'), 1, false);
+            FlxG.sound.play(Paths.sound('scroll'), 1, false, true);
 
             if (FlxG.mouse.pressed) 
             {
@@ -88,7 +88,24 @@ class MenuState extends FlxState
                 FlxG.sound.play(Paths.sound('confirm'));
             }
         }
+        else
+            FlxTween.completeTweensOf(btnMods);
         #end
+        
+        if (FlxG.mouse.overlaps(btnSettings))
+        {
+            FlxTween.tween(btnSettings, {y: btnSettings.y + 50}, 0.6, {ease: FlxEase.quadInOut, type: PINGPONG});
+
+            FlxG.sound.play(Paths.sound('scroll'), 1, false, true);
+
+            if (FlxG.mouse.pressed) 
+            {
+                FlxG.switchState(new states.OptionsState());
+                FlxG.sound.play(Paths.sound('confirm'));
+            }
+        }
+        else
+            FlxTween.completeTweensOf(btnSettings);
 
         dateText.text = DateTools.format(Date.now(), "%F") + ' / ' + DateTools.format(Date.now(), "%r");
     }

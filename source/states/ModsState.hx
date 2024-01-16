@@ -7,7 +7,6 @@ import flixel.math.FlxMath;
 import flixel.ui.FlxButton;
 import flixel.FlxBasic;
 
-import haxe.Json;
 import haxe.format.JsonParser;
 import openfl.display.BitmapData;
 import flash.geom.Rectangle;

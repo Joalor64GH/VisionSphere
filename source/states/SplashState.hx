@@ -2,8 +2,9 @@ package states;
 
 class SplashState extends FlxState
 {
-    var logo:FlxSprite;
     var text:FlxText;
+    var logo:FlxSprite;
+    var haxeflixel:FlxSprite;
 
     override public function create()
     {
@@ -14,6 +15,12 @@ class SplashState extends FlxState
 
         var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('titleBG'));
         add(bg);
+
+        haxeflixel = new FlxSprite().loadGraphic(Paths.image('haxeflixel'));
+        haxeflixel.screenCenter(XY);
+        haxeflixel.scale.set(0.45, 0.45);
+        haxeflixel.alpha = 0;
+        add(haxeflixel);
 
         text = new FlxText(0, 0, 0, "Created by Joalor64\nMade with HaxeFlixel", 12);
         text.setFormat(Paths.font('vcr.ttf'), 60, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
@@ -27,11 +34,11 @@ class SplashState extends FlxState
         logo.alpha = 0;
         add(logo);
 
-        add({
-            var daText = new FlxText(5, FlxG.height - 24, 0, "Press ENTER or SPACE to skip.", 12);
-            daText.setFormat(Paths.font('vcr.ttf'), 26, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-            daText;
-        });
+        var daText = new FlxText(5, FlxG.height - 24, 0, "Press ENTER or SPACE to skip.", 12);
+        daText.setFormat(Paths.font('vcr.ttf'), 26, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+        add(daText);
+
+        FlxTween.tween(haxeflixel, {alpha: 1}, 1.5, {ease: FlxEase.quadOut});
 
         FlxTween.tween(text, {alpha: 1}, 2, {ease: FlxEase.quadOut});
 
@@ -45,6 +52,9 @@ class SplashState extends FlxState
 
         new FlxTimer().start(5, function(tmr:FlxTimer)
         {
+            FlxTween.tween(haxeflixel, {x: -1500, angle: 10, alpha: 0}, 0.1, {ease: FlxEase.expoInOut});
+            FlxTween.tween(haxeflixel, {alpha: 0}, 0.1, {ease: FlxEase.expoInOut});
+
             FlxTween.tween(text, {x: -1500, angle: 10, alpha: 0}, 0.1, {ease: FlxEase.expoInOut});
             FlxTween.tween(text, {alpha: 0}, 0.1, {ease: FlxEase.expoInOut});
 

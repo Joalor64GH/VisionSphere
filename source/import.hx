@@ -21,6 +21,8 @@ import Paths;
 import util.CoolUtil;
 import util.Localization;
 
+import haxe.Json;
+
 using StringTools;
 using util.CoolUtil;
 #end
