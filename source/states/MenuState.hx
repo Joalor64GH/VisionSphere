@@ -32,7 +32,7 @@ class MenuState extends FlxState
         add(btnPlay);
 
         #if MODS_ALLOWED
-        btnMods = new FlxSprite(1130, 150).loadGraphic(Paths.image('menu/mods'));
+        btnMods = new FlxSprite(850, 150).loadGraphic(Paths.image('menu/mods'));
         add(btnMods);
         #end
 
@@ -43,7 +43,7 @@ class MenuState extends FlxState
         btnMusic = new FlxSprite(150, FlxG.height - 300).loadGraphic(Paths.image('menu/music'));
         add(btnMusic);
 
-        btnSettings = new FlxSprite(1130, FlxG.height - 300).loadGraphic(Paths.image('menu/settings'));
+        btnSettings = new FlxSprite(850, FlxG.height - 300).loadGraphic(Paths.image('menu/settings'));
         add(btnSettings);
 
         add({

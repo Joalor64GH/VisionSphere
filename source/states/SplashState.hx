@@ -46,6 +46,8 @@ class SplashState extends FlxState
         new FlxTimer().start(5, function(tmr:FlxTimer)
         {
             FlxTween.tween(text, {x: -1500, angle: 10, alpha: 0}, 0.1, {ease: FlxEase.expoInOut});
+            FlxTween.tween(text, {alpha: 0}, 0.1, {ease: FlxEase.expoInOut});
+
             FlxTween.tween(logo, {alpha: 1}, 1, {ease: FlxEase.quadOut});
         });
 
