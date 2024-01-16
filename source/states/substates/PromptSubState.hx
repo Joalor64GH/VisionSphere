@@ -18,7 +18,7 @@ class PromptSubState extends FlxSubState
 
         var width:Float = FlxG.width * 0.75;
         var height:Float = FlxG.height * 0.5;
-        var box:FlxSprite = new FlxSprite().makeGraphic(width, height, 0xFF000000);
+        var box:FlxSprite = new FlxSprite().makeGraphic(Std.int(width), Std.int(height), 0xFF000000);
         box.screenCenter();
         add(box);
 
