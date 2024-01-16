@@ -63,11 +63,25 @@ class MenuState extends FlxState
     {
         super.update(elapsed);
 
-        if (FlxG.mouse.overlaps(btnPlay) && FlxG.mouse.pressed)
-             FlxG.switchState(new states.PlayState());
+        if (FlxG.mouse.overlaps(btnPlay))
+        {
+            FlxG.sound.play(Paths.sound('scroll'), 1, false);
+            if (FlxG.mouse.pressed) 
+            {
+                FlxG.switchState(new states.PlayState());
+                FlxG.sound.play(Paths.sound('confirm'));
+            }
+        }
         #if MODS_ALLOWED
-        else if (FlxG.mouse.overlaps(btnMods) && FlxG.mouse.pressed)
-            FlxG.switchState(new states.ModsState());
+        else if (FlxG.mouse.overlaps(btnMods))
+        {
+            FlxG.sound.play(Paths.sound('scroll'), 1, false);
+            if (FlxG.mouse.pressed) 
+            {
+                FlxG.switchState(new states.ModsState());
+                FlxG.sound.play(Paths.sound('confirm'));
+            }
+        }
         #end
 
         dateText.text = DateTools.format(Date.now(), "%F") + ' / ' + DateTools.format(Date.now(), "%r");
