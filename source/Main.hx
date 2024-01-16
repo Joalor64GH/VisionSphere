@@ -22,7 +22,7 @@ class Main extends Sprite
 		super();
 
 		SaveData.init();
-		Localization.loadLanguages(['de', 'en', 'es', 'fr' 'it', 'pt']);
+		Localization.loadLanguages(['de', 'en', 'es', 'fr', 'it', 'pt']);
 
 		addChild(new FlxGame(gameWidth, gameHeight, states.SplashState, #if (flixel < "5.0.0") -1, #end 60, 60, true, false));
 
