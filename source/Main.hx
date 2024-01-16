@@ -1,6 +1,8 @@
 package;
 
 import flixel.FlxGame;
+
+import openfl.Lib;
 import openfl.display.Sprite;
 
 #if desktop
