@@ -32,7 +32,7 @@ class MenuState extends FlxState
         add(btnPlay);
 
         #if MODS_ALLOWED
-        btnMods = new FlxSprite(850, 150).loadGraphic(Paths.image('menu/mods'));
+        btnMods = new FlxSprite(900, 150).loadGraphic(Paths.image('menu/mods'));
         add(btnMods);
         #end
 
@@ -43,7 +43,7 @@ class MenuState extends FlxState
         btnMusic = new FlxSprite(150, FlxG.height - 300).loadGraphic(Paths.image('menu/music'));
         add(btnMusic);
 
-        btnSettings = new FlxSprite(850, FlxG.height - 300).loadGraphic(Paths.image('menu/settings'));
+        btnSettings = new FlxSprite(900, FlxG.height - 300).loadGraphic(Paths.image('menu/settings'));
         add(btnSettings);
 
         add({
@@ -53,8 +53,8 @@ class MenuState extends FlxState
         });
 
         add({
-            var daText = new FlxText(5, FlxG.height - 24, 0, "v" + Application.current.meta.get('version'), 12);
-            daText.setFormat(Paths.font('vcr.ttf'), 26, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+            var daText = new FlxText(logo.x + 40, 50, 0, "VisionSphere v" + Application.current.meta.get('version'), 12);
+            daText.setFormat(Paths.font('vcr.ttf'), 30, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
             daText;
         });
     }
