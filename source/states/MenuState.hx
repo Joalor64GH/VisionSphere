@@ -1,6 +1,6 @@
 package states;
 
-import flixel.tweens.FlxTween.CompleteCallback;
+import flixel.tweens.FlxTween.TweenCallback;
 
 class MenuState extends FlxState
 {

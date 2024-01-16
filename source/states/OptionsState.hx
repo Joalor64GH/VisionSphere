@@ -34,7 +34,7 @@ class OptionsState extends FlxState
 
         if (FlxG.keys.justPressed.UP || FlxG.keys.justPressed.DOWN)
         {
-            FlxG.sound.play(Paths.image('scroll'));
+            FlxG.sound.play(Paths.sound('scroll'));
             changeSelection(FlxG.keys.justPressed.UP ? -1 : 1);
         }
 
