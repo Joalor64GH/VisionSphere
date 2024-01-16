@@ -58,7 +58,7 @@ class OptionsState extends FlxState
                     openSubState(new states.substates.PromptSubState("Are you sure?", function() {
                         FlxG.camera.fade(FlxColor.BLACK, 0.5, false, FlxG.resetGame, false);
                     }, function() {
-                        close();
+                        closeSubState();
                     }));
 
                 case "Shut Down":
@@ -74,6 +74,11 @@ class OptionsState extends FlxState
 
         if (options[curSelected] == "Theme")
             switchTheme((FlxG.keys.justPressed.RIGHT || FlxG.keys.justPressed.LEFT) ? -1 : 1);
+    }
+
+    override function closeSubState()
+    {
+        super.closeSubState();
     }
 
     private function changeSelection(change:Int = 0)

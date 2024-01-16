@@ -20,6 +20,7 @@ import Paths;
 
 import util.CoolUtil;
 import util.Localization;
+import util.SaveData;
 
 import haxe.Json;
 

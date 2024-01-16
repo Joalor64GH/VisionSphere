@@ -19,10 +19,10 @@ class PromptSubState extends FlxSubState
         var width:Float = FlxG.width * 0.75;
         var height:Float = FlxG.height * 0.5;
         var box:FlxSprite = new FlxSprite().makeGraphic(width, height, 0xFF000000);
-        box.screenCenter(XY);
+        box.screenCenter();
         add(box);
 
-        var questionTxt:FlxText = new FlxText(box.x, box.y + 20, box.width, question);
+        var questionTxt:FlxText = new FlxText(box.x, box.y + 20, width, question);
         questionTxt.setFormat(Paths.font('vcr.ttf'), 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
         add(questionTxt);
 
