@@ -3,6 +3,7 @@ package states;
 class MenuState extends FlxState
 {
     var dateText:FlxText;
+    
     var btnPlay:FlxSprite;
     var btnMods:FlxSprite;
     var btnCredits:FlxSprite;
@@ -64,15 +65,7 @@ class MenuState extends FlxState
 
         if (FlxG.mouse.overlaps(btnPlay))
         {
-            btnPlay.angle = -4;
-
-            new FlxTimer().start(0.01, function(tmr:FlxTimer)
-            {
-                if (btnPlay.angle == -4)
-                    FlxTween.tween(btnPlay, btnPlay.angle, 4, 4, {ease: FlxEase.quartInOut});
-                if (btnPlay.angle == 4)
-                    FlxTween.tween(btnPlay, btnPlay.angle, -4, 4, {ease: FlxEase.quartInOut});
-            }, 0);
+            btnPlay.angularVelocity = 30;
 
             FlxG.sound.play(Paths.sound('scroll'), 1, false);
 
@@ -85,15 +78,7 @@ class MenuState extends FlxState
         #if MODS_ALLOWED
         else if (FlxG.mouse.overlaps(btnMods))
         {
-            btnMods.angle = -4;
-
-            new FlxTimer().start(0.01, function(tmr:FlxTimer)
-            {
-                if (btnMods.angle == -4)
-                    FlxTween.tween(btnMods, btnMods.angle, 4, 4, {ease: FlxEase.quartInOut});
-                if (btnMods.angle == 4)
-                    FlxTween.tween(btnMods, btnMods.angle, -4, 4, {ease: FlxEase.quartInOut});
-            }, 0);
+            btnMods.angularVelocity = 30;
 
             FlxG.sound.play(Paths.sound('scroll'), 1, false);
 
