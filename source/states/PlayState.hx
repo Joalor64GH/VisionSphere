@@ -18,7 +18,7 @@ class PlayState extends FlxState
         [255, 192, 203],
         [255, 0, 255],
         [0, 255, 255]
-    ]
+    ];
 
     var curColor:Int = 0;
 
