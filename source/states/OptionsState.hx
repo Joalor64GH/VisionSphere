@@ -58,7 +58,7 @@ class OptionsState extends FlxState
                     openSubState(new states.substates.PromptSubState("Are you sure?", function() {
                         FlxG.camera.fade(FlxColor.BLACK, 0.5, false, FlxG.resetGame, false);
                     }, function() {
-                        close;
+                        close();
                     }));
 
                 case "Shut Down":
