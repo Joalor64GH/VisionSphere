@@ -3,7 +3,6 @@ package states;
 class MenuState extends FlxState
 {
     var dateText:FlxText;
-
     var btnPlay:FlxSprite;
     var btnMods:FlxSprite;
     var btnCredits:FlxSprite;
@@ -32,7 +31,7 @@ class MenuState extends FlxState
         add(btnPlay);
 
         #if MODS_ALLOWED
-        btnMods = new FlxSprite(900, 150).loadGraphic(Paths.image('menu/mods'));
+        btnMods = new FlxSprite(875, 150).loadGraphic(Paths.image('menu/mods'));
         add(btnMods);
         #end
 
@@ -43,7 +42,7 @@ class MenuState extends FlxState
         btnMusic = new FlxSprite(150, FlxG.height - 300).loadGraphic(Paths.image('menu/music'));
         add(btnMusic);
 
-        btnSettings = new FlxSprite(900, FlxG.height - 300).loadGraphic(Paths.image('menu/settings'));
+        btnSettings = new FlxSprite(875, FlxG.height - 300).loadGraphic(Paths.image('menu/settings'));
         add(btnSettings);
 
         add({
@@ -53,7 +52,7 @@ class MenuState extends FlxState
         });
 
         add({
-            var daText = new FlxText(logo.x + 40, 50, 0, "VisionSphere v" + Application.current.meta.get('version'), 12);
+            var daText = new FlxText(logo.x + 145, 50, 0, "VisionSphere v" + Application.current.meta.get('version'), 12);
             daText.setFormat(Paths.font('vcr.ttf'), 30, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
             daText;
         });
@@ -65,7 +64,18 @@ class MenuState extends FlxState
 
         if (FlxG.mouse.overlaps(btnPlay))
         {
+            btnPlay.angle = -4;
+
+            new FlxTimer().start(0.01, function(tmr:FlxTimer)
+            {
+                if (btnPlay.angle == -4)
+                    FlxTween.tween(btnPlay, btnPlay.angle, 4, 4, {ease: FlxEase.quartInOut});
+                if (btnPlay.angle == 4)
+                    FlxTween.tween(btnPlay, btnPlay.angle, -4, 4, {ease: FlxEase.quartInOut});
+            }, 0);
+
             FlxG.sound.play(Paths.sound('scroll'), 1, false);
+
             if (FlxG.mouse.pressed) 
             {
                 FlxG.switchState(new states.PlayState());
@@ -75,7 +85,18 @@ class MenuState extends FlxState
         #if MODS_ALLOWED
         else if (FlxG.mouse.overlaps(btnMods))
         {
+            btnMods.angle = -4;
+
+            new FlxTimer().start(0.01, function(tmr:FlxTimer)
+            {
+                if (btnMods.angle == -4)
+                    FlxTween.tween(btnMods, btnMods.angle, 4, 4, {ease: FlxEase.quartInOut});
+                if (btnMods.angle == 4)
+                    FlxTween.tween(btnMods, btnMods.angle, -4, 4, {ease: FlxEase.quartInOut});
+            }, 0);
+
             FlxG.sound.play(Paths.sound('scroll'), 1, false);
+
             if (FlxG.mouse.pressed) 
             {
                 FlxG.switchState(new states.ModsState());
