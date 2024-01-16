@@ -2,7 +2,19 @@ package states;
 
 class OptionsState extends FlxState
 {
-    var options:Array<String> = ["FPS Counter", "Time Format", "Language", "Theme", "System Information", "Restart", "Shut Down"];
+    var bg:FlxSprite;
+    
+    var themes:Array<String> = ['daylight', 'night', 'dreamcast', 'ps3', 'xp'];
+    var options:Array<String> = [
+        "Fullscreen",
+        "FPS Counter", 
+        "Time Format", 
+        "Language", 
+        "Theme", 
+        "System Information", 
+        "Restart", 
+        "Shut Down"
+    ];
 
     var group:FlxTypedGroup<FlxText>;
     var curSelected:Int = 0;
@@ -11,7 +23,7 @@ class OptionsState extends FlxState
     {
         super.create();
 
-        var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('theme/daylight'));
+        bg = new FlxSprite().loadGraphic(Paths.image('theme/' + FlxG.save.data.theme));
         add(bg);
 
         group = new FlxTypedGroup<FlxText>();
@@ -38,11 +50,30 @@ class OptionsState extends FlxState
             changeSelection(FlxG.keys.justPressed.UP ? -1 : 1);
         }
 
+        if (FlxG.keys.justPressed.ENTER)
+        {
+            switch (options[curSelected])
+            {
+                case "Restart":
+                    openSubState(new states.substates.PromptSubState("Are you sure?", function() {
+                        FlxG.camera.fade(FlxColor.BLACK, 0.5, false, FlxG.resetGame, false);
+                    }, function() {
+                        close;
+                    }));
+
+                case "Shut Down":
+                    Sys.exit(0);
+            }
+        }
+
         if (FlxG.keys.justPressed.ESCAPE) 
         {
             FlxG.switchState(new states.MenuState());
             FlxG.sound.play(Paths.sound('cancel'));
         }
+
+        if (options[curSelected] == "Theme")
+            switchTheme((FlxG.keys.justPressed.RIGHT || FlxG.keys.justPressed.LEFT) ? -1 : 1);
     }
 
     private function changeSelection(change:Int = 0)
@@ -58,5 +89,17 @@ class OptionsState extends FlxState
         {
             txt.color = (txt.ID == curSelected) ? FlxColor.GREEN : FlxColor.WHITE;
         });
+    }
+
+    private function switchTheme(direction:Int)
+    {
+        var currentThemeIndex:Int = themes.indexOf(FlxG.save.data.theme);
+        var newThemeIndex:Int = (currentThemeIndex + direction) % themes.length;
+        if (newThemeIndex < 0)
+            newThemeIndex += themes.length;
+
+        FlxG.save.data.theme = themes[newThemeIndex];
+
+        bg.loadGraphic(Paths.image('theme/' + FlxG.save.data.theme));
     }
 }

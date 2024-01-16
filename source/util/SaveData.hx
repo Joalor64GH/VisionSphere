@@ -15,5 +15,8 @@ class SaveData
 
         if (FlxG.save.data.theme == null)
             FlxG.save.data.theme = 'daylight';
+
+        if (FlxG.save.data.fullscreen == null)
+            FlxG.save.data.fullscreen = false;
     }
 }

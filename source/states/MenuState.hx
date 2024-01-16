@@ -60,52 +60,25 @@ class MenuState extends FlxState
     {
         super.update(elapsed);
 
-        if (FlxG.mouse.overlaps(btnPlay))
+        if (FlxG.mouse.overlaps(btnPlay) && FlxG.mouse.pressed)
         {
-            FlxTween.tween(btnPlay, {y: btnPlay.y + 50}, 0.6, {ease: FlxEase.quadInOut, type: PINGPONG});
-
-            FlxG.sound.play(Paths.sound('scroll'), 1, false, true);
-
-            if (FlxG.mouse.pressed) 
-            {
-                FlxG.switchState(new states.PlayState());
-                FlxG.sound.play(Paths.sound('confirm'));
-            }
+            FlxG.switchState(new states.PlayState());
+            FlxG.sound.play(Paths.sound('confirm'));
         }
-        else
-            FlxTween.completeTweensOf(btnPlay);
         
         #if MODS_ALLOWED
-        if (FlxG.mouse.overlaps(btnMods))
+        if (FlxG.mouse.overlaps(btnMods) && FlxG.mouse.pressed)
         {
-            FlxTween.tween(btnMods, {y: btnMods.y + 50}, 0.6, {ease: FlxEase.quadInOut, type: PINGPONG});
-
-            FlxG.sound.play(Paths.sound('scroll'), 1, false, true);
-
-            if (FlxG.mouse.pressed) 
-            {
-                FlxG.switchState(new states.ModsState());
-                FlxG.sound.play(Paths.sound('confirm'));
-            }
+            FlxG.switchState(new states.ModsState());
+            FlxG.sound.play(Paths.sound('confirm'));
         }
-        else
-            FlxTween.completeTweensOf(btnMods);
         #end
         
-        if (FlxG.mouse.overlaps(btnSettings))
+        if (FlxG.mouse.overlaps(btnSettings) && FlxG.mouse.pressed)
         {
-            FlxTween.tween(btnSettings, {y: btnSettings.y + 50}, 0.6, {ease: FlxEase.quadInOut, type: PINGPONG});
-
-            FlxG.sound.play(Paths.sound('scroll'), 1, false, true);
-
-            if (FlxG.mouse.pressed) 
-            {
-                FlxG.switchState(new states.OptionsState());
-                FlxG.sound.play(Paths.sound('confirm'));
-            }
+            FlxG.switchState(new states.OptionsState());
+            FlxG.sound.play(Paths.sound('confirm'));
         }
-        else
-            FlxTween.completeTweensOf(btnSettings);
 
         dateText.text = DateTools.format(Date.now(), "%F") + ' / ' + DateTools.format(Date.now(), "%r");
     }
