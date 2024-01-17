@@ -24,6 +24,10 @@ class PlayState extends FlxState
 
     override public function create()
     {
+        var text:FlxText = new FlxText(0, 0, 0, "Built-in games soon!", 64);
+        text.screenCenter();
+        add(text);
+
         dvdLogo = new FlxSprite(0, 0).loadGraphic(Paths.image('dvd'));
         dvdLogo.setGraphicSize(200, 5);
         dvdLogo.scale.y = dvdLogo.scale.x;

@@ -38,6 +38,7 @@ class OptionsState extends FlxState
         }
 
         changeSelection();
+        switchTheme();
     }
 
     override public function update(elapsed:Float)
@@ -54,15 +55,24 @@ class OptionsState extends FlxState
         {
             switch (options[curSelected])
             {
+                case "Fullscreen":
+                    FlxG.save.data.fullScreen = !FlxG.save.data.fullScreen;
+                    FlxG.fullscreen = FlxG.save.data.fullScreen;
+                case "FPS Counter":
+                    FlxG.save.data.fpsCounter = !FlxG.save.data.fpsCounter;
+                    if (Main.fps != null)
+                        Main.fps.visible = FlxG.save.data.fpsCounter;
                 case "Restart":
                     openSubState(new states.substates.PromptSubState("Are you sure?", function() {
                         FlxG.camera.fade(FlxColor.BLACK, 0.5, false, FlxG.resetGame, false);
                     }, function() {
                         closeSubState();
                     }));
-
                 case "Shut Down":
-                    Sys.exit(0);
+                    FlxG.camera.fade(FlxColor.BLACK, 0.5, false, function() 
+                    { 
+                        Sys.exit(0); 
+                    }, false);
             }
         }
 
@@ -73,7 +83,13 @@ class OptionsState extends FlxState
         }
 
         if (options[curSelected] == "Theme")
-            switchTheme((FlxG.keys.justPressed.RIGHT || FlxG.keys.justPressed.LEFT) ? -1 : 1);
+        {
+            if (FlxG.keys.justPressed.RIGHT || FlxG.keys.justPressed.LEFT)
+            {
+                FlxG.sound.play(Paths.sound('scroll'));
+                switchTheme(FlxG.keys.justPressed.RIGHT ? -1 : 1);
+            }
+        }
     }
 
     override function closeSubState()
