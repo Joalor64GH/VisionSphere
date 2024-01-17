@@ -7,13 +7,9 @@ import openfl.display.Sprite;
 
 #if desktop
 import openfl.events.UncaughtErrorEvent;
-
 import haxe.CallStack;
 import haxe.io.Path;
-
-import sys.io.File;
 import sys.io.Process;
-import sys.FileSystem;
 #end
 
 import display.ToastCore;

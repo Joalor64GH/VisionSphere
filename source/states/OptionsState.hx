@@ -19,6 +19,7 @@ class OptionsState extends FlxState
 
     var group:FlxTypedGroup<FlxText>;
     var curSelected:Int = 0;
+    var daText:FlxText;
 
     override public function create()
     {
@@ -37,6 +38,10 @@ class OptionsState extends FlxState
             optionTxt.ID = i;
             group.add(optionTxt);
         }
+        
+        daText = new FlxText(5, FlxG.height - 24, 0, "", 12);
+        daText.setFormat(Paths.font('vcr.ttf'), 26, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+        add(daText);
 
         changeSelection();
         switchTheme();
@@ -45,6 +50,22 @@ class OptionsState extends FlxState
     override public function update(elapsed:Float)
     {
         super.update(elapsed);
+
+        switch (options[curSelected])
+        {
+            case "Fullscreen":
+                daText.text = "Toggles fullscreen.";
+            case "FPS Counter":
+                daText.text = "Toggles FPS counter.";
+            case "Time Format":
+                daText.text = "Use LEFT/RIGHT to change the time format.";
+            case "Language":
+                daText.text = "Changes the current language.";
+            case "Theme":
+                daText.text = "Use LEFT/RIGHT to change the theme.";
+            default:
+                daText.text = "";
+        }
 
         if (FlxG.keys.justPressed.UP || FlxG.keys.justPressed.DOWN)
         {
@@ -64,6 +85,8 @@ class OptionsState extends FlxState
                     FlxG.save.data.fpsCounter = !FlxG.save.data.fpsCounter;
                     if (Main.fps != null)
                         Main.fps.visible = FlxG.save.data.fpsCounter;
+                case "Language":
+                    openSubState(new states.substates.LanguageSubState());
                 case "Restart":
                     openSubState(new states.substates.PromptSubState("Are you sure?", function() {
                         FlxG.camera.fade(FlxColor.BLACK, 0.5, false, FlxG.resetGame, false);
@@ -107,6 +130,22 @@ class OptionsState extends FlxState
             curSelected = group.length - 1;
         if (curSelected >= group.length)
             curSelected = 0;
+
+        switch (options[curSelected])
+        {
+            case "Fullscreen":
+                daText.text = "Toggles fullscreen.";
+            case "FPS Counter":
+                daText.text = "Toggles FPS counter.";
+            case "Time Format":
+                daText.text = "Use LEFT/RIGHT to change the time format.";
+            case "Language":
+                daText.text = "Changes the current language.";
+            case "Theme":
+                daText.text = "Use LEFT/RIGHT to change the theme.";
+            default:
+                daText.text = "";
+        }
 
         group.forEach(function(txt:FlxText) 
         {

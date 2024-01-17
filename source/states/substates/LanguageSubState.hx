@@ -1,6 +1,7 @@
 package states.substates;
 
 import objects.Alphabet;
+import objects.AttachedSprite;
 
 class LanguageSubState extends FlxSubState
 {
@@ -25,6 +26,69 @@ class LanguageSubState extends FlxSubState
         var bg:FlxSprite = new FlxSprite().makeGraphic(1280, 720, 0xFF000000);
         bg.alpha = 0.65;
         add(bg);
+
+        coolGrp = new FlxTypedGroup<Alphabet>();
+        add(coolGrp);
+
+        for (i in 0...langStrings.length)
+        {
+            var label:Alphabet = new Alphabet(90, 320, langStrings[i].lang, true);
+            label.isMenuItem = true;
+            label.targetY = i;
+            label.snapToPosition();
+            coolGrp.add(label);
+
+            var icon:AttachedSprite = new AttachedSprite();
+            icon.frames = Paths.getSparrowAtlas('langs/' + langStrings[i].code);
+            icon.animation.addByPrefix('idle', langStrings[i].code, 24);
+            icon.animation.play('idle');
+            icon.xAdd = -icon.width - 10;
+            icon.sprTracker = label;
+
+            iconArray.push(icon);
+            add(icon);
+        }
+
+        changeSelection();
+    }
+
+    override public function update(elapsed:Float)
+    {
+        super.update(elapsed);
+
+        // Will add the language switching stuff later
+
+        if (FlxG.keys.justPressed.UP || FlxG.keys.justPressed.DOWN)
+        {
+            FlxG.sound.play(Paths.sound('scroll'));
+            changeSelection(FlxG.keys.justPressed.UP ? -1 : 1);
+        }
+
+        if (FlxG.keys.justPressed.ESCAPE)
+        {
+            FlxG.sound.play(Paths.sound('cancel'));
+            close();
+        }
+    }
+
+    private function changeSelection(change:Int = 0)
+    {
+        curSelected += change;
+
+        if (curSelected < 0)
+            curSelected = coolGrp.length - 1;
+        if (curSelected >= coolGrp.length)
+            curSelected = 0;
+        
+        var lobotomy:Int = 0; // FIRE IN THE HOLE
+
+        for (item in coolGrp.members)
+        {
+            item.targetY = lobotomy - curSelected;
+            lobotomy++;
+
+            item.alpha = (item.targetY = 0) ? 1 : 0.6;
+        }
     }
 }
 
@@ -37,68 +101,5 @@ class Locale
     {
         this.lang = lang;
         this.code = code;
-    }
-}
-
-class IconHelper extends FlxSprite
-{
-    private var ico:String = '';
-    private var iconOffsets:Array<Float> = [0, 0];
-
-    public var sprTracker:FlxSprite;
-
-    public function new(ico:String = 'en')
-    {
-        super();
-
-        loadIcon(ico);
-        scrollFactor.set();
-    }
-
-    public function loadIcon(ico:String)
-    {
-        if (this.ico != ico) {
-            var name:String = 'icons/' + ico;
-            var file:Dynamic = Paths.image(name);
-
-            loadGraphic(file);
-
-            iconOffsets.length = 0;
-            for (i in 0...Math.ceil(width / 150)) {
-                iconOffsets.push((width - 150) / (i + 1));
-            }
-
-            var frames:Array<Int> = [];
-            for (i in 0...iconOffsets.length) {
-                frames.push(i);
-            }
-
-            loadGraphic(file, true, Math.floor(width / iconOffsets.length), Math.floor(height));
-            iconOffsets.length.times(function(i) {
-                iconOffsets[i] = (width - 150) / (i + 1);
-            });
-            updateHitbox();
-
-            animation.add(ico, frames, 0, false);
-            animation.play(ico);
-
-            this.ico = ico;
-        }
-    }
-
-    override function update(elapsed:Float)
-    {
-        super.update(elapsed);
-
-        if (sprTracker != null)
-            setPosition(sprTracker.x + sprTracker.width + 12, sprTracker.y - 30);
-    }
-
-    override function updateHitbox()
-    {
-        super.updateHitbox();
-
-        offset.x = iconOffsets[0];
-        offset.y = iconOffsets[1];
     }
 }

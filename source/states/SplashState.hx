@@ -37,12 +37,11 @@ class SplashState extends FlxState
         logo.alpha = 0;
         add(logo);
 
-        var daText = new FlxText(5, FlxG.height - 24, 0, "Press ENTER or SPACE to skip.", 12);
+        var daText:FlxText = new FlxText(5, FlxG.height - 24, 0, "Press ENTER or SPACE to skip.", 12);
         daText.setFormat(Paths.font('vcr.ttf'), 26, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
         add(daText);
 
         FlxTween.tween(haxeflixel, {alpha: 1}, 1.5, {ease: FlxEase.quadOut});
-
         FlxTween.tween(text, {alpha: 1}, 2, {ease: FlxEase.quadOut});
 
         FlxG.camera.fade(FlxColor.BLACK, 0.33, true);

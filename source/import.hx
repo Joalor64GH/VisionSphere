@@ -1,5 +1,5 @@
 #if !macro
-#if sys
+#if (sys || desktop)
 import sys.io.File;
 import sys.FileSystem;
 #end

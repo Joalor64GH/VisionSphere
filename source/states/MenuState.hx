@@ -50,7 +50,7 @@ class MenuState extends FlxState
         dateText.setFormat(Paths.font('vcr.ttf'), 30, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
         add(dateText);
 
-        var daText = new FlxText(logo.x + 145, 50, 0, "VisionSphere v" + Application.current.meta.get('version'), 12);
+        var daText:FlxText = new FlxText(logo.x + 145, 50, 0, "VisionSphere v" + Application.current.meta.get('version'), 12);
         daText.setFormat(Paths.font('vcr.ttf'), 30, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
         add(daText);
     }
