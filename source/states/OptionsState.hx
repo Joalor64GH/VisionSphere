@@ -56,8 +56,8 @@ class OptionsState extends FlxState
             switch (options[curSelected])
             {
                 case "Fullscreen":
-                    FlxG.save.data.fullScreen = !FlxG.save.data.fullScreen;
-                    FlxG.fullscreen = FlxG.save.data.fullScreen;
+                    FlxG.save.data.fullScreen = !FlxG.save.data.fullscreen;
+                    FlxG.fullscreen = FlxG.save.data.fullscreen;
                 case "FPS Counter":
                     FlxG.save.data.fpsCounter = !FlxG.save.data.fpsCounter;
                     if (Main.fps != null)
@@ -112,7 +112,7 @@ class OptionsState extends FlxState
         });
     }
 
-    private function switchTheme(direction:Int)
+    private function switchTheme(direction:Int = 0)
     {
         var currentThemeIndex:Int = themes.indexOf(FlxG.save.data.theme);
         var newThemeIndex:Int = (currentThemeIndex + direction) % themes.length;
