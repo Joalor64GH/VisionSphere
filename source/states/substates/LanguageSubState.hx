@@ -87,10 +87,7 @@ class LanguageSubState extends FlxSubState
             item.targetY = lobotomy - curSelected;
             lobotomy++;
 
-            item.alpha = 0.6;
-
-            if (item.targetY = 0)
-                item.alpha = 1;
+            item.alpha = (item.targetY == 0) ? 1 : 0.6;
         }
     }
 }
