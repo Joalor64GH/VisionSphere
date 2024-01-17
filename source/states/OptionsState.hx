@@ -4,6 +4,7 @@ class OptionsState extends FlxState
 {
     var bg:FlxSprite;
     
+    var times:Array<String> = ['%r', '%T'];
     var themes:Array<String> = ['daylight', 'night', 'dreamcast', 'ps3', 'xp'];
     var options:Array<String> = [
         "Fullscreen",
@@ -53,6 +54,7 @@ class OptionsState extends FlxState
 
         if (FlxG.keys.justPressed.ENTER)
         {
+            FlxG.sound.play(Paths.sound('confirm'));
             switch (options[curSelected])
             {
                 case "Fullscreen":
