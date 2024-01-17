@@ -1,10 +1,9 @@
 package states;
 
-import flixel.tweens.FlxTween.TweenCallback;
-
 class MenuState extends FlxState
 {
     var dateText:FlxText;
+    
     var btnPlay:FlxSprite;
     var btnMods:FlxSprite;
     var btnCredits:FlxSprite;
