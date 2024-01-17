@@ -5,7 +5,7 @@ import objects.AttachedSprite;
 
 class LanguageSubState extends FlxSubState
 {
-    private var iconArray:Array<IconHelper> = [];
+    private var iconArray:Array<AttachedSprite> = [];
     private var coolGrp:FlxTypedGroup<Alphabet>;
 
     var curSelected:Int = 0;
