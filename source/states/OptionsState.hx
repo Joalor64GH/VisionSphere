@@ -56,7 +56,7 @@ class OptionsState extends FlxState
             switch (options[curSelected])
             {
                 case "Fullscreen":
-                    FlxG.save.data.fullScreen = !FlxG.save.data.fullscreen;
+                    FlxG.save.data.fullscreen = !FlxG.save.data.fullscreen;
                     FlxG.fullscreen = FlxG.save.data.fullscreen;
                 case "FPS Counter":
                     FlxG.save.data.fpsCounter = !FlxG.save.data.fpsCounter;
@@ -87,7 +87,7 @@ class OptionsState extends FlxState
             if (FlxG.keys.justPressed.RIGHT || FlxG.keys.justPressed.LEFT)
             {
                 FlxG.sound.play(Paths.sound('scroll'));
-                switchTheme(FlxG.keys.justPressed.RIGHT ? -1 : 1);
+                switchTheme(FlxG.keys.justPressed.RIGHT ? 1 : -1);
             }
         }
     }
