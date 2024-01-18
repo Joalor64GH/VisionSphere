@@ -1,5 +1,7 @@
 package util;
 
+import sys.io.File;
+import sys.FileSystem;
 import sys.io.Process;
 
 class MacroUtil
