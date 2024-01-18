@@ -7,6 +7,7 @@ import sys.FileSystem;
 class MacroUtil
 {
     // will fix this later
+    /*
     public static macro function getCommitId(url:String):haxe.macro.Expr.ExprOf<String>
     {
         var apiUrl = "https://api.github.com/repos/" + url.split("/").pop() + "/commits";
@@ -15,6 +16,7 @@ class MacroUtil
 
         return macro $v{commits[0].sha};
     }
+    */
 
     public static macro function get_build_num():haxe.macro.Expr.ExprOf<Int>
     {
