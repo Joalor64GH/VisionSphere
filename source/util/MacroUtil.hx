@@ -2,17 +2,16 @@ package util;
 
 import sys.io.File;
 import sys.FileSystem;
-import sys.io.Process;
 
 class MacroUtil
 {
-    public static macro function get_commit_id():haxe.macro.Expr.ExprOf<String>
+    public static macro function getCommitId(url:String):haxe.macro.Expr.ExprOf<String>
     {
-        var gitProcess:Process = new Process('git', ['log', '--format=%h', '-n', '1']);
-        if (gitProcess.exitCode != 0)
-            return macro $v{'n/a'};
+        var apiUrl = "https://api.github.com/repos/" + url.split("/").pop() + "/commits";
+        var response = new haxe.Http(apiUrl).request(false);
+        var commits:Array<Dynamic> = Json.parse(response.data);
 
-        return macro $v{gitProcess.stdout.readLine().trim()};
+        return macro $v{commits[0].sha};
     }
 
     public static macro function get_build_num():haxe.macro.Expr.ExprOf<Int>
