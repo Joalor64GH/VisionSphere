@@ -1,6 +1,5 @@
 package base;
 
-import flixel.input.FlxInput;
 import flixel.input.keyboard.FlxKey;
 
 /*
@@ -25,7 +24,7 @@ class Input
         "exit_alt" => BACKSPACE
     ];
 
-    public static function is(action:String, ?state:FlxInput.FlxInputState = JUST_PRESSED, ?exact:Bool = false):Bool
+    public static function is(action:String, ?state:flixel.input.FlxInput.FlxInputState = JUST_PRESSED, ?exact:Bool = false):Bool
     {
         if (!exact)
         {
@@ -41,7 +40,7 @@ class Input
         return FlxG.keys.checkStatus(FlxKey.fromString(action, state));
     }
 
-    public static function get(action:String):FlxInput.FlxInputState
+    public static function get(action:String):flixel.input.FlxInput.FlxInputState
     {
         if (is(action, JUST_PRESSED))
             return JUST_PRESSED;
