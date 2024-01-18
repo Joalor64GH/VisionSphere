@@ -9,7 +9,6 @@ class LanguageSubState extends FlxSubState
     private var coolGrp:FlxTypedGroup<Alphabet>;
 
     var curSelected:Int = 0;
-
     var langStrings:Array<Locale> = [
         new Locale('Deutsch', 'de'),
         new Locale('English', 'en'),
@@ -56,12 +55,32 @@ class LanguageSubState extends FlxSubState
     {
         super.update(elapsed);
 
-        // Will add the language switching stuff later
-
         if (FlxG.keys.justPressed.UP || FlxG.keys.justPressed.DOWN)
         {
             FlxG.sound.play(Paths.sound('scroll'));
             changeSelection(FlxG.keys.justPressed.UP ? -1 : 1);
+        }
+
+        if (FlxG.keys.justPressed.ENTER)
+        {
+            FlxG.sound.play(Paths.sound('confirm'));
+            switch(curSelected)
+            {
+                case 0:
+                    FlxG.save.data.lang = 'de';
+                case 1:
+                    FlxG.save.data.lang = 'en';
+                case 2:
+                    FlxG.save.data.lang = 'es';
+                case 3:
+                    FlxG.save.data.lang = 'fr';
+                case 4:
+                    FlxG.save.data.lang = 'it';
+                case 5:
+                    FlxG.save.data.lang = 'pt';
+            }
+
+            close();
         }
 
         if (FlxG.keys.justPressed.ESCAPE)
