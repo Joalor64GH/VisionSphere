@@ -17,10 +17,14 @@ class SystemInfoSubState extends FlxSubState
 
         var info:FlxText = new FlxText(0, 0, 0, 
             "VisionSphere Version: " + Application.current.meta.get('version')
-            + "nBuild Number: ${buildNum}"
-            + "\nBuild Commit ID: ${commitId}
+            + "\nBuild Number: ${buildNum}"
+            + "\nBuild Commit ID: ${commitId}"
             + "\nHaxeflixel Version: 5.5.0"
+            + "\nFlixel-Addons Version: 3.2.2"
+            + "\nFlixel-Ui Version: 2.5.0"
             + "\nHaxe Version: 4.2.5"
+            + "\nOpenFL Version: 9.3.2"
+            + "\nLime Version: 8.1.1"
         , 12);
         info.setFormat(Paths.font('vcr.ttf'), 60, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
         info.screenCenter();
