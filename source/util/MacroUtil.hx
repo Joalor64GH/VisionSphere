@@ -6,6 +6,7 @@ import sys.FileSystem;
 
 class MacroUtil
 {
+    // will fix this later
     public static macro function getCommitId(url:String):haxe.macro.Expr.ExprOf<String>
     {
         var apiUrl = "https://api.github.com/repos/" + url.split("/").pop() + "/commits";

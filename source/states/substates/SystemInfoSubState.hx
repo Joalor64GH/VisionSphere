@@ -4,7 +4,6 @@ import util.MacroUtil;
 
 class SystemInfoSubState extends FlxSubState
 {
-    public static var commitId:String = MacroUtil.getCommitId("Joalor64GH/VisionSphere");
     public static var buildNum(default, never):Int = MacroUtil.get_build_num();
 
     public function new()
@@ -18,7 +17,6 @@ class SystemInfoSubState extends FlxSubState
         var info:FlxText = new FlxText(0, 0, 0, 
             "VisionSphere Version: " + Application.current.meta.get('version')
             + "\nBuild Number: ${buildNum}"
-            + "\nBuild Commit ID: ${commitId}"
             + "\nHaxeflixel Version: 5.5.0"
             + "\nFlixel-Addons Version: 3.2.2"
             + "\nFlixel-Ui Version: 2.5.0"
