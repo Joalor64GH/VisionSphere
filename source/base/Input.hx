@@ -31,7 +31,7 @@ class Input
         {
             if (state == PRESSED && is(action, JUST_PRESSED))
                 return true;
-            if (state == RELEASED && is (action, JUST_RELEASED))
+            if (state == RELEASED && is(action, JUST_RELEASED))
                 return true;
         }
 
