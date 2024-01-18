@@ -22,6 +22,8 @@ import util.CoolUtil;
 import util.Localization;
 import util.SaveData;
 
+import base.Input;
+
 import haxe.Json;
 
 using StringTools;

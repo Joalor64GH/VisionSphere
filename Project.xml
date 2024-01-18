@@ -37,6 +37,7 @@
 	<assets path="assets" />
 	<assets path="mods" if="MODS_ALLOWED" />
 	<assets path="compileData/modsList.txt" rename="modsList.txt" if="MODS_ALLOWED"/>
+	<assets path="compileData/build.txt" rename="build.txt" embed="false"/>
 
 	<!-- _______________________________ Libraries ______________________________ -->
 

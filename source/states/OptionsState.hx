@@ -87,6 +87,8 @@ class OptionsState extends FlxState
                         Main.fps.visible = FlxG.save.data.fpsCounter;
                 case "Language":
                     openSubState(new states.substates.LanguageSubState());
+                case "System Information":
+                    openSubState(new states.substates.SystemInfoSubState());
                 case "Restart":
                     openSubState(new states.substates.PromptSubState("Are you sure?", function() {
                         FlxG.camera.fade(FlxColor.BLACK, 0.5, false, FlxG.resetGame, false);
@@ -96,7 +98,11 @@ class OptionsState extends FlxState
                 case "Shut Down":
                     FlxG.camera.fade(FlxColor.BLACK, 0.5, false, function() 
                     { 
-                        Sys.exit(0); 
+                        #if sys
+                        Sys.exit(0);
+                        #else 
+                        openfl.system.System.exit(0);
+                        #end
                     }, false);
             }
         }
