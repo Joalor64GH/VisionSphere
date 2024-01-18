@@ -37,7 +37,7 @@ class Input
         if (actionMap.exists(action))
             return FlxG.keys.checkStatus(actionMap.get(action), state) || FlxG.keys.checkStatus(actionMap.get('${action}_alt'), state);
         
-        return FlxG.keys.checkStatus(FlxKey.fromString(action, state));
+        return FlxG.keys.checkStatus(FlxKey.fromString(action), state);
     }
 
     public static function get(action:String):flixel.input.FlxInput.FlxInputState
