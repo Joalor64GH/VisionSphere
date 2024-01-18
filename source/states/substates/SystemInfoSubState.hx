@@ -4,7 +4,7 @@ import util.MacroUtil;
 
 class SystemInfoSubState extends FlxSubState
 {
-    public static var commitId:String = MacroUtil.getCommitId(Joalor64GH/VisionSphere);
+    public static var commitId:String = MacroUtil.getCommitId("Joalor64GH/VisionSphere");
     public static var buildNum(default, never):Int = MacroUtil.get_build_num();
 
     public function new()

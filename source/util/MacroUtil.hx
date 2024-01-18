@@ -1,5 +1,6 @@
 package util;
 
+import haxe.Json;
 import sys.io.File;
 import sys.FileSystem;
 
