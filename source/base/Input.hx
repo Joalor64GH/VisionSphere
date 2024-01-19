@@ -9,13 +9,19 @@ import flixel.input.keyboard.FlxKey;
 
 class Input
 {
-    public static var actionMap:Map<String, Array<FlxKey>> = [
-        "left" => [LEFT, A],
-        "down" => [DOWN, S],
-        "up" => [UP, W],
-        "right" => [RIGHT, D],
-        "accept" => [ENTER, SPACE],
-        "exit" => [ESCAPE, BACKSPACE]
+    public static var actionMap:Map<String, FlxKey> = [
+        "left" => LEFT,
+        "left_alt" => A,
+        "down" => DOWN,
+        "down_alt" => S,
+        "up" => UP,
+        "up_alt" => W,
+        "right" => RIGHT,
+        "right_alt" => D,
+        "accept" => ENTER,
+        "accept_alt" => SPACE,
+        "exit" => ESCAPE,
+        "exit_alt" => BACKSPACE
     ];
 
     public static function is(action:String, ?state:flixel.input.FlxInput.FlxInputState = JUST_PRESSED, ?exact:Bool = false):Bool
@@ -29,7 +35,7 @@ class Input
         }
 
         if (actionMap.exists(action))
-            return FlxG.keys.checkStatus(actionMap.get(action), state);
+            return FlxG.keys.checkStatus(actionMap.get(action), state) || FlxG.keys.checkStatus(actionMap.get('${action}_alt'), state);
         
         return FlxG.keys.checkStatus(FlxKey.fromString(action), state);
     }
