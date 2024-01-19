@@ -1,6 +1,17 @@
 package states;
 
 import flixel.FlxCamera;
+import objects.Alphabet;
+
+using StringTools;
+
+typedef Song = 
+{
+    var name:String;
+    var song:String;
+    var disc:String;
+    var bpm:Float;
+}
 
 class MusicState extends BeatState
 {
