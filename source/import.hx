@@ -8,6 +8,7 @@ import flixel.FlxG;
 import flixel.FlxState;
 import flixel.FlxSprite;
 import flixel.FlxSubState;
+import flixel.math.FlxMath;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
@@ -16,13 +17,13 @@ import flixel.tweens.FlxTween;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import lime.app.Application;
 
-import Paths;
-
+import base.Paths;
+import base.Input;
 import util.CoolUtil;
 import util.Localization;
 import util.SaveData;
-
-import base.Input;
+import objects.Alphabet;
+import objects.AttachedSprite;
 
 import haxe.Json;
 

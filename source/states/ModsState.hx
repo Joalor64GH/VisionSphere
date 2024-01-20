@@ -1,9 +1,5 @@
 package states;
 
-import objects.Alphabet;
-import objects.AttachedSprite;
-
-import flixel.math.FlxMath;
 import flixel.ui.FlxButton;
 import flixel.FlxBasic;
 

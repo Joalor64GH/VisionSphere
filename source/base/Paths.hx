@@ -1,4 +1,4 @@
-package;
+package base;
 
 import flixel.graphics.FlxGraphic;
 import flixel.graphics.frames.FlxAtlasFrames;
@@ -13,7 +13,7 @@ import openfl.display.BitmapData;
 using StringTools;
 
 /**
- * A simple modding extension based off of Psych Engine.
+ * Paths.hx, but with a modding extension based off of Psych Engine.
  * @author ShadowMario
  * @see https://github.com/ShadowMario/FNF-PsychEngine/
  */

@@ -1,5 +1,15 @@
 package states;
 
+import flixel.addons.display.FlxBackdrop;
+
+typedef Game = 
+{
+    var img:String;
+    var desc:String;
+    var title:String;
+    var color:Int;
+}
+
 class PlayState extends FlxState
 {
     var dvdLogo:FlxSprite;
@@ -21,6 +31,8 @@ class PlayState extends FlxState
     ];
 
     var curColor:Int = 0;
+
+    var games:Array<Game> = [];
 
     override public function create()
     {

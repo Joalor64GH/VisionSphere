@@ -16,10 +16,8 @@ class SystemInfoSubState extends FlxSubState
 
         var info:FlxText = new FlxText(0, 0, 0, 
             "VisionSphere Version: " + Application.current.meta.get('version')
-            + "\nBuild Number: ${buildNum}"
+            + "\nBuild Number: " + buildNum
             + "\nHaxeflixel Version: 5.5.0"
-            + "\nFlixel-Addons Version: 3.2.2"
-            + "\nFlixel-Ui Version: 2.5.0"
             + "\nHaxe Version: 4.2.5"
             + "\nOpenFL Version: 9.3.2"
             + "\nLime Version: 8.1.1"
