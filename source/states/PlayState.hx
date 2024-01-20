@@ -10,6 +10,18 @@ typedef Game =
     var color:Int;
 }
 
+class GameThumbnail extends FlxSprite
+{
+    public var lerpSpeed:Float = 6;
+    public var posX:Float = 0;
+
+    override function update(elapsed:Float)
+    {
+        super.update(elapsed);
+        x = FlxMath.lerp(x, (FlxG.width - width) / 2 + posX * 760, CoolUtil.boundTo(elapsed * lerpSpeed, 0, 1));
+    }
+}
+
 class PlayState extends FlxState
 {
     var dvdLogo:FlxSprite;
