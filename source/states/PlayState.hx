@@ -134,12 +134,12 @@ class PlayState extends FlxState
                 case 3:
                     FlxG.camera.fade(FlxColor.BLACK, 0.5, false, function()
                     {
-                        FlxG.switchState(new states.games.TheSimpleMathGame.MainMenuState());
+                        FlxG.switchState(new states.games.Painter());
                     });
                 case 4:
                     FlxG.camera.fade(FlxColor.BLACK, 0.5, false, function()
                     {
-                        FlxG.switchState(new states.games.Painter());
+                        FlxG.switchState(new states.games.TheSimpleMathGame.MainMenuState());
                     });
             }
         }

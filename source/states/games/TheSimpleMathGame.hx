@@ -28,7 +28,7 @@ class MainMenuState extends FlxState
         easyBtn.screenCenter(XY);
         add(easyBtn);
 
-        var hardBtn:FlxButton = new FlxButton(0, FlxG.height / 2 + 50, "Hard", function()
+        var hardBtn:FlxButton = new FlxButton(0, easyBtn.y + 70, "Hard", function()
         {
             return;
         });
@@ -38,7 +38,7 @@ class MainMenuState extends FlxState
         hardBtn.screenCenter(XY);
         add(hardBtn);
 
-        var easyTimed:FlxButton = new FlxButton(0, FlxG.height / 2 + 50, "Timed (Easy)", function()
+        var easyTimed:FlxButton = new FlxButton(0, hardBtn.y + 70, "Timed (Easy)", function()
         {
             return;
         });
@@ -48,7 +48,7 @@ class MainMenuState extends FlxState
         easyTimed.screenCenter(XY);
         add(easyTimed);
 
-        var hardTimed:FlxButton = new FlxButton(0, FlxG.height / 2 + 50, "Timed (Hard)", function()
+        var hardTimed:FlxButton = new FlxButton(0, easyTimed.y + 70, "Timed (Hard)", function()
         {
             return;
         });
