@@ -34,6 +34,8 @@ class PlayState extends FlxState
     var titleTxt:FlxText;
     var descTxt:FlxText;
 
+    var games:Array<Game>;
+
     #if (flixel_addons < "3.0.0")
     var checker:FlxBackdrop = new FlxBackdrop(Paths.image('game/grid'), 0.2, 0.2, true, true);
     #else
@@ -51,7 +53,7 @@ class PlayState extends FlxState
         var bars:FlxSprite = new FlxSprite().loadGraphic(Paths.image('game/bars'));
         add(bars);
 
-        var games:Array<Game> = [
+        games = [
             {img: "2048", desc: "2048, but if it was a clicker game!", title: "2048 Clicker"},
             {img: "dvd", desc: "No further explanation needed.", title: "DVD Screensaver"},
             {img: "jta", desc: "The journey ever!", title: "Journey Through Aubekhia"},
