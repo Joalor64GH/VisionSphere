@@ -113,12 +113,15 @@ class OptionsState extends FlxState
             FlxG.sound.play(Paths.sound('cancel'));
         }
 
-        if (options[curSelected] == "Theme")
+        if (FlxG.keys.justPressed.RIGHT || FlxG.keys.justPressed.LEFT)
         {
-            if (FlxG.keys.justPressed.RIGHT || FlxG.keys.justPressed.LEFT)
+            FlxG.sound.play(Paths.sound('scroll'));
+            switch (options[curSelected])
             {
-                FlxG.sound.play(Paths.sound('scroll'));
-                switchTheme(FlxG.keys.justPressed.RIGHT ? 1 : -1);
+                case "Theme":
+                    switchTheme(FlxG.keys.justPressed.RIGHT ? 1 : -1);
+                case "Time Format":
+                    switchTime(FlxG.keys.justPressed.RIGHT ? 1 : -1);
             }
         }
     }
@@ -169,5 +172,16 @@ class OptionsState extends FlxState
         FlxG.save.data.theme = themes[newThemeIndex];
 
         bg.loadGraphic(Paths.image('theme/' + FlxG.save.data.theme));
+    }
+
+    // yes i copied the theme switching code
+    private function switchTime(direction:Int = 0)
+    {
+        var currentTimeIndex:Int = times.indexOf(FlxG.save.data.timeFormat);
+        var newTimeIndex:Int = (currentTimeIndex + direction) % times.length;
+        if (newTimeIndex < 0)
+            newTimeIndex += times.length;
+
+        FlxG.save.data.timeFormat = times[newTimeIndex];
     }
 }

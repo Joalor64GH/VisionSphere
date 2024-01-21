@@ -45,7 +45,7 @@ class ModsState extends FlxState
 		Paths.clearStoredMemory();
 		Paths.clearUnusedMemory();
 
-		bg = new FlxSprite().loadGraphic(Paths.image('theme/daylight'));
+		bg = new FlxSprite().loadGraphic(Paths.image('desatBG'));
 		add(bg);
 		bg.screenCenter();
 

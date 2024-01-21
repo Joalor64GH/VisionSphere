@@ -19,7 +19,7 @@ class MenuState extends FlxState
 
         FlxG.mouse.visible = true;
 
-        var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('theme/daylight'));
+        var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('theme/' + FlxG.save.data.theme));
         add(bg);
 
         var bar:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menu/bar'));
@@ -79,6 +79,6 @@ class MenuState extends FlxState
             FlxG.sound.play(Paths.sound('confirm'));
         }
 
-        dateText.text = DateTools.format(Date.now(), "%F") + ' / ' + DateTools.format(Date.now(), "%r");
+        dateText.text = DateTools.format(Date.now(), "%F") + ' / ' + DateTools.format(Date.now(), FlxG.save.data.timeFormat);
     }
 }
