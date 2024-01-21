@@ -3,7 +3,6 @@ package states;
 class OptionsState extends FlxState
 {
     var bg:FlxSprite;
-    
     var times:Array<String> = ['%r', '%T'];
     var themes:Array<String> = ['daylight', 'night', 'dreamcast', 'ps3', 'xp'];
     var options:Array<String> = [
@@ -58,7 +57,7 @@ class OptionsState extends FlxState
             case "FPS Counter":
                 daText.text = "Toggles FPS counter.";
             case "Time Format":
-                daText.text = "Use LEFT/RIGHT to change the time format.";
+                daText.text = "Use LEFT/RIGHT to change the time format. Current Format: " + FlxG.save.data.timeFormat;
             case "Language":
                 daText.text = "Changes the current language.";
             case "Theme":
@@ -147,7 +146,7 @@ class OptionsState extends FlxState
             case "FPS Counter":
                 daText.text = "Toggles FPS counter.";
             case "Time Format":
-                daText.text = "Use LEFT/RIGHT to change the time format.";
+                daText.text = "Use LEFT/RIGHT to change the time format. Current Format: " + FlxG.save.data.timeFormat;
             case "Language":
                 daText.text = "Changes the current language.";
             case "Theme":

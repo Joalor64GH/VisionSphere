@@ -23,7 +23,6 @@ class GameThumbnail extends FlxSprite
 
 class PlayState extends FlxState
 {
-    var allowInputs:Bool = true;
     var currentIndex:Int = 0;
     var itemGrp:FlxTypedGroup<GameThumbnail>;
 
@@ -75,7 +74,7 @@ class PlayState extends FlxState
         for (i in 0...paths.length)
         {
             var newItem:GameThumbnail = new GameThumbnail();
-            newItem.loadGraphic(Paths.image('games/thumbnails/' + paths[i]));
+            newItem.loadGraphic(Paths.image('game/thumbnails/' + paths[i]));
             newItem.ID = i;
             itemGrp.add(newItem);
         }
@@ -99,15 +98,16 @@ class PlayState extends FlxState
     {
         super.update(elapsed);
 
+        checker.x -= 0.45;
+        checker.y -= 0.16;
+
         if (FlxG.keys.justPressed.ESCAPE) 
         {
-            allowInputs = false;
-            
             FlxG.switchState(new states.MenuState());
             FlxG.sound.play(Paths.sound('cancel'));
         }
 
-        if ((FlxG.keys.justPressed.LEFT || FlxG.keys.justPressed.RIGHT) && allowInputs)
+        if (FlxG.keys.justPressed.LEFT || FlxG.keys.justPressed.RIGHT)
         {
             FlxG.sound.play(Paths.sound('scroll'));
             changeSelection(FlxG.keys.justPressed.LEFT ? -1 : 1);

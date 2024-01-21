@@ -14,8 +14,13 @@ typedef Song =
 
 class MusicState extends BeatState
 {
+    var disc:FlxSprite;
+    
     var songTxt:Alphabet;
     var lengthTxt:Alphabet;
+
+    var loaded:Bool = false;
+    var camZooming:Bool = false;
 
     var curSelected:Int = 0;
     var songs:Array<Song> = [
