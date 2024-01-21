@@ -24,6 +24,15 @@ class MainMenuState extends FlxState
     override public function update(elapsed:Float)
     {
         super.update(elapsed);
+
+        if (FlxG.keys.justPressed.ESCAPE) 
+        {
+            FlxG.camera.fade(FlxColor.BLACK, 0.5, false, function()
+            {
+                FlxG.switchState(new states.MenuState());
+            });
+            FlxG.sound.play(Paths.sound('cancel'));
+        }
     }
 }
 

@@ -55,7 +55,8 @@ class PlayState extends FlxState
             {img: "2048", desc: "2048, but if it was a clicker game!", title: "2048 Clicker"},
             {img: "dvd", desc: "No further explanation needed.", title: "DVD Screensaver"},
             {img: "jta", desc: "The journey ever!", title: "Journey Through Aubekhia"},
-            {img: "math", desc: "An endless math problem game!", title: "The Simple Math Game"}
+            {img: "painter", desc: "Let out your inner Picasso!", title: "Painter"},
+            {img: "math", desc: "An endless math problem game!", title: "The Simple Math Game"},
         ];
 
         paths = [];
@@ -118,6 +119,7 @@ class PlayState extends FlxState
         if (FlxG.keys.justPressed.ENTER)
         {
             FlxG.sound.play(Paths.sound('confirm'));
+            
             switch(currentIndex)
             {
                 case 0:
@@ -134,6 +136,8 @@ class PlayState extends FlxState
                     {
                         FlxG.switchState(new states.games.TheSimpleMathGame.MainMenuState());
                     });
+                case 4:
+                    Main.toast.create('Hey!', 0xFFFFFF00, 'This game is not done yet! Stay tuned!');
             }
         }
     }

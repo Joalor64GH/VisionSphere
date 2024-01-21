@@ -42,7 +42,7 @@ class DVDScreensaver extends FlxState
         {
             FlxG.camera.fade(FlxColor.BLACK, 0.5, false, function()
             {
-                FlxG.switchState(new states.games.DVDScreensaver());
+                FlxG.switchState(new states.MenuState());
             });
             FlxG.sound.play(Paths.sound('cancel'));
         }
