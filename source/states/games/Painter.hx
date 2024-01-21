@@ -2,6 +2,7 @@ package states.games;
 
 import flixel.FlxCamera;
 import flixel.ui.FlxButton;
+import flixel.math.FlxPoint;
 import flixel.addons.ui.FlxUISlider;
 
 import openfl.display.Bitmap;
