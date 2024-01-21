@@ -10,9 +10,6 @@ class SplashState extends FlxState
     {
         super.create();
 
-        SaveData.init();
-        Localization.loadLanguages(['de', 'en', 'es', 'fr', 'it', 'pt']);
-
         Paths.clearStoredMemory();
         Paths.clearUnusedMemory();
 

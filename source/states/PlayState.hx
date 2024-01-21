@@ -24,6 +24,7 @@ class GameThumbnail extends FlxSprite
 class PlayState extends FlxState
 {
     var currentIndex:Int = 0;
+    
     var itemGrp:FlxTypedGroup<GameThumbnail>;
 
     var paths:Array<String>;
@@ -75,6 +76,7 @@ class PlayState extends FlxState
         {
             var newItem:GameThumbnail = new GameThumbnail();
             newItem.loadGraphic(Paths.image('game/thumbnails/' + paths[i]));
+            newItem.scale.set(0.6, 0.6);
             newItem.ID = i;
             itemGrp.add(newItem);
         }

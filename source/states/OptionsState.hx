@@ -108,7 +108,17 @@ class OptionsState extends FlxState
 
         if (FlxG.keys.justPressed.ESCAPE) 
         {
-            FlxG.switchState(new states.MenuState());
+            if (FlxG.save.data.firstLaunch)
+            {
+                FlxG.save.data.firstLaunch = false;
+                FlxG.camera.fade(FlxColor.BLACK, 0.5, false, function()
+                {
+                    FlxG.switchState(new states.SplashState());
+                });
+            }
+            else
+                FlxG.switchState(new states.MenuState());
+            
             FlxG.sound.play(Paths.sound('cancel'));
         }
 

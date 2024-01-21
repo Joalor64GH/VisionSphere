@@ -32,7 +32,7 @@ class Main extends Sprite
 	{
 		super();
 
-		addChild(new FlxGame(gameWidth, gameHeight, states.SplashState, #if (flixel < "5.0.0") -1, #end 60, 60, true, false));
+		addChild(new FlxGame(gameWidth, gameHeight, states.BootState, #if (flixel < "5.0.0") -1, #end 60, 60, true, false));
 
 		fps = new FPS(10, 3, 0xFFFFFF);
 		addChild(fps);
