@@ -31,12 +31,9 @@ class LanguageSubState extends FlxSubState
 
         for (i in 0...langStrings.length)
         {
-            var label:Alphabet = new Alphabet(90, 320, langStrings[i].lang, true);
+            var label:Alphabet = new Alphabet(400, 320, langStrings[i].lang, true);
             label.isMenuItem = true;
-            label.x -= 500;
             label.targetY = i;
-            label.ID = i;
-            label.snapToPosition();
             coolGrp.add(label);
 
             var icon:AttachedSprite = new AttachedSprite();

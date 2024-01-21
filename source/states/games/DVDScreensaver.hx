@@ -4,6 +4,7 @@ class DVDScreensaver extends FlxState
 {
     var dvdLogo:FlxSprite;
 
+    var curColor:Int = 0;
     var colors = [
         [255, 255, 255],
         [128, 128, 128],
@@ -19,8 +20,6 @@ class DVDScreensaver extends FlxState
         [255, 0, 255],
         [0, 255, 255]
     ];
-
-    var curColor:Int = 0;
 
     override public function create()
     {
@@ -41,7 +40,10 @@ class DVDScreensaver extends FlxState
 
         if (FlxG.keys.justPressed.ESCAPE) 
         {
-            FlxG.switchState(new states.MenuState());
+            FlxG.camera.fade(FlxColor.BLACK, 0.5, false, function()
+            {
+                FlxG.switchState(new states.games.DVDScreensaver());
+            });
             FlxG.sound.play(Paths.sound('cancel'));
         }
         

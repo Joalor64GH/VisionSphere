@@ -114,6 +114,28 @@ class PlayState extends FlxState
             FlxG.sound.play(Paths.sound('scroll'));
             changeSelection(FlxG.keys.justPressed.LEFT ? -1 : 1);
         }
+
+        if (FlxG.keys.justPressed.ENTER)
+        {
+            FlxG.sound.play(Paths.sound('confirm'));
+            switch(games[currentIndex])
+            {
+                case 0:
+                    Main.toast.create('Hey!', 0xFFFFFF00, 'This game is not done yet! Stay tuned!');
+                case 1:
+                    FlxG.camera.fade(FlxColor.BLACK, 0.5, false, function()
+                    {
+                        FlxG.switchState(new states.games.DVDScreensaver());
+                    });
+                case 2:
+                    Main.toast.create('Hey!', 0xFFFFFF00, 'This game is not done yet! Stay tuned!');
+                case 3:
+                    FlxG.camera.fade(FlxColor.BLACK, 0.5, false, function()
+                    {
+                        FlxG.switchState(new states.games.TheSimpleMathGame.MainMenuState());
+                    });
+            }
+        }
     }
 
     private function changeSelection(i:Int = 0)
