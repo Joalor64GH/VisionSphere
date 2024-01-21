@@ -74,14 +74,15 @@ class PlayState extends FlxState
 
         for (i in 0...paths.length)
         {
-            var newItem:GameThumbnail = new GameThumbnail().loadGraphic(Paths.image('games/thumbnails/' + paths[i]));
+            var newItem:GameThumbnail = new GameThumbnail();
+            newItem.loadGraphic(Paths.image('games/thumbnails/' + paths[i]));
             newItem.ID = i;
             itemGrp.add(newItem);
         }
 
         descTxt = new FlxText(50, -100, FlxG.width - 100, descs[currentIndex]);
         descTxt.setFormat(Paths.font('vcr.ttf'), 25, FlxColor.WHITE, FlxTextAlign.CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-        desctxt.y += 250;
+        descTxt.y += 250;
         add(descTxt);
 
         titleTxt = new FlxText(50, 50, FlxG.width - 100, titles[currentIndex]);
@@ -101,6 +102,7 @@ class PlayState extends FlxState
         if (FlxG.keys.justPressed.ESCAPE) 
         {
             allowInputs = false;
+            
             FlxG.switchState(new states.MenuState());
             FlxG.sound.play(Paths.sound('cancel'));
         }
