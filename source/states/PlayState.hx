@@ -137,7 +137,10 @@ class PlayState extends FlxState
                         FlxG.switchState(new states.games.TheSimpleMathGame.MainMenuState());
                     });
                 case 4:
-                    Main.toast.create('Hey!', 0xFFFFFF00, 'This game is not done yet! Stay tuned!');
+                    FlxG.camera.fade(FlxColor.BLACK, 0.5, false, function()
+                    {
+                        FlxG.switchState(new states.games.Painter());
+                    });
             }
         }
     }
