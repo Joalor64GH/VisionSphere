@@ -151,10 +151,7 @@ class MusicState extends states.MusicState.BeatState
         else if (curSelected < 0)
             curSelected = songs.length - 1;
 
-        if (FileSystem.exists(Paths.image('music/discs/${songs[curSelected].disc}')))
-            disc.loadGraphic(Paths.image('music/discs/${songs[curSelected].disc}'));
-        else
-            trace('ohno its dont exist');
+        disc.loadGraphic(Paths.image('music/discs/${songs[curSelected].disc}'));
 
         songTxt.text = '< ${songs[curSelected].name} >';
 
