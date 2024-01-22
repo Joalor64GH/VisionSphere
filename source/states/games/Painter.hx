@@ -64,6 +64,12 @@ class Painter extends FlxState
 
         brushSize = 50;
 
+        brushSizeSlider = new FlxUISlider(this, "brushSize", 0, 0, 0, 100, 100, 15, 3, FlxColor.WHITE, 0xFF828282);
+        brushSizeSlider.cameras = camHUD;
+        brushSizeSlider.nameLabel.text = "Brush Size";
+        brushSizeSlider.setPosition(colorWheel.x, colorWheel.y + 100);
+        add(brushSizeSlider);
+
         saveJPEGButton = new FlxButton(0, 0, "Save to JPEG", function()
         {
             saveArt(true);
@@ -87,6 +93,13 @@ class Painter extends FlxState
     override function update(elapsed:Float):Void
     {
         super.update(elapsed);
+
+        if (FlxG.keys.justPressed.ENTER)
+        {
+            enabled = !enabled;
+
+            enableVisualizer.color = enabled ? FlxColor.LIME : FlxColor.RED;
+        }
 
         if (FlxG.mouse.pressed)
         {
