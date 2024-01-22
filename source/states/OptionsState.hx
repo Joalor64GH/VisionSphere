@@ -66,13 +66,13 @@ class OptionsState extends FlxState
                 daText.text = "";
         }
 
-        if (FlxG.keys.justPressed.UP || FlxG.keys.justPressed.DOWN)
+        if (Input.is('up') || Input.is('down'))
         {
             FlxG.sound.play(Paths.sound('scroll'));
-            changeSelection(FlxG.keys.justPressed.UP ? -1 : 1);
+            changeSelection(Input.is('up') ? -1 : 1);
         }
 
-        if (FlxG.keys.justPressed.ENTER)
+        if (Input.is('accept'))
         {
             FlxG.sound.play(Paths.sound('confirm'));
             switch (options[curSelected])
@@ -106,7 +106,7 @@ class OptionsState extends FlxState
             }
         }
 
-        if (FlxG.keys.justPressed.ESCAPE) 
+        if (Input.is('exit')) 
         {
             if (FlxG.save.data.firstLaunch)
             {
@@ -122,15 +122,15 @@ class OptionsState extends FlxState
             FlxG.sound.play(Paths.sound('cancel'));
         }
 
-        if (FlxG.keys.justPressed.RIGHT || FlxG.keys.justPressed.LEFT)
+        if (Input.is('right') || Input.is('left'))
         {
             FlxG.sound.play(Paths.sound('scroll'));
             switch (options[curSelected])
             {
                 case "Theme":
-                    switchTheme(FlxG.keys.justPressed.RIGHT ? 1 : -1);
+                    switchTheme(Input.is('right') ? 1 : -1);
                 case "Time Format":
-                    switchTime(FlxG.keys.justPressed.RIGHT ? 1 : -1);
+                    switchTime(Input.is('right') ? 1 : -1);
             }
         }
     }

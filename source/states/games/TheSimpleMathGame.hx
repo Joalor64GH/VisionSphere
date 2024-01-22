@@ -80,7 +80,7 @@ class MainMenuState extends FlxState
     {
         super.update(elapsed);
 
-        if (FlxG.keys.justPressed.ESCAPE) 
+        if (Input.is('exit')) 
         {
             FlxG.camera.fade(FlxColor.BLACK, 0.5, false, function()
             {
@@ -206,16 +206,16 @@ class PlayState extends FlxState
 
         scoreTxt.text = 'Score: $score';
 
-        if (FlxG.keys.justPressed.ENTER && input.text != '')
+        if (Input.is('accept') && input.text != '')
             checkAnswer();
 
-        if (FlxG.keys.justPressed.SPACE)
+        if (Input.is('accept_alt'))
             generateQuestion();
 
-        if (FlxG.keys.justPressed.ESCAPE)
+        if (Input.is('exit'))
             FlxG.switchState(new states.games.TheSimpleMathGame.MainMenuState());
 
-        if (FlxG.keys.justPressed.END) // end game
+        if (Input.is('end')) // end game
             FlxG.switchState(new states.games.TheSimpleMathGame.GameOverState(score));
 
         if (timed == true)

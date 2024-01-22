@@ -47,7 +47,6 @@ class ModsState extends FlxState
 
 		bg = new FlxSprite().loadGraphic(Paths.image('desatBG'));
 		add(bg);
-		bg.screenCenter();
 
 		noModsTxt = new FlxText(0, 0, FlxG.width, "NO MODS INSTALLED\nPRESS BACK TO EXIT AND INSTALL A MOD", 48);
 		noModsTxt.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
@@ -73,14 +72,13 @@ class ModsState extends FlxState
 			}
 		}
 
-		// FIND MOD FOLDERS
 		var boolshit = true;
 		if (FileSystem.exists("modsList.txt")){
 			for (folder in Paths.getModDirectories())
 			{
 				if(!Paths.ignoreModFolders.contains(folder))
 				{
-					addToModsList([folder, true]); //i like it false by default. -bb //Well, i like it True! -Shadow
+					addToModsList([folder, true]);
 				}
 			}
 		}
@@ -94,7 +92,6 @@ class ModsState extends FlxState
 		add(selector);
 		visibleWhenHasMods.push(selector);
 
-		//attached buttons
 		var startX:Int = 1120;
 
 		buttonToggle = new FlxButton(startX, 0, "ON", function()
@@ -146,7 +143,7 @@ class ModsState extends FlxState
 		startX -= 100;
 		buttonTop = new FlxButton(startX, 0, "TOP", function() {
 			var doRestart:Bool = (mods[0].restart || mods[curSelected].restart);
-			for (i in 0...curSelected) //so it shifts to the top instead of replacing the top one
+			for (i in 0...curSelected) 
 			{
 				moveMod(-1, true);
 			}
@@ -218,7 +215,6 @@ class ModsState extends FlxState
 		buttonsArray.push(buttonEnableAll);
 		visibleWhenHasMods.push(buttonEnableAll);
 
-		// more buttons
 		var startX:Int = 1100;
 		
 		descriptionTxt = new FlxText(148, 0, FlxG.width - 216, "", 32);
@@ -247,7 +243,6 @@ class ModsState extends FlxState
 			newMod.alphabet.y = i * 150;
 			newMod.alphabet.x = 310;
 			add(newMod.alphabet);
-			//Don't ever cache the icons, it's a waste of loaded memory
 			var loadedIcon:BitmapData = null;
 			var iconToUse:String = Paths.mods(values[0] + '/pack.png');
 			if(FileSystem.exists(iconToUse))
@@ -258,7 +253,7 @@ class ModsState extends FlxState
 			newMod.icon = new AttachedSprite();
 			if(loadedIcon != null)
 			{
-				newMod.icon.loadGraphic(loadedIcon, true, 150, 150);//animated icon support
+				newMod.icon.loadGraphic(loadedIcon, true, 150, 150);
 				var totalFrames = Math.floor(loadedIcon.width / 150) * Math.floor(loadedIcon.height / 150);
 				newMod.icon.animation.add("icon", [for (i in 0...totalFrames) i],10);
 				newMod.icon.animation.play("icon");
@@ -274,19 +269,15 @@ class ModsState extends FlxState
 			i++;
 		}
 		
-		if(curSelected >= mods.length) curSelected = 0;
-		
-		if(mods.length < 1)
-			bg.color = defaultColor;
-		else
-			bg.color = mods[curSelected].color;
+		if(curSelected >= mods.length) 
+			curSelected = 0;
+
+		bg.color = (mods.length < 1) ? defaultColor : mods[curSelected].color;
 
 		intendedColor = bg.color;
 		changeSelection();
 		updatePosition();
 		FlxG.sound.play(Paths.sound('scroll'));
-
-		FlxG.mouse.visible = true;
 
 		super.create();
 	}
@@ -305,16 +296,8 @@ class ModsState extends FlxState
 
 	function updateButtonToggle()
 	{
-		if (modsList[curSelected][1])
-		{
-			buttonToggle.label.text = 'ON';
-			buttonToggle.color = FlxColor.GREEN;
-		}
-		else
-		{
-			buttonToggle.label.text = 'OFF';
-			buttonToggle.color = FlxColor.RED;
-		}
+		buttonToggle.label.text = (modsList[curSelected][1]) ? 'ON' : 'OFF';
+		buttonToggle.color = (modsList[curSelected][1]) ? FlxColor.GREEN : FlxColor.RED;
 	}
 
 	function moveMod(change:Int, skipResetCheck:Bool = false)
@@ -374,29 +357,24 @@ class ModsState extends FlxState
 			noModsTxt.alpha = 1 - Math.sin((Math.PI * noModsSine) / 180);
 		}
 
-		if(canExit && FlxG.keys.justPressed.ESCAPE)
+		if(canExit && Input.is('exit'))
 		{
 			if(colorTween != null) {
 				colorTween.cancel();
 			}
 			FlxG.mouse.visible = false;
 			saveTxt();
+			FlxG.sound.play(Paths.sound('cancel'));
+
 			if(needaReset)
-			{
 				FlxG.camera.fade(FlxColor.BLACK, 0.5, false, FlxG.resetGame, false);
-				FlxG.sound.play(Paths.sound('cancel'));
-			}
 			else
-			{
 				FlxG.switchState(new states.MenuState());
-				FlxG.sound.play(Paths.sound('cancel'));
-			}
 		}
 
-		if(FlxG.keys.justPressed.UP || FlxG.keys.justPressed.DOWN)
-		{
-			changeSelection(FlxG.keys.justPressed.UP ? -1 : 1);
-		}
+		if (Input.is('up') || Input.is('down'))
+			changeSelection(Input.is('up') ? -1 : 1);
+		
 		updatePosition(elapsed);
 		super.update(elapsed);
 	}
@@ -461,11 +439,10 @@ class ModsState extends FlxState
 				mod.alphabet.alpha = 1;
 				selector.sprTracker = mod.alphabet;
 				descriptionTxt.text = mod.description;
-				if (mod.restart){//finna make it to where if nothing changed then it won't reset
+				if (mod.restart){
 					descriptionTxt.text += " (This Mod will restart the game!)";
 				}
 
-				// correct layering
 				var stuffArray:Array<FlxSprite> = [selector, descriptionTxt, mod.alphabet, mod.icon];
 				for (obj in stuffArray)
 				{
@@ -490,14 +467,8 @@ class ModsState extends FlxState
 		{
 			var intendedPos:Float = (i - curSelected) * 225 + 200;
 			if(i > curSelected) intendedPos += 225;
-			if(elapsed == -1)
-			{
-				mod.alphabet.y = intendedPos;
-			}
-			else
-			{
-				mod.alphabet.y = FlxMath.lerp(mod.alphabet.y, intendedPos, CoolUtil.boundTo(elapsed * 12, 0, 1));
-			}
+
+			mod.alphabet.y = (elapsed == -1) ? intendedPos : FlxMath.lerp(mod.alphabet.y, intendedPos, CoolUtil.boundTo(elapsed * 12, 0, 1));
 
 			if(i == curSelected)
 			{
@@ -516,9 +487,6 @@ class ModsState extends FlxState
 	{
 		selector.makeGraphic(1100, 450, FlxColor.BLACK);
 		selector.pixels.fillRect(new Rectangle(0, 190, selector.width, 5), 0x0);
-
-		// Why did i do this? Because i'm a lmao stupid, of course
-		// also i wanted to understand better how fillRect works so i did this shit lol???
 		selector.pixels.fillRect(new Rectangle(0, 0, cornerSize, cornerSize), 0x0);														 //top left
 		drawCircleCornerOnSelector(false, false);
 		selector.pixels.fillRect(new Rectangle(selector.width - cornerSize, 0, cornerSize, cornerSize), 0x0);							 //top right
@@ -552,7 +520,7 @@ class ModMetadata
 	public var name:String;
 	public var description:String;
 	public var color:FlxColor;
-	public var restart:Bool;//trust me. this is very important
+	public var restart:Bool;
 	public var alphabet:Alphabet;
 	public var icon:AttachedSprite;
 
@@ -564,17 +532,15 @@ class ModMetadata
 		this.color = ModsState.defaultColor;
 		this.restart = false;
 		
-		//Try loading json
 		var path = Paths.mods(folder + '/pack.json');
 		if(FileSystem.exists(path)) {
 			var rawJson:String = File.getContent(path);
 			if(rawJson != null && rawJson.length > 0) {
 				var stuff:Dynamic = Json.parse(rawJson);
-					//using reflects cuz for some odd reason my haxe hates the stuff.var shit
-					var colors:Array<Int> = Reflect.getProperty(stuff, "color");
-					var description:String = Reflect.getProperty(stuff, "description");
-					var name:String = Reflect.getProperty(stuff, "name");
-					var restart:Bool = Reflect.getProperty(stuff, "restart");
+				var colors:Array<Int> = Reflect.getProperty(stuff, "color");
+				var description:String = Reflect.getProperty(stuff, "description");
+				var name:String = Reflect.getProperty(stuff, "name");
+				var restart:Bool = Reflect.getProperty(stuff, "restart");
 					
 				if(name != null && name.length > 0)
 				{

@@ -14,8 +14,8 @@ class FirstLaunchState extends FlxState
 
     override public function update(elapsed:Float)
     {
-        if (FlxG.keys.justPressed.Y || FlxG.keys.justPressed.N)
-            FlxG.switchState(FlxG.keys.justPressed.Y ? new states.OptionsState() : new states.SplashState());
+        if (Input.is('y') || Input.is('n'))
+            FlxG.switchState(Input.is('y') ? new states.OptionsState() : new states.SplashState());
 
         super.update(elapsed);
     }

@@ -1,8 +1,5 @@
 package states.substates;
 
-import objects.Alphabet;
-import objects.AttachedSprite;
-
 class LanguageSubState extends FlxSubState
 {
     private var iconArray:Array<AttachedSprite> = [];
@@ -54,13 +51,13 @@ class LanguageSubState extends FlxSubState
     {
         super.update(elapsed);
 
-        if (FlxG.keys.justPressed.UP || FlxG.keys.justPressed.DOWN)
+        if (Input.is('up') || Input.is('down'))
         {
             FlxG.sound.play(Paths.sound('scroll'));
-            changeSelection(FlxG.keys.justPressed.UP ? -1 : 1);
+            changeSelection(Input.is('up') ? -1 : 1);
         }
 
-        if (FlxG.keys.justPressed.ENTER)
+        if (Input.is('accept'))
         {
             FlxG.sound.play(Paths.sound('confirm'));
             switch(curSelected)
@@ -82,7 +79,7 @@ class LanguageSubState extends FlxSubState
             close();
         }
 
-        if (FlxG.keys.justPressed.ESCAPE)
+        if (Input.is('exit'))
         {
             FlxG.sound.play(Paths.sound('cancel'));
             close();

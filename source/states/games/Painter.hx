@@ -96,7 +96,7 @@ class Painter extends FlxState
     {
         super.update(elapsed);
 
-        if (FlxG.keys.justPressed.ENTER)
+        if (Input.is('accept'))
         {
             enabled = !enabled;
 
@@ -142,9 +142,9 @@ class Painter extends FlxState
         for (px in pxGroup.members)
             px.alpha = FlxG.mouse.pressedRight ? 0.5 : 1;
 
-        if (FlxG.keys.justPressed.R)
+        if (Input.is('r'))
             FlxG.resetState();
-        else if (FlxG.keys.justPressed.ESCAPE) 
+        else if (Input.is('exit')) 
         {
             FlxG.camera.fade(FlxColor.BLACK, 0.5, false, function()
             {

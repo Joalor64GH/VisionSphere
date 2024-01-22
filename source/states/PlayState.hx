@@ -104,19 +104,19 @@ class PlayState extends FlxState
         checker.x -= 0.45;
         checker.y -= 0.16;
 
-        if (FlxG.keys.justPressed.ESCAPE) 
+        if (Input.is('exit')) 
         {
             FlxG.switchState(new states.MenuState());
             FlxG.sound.play(Paths.sound('cancel'));
         }
 
-        if (FlxG.keys.justPressed.LEFT || FlxG.keys.justPressed.RIGHT)
+        if (Input.is('left') || Input.is('right'))
         {
             FlxG.sound.play(Paths.sound('scroll'));
-            changeSelection(FlxG.keys.justPressed.LEFT ? -1 : 1);
+            changeSelection(Input.is('left') ? -1 : 1);
         }
 
-        if (FlxG.keys.justPressed.ENTER)
+        if (Input.is('accept'))
         {
             FlxG.sound.play(Paths.sound('confirm'));
             

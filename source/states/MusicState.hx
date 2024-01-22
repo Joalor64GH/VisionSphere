@@ -82,25 +82,27 @@ class MusicState extends states.MusicState.BeatState
 
         camZooming = (FlxG.sound.music.playing) ? true : false;
 
-        if (FlxG.keys.justPressed.R)
+        if (Input.is('r'))
             FlxG.resetState();
 
-        if (FlxG.keys.justPressed.ESCAPE)
+        if (Input.is('exit'))
         {
             FlxG.switchState(new states.MenuState());
-            FlxG.sound.music.fadeOut(0.3);
+            
+            if (FlxG.sound.music.playing)
+                FlxG.sound.music.fadeOut(0.3);
         }
 
-        if (FlxG.keys.justPressed.LEFT || FlxG.keys.justPressed.RIGHT)
+        if (Input.is('left') || Input.is('right'))
         {
             FlxG.sound.play(Paths.sound('scroll'));
-            changeSong(FlxG.keys.justPressed.LEFT ? -1 : 1);
+            changeSong(Input.is('left') ? -1 : 1);
         }
 
         if (FlxG.sound.music != null)
         {
             states.MusicState.Conductor.songPosition = FlxG.sound.music.time;
-            if (FlxG.keys.justPressed.ENTER && loaded)
+            if ((Input.is('accept') || Input.is('accept_alt')) && loaded)
             {
                 FlxG.sound.play(Paths.sound('confirm'));
                 if (!FlxG.sound.music.playing)
