@@ -68,7 +68,7 @@ class SplashState extends FlxState
             });
         });
 
-        if (FlxG.keys.anyJustPressed([SPACE, ENTER]))
+        if (Input.is('accept') || Input.is('accept_alt'))
         {
             FlxG.camera.fade(FlxColor.BLACK, 0.33, false, function()
             {
