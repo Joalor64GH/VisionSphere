@@ -72,6 +72,12 @@ class MenuState extends FlxState
             FlxG.sound.play(Paths.sound('confirm'));
         }
         #end
+
+        if (FlxG.mouse.overlaps(btnMusic) && FlxG.mouse.pressed)
+        {
+            FlxG.switchState(new states.MusicState());
+            FlxG.sound.play(Paths.sound('confirm'));
+        }
         
         if (FlxG.mouse.overlaps(btnSettings) && FlxG.mouse.pressed)
         {
