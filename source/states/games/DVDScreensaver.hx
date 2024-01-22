@@ -23,7 +23,7 @@ class DVDScreensaver extends FlxState
 
     override public function create()
     {
-        dvdLogo = new FlxSprite(0, 0).loadGraphic(Paths.image('dvd'));
+        dvdLogo = new FlxSprite(0, 0).loadGraphic(Paths.image('game/dvd/dvd'));
         dvdLogo.setGraphicSize(200, 5);
         dvdLogo.scale.y = dvdLogo.scale.x;
         dvdLogo.updateHitbox();

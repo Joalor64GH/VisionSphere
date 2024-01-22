@@ -65,7 +65,7 @@ class Painter extends FlxState
         brushSize = 50;
 
         brushSizeSlider = new FlxUISlider(this, "brushSize", 0, 0, 0, 100, 100, 15, 3, FlxColor.WHITE, 0xFF828282);
-        brushSizeSlider.cameras = camHUD;
+        brushSizeSlider.camera = camHUD;
         brushSizeSlider.nameLabel.text = "Brush Size";
         brushSizeSlider.setPosition(colorWheel.x, colorWheel.y + 100);
         add(brushSizeSlider);

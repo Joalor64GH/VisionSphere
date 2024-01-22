@@ -209,7 +209,7 @@ class PlayState extends FlxState
             generateQuestion();
 
         if (FlxG.keys.justPressed.ESCAPE)
-            FlxG.switchState(new states.games.TheSimpleMathGame.MenuState());
+            FlxG.switchState(new states.games.TheSimpleMathGame.MainMenuState());
 
         if (FlxG.keys.justPressed.END) // end game
             FlxG.switchState(new states.games.TheSimpleMathGame.GameOverState(score));
@@ -280,15 +280,5 @@ class PlayState extends FlxState
         {
             generateQuestion();
         });
-    }
-
-    private function updateTime()
-    {
-        timeLeft -= 1;
-
-        if (timeLeft == 0)
-            FlxG.switchState(new GameOverState(score));
-
-        timeTxt.text = 'Time Left: $timeLeft';
     }
 }
