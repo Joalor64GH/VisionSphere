@@ -2,6 +2,16 @@ package states.games;
 
 import flixel.ui.FlxButton;
 
+// did this because this is kind of annoying
+class Clicker extends FlxState
+{
+    override public function create()
+    {
+        FlxG.switchState(new states.games.Clicker.MainMenuState());
+        super.create();
+    }
+}
+
 class MainMenuState extends FlxState
 {
     override public function create()
