@@ -125,7 +125,7 @@ class PlayState extends FlxState
                 case 0:
                     FlxG.camera.fade(FlxColor.BLACK, 0.5, false, function()
                     {
-                        FlxG.switchState(new states.games.2048Clicker());
+                        FlxG.switchState(new states.games.2048Clicker.MainMenuState());
                     });
                 case 1:
                     FlxG.camera.fade(FlxColor.BLACK, 0.5, false, function()
