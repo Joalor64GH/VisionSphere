@@ -71,6 +71,8 @@ class MainMenuState extends FlxState
         hardTimed.screenCenter(XY);
         add(hardTimed);
 
+        FlxG.camera.fade(FlxColor.BLACK, 0.33, true);
+
         super.create();
     }
 
@@ -162,7 +164,7 @@ class PlayState extends FlxState
         var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('game/math/background'));
         add(bg);
 
-        math = new FlxText(0, 0, FlxG.width, "Press SPACE to start.", 12);
+        math = new FlxText(0, 0, FlxG.width, "", 12);
         math.setFormat(Paths.font('vcr.ttf'), 64, FlxColor.WHITE, FlxTextAlign.CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
         math.screenCenter(X);
         add(math);
@@ -190,6 +192,8 @@ class PlayState extends FlxState
             timeLeft = 120000; // two minutes in milliseconds
 
         FlxG.camera.fade(FlxColor.BLACK, 0.33, true);
+
+        generateQuestion();
 
         super.create();
     }

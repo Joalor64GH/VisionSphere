@@ -31,6 +31,8 @@ class DVDScreensaver extends FlxState
         dvdLogo.setColorTransform(0, 0, 0, 1, 255, 255, 255);
         add(dvdLogo);
 
+        FlxG.camera.fade(FlxColor.BLACK, 0.33, true);
+
         super.create();
     }
 

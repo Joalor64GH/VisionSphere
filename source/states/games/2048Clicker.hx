@@ -10,7 +10,7 @@ class MainMenuState extends FlxState
 
         var playBtn:FlxButton = new FlxButton(0, FlxG.height / 2 + 50, "Play", function()
         {
-            return
+            return;
         });
         playBtn.scale.set(2, 2);
         playBtn.label.setFormat(Paths.font('vcr.ttf'), 16, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
@@ -22,7 +22,7 @@ class MainMenuState extends FlxState
         {
             FlxG.camera.fade(FlxColor.BLACK, 0.33, false, function() 
 	        {
-	            FlxG.switchState(new states.MenuState(0));
+	            FlxG.switchState(new states.MenuState());
 	        });
         });
         exitBtn.scale.set(2, 2);
@@ -30,6 +30,8 @@ class MainMenuState extends FlxState
         exitBtn.label.screenCenter(XY);
         exitBtn.screenCenter(XY);
         add(exitBtn);
+
+        FlxG.camera.fade(FlxColor.BLACK, 0.33, true);
 
         super.create();
     }
@@ -51,7 +53,26 @@ class MainMenuState extends FlxState
 
 class PlayState extends FlxState
 {
-    // wip
+    var number:FlxSprite;
+    var infinity:FlxSprite;
+
+    var clicks:Int = 0;
+    var clicksTxt:FlxText;
+
+    var coolText:FlxText;
+
+    public var win:Bool = false;
+    public var cheat:Bool = false;
+
+    override public function create()
+    {
+        super.create();
+    }
+
+    override public function update(elapsed:Float)
+    {
+        super.update(elapsed);
+    }
 }
 
 class WinState extends FlxState

@@ -88,6 +88,8 @@ class Painter extends FlxState
 
         pxGroup = new FlxTypedGroup<FlxSprite>();
         add(pxGroup);
+
+        FlxG.camera.fade(FlxColor.BLACK, 0.33, true);
     }
 
     override function update(elapsed:Float):Void

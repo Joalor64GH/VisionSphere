@@ -123,7 +123,10 @@ class PlayState extends FlxState
             switch(currentIndex)
             {
                 case 0:
-                    Main.toast.create('Hey!', 0xFFFFFF00, 'This game is not done yet! Stay tuned!');
+                    FlxG.camera.fade(FlxColor.BLACK, 0.5, false, function()
+                    {
+                        FlxG.switchState(new states.games.2048Clicker());
+                    });
                 case 1:
                     FlxG.camera.fade(FlxColor.BLACK, 0.5, false, function()
                     {
