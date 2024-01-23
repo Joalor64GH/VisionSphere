@@ -14,7 +14,7 @@ class WinState extends FlxState
         add(text);
 
         FlxG.camera.fade(FlxColor.BLACK, 0.33, true);
-        FlxG.play.sound(Paths.sound('2048/win'));
+        FlxG.sound.play(Paths.sound('2048/win'));
 
         super.create();
     }
