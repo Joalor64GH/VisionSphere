@@ -135,7 +135,7 @@ class PlayState extends FlxState
                 case 2:
                     FlxG.camera.fade(FlxColor.BLACK, 0.5, false, function()
                     {
-                        FlxG.switchState(new states.games.JourneyThroughAubekhia.MainMenuState());
+                        FlxG.switchState(new states.games.jta.MainMenuState());
                     });
                 case 3:
                     FlxG.camera.fade(FlxColor.BLACK, 0.5, false, function()
