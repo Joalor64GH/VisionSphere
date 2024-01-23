@@ -45,7 +45,7 @@ class UpdateState extends FlxState
 
     public static function updateCheck()
     {
-        var http = new Http("https://raw.githubusercontent.com/Joalor64GH/VisionSphere/main/embed/gitVersion.txt");
+        var http = new Http("https://raw.githubusercontent.com/Joalor64GH/VisionSphere/main/compileData/gitVersion.txt");
 
         http.onData = (data:String) ->
         {
