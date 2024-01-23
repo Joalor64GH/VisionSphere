@@ -12,7 +12,10 @@ class MainMenuState extends FlxState
 
         var playBtn:FlxButton = new FlxButton(0, FlxG.height / 2 + 50, "Play", function()
         {
-            return;
+            FlxG.camera.fade(FlxColor.BLACK, 0.33, false, function() 
+	        {
+	            FlxG.switchState(new states.games.clicker.PlayState());
+	        });
         });
         playBtn.scale.set(2, 2);
         playBtn.label.setFormat(Paths.font('vcr.ttf'), 16, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
@@ -22,7 +25,7 @@ class MainMenuState extends FlxState
 
         var exitBtn:FlxButton = new FlxButton(0, playBtn.y + 70, "Exit", function()
         {
-            FlxG.camera.fade(FlxColor.BLACK, 0.33, false, function() 
+            FlxG.camera.fade(FlxColor.BLACK, 0.5, false, function() 
 	        {
 	            FlxG.switchState(new states.MenuState());
 	        });
