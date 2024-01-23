@@ -107,8 +107,6 @@ class PlayState extends FlxState
 
     override public function destroy()
     {
-        instance = null;
-
         coin = null;
         flag = null;
         player = null;
