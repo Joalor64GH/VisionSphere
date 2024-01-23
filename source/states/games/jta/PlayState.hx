@@ -5,10 +5,10 @@ import flixel.FlxCamera.FlxCameraFollowStyle;
 import flixel.tile.FlxTilemap;
 import flixel.FlxCamera;
 
-import Props.Coin;
-import Props.Flag;
-import Props.Player;
-import Props.Spike;
+import states.games.jta.Coin;
+import states.games.jta.Flag;
+import states.games.jta.Player;
+import states.games.jta.Spike;
 
 class PlayState extends FlxState
 {
