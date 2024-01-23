@@ -12,8 +12,6 @@ import states.games.jta.Spike;
 
 class PlayState extends FlxState
 {
-    public static var instance:PlayState;
-
     var map:FlxOgmo3Loader;
     var walls:FlxTilemap;
 
@@ -25,27 +23,19 @@ class PlayState extends FlxState
     var jumpTimer:Float = 0;
     var jumping:Bool = false;
 
-    var camHUD:FlxCamera;
-
     override public function create()
     {
         super.create();
 
-        instance = this;
-
         openfl.system.System.gc();
 
-        camHUD = new FlxCamera();
-        camHUD.bgColor = 0;
-        FlxG.cameras.add(camHUD, false);
-
-        FlxG.camera.zoom = 2.25;
+        FlxG.camera.zoom = 2.95;
 
         var bg:FlxSprite = new FlxSprite().makeGraphic(1280, 720, 0xFF00FFFF);
         bg.scrollFactor.set();
         add(bg);
 
-        map = new FlxOgmo3Loader(Paths.file('data/jta/level.ogmo'), Paths.json('jta/lev1'));
+        map = new FlxOgmo3Loader(Paths.getPreloadPath('data/jta/level.ogmo'), Paths.json('jta/lev1'));
         walls = map.loadTilemap(Paths.image('game/jta/tilemap_1'), 'walls');
         walls.follow();
         walls.setTileProperties(1, NONE);
@@ -91,7 +81,6 @@ class PlayState extends FlxState
         {
             jumping = true;
             jumpTimer += elapsed;
-
             new FlxTimer().start(0.01, function(tmr:FlxTimer)
             {
                 FlxG.sound.play(Paths.sound('jta/jump'));
@@ -114,6 +103,43 @@ class PlayState extends FlxState
 
         if (Input.is('r'))
             FlxG.resetState();
+    }
+
+    override public function destroy()
+    {
+        instance = null;
+
+        coin = null;
+        flag = null;
+        player = null;
+        spike = null;
+
+        super.destroy();
+    }
+
+    private function touchCoin(player:Player, coin:Coin)
+    {
+        if (player.alive && player.exists && coin.alive && coin.exists)
+        {
+            coin.kill();
+        }
+    }
+
+    private function touchFlag(player:Player, flag:Flag)
+    {
+        if (player.alive && player.exists && flag.alive && flag.exists)
+        {
+            flag.animation.play("stop");
+            FlxG.switchState(new states.games.jta.MainMenuState());
+        }
+    }
+
+    private function touchSpike(player:Player, spike:Spike)
+    {
+        if (player.alive && player.exists && spike.alive && spike.exists)
+        {
+            FlxG.resetState();
+        }
     }
 
     private function placeEntities(entity:EntityData)
