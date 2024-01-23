@@ -2,6 +2,8 @@ package states;
 
 class MenuState extends FlxState
 {
+    public static var gameVersion = Application.current.meta.get('version');
+
     var dateText:FlxText;
     
     var btnPlay:FlxSprite;

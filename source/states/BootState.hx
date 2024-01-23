@@ -7,7 +7,14 @@ class BootState extends FlxState
         SaveData.init();
         Localization.loadLanguages(['de', 'en', 'es', 'fr', 'it', 'pt']);
 
-        FlxG.switchState((FlxG.save.data.firstLaunch) ? new states.FirstLaunchState() : new states.SplashState());
+        #if desktop
+        states.UpdateState.updateCheck();
+        #end
+
+        if (states.UpdateState.mustUpdate)
+            FlxG.switchState(new states.UpdateState());
+        else
+            FlxG.switchState((FlxG.save.data.firstLaunch) ? new states.FirstLaunchState() : new states.SplashState());
 
         super.create();
     }

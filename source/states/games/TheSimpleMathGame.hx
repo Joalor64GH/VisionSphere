@@ -21,10 +21,10 @@ class MainMenuState extends FlxState
 
         var easyBtn:FlxButton = new FlxButton(0, FlxG.height / 2 + 50, "Easy", function()
         {
-            FlxG.camera.fade(FlxColor.BLACK, 0.33, false, function() 
-	        {
-	            FlxG.switchState(new states.games.TheSimpleMathGame.PlayState(0));
-	        });
+            FlxG.camera.fade(FlxColor.BLACK, 0.33, false, function()
+            {
+                FlxG.switchState(new states.games.TheSimpleMathGame.PlayState(0));
+            });
         });
         easyBtn.scale.set(2, 2);
         easyBtn.label.setFormat(Paths.font('vcr.ttf'), 16, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
@@ -34,10 +34,10 @@ class MainMenuState extends FlxState
 
         var hardBtn:FlxButton = new FlxButton(0, easyBtn.y + 70, "Hard", function()
         {
-            FlxG.camera.fade(FlxColor.BLACK, 0.33, false, function() 
-	        {
-	            FlxG.switchState(new states.games.TheSimpleMathGame.PlayState(1));
-	        });
+            FlxG.camera.fade(FlxColor.BLACK, 0.33, false, function()
+            {
+                FlxG.switchState(new states.games.TheSimpleMathGame.PlayState(1));
+            });
         });
         hardBtn.scale.set(2, 2);
         hardBtn.label.setFormat(Paths.font('vcr.ttf'), 16, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
@@ -47,10 +47,10 @@ class MainMenuState extends FlxState
 
         var easyTimed:FlxButton = new FlxButton(0, hardBtn.y + 70, "Timed (Easy)", function()
         {
-            FlxG.camera.fade(FlxColor.BLACK, 0.33, false, function() 
-	        {
-	            FlxG.switchState(new states.games.TheSimpleMathGame.PlayState(0, true));
-	        });
+            FlxG.camera.fade(FlxColor.BLACK, 0.33, false, function()
+            {
+                FlxG.switchState(new states.games.TheSimpleMathGame.PlayState(0, true));
+            });
         });
         easyTimed.scale.set(2, 2);
         easyTimed.label.setFormat(Paths.font('vcr.ttf'), 12, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
@@ -60,10 +60,10 @@ class MainMenuState extends FlxState
 
         var hardTimed:FlxButton = new FlxButton(0, easyTimed.y + 70, "Timed (Hard)", function()
         {
-            FlxG.camera.fade(FlxColor.BLACK, 0.33, false, function() 
-	        {
-	            FlxG.switchState(new states.games.TheSimpleMathGame.PlayState(1, true));
-	        });
+            FlxG.camera.fade(FlxColor.BLACK, 0.33, false, function()
+            {
+                FlxG.switchState(new states.games.TheSimpleMathGame.PlayState(1, true));
+            });
         });
         hardTimed.scale.set(2, 2);
         hardTimed.label.setFormat(Paths.font('vcr.ttf'), 16, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
