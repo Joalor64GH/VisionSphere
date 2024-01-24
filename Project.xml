@@ -74,7 +74,7 @@
 	<haxedef name="HXCPP_CHECK_POINTER" if="desktop release" />
 	<haxedef name="HXCPP_STACK_LINE" if="desktop release" />
 
-	<!-- _________________________________ Icon _______________________________ -->
+	<!-- _________________________________ Icons _______________________________ -->
 
 	<assets path="compileData/iconOG.png" rename="icon.png" if="linux"/>
 
@@ -82,5 +82,14 @@
 	<icon path="compileData/icon32.png" size="32" />
 	<icon path="compileData/icon64.png" size="64" />
 	<icon path="compileData/iconOG.png" />
+
+	<!-- ________________________ Miscellaneous _____________________________ -->
+    
+	<target id="haxe" tool="linker" if="linux">
+		<lib name="/usr/lib64/libX11.so" if="HXCPP_M64" /> <!--linux support-->
+	</target> 
+	<target id="haxe" tool="linker" if="macos">
+		<lib name="/lib64/libX11.a" if="HXCPP_M64" /> <!--Macos support-->
+	</target>
 
 </project>
