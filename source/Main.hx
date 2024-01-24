@@ -9,7 +9,6 @@ import openfl.display.Sprite;
 import openfl.events.UncaughtErrorEvent;
 import haxe.CallStack;
 import haxe.io.Path;
-import sys.io.Process;
 #end
 
 import display.ToastCore;
@@ -17,6 +16,13 @@ import display.FPS;
 
 #if linux
 import lime.graphics.Image;
+#end
+
+#if linux
+@:cppInclude('./external/gamemode_client.h')
+@:cppFileCode('
+	#define GAMEMODE_AUTO
+')
 #end
 
 using StringTools;

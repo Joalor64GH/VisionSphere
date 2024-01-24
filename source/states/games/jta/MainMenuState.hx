@@ -4,6 +4,10 @@ class MainMenuState extends FlxState
 {
     var logo:FlxSprite;
 
+    // not making a FlxTypedGroup because it wont work!!!
+    var playBtn:FlxSprite;
+    var exitBtn:FlxSprite;
+
     override public function create()
     {
         super.create();
@@ -11,10 +15,19 @@ class MainMenuState extends FlxState
         var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('game/jta/bgMain'));
         add(bg);
 
-        logo = new FlxSprite(0, 220).loadGraphic(Paths.image('game/jta/logo'));
+        logo = new FlxSprite(0, 245).loadGraphic(Paths.image('game/jta/logo'));
         logo.screenCenter(X);
         logo.scale.set(4, 4);
         add(logo);
+
+        playBtn = new FlxSprite().loadGraphic(Paths.image('game/jta/buttons'), true, 16, 16);
+        playBtn.animation.add('playU', [0]); // unselected
+        playBtn.animation.add('playS', [1]); // selected
+        playBtn.animation.add('playP', [2]); // pressed
+        playBtn.animation.play('playU');
+        playBtn.scale.set(12, 12);
+        playBtn.screenCenter();
+        add(playBtn);
 
         logoTween();
     }
@@ -23,15 +36,22 @@ class MainMenuState extends FlxState
     {
         super.update(elapsed);
 
-        if (Input.is('accept'))
+        if (FlxG.mouse.overlaps(playBtn))
         {
-            FlxG.camera.fade(FlxColor.BLACK, 0.5, false, function()
+            playBtn.animation.play('playS');
+
+            if (FlxG.mouse.pressed)
             {
-                FlxG.switchState(new states.games.jta.PlayState());
-            });
-            FlxG.sound.play(Paths.sound('jta/play'));
+                playBtn.animation.play('playP');
+                FlxG.sound.play(Paths.sound('jta/play'));
+                FlxG.camera.fade(FlxColor.BLACK, 0.33, false, function()
+                {
+                    FlxG.switchState(new states.games.jta.PlayState());
+                });
+            }
         }
-        else if (Input.is('exit'))
+
+        if (Input.is('exit'))
         {
             FlxG.camera.fade(FlxColor.BLACK, 0.5, false, function()
             {

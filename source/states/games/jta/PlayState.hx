@@ -94,7 +94,7 @@ class PlayState extends FlxState
 
         if (Input.is('exit'))
         {
-            FlxG.camera.fade(FlxColor.BLACK, 0.5, false, function()
+            FlxG.camera.fade(FlxColor.BLACK, 0.33, false, function()
             {
                 FlxG.switchState(new states.games.jta.MainMenuState());
             });
