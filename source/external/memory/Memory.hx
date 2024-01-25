@@ -6,7 +6,7 @@ package external.memory;
  * for the program.
  * @author Leather128 (Haxe) - David Robert Nadeau (Original C Header)
  */
-@:buildXml('<include name="../../../../src/external/memory/build.xml" />')
+@:buildXml('<include name="../../../../source/external/memory/build.xml" />')
 @:include("memory.h")
 extern class Memory {
 	/**
