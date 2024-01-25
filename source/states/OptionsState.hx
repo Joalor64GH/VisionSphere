@@ -82,8 +82,8 @@ class OptionsState extends FlxState
                     FlxG.fullscreen = FlxG.save.data.fullscreen;
                 case "FPS Counter":
                     FlxG.save.data.fpsCounter = !FlxG.save.data.fpsCounter;
-                    if (Main.fps != null)
-                        Main.fps.visible = FlxG.save.data.fpsCounter;
+                    if (Main.fpsDisplay != null)
+                        Main.fpsDisplay.visible = FlxG.save.data.fpsCounter;
                 case "Language":
                     openSubState(new states.substates.LanguageSubState());
                 case "System Information":

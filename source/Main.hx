@@ -29,19 +29,17 @@ using StringTools;
 
 class Main extends Sprite
 {
-	public static var gameWidth:Int = 1280;
-	public static var gameHeight:Int = 720;
 	public static var toast:ToastCore;
-	public static var fps:FPS;
+	public static var fpsDisplay:FPS;
 
 	public function new()
 	{
 		super();
 
-		addChild(new FlxGame(gameWidth, gameHeight, states.BootState, #if (flixel < "5.0.0") -1, #end 60, 60, true, false));
+		addChild(new FlxGame(1280, 720, states.BootState, #if (flixel < "5.0.0") -1, #end 60, 60, true, false));
 
-		fps = new FPS(10, 3, 0xFFFFFF);
-		addChild(fps);
+		fpsDisplay = new FPS(10, 3, 0xFFFFFFFF);
+		addChild(fpsDisplay);
 
 		#if desktop
 		Lib.current.loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, onCrash);

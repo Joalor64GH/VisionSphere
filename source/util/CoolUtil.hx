@@ -40,4 +40,36 @@ class CoolUtil
     inline public static function hypotenuse(a:Float, b:Float) {
         return Math.sqrt(a * 2 + b * 2);
     }
+
+    /*
+     * @author Leather128
+     * @see https://github.com/Leather128/LeatherEngine
+     */
+
+    public static var byteFormats:Array<Array<Dynamic>> = [
+        ["$bytes b", 1.0],
+        ["$bytes kb", 1024.0],
+        ["$bytes mb", 1048576.0],
+        ["$bytes gb", 1073741824.0],
+        ["$bytes tb", 1099511627776.0]
+    ];
+
+    public static function formatBytes(bytes:Float, onlyValue:Bool = false, precision:Int = 2):String
+    {
+        var formattedBytes:String = "?";
+
+        for (i in 0...byteFormats.length)
+        {
+            if (byteFormats.length > i + 1 && byteFormats[i + 1][1] < bytes)
+                continue;
+
+            var format:Array<Dynamic> = byteFormats[i];
+
+            formattedBytes = (!onlyValue) ? StringTools.replace(format[0], "$bytes", Std.string(FlxMath.roundDecimal(bytes / format[1], precision))) : Std.string(FlxMath.roundDecimal(bytes / format[1], precision));
+
+            break;
+        }
+
+        return formattedBytes;
+    }
 }

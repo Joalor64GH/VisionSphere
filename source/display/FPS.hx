@@ -1,90 +1,48 @@
 package display;
 
-import haxe.Timer;
-import openfl.events.Event;
-import openfl.text.TextField;
-import openfl.text.TextFormat;
-#if gl_stats
-import openfl.display._internal.stats.Context3DStats;
-import openfl.display._internal.stats.DrawCallContext;
-#end
-#if flash
-import openfl.Lib;
-#end
+import external.memory.Memory;
 
-/**
-	The FPS class provides an easy-to-use monitor to display
-	the current frame rate of an OpenFL project
-**/
-#if !openfl_debug
-@:fileXml('tags="haxe,release"')
-@:noDebug
-#end
-class FPS extends TextField
+class FPS extends openfl.text.TextField
 {
-	/**
-		The current frame rate, expressed using frames-per-second
-	**/
-	public var currentFPS(default, null):Int;
+	public var fps:Int = 0;
+	public var _fps:Int = 0;
+	public var memUsage:Float = 0.0;
+	public var memUsagePeak:Float = 0.0;
+	public var curTime:Float = 0.0;
 
-	@:noCompletion private var cacheCount:Int;
-	@:noCompletion private var currentTime:Float;
-	@:noCompletion private var times:Array<Float>;
-
-	public function new(x:Float = 10, y:Float = 10, color:Int = 0x000000)
+	public function new(x:Float = 10, y:Float = 3, color:Int = 0x000000)
 	{
 		super();
 
 		this.x = x;
 		this.y = y;
 
-		currentFPS = 0;
-		selectable = false;
-		mouseEnabled = false;
-		defaultTextFormat = new TextFormat(Paths.font('vcr.ttf'), 16, color);
-        width = Main.gameWidth;
-        height = Main.gameHeight;
-		text = "FPS: ";
+		width = 1280;
+		height = 720;
 
-		cacheCount = 0;
-		currentTime = 0;
-		times = [];
+		selectable = mouseEnabled = false;
+		defaultTextFormat = new openfl.text.TextFormat(Paths.font('vcr.ttf'), 16, color);
 
-		#if flash
-		addEventListener(Event.ENTER_FRAME, function(e)
-		{
-			var time = Lib.getTimer();
-			__enterFrame(time - currentTime);
-		});
-		#end
+		FlxG.signals.postDraw.add(update);
 	}
 
-	// Event Handlers
-	@:noCompletion
-	private #if !flash override #end function __enterFrame(deltaTime:Float):Void
+	public function update():Void
 	{
-		currentTime += deltaTime;
-		times.push(currentTime);
+		curTime += FlxG.elapsed;
 
-		while (times[0] < currentTime - 1000)
+		if (_fps < FlxG.stage.frameRate)
+			_fps += 1;
+		
+		if (curTime >= 1.0)
 		{
-			times.shift();
+			fps = _fps = 0;
+			curTime = 0.0;
 		}
 
-		var currentCount = times.length;
-		currentFPS = Math.round((currentCount + cacheCount) / 2);
+		memUsage = Std.parseFloat(CoolUtil.formatBytes(Memory.getCurrentUsage(), true));
+		memUsagePeak = Std.parseFloat(CoolUtil.formatBytes(Memory.getPeakUsage(), true));
 
-		if (currentCount != cacheCount)
-		{
-			text = "FPS: " + currentFPS;
-
-			#if (gl_stats && !disable_cffi && (!html5 || !canvas))
-			text += "\ntotalDC: " + Context3DStats.totalDrawCalls();
-			text += "\nstageDC: " + Context3DStats.contextDrawCalls(DrawCallContext.STAGE);
-			text += "\nstage3DDC: " + Context3DStats.contextDrawCalls(DrawCallContext.STAGE3D);
-			#end
-		}
-
-		cacheCount = currentCount;
+		text = "FPS: $fps\n"
+			+ "${CoolUtil.formatBytes(Memory.getCurrentUsage())} / ${CoolUtil.formatBytes(Memory.getPeakUsage())}";
 	}
 }
