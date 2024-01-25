@@ -1,17 +1,18 @@
 package util;
 
 import sys.io.File;
+import sys.io.Process;
 import sys.FileSystem;
 
 class MacroUtil
 {
-    // will fix this later
-    /*
-    public static macro function getCommitId(url:String):haxe.macro.Expr.ExprOf<String>
+    public static macro function get_commit_id():haxe.macro.Expr.ExprOf<String>
     {
-        // something maybe
+        var daProcess = new Process('git', ['log', '--format=%h', '-n', '1']);
+        daProcess.exitCode(true);
+
+        return macro $v{daProcess.stdout.readLine()};
     }
-    */
 
     public static macro function get_build_num():haxe.macro.Expr.ExprOf<Int>
     {

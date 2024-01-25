@@ -5,6 +5,7 @@ import util.MacroUtil;
 class SystemInfoSubState extends FlxSubState
 {
     public static var buildNum(default, never):Int = MacroUtil.get_build_num();
+    public static var commtiId(default, never):String = MacroUtil.get_commit_id();
 
     public function new()
     {
@@ -16,6 +17,7 @@ class SystemInfoSubState extends FlxSubState
 
         var info:FlxText = new FlxText(0, 0, 0, 
             "VisionSphere Version: " + Application.current.meta.get('version')
+            + "\nCommit ID: " + commtiId
             + "\nBuild Number: " + buildNum
             + "\nHaxeflixel Version: 5.5.0"
             + "\nHaxe Version: 4.2.5"
