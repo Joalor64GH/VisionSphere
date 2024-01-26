@@ -9,10 +9,10 @@ import haxe.Exception;
  * @see https://github.com/Sirox228/CustomEvents/
  */
 
-class Event<T> // this is broken atm, will figure out how to fix
+class Event<T>
 {
     public function new() {
-        if (!Std.isOfType(T, Function))
+        if (!Std.isOfType(String, Function))
             throw new Exception("type of base.Event must be function");
 
         trace("new Event successful");
@@ -30,9 +30,9 @@ class Event<T> // this is broken atm, will figure out how to fix
             Ref.setProperty(this, event + "callback", callback);
     }
 
-    public function trigger(event:String, args:Array<Dynamic>):Dynamic {
+    public function trigger(event:String, callback:String, args:Array<Dynamic>):Dynamic {
         if (Ref.hasField(this, event) && Ref.hasField(this, event + "callback"))
-            return Ref.callMethod(this, Ref.getProperty(event + "callback"), args);
+            return Ref.callMethod(this, Ref.getProperty(event + "callback", callback), args);
         else 
         {
             if (!Ref.hasField(this, event) && Ref.hasField(this, event + "callback"))
