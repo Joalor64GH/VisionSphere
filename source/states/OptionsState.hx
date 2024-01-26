@@ -6,7 +6,9 @@ class OptionsState extends FlxState
     var times:Array<String> = ['%r', '%T'];
     var themes:Array<String> = ['daylight', 'night', 'dreamcast', 'ps3', 'xp'];
     var options:Array<String> = [
+        #if desktop
         "Fullscreen",
+        #end
         "FPS Counter", 
         "Time Format", 
         "Language", 
@@ -52,8 +54,10 @@ class OptionsState extends FlxState
 
         switch (options[curSelected])
         {
+            #if desktop
             case "Fullscreen":
                 daText.text = "Toggles fullscreen.";
+            #end
             case "FPS Counter":
                 daText.text = "Toggles FPS counter.";
             case "Time Format":
@@ -77,9 +81,11 @@ class OptionsState extends FlxState
             FlxG.sound.play(Paths.sound('confirm'));
             switch (options[curSelected])
             {
+                #if desktop
                 case "Fullscreen":
                     FlxG.save.data.fullscreen = !FlxG.save.data.fullscreen;
                     FlxG.fullscreen = FlxG.save.data.fullscreen;
+                #end
                 case "FPS Counter":
                     FlxG.save.data.fpsCounter = !FlxG.save.data.fpsCounter;
                     if (Main.fpsDisplay != null)
@@ -151,8 +157,10 @@ class OptionsState extends FlxState
 
         switch (options[curSelected])
         {
+            #if desktop
             case "Fullscreen":
                 daText.text = "Toggles fullscreen.";
+            #end
             case "FPS Counter":
                 daText.text = "Toggles FPS counter.";
             case "Time Format":

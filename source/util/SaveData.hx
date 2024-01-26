@@ -16,8 +16,10 @@ class SaveData
         if (FlxG.save.data.theme == null)
             FlxG.save.data.theme = 'daylight';
 
+        #if desktop
         if (FlxG.save.data.fullscreen == null)
             FlxG.save.data.fullscreen = false;
+        #end
 
         if (FlxG.save.data.firstLaunch == null)
             FlxG.save.data.firstLaunch = true;

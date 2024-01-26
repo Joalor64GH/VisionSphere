@@ -11,11 +11,7 @@ class BootState extends FlxState
 
         #if desktop
         states.UpdateState.updateCheck();
-
-        if (states.UpdateState.mustUpdate)
-            FlxG.switchState(new states.UpdateState());
-        else
-            FlxG.switchState((FlxG.save.data.firstLaunch) ? new states.FirstLaunchState() : new states.SplashState());
+        FlxG.switchState((states.UpdateState.mustUpdate) ? new states.UpdateState() : (FlxG.save.data.firstLaunch) ? new states.FirstLaunchState() : new states.SplashState());
         #else
         trace('Sorry! No update support on: ' + PlatformUtil.getPlatform() + '!')
         FlxG.switchState((FlxG.save.data.firstLaunch) ? new states.FirstLaunchState() : new states.SplashState());
