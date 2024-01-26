@@ -45,8 +45,6 @@
 	<haxelib name="flixel-addons" />
 	<haxelib name="flixel-ui" />
 
-	<haxelib name="flixel-screenshot-plugin" />
-
 	<haxelib name="hxcpp-debug-server" if="desktop debug" />
 
 	<!-- ______________________________ Haxedefines _____________________________ -->

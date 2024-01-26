@@ -28,10 +28,6 @@
       {
         "name": "hxcpp-debug-server",
         "type": "haxelib"
-      },
-      {
-        "name": "flixel-screenshot-plugin",
-        "type": "haxelib"
       }
     ]
   }

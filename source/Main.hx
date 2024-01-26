@@ -38,9 +38,6 @@ class Main extends Sprite
 
 		addChild(new FlxGame(1280, 720, states.BootState, #if (flixel < "5.0.0") -1, #end 60, 60, true, false));
 
-		FlxG.plugins.add(new screenshotplugin.ScreenshotPlugin());
-		util.ScreenshotConfig.setScreenshotConfig(PNG, F2);
-
 		fpsDisplay = new FPS(10, 3, 0xFFFFFFFF);
 		addChild(fpsDisplay);
 
