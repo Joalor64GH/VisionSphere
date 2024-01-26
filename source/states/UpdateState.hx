@@ -20,7 +20,7 @@ class UpdateState extends FlxState
             Thanks for playing!",
             32);
         text.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER);
-        text.screenCenter(Y);
+        text.screenCenter();
         add(text);
     }
 

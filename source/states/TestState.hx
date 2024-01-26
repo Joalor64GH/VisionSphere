@@ -23,12 +23,12 @@ class TestState extends FlxState
         }, "EVENT_PARSE");
 
         // trigger event
-        something = event.trigger("EVENT_PARSE", "coolCallback", [text]);
+        something = event.trigger("EVENT_PARSE", [text]);
         trace(something);
 
-        var text = new FlxText(0, 0, 0, "Hello World", 64);
-        text.screenCenter();
-        add(text);
+        var text2 = new FlxText(0, 0, 0, "Hello World", 64);
+        text2.screenCenter();
+        add(text2);
     }
 
     override function update(elapsed:Float)

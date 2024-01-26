@@ -71,13 +71,13 @@ class PlayState extends FlxState
         if (player.velocity.x != 0)
             player.flipX = player.velocity.x < 0;
 
-        if (jumping && !(Input.is('up') || Input.is('up_alt') || Input.is('accept_alt')))
+        if (jumping && !(Input.is('up') || Input.is('w') || Input.is('space')))
             jumping = false;
 
         if (player.isTouching(DOWN) && !jumping)
             jumpTimer = 0;
 
-        if (jumpTimer >= 0 && (Input.is('up') || Input.is('up_alt') || Input.is('accept_alt')))
+        if (jumpTimer >= 0 && (Input.is('up') || Input.is('w') || Input.is('space')))
         {
             jumping = true;
             jumpTimer += elapsed;
