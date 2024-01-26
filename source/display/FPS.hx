@@ -42,7 +42,7 @@ class FPS extends openfl.text.TextField
 		memUsage = Std.parseFloat(CoolUtil.formatBytes(Memory.getCurrentUsage(), true));
 		memUsagePeak = Std.parseFloat(CoolUtil.formatBytes(Memory.getPeakUsage(), true));
 
-		text = "FPS: + fps + "\n"
+		text = "FPS:" + fps + "\n"
 			+ CoolUtil.formatBytes(Memory.getCurrentUsage()) + " / " + CoolUtil.formatBytes(Memory.getPeakUsage());
 	}
 }
