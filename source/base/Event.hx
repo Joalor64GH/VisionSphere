@@ -1,7 +1,7 @@
 package base;
 
 import Reflect as Ref;
-import haxe.Constraints.Function;
+import haxe.Constraints;
 import haxe.Exception;
 
 /**
@@ -12,7 +12,7 @@ import haxe.Exception;
 class Event<T>
 {
     public function new() {
-        if (!Std.is(String, Function)) // i honestly don't care if `is()` is deprecated
+        if (!Std.isOfType(String, IMap))
             throw new Exception("type of base.Event must be function");
 
         trace("new Event successful");
