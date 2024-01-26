@@ -19,7 +19,6 @@ import lime.app.Application;
 
 import base.Paths;
 import base.Input;
-import base.Event;
 import util.CoolUtil;
 import util.Localization;
 import util.SaveData;

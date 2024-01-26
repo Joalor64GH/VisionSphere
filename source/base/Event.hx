@@ -9,7 +9,7 @@ import haxe.Exception;
  * @see https://github.com/Sirox228/CustomEvents/
  */
 
-class Event<T>
+class Event<T> // this is broken atm, will figure out how to fix
 {
     public function new() {
         if (!Std.isOfType(T, Function))
@@ -32,7 +32,7 @@ class Event<T>
 
     public function trigger(event:String, args:Array<Dynamic>):Dynamic {
         if (Ref.hasField(this, event) && Ref.hasField(this, event + "callback"))
-            return Ref.callMethod(this, Ref.getProperty(event + "callback", callback), args);
+            return Ref.callMethod(this, Ref.getProperty(event + "callback"), args);
         else 
         {
             if (!Ref.hasField(this, event) && Ref.hasField(this, event + "callback"))
