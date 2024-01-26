@@ -52,7 +52,7 @@ class MenuState extends FlxState
         dateText.setFormat(Paths.font('vcr.ttf'), 30, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
         add(dateText);
 
-        var versionTxt:FlxText = new FlxText(logo.x + 145, 50, 0, "VisionSphere v" + Application.current.meta.get('version'), 12);
+        var versionTxt:FlxText = new FlxText(logo.x + 145, 50, 0, "VisionSphere v$gameVersion", 12);
         versionTxt.setFormat(Paths.font('vcr.ttf'), 30, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
         add(versionTxt);
     }
