@@ -12,7 +12,7 @@ import haxe.Exception;
 class Event<T>
 {
     public function new() {
-        if (!Std.isOfType(String, Function))
+        if (!Std.is(String, Function)) // i honestly don't care if `is()` is deprecated
             throw new Exception("type of base.Event must be function");
 
         trace("new Event successful");
