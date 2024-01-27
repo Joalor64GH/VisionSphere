@@ -66,7 +66,7 @@ class PlayState extends FlxState
         FlxG.overlap(player, spike, touchSpike);
 
         player.animation.play((player.velocity.x != 0) ? "walk" : "idle");
-        player.velocity.x = (Input.is('left')) ? -150 : (Input.is('right')) ? 150 : 0;
+        player.velocity.x = Input.is('left', PRESSED) ? -150 : Input.is('right', PRESSED) ? 150 : 0;
 
         if (player.velocity.x != 0)
             player.flipX = player.velocity.x < 0;

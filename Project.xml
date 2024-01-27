@@ -36,14 +36,17 @@
 	<source path="source" />
 	<assets path="assets" />
 	<assets path="mods" if="MODS_ALLOWED" />
-	<assets path="compileData/modsList.txt" rename="modsList.txt" if="MODS_ALLOWED"/>
-	<assets path="build.txt" embed="false"/>
+	<assets path="compileData/modsList.txt" rename="modsList.txt" if="MODS_ALLOWED" />
+	<assets path="VERSION" embed="false" />
+	<assets path="build.txt" embed="false" />
 
 	<!-- _______________________________ Libraries ______________________________ -->
 
 	<haxelib name="flixel" />
 	<haxelib name="flixel-addons" />
 	<haxelib name="flixel-ui" />
+
+	<haxelib name="hscript" /> <!-- To use the debug console -->
 
 	<haxelib name="hxcpp-debug-server" if="desktop debug" />
 

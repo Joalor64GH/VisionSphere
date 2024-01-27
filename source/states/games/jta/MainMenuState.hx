@@ -21,10 +21,10 @@ class MainMenuState extends FlxState
 
         var playBtn:FlxButton = new FlxButton(0, FlxG.height / 2 + 50, "Play", function()
         {
+            FlxG.sound.play(Paths.sound('jta/play'));
             FlxG.camera.fade(FlxColor.BLACK, 0.33, false, function()
             {
-                FlxG.switchState(new states.games.jta.PlayState());
-                FlxG.sound.play(Paths.sound('jta/play'));
+                FlxG.switchState(new states.games.jta.LevelSelectState());
             });
         });
         playBtn.scale.set(2, 2);
@@ -35,10 +35,10 @@ class MainMenuState extends FlxState
 
         var exitBtn:FlxButton = new FlxButton(0, playBtn.y + 70, "Exit", function()
         {
+            FlxG.sound.play(Paths.sound('jta/exit'));
             FlxG.camera.fade(FlxColor.BLACK, 0.5, false, function()
             {
                 FlxG.switchState(new states.MenuState());
-                FlxG.sound.play(Paths.sound('jta/exit'));
             });
         });
         exitBtn.scale.set(2, 2);

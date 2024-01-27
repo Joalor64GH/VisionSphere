@@ -103,8 +103,7 @@ class Painter extends FlxState
             enableVisualizer.color = enabled ? FlxColor.LIME : FlxColor.RED;
         }
 
-        var isMouseOverUI:Bool = FlxG.mouse.overlaps(colorWheel, camHUD)
-            || FlxG.mouse.overlaps(enableVisualizer, camHUD)
+        var isMouseOverUI:Bool = FlxG.mouse.overlaps(enableVisualizer, camHUD)
             || FlxG.mouse.overlaps(brushSizeSlider, camHUD)
             || FlxG.mouse.overlaps(saveJPEGButton, camHUD)
             || FlxG.mouse.overlaps(savePNGButton, camHUD);
@@ -131,7 +130,7 @@ class Painter extends FlxState
             }
         }
 
-        if (FlxG.mouse.pressed && !isMouseOverUI && FlxG.mouse.overlaps(colorWheel, camHUD))
+        if (FlxG.mouse.pressed && FlxG.mouse.overlaps(colorWheel, camHUD))
         {
             var mousePosition:FlxPoint = FlxPoint.get(FlxG.mouse.getWorldPosition(camHUD).x, FlxG.mouse.getWorldPosition(camHUD).y);
 

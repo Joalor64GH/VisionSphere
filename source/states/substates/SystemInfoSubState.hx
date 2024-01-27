@@ -17,6 +17,7 @@ class SystemInfoSubState extends FlxSubState
 
         var info:FlxText = new FlxText(0, 0, 0, 
             "VisionSphere Version: " + Application.current.meta.get('version')
+            + "\nVersion ID: " + CoolUtil.getText('VERSION');
             + "\nCommit ID: " + commtiId
             + "\nBuild Number: " + buildNum
             + "\nHaxeflixel Version: 5.5.0"
@@ -33,8 +34,7 @@ class SystemInfoSubState extends FlxSubState
     {
         super.update(elapsed);
 
-        if (Input.is('exit'))
-        {
+        if (Input.is('exit')) {
             FlxG.sound.play(Paths.sound("cancel"));
             close();
         }

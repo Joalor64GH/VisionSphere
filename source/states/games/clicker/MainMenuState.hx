@@ -36,7 +36,13 @@ class MainMenuState extends FlxState
         exitBtn.screenCenter(X);
         add(exitBtn);
 
+        var funny:FlxText = new FlxText(5, FlxG.height - 24, 0, "16:9 Edition!", 12);
+        funny.setFormat(Paths.font('vcr.ttf'), 26, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+        add(funny);
+
         FlxG.camera.fade(FlxColor.BLACK, 0.33, true);
+
+        FlxG.sound.playMusic(Paths.music('2048/menu'));
 
         super.create();
     }

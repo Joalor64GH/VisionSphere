@@ -13,6 +13,7 @@ class OptionsState extends FlxState
         "Time Format", 
         "Language", 
         "Theme", 
+        "Credits",
         "System Information", 
         "Restart", 
         "Shut Down"

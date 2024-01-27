@@ -9,6 +9,10 @@ class BootState extends FlxState
         SaveData.init();
         Localization.loadLanguages(['de', 'en', 'es', 'fr', 'it', 'pt']);
 
+        FlxG.sound.muteKeys = [NUMPADZERO];
+        FlxG.sound.volumeDownKeys = [NUMPADMINUS];
+        FlxG.sound.volumeUpKeys = [NUMPADPLUS];
+
         #if desktop
         states.UpdateState.updateCheck();
         FlxG.switchState((states.UpdateState.mustUpdate) ? new states.UpdateState() : (FlxG.save.data.firstLaunch) ? new states.FirstLaunchState() : new states.SplashState());
