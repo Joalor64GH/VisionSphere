@@ -7,7 +7,7 @@ class Player extends FlxSprite
     public var direction:Vector = new Vector(0, 0);
     public var speed:Vector = new Vector(0, 0);
 
-    public function new(x:Float = 0, y:Float = 0)
+    public function new(x:Float, y:Float)
     {
         super(x, y);
 

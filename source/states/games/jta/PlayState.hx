@@ -42,9 +42,6 @@ class PlayState extends FlxState
         walls.setTileProperties(2, ANY);
         add(walls);
 
-        player = new Player();
-        add(player);
-
         coin = new FlxTypedGroup<Coin>();
         add(coin);
 
@@ -69,7 +66,7 @@ class PlayState extends FlxState
         FlxG.overlap(player, spike, touchSpike);
 
         player.animation.play((player.velocity.x != 0) ? "walk" : "idle");
-        player.velocity.x = Input.is('left') ? -150 : Input.is('right')  ? 150 : 0;
+        player.velocity.x = (Input.is('left')) ? -150 : (Input.is('right')) ? 150 : 0;
 
         if (player.velocity.x != 0)
             player.flipX = player.velocity.x < 0;
@@ -121,6 +118,7 @@ class PlayState extends FlxState
         switch (entity.name)
         {
             case "player":
+                add(player = new Player(x, y));
                 player.maxVelocity.y = 300;
                 player.acceleration.y = 900;
                 player.setPosition(x, y);
