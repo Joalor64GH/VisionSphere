@@ -45,6 +45,9 @@ class PlayState extends FlxState
         player = new Player();
         add(player);
 
+        FlxG.camera.x = player.x - FlxG.width / 2;
+        FlxG.camera.y = player.y - FlxG.height / 2;
+
         coin = new FlxTypedGroup<Coin>();
         add(coin);
 

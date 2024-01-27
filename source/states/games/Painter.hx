@@ -111,20 +111,6 @@ class Painter extends FlxState
 
         if (FlxG.mouse.pressed && !isMouseOverUI)
         {
-            if (FlxG.mouse.overlaps(colorWheel, camHUD))
-            {
-                var mousePosition:FlxPoint = FlxPoint.get(FlxG.mouse.getWorldPosition(camHUD).x, FlxG.mouse.getWorldPosition(camHUD).y);
-
-                var color:Null<FlxColor> = colorWheel.getPixelAtScreen(mousePosition, camHUD);
-
-                if (color == FlxColor.TRANSPARENT)
-                    color = FlxColor.BLACK;
-
-                selectedColor = color;
-
-                selectedColorVisualizer.color = selectedColor;
-            }
-
             if (enabled)
             {
                 var px:FlxSprite = new FlxSprite().makeGraphic(Std.int(brushSize), Std.int(brushSize), selectedColor);
@@ -143,6 +129,20 @@ class Painter extends FlxState
                     }
                 }
             }
+        }
+
+        if (FlxG.mouse.pressed && !isMouseOverUI && FlxG.mouse.overlaps(colorWheel, camHUD))
+        {
+            var mousePosition:FlxPoint = FlxPoint.get(FlxG.mouse.getWorldPosition(camHUD).x, FlxG.mouse.getWorldPosition(camHUD).y);
+
+            var color:Null<FlxColor> = colorWheel.getPixelAtScreen(mousePosition, camHUD);
+
+            if (color == FlxColor.TRANSPARENT)
+                color = FlxColor.BLACK;
+
+            selectedColor = color;
+
+            selectedColorVisualizer.color = selectedColor;
         }
 
         for (px in pxGroup.members)

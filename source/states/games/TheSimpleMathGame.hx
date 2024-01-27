@@ -29,7 +29,7 @@ class MainMenuState extends FlxState
         easyBtn.scale.set(2, 2);
         easyBtn.label.setFormat(Paths.font('vcr.ttf'), 16, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
         easyBtn.label.screenCenter(XY);
-        easyBtn.screenCenter(XY);
+        easyBtn.screenCenter(X);
         add(easyBtn);
 
         var hardBtn:FlxButton = new FlxButton(0, easyBtn.y + 70, "Hard", function()
@@ -42,7 +42,7 @@ class MainMenuState extends FlxState
         hardBtn.scale.set(2, 2);
         hardBtn.label.setFormat(Paths.font('vcr.ttf'), 16, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
         hardBtn.label.screenCenter(XY);
-        hardBtn.screenCenter(XY);
+        hardBtn.screenCenter(X);
         add(hardBtn);
 
         var easyTimed:FlxButton = new FlxButton(0, hardBtn.y + 70, "Timed (Easy)", function()
@@ -55,7 +55,7 @@ class MainMenuState extends FlxState
         easyTimed.scale.set(2, 2);
         easyTimed.label.setFormat(Paths.font('vcr.ttf'), 12, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
         easyTimed.label.screenCenter(XY);
-        easyTimed.screenCenter(XY);
+        easyTimed.screenCenter(X);
         add(easyTimed);
 
         var hardTimed:FlxButton = new FlxButton(0, easyTimed.y + 70, "Timed (Hard)", function()
@@ -68,7 +68,7 @@ class MainMenuState extends FlxState
         hardTimed.scale.set(2, 2);
         hardTimed.label.setFormat(Paths.font('vcr.ttf'), 16, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
         hardTimed.label.screenCenter(XY);
-        hardTimed.screenCenter(XY);
+        hardTimed.screenCenter(X);
         add(hardTimed);
 
         FlxG.camera.fade(FlxColor.BLACK, 0.33, true);
@@ -209,7 +209,7 @@ class PlayState extends FlxState
         if (Input.is('accept') && input.text != '')
             checkAnswer();
 
-        if (Input.is('accept_alt'))
+        if (Input.is('space'))
             generateQuestion();
 
         if (Input.is('exit'))

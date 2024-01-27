@@ -10,14 +10,16 @@ class PlatformUtil
         return 'linux';
         #elseif mac
         return 'mac';
+        #elseif neko
+        return 'neko';
         #elseif html5
         return 'browser';
         #elseif android
         return 'android';
         #elseif ios
         return 'ios';
-        #elseif switch
-        return 'switch';
+        #elseif flash
+        return 'flash';
         #else
         return 'unknown';
         #end
