@@ -3,6 +3,7 @@ package states;
 class OptionsState extends FlxState
 {
     var bg:FlxSprite;
+    
     var times:Array<String> = ['%r', '%T'];
     var themes:Array<String> = ['daylight', 'night', 'dreamcast', 'ps3', 'xp'];
     var options:Array<String> = [
@@ -93,6 +94,8 @@ class OptionsState extends FlxState
                         Main.fpsDisplay.visible = FlxG.save.data.fpsCounter;
                 case "Language":
                     openSubState(new states.substates.LanguageSubState());
+                case "Credits":
+                    FlxG.switchState(new states.CreditState());
                 case "System Information":
                     openSubState(new states.substates.SystemInfoSubState());
                 case "Restart":
