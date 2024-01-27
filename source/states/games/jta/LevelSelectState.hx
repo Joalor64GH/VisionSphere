@@ -68,11 +68,11 @@ class LevelSelectState extends FlxState
         curSelected += change;
 
         if (curSelected < 0)
-            curSelected = group.length - 1;
-        if (curSelected >= group.length)
+            curSelected = lvlGrp.length - 1;
+        if (curSelected >= lvlGrp.length)
             curSelected = 0;
 
-        group.forEach(function(txt:FlxText) 
+        lvlGrp.forEach(function(txt:FlxText) 
         {
             txt.color = (txt.ID == curSelected) ? FlxColor.CYAN : FlxColor.WHITE;
         });
