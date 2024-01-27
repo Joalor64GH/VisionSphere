@@ -1,5 +1,7 @@
 package states.games.jta;
 
+import flixel.ui.FlxButton;
+
 class MainMenuState extends FlxState
 {
     var logo:FlxSprite;
