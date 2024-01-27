@@ -63,7 +63,7 @@ class MainMenuState extends FlxState
 
             if (FlxG.mouse.pressed)
             {
-                exitBtn.animation.exit('exitP');
+                exitBtn.animation.play('exitP');
                 FlxG.camera.fade(FlxColor.BLACK, 0.33, false, function()
                 {
                     FlxG.switchState(new states.MenuState());
