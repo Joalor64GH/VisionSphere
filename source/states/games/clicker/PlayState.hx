@@ -87,7 +87,7 @@ class PlayState extends FlxState
 
     function click()
     {
-        new FlxTimer().start(function(tmr:FlxTimer)
+        new FlxTimer().start(0.01, function(timer)
         {
             clicks += 1;
 

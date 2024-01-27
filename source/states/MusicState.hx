@@ -88,7 +88,7 @@ class MusicState extends states.MusicState.BeatState
         if (Input.is('exit'))
         {
             FlxG.switchState(new states.MenuState());
-            FlxG.sound.music.fadeOut(0.3);
+            FlxG.sound.music.volume = 0;
         }
 
         if (Input.is('left') || Input.is('right'))

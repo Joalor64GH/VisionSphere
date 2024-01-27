@@ -28,7 +28,7 @@ class LanguageSubState extends FlxSubState
 
         for (i in 0...langStrings.length)
         {
-            var label:Alphabet = new Alphabet(290, 320, langStrings[i].lang, true);
+            var label:Alphabet = new Alphabet(190, 320, langStrings[i].lang, true);
             label.isMenuItem = true;
             label.targetY = i;
             coolGrp.add(label);

@@ -45,9 +45,6 @@ class PlayState extends FlxState
         player = new Player();
         add(player);
 
-        FlxG.camera.x = player.x - FlxG.width / 2;
-        FlxG.camera.y = player.y - FlxG.height / 2;
-
         coin = new FlxTypedGroup<Coin>();
         add(coin);
 
@@ -72,7 +69,7 @@ class PlayState extends FlxState
         FlxG.overlap(player, spike, touchSpike);
 
         player.animation.play((player.velocity.x != 0) ? "walk" : "idle");
-        player.velocity.x = (Input.is('left') || Input.is('left_alt')) ? -150 : (Input.is('right') || Input.is('right_alt')) ? 150 : 0;
+        player.velocity.x = (Input.is('left') || Input.is('a')) ? -150 : (Input.is('right') || Input.is('d')) ? 150 : 0;
 
         if (player.velocity.x != 0)
             player.flipX = player.velocity.x < 0;
@@ -149,7 +146,7 @@ class PlayState extends FlxState
         if (player.alive && player.exists && flag.alive && flag.exists)
         {
             flag.animation.play("stop");
-            FlxG.switchState(new states.games.jta.MainMenuState());
+            FlxG.switchState(new states.games.jta.LevelCompleteState());
         }
     }
 
@@ -157,7 +154,7 @@ class PlayState extends FlxState
     {
         if (player.alive && player.exists && spike.alive && spike.exists)
         {
-            FlxG.resetState();
+            FlxG.switchState(new states.games.jta.GameOverState());
         }
     }
 }
