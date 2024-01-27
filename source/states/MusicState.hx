@@ -39,6 +39,7 @@ class MusicState extends states.MusicState.BeatState
         {name:"Nighttime Gaming REMIX", song:"nighttime-gaming-remix", disc:"nighttimere", bpm:130},
         {name:"Pixel Birthday Bash", song:"pixel-birthday-bash", disc:"pixel", bpm:100},
         {name:"Pure Indian Vibes", song:"pure-indian-vibes", disc:"pure", bpm:100},
+        {name:"Pyramid's Core", song:"pyramids-core", disc:"pyramid", bpm:120},
         {name:"Relaxing Evening Lo-fi", song:"relaxing-evening-lo-fi", disc:"relaxing", bpm:120},
         {name:"Silver Candy", song:"silver-candy", disc:"silver", bpm:135},
         {name:"Universal Questioning", song:"universal-questioning", disc:"universal", bpm:125},
