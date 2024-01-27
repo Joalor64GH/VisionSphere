@@ -55,8 +55,8 @@ class CreditsState extends FlxState
         curSelected += change;
 
         if (curSelected < 0)
-            curSelected = coolGrp.length - 1;
-        if (curSelected >= coolGrp.length)
+            curSelected = credsGrp.length - 1;
+        if (curSelected >= credsGrp.length)
             curSelected = 0;
         
         var something:Int = 0;
