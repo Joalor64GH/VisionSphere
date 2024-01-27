@@ -2,7 +2,7 @@ package states;
 
 using StringTools;
 
-class CreditState extends FlxState
+class CreditsState extends FlxState
 {
     private var credsGrp:FlxTypedGroup<Alphabet>;
 

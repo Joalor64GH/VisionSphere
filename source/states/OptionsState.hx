@@ -95,7 +95,7 @@ class OptionsState extends FlxState
                 case "Language":
                     openSubState(new states.substates.LanguageSubState());
                 case "Credits":
-                    FlxG.switchState(new states.CreditState());
+                    FlxG.switchState(new states.CreditsState());
                 case "System Information":
                     openSubState(new states.substates.SystemInfoSubState());
                 case "Restart":
