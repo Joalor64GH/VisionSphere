@@ -83,7 +83,7 @@ class PlayState extends FlxState
         }
 
         if (FlxG.mouse.pressed) {
-            new FlxTimer().start(0.01, function(tmr:Timer) {
+            new FlxTimer().start(0.01, function(tmr:FlxTimer) {
                 click();
             });
         }

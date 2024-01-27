@@ -115,14 +115,14 @@ class Painter extends FlxState
             {
                 var mousePosition:FlxPoint = FlxPoint.get(FlxG.mouse.getWorldPosition(camHUD).x, FlxG.mouse.getWorldPosition(camHUD).y);
 
-            var color:Null<FlxColor> = colorWheel.getPixelAtScreen(mousePosition, camHUD);
+                var color:Null<FlxColor> = colorWheel.getPixelAtScreen(mousePosition, camHUD);
 
-            if (color == FlxColor.TRANSPARENT)
-                color = FlxColor.BLACK;
+                if (color == FlxColor.TRANSPARENT)
+                    color = FlxColor.BLACK;
 
-            selectedColor = color;
+                selectedColor = color;
 
-            selectedColorVisualizer.color = selectedColor;
+                selectedColorVisualizer.color = selectedColor;
             }
 
             if (enabled)

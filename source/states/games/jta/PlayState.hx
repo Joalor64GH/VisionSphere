@@ -42,7 +42,7 @@ class PlayState extends FlxState
         walls.setTileProperties(2, ANY);
         add(walls);
 
-        play = new Player();
+        player = new Player();
         add(player);
 
         coin = new FlxTypedGroup<Coin>();

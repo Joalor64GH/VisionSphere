@@ -95,7 +95,7 @@ class MusicState extends states.MusicState.BeatState
 
         if (Input.is('left') || Input.is('right'))
         {
-            new FlxTimer().start(0.01, function(tmr:Timer) {
+            new FlxTimer().start(0.01, function(tmr:FlxTimer) {
                 FlxG.sound.play(Paths.sound('scroll'));
             });
             changeSong(Input.is('left') ? -1 : 1);
@@ -106,7 +106,7 @@ class MusicState extends states.MusicState.BeatState
             states.MusicState.Conductor.songPosition = FlxG.sound.music.time;
             if ((Input.is('accept') || Input.is('space')) && loaded)
             {
-                new FlxTimer().start(0.01, function(tmr:Timer) {
+                new FlxTimer().start(0.01, function(tmr:FlxTimer) {
                     FlxG.sound.play(Paths.sound('confirm'));
                 });
                 if (!FlxG.sound.music.playing)

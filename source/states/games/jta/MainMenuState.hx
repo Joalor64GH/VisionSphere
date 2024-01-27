@@ -44,7 +44,7 @@ class MainMenuState extends FlxState
             if (FlxG.mouse.pressed)
             {
                 playBtn.animation.play('playP');
-                new FlxTimer().start(0.01, function(tmr:Timer) {
+                new FlxTimer().start(0.01, function(tmr:FlxTimer) {
                     FlxG.sound.play(Paths.sound('jta/play'));
                 });
                 FlxG.camera.fade(FlxColor.BLACK, 0.33, false, function()
@@ -60,7 +60,7 @@ class MainMenuState extends FlxState
             {
                 FlxG.switchState(new states.MenuState());
             });
-            new FlxTimer().start(0.01, function(tmr:Timer) {
+            new FlxTimer().start(0.01, function(tmr:FlxTimer) {
                 FlxG.sound.play(Paths.sound('jta/exit'));
             });
         }
