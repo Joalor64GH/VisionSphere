@@ -42,6 +42,9 @@ class PlayState extends FlxState
         walls.setTileProperties(2, ANY);
         add(walls);
 
+        play = new Player();
+        add(player);
+
         coin = new FlxTypedGroup<Coin>();
         add(coin);
 
@@ -107,12 +110,27 @@ class PlayState extends FlxState
 
     override public function destroy()
     {
-        coin = null;
-        flag = null;
-        player = null;
-        spike = null;
-
         super.destroy();
+    }
+
+    function placeEntities(entity:EntityData)
+    {
+        var x = entity.x;
+        var y = entity.y;
+
+        switch (entity.name)
+        {
+            case "player":
+                player.maxVelocity.y = 300;
+                player.acceleration.y = 900;
+                player.setPosition(x, y);
+            case "coin":
+                coin.add(new Coin(x, y));
+            case "flag":
+                flag.setPosition(x, y);
+            case "spike":
+                spike.add(new Spike(x, y));
+        }
     }
 
     private function touchCoin(player:Player, coin:Coin)
@@ -137,28 +155,6 @@ class PlayState extends FlxState
         if (player.alive && player.exists && spike.alive && spike.exists)
         {
             FlxG.resetState();
-        }
-    }
-
-    private function placeEntities(entity:EntityData)
-    {
-        var x = entity.x;
-        var y = entity.y;
-
-        switch (entity.name)
-        {
-            case "player":
-                add(player = new Player(x, y));
-                player.maxVelocity.y = 300;
-                player.acceleration.y = 900;
-                player.setPosition(x, y);
-            case "coin":
-                coin.add(new Coin(x, y));
-            case "flag":
-                flag.x = x;
-                flag.y = y;
-            case "spike":
-                spike.add(new Spike(x, y));
         }
     }
 }

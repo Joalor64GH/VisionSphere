@@ -6,7 +6,7 @@ class MainMenuState extends FlxState
 {
     override public function create()
     {
-        var logo:FlxSprite = new FlxSprite().loadGraphic('game/2048/logo');
+        var logo:FlxSprite = new FlxSprite().loadGraphic(Paths.image('game/2048/logo'));
         logo.screenCenter(X);
         add(logo);
 
@@ -20,7 +20,7 @@ class MainMenuState extends FlxState
         playBtn.scale.set(2, 2);
         playBtn.label.setFormat(Paths.font('vcr.ttf'), 16, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
         playBtn.label.screenCenter();
-        playBtn.screenCenter();
+        playBtn.screenCenter(X);
         add(playBtn);
 
         var exitBtn:FlxButton = new FlxButton(0, playBtn.y + 70, "Exit", function()
@@ -33,7 +33,7 @@ class MainMenuState extends FlxState
         exitBtn.scale.set(2, 2);
         exitBtn.label.setFormat(Paths.font('vcr.ttf'), 16, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
         exitBtn.label.screenCenter();
-        exitBtn.screenCenter();
+        exitBtn.screenCenter(X);
         add(exitBtn);
 
         FlxG.camera.fade(FlxColor.BLACK, 0.33, true);

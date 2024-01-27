@@ -13,9 +13,10 @@ class MainMenuState extends FlxState
         super.create();
 
         var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('game/jta/bgMain'));
+        bg.screenCenter();
         add(bg);
 
-        logo = new FlxSprite(0, 245).loadGraphic(Paths.image('game/jta/logo'));
+        logo = new FlxSprite(0, 190).loadGraphic(Paths.image('game/jta/logo'));
         logo.screenCenter(X);
         logo.scale.set(4, 4);
         add(logo);
@@ -43,7 +44,9 @@ class MainMenuState extends FlxState
             if (FlxG.mouse.pressed)
             {
                 playBtn.animation.play('playP');
-                FlxG.sound.play(Paths.sound('jta/play'));
+                new FlxTimer().start(0.01, function(tmr:Timer) {
+                    FlxG.sound.play(Paths.sound('jta/play'));
+                });
                 FlxG.camera.fade(FlxColor.BLACK, 0.33, false, function()
                 {
                     FlxG.switchState(new states.games.jta.PlayState());
@@ -57,7 +60,9 @@ class MainMenuState extends FlxState
             {
                 FlxG.switchState(new states.MenuState());
             });
-            FlxG.sound.play(Paths.sound('jta/exit'));
+            new FlxTimer().start(0.01, function(tmr:Timer) {
+                FlxG.sound.play(Paths.sound('jta/exit'));
+            });
         }
     }
 
