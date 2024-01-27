@@ -4,10 +4,6 @@ class MainMenuState extends FlxState
 {
     var logo:FlxSprite;
 
-    // not making a FlxTypedGroup because it wont work!!!
-    var playBtn:FlxSprite;
-    var exitBtn:FlxSprite;
-
     override public function create()
     {
         super.create();
@@ -16,25 +12,37 @@ class MainMenuState extends FlxState
         bg.screenCenter();
         add(bg);
 
-        logo = new FlxSprite(0, 200).loadGraphic(Paths.image('game/jta/logo'));
+        logo = new FlxSprite(0, 220).loadGraphic(Paths.image('game/jta/logo'));
         logo.screenCenter(X);
-        logo.scale.set(2.5, 2.5);
+        logo.scale.set(3, 3);
         add(logo);
 
-        playBtn = new FlxSprite(logo.x - 229, 640).loadGraphic(Paths.image('game/jta/buttons'), true, 16, 16);
-        playBtn.animation.add('playU', [0]); // unselected
-        playBtn.animation.add('playS', [1]); // selected
-        playBtn.animation.add('playP', [2]); // pressed
-        playBtn.animation.play('playU');
-        playBtn.scale.set(12, 12);
+        var playBtn:FlxButton = new FlxButton(0, FlxG.height / 2 + 50, "Play", function()
+        {
+            FlxG.camera.fade(FlxColor.BLACK, 0.33, false, function()
+            {
+                FlxG.switchState(new states.games.jta.PlayState());
+                FlxG.sound.play(Paths.sound('jta/play'));
+            });
+        });
+        playBtn.scale.set(2, 2);
+        playBtn.label.setFormat(Paths.font('vcr.ttf'), 16, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+        playBtn.label.screenCenter();
+        playBtn.screenCenter(X);
         add(playBtn);
 
-        exitBtn = new FlxSprite(logo.x + 229, 640).loadGraphic(Paths.image('game/jta/buttons'), true, 16, 16);
-        exitBtn.animation.add('exitU', [12]); // unselected
-        exitBtn.animation.add('exitS', [13]); // selected
-        exitBtn.animation.add('exitP', [14]); // pressed
-        exitBtn.animation.play('exitU');
-        exitBtn.scale.set(12, 12);
+        var exitBtn:FlxButton = new FlxButton(0, playBtn.y + 70, "Exit", function()
+        {
+            FlxG.camera.fade(FlxColor.BLACK, 0.5, false, function()
+            {
+                FlxG.switchState(new states.MenuState());
+                FlxG.sound.play(Paths.sound('jta/exit'));
+            });
+        });
+        exitBtn.scale.set(2, 2);
+        exitBtn.label.setFormat(Paths.font('vcr.ttf'), 16, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+        exitBtn.label.screenCenter();
+        exitBtn.screenCenter(X);
         add(exitBtn);
 
         logoTween();
@@ -43,33 +51,6 @@ class MainMenuState extends FlxState
     override public function update(elapsed:Float)
     {
         super.update(elapsed);
-
-        if (FlxG.mouse.overlaps(playBtn))
-        {
-            playBtn.animation.play('playS');
-
-            if (FlxG.mouse.pressed)
-            {
-                playBtn.animation.play('playP');
-                FlxG.camera.fade(FlxColor.BLACK, 0.33, false, function()
-                {
-                    FlxG.switchState(new states.games.jta.PlayState());
-                });
-            }
-        }
-        else if (FlxG.mouse.overlaps(exitBtn))
-        {
-            exitBtn.animation.play('exitS');
-
-            if (FlxG.mouse.pressed)
-            {
-                exitBtn.animation.play('exitP');
-                FlxG.camera.fade(FlxColor.BLACK, 0.33, false, function()
-                {
-                    FlxG.switchState(new states.MenuState());
-                });
-            }
-        }
 
         if (Input.is('exit'))
         {

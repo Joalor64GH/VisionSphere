@@ -69,18 +69,18 @@ class PlayState extends FlxState
         FlxG.overlap(player, spike, touchSpike);
 
         player.animation.play((player.velocity.x != 0) ? "walk" : "idle");
-        player.velocity.x = (Input.is('left') || Input.is('a')) ? -150 : (Input.is('right') || Input.is('d')) ? 150 : 0;
+        player.velocity.x = Input.is('left') ? -150 : Input.is('right')  ? 150 : 0;
 
         if (player.velocity.x != 0)
             player.flipX = player.velocity.x < 0;
 
-        if (jumping && !(Input.is('up') || Input.is('w') || Input.is('space')))
+        if (jumping && !Input.is('up'))
             jumping = false;
 
         if (player.isTouching(DOWN) && !jumping)
             jumpTimer = 0;
 
-        if (jumpTimer >= 0 && (Input.is('up') || Input.is('w') || Input.is('space')))
+        if (jumpTimer >= 0 && Input.is('up'))
         {
             jumping = true;
             jumpTimer += elapsed;

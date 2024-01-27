@@ -78,7 +78,7 @@ class PlayState extends FlxState
             });
         }
 
-        if (FlxG.mouse.pressed) 
+        if (FlxG.mouse.justPressed) 
         {
             click();
             clicks += 1;
@@ -89,8 +89,6 @@ class PlayState extends FlxState
     {
         new FlxTimer().start(0.01, function(timer)
         {
-            clicks += 1;
-
             switch(clicks)
             {
                 case 1:
