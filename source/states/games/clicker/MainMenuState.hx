@@ -28,6 +28,7 @@ class MainMenuState extends FlxState
             FlxG.camera.fade(FlxColor.BLACK, 0.5, false, function()
             {
                 FlxG.switchState(new states.MenuState());
+                FlxG.sound.music.volume = 0;
             });
         });
         exitBtn.scale.set(2, 2);
@@ -56,6 +57,7 @@ class MainMenuState extends FlxState
             FlxG.camera.fade(FlxColor.BLACK, 0.5, false, function()
             {
                 FlxG.switchState(new states.MenuState());
+                FlxG.sound.music.volume = 0;
             });
             FlxG.sound.play(Paths.sound('cancel'));
         }
