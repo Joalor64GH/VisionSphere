@@ -17,7 +17,7 @@ class LevelSelectState extends FlxState
 
         for (i in 0...levels.length)
         {
-            var lvlText:FlxText = new FlxText(0, 20 + (i * 100), 0, levels[i], 64);
+            var lvlText:FlxText = new FlxText(0, 50 + (i * 100), 0, levels[i], 64);
             lvlText.screenCenter(X);
             lvlText.ID = i;
             lvlGrp.add(lvlText);

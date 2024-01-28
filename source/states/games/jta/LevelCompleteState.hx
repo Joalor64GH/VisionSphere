@@ -10,6 +10,8 @@ class LevelCompleteState extends FlxState
         theText.setFormat(Paths.font("vcr.ttf"), 60, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
         theText.screenCenter();
         add(theText);
+
+        FlxG.sound.play(Paths.sound('jta/win'));
     }
 
     override public function update(elapsed:Float)

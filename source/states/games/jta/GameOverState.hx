@@ -10,6 +10,8 @@ class GameOverState extends FlxState
         theText.setFormat(Paths.font("vcr.ttf"), 60, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
         theText.screenCenter();
         add(theText);
+
+        FlxG.sound.play(Paths.sound('jta/gameover'));
     }
 
     override public function update(elapsed:Float)

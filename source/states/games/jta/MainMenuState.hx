@@ -14,7 +14,7 @@ class MainMenuState extends FlxState
         bg.screenCenter();
         add(bg);
 
-        logo = new FlxSprite(0, 220).loadGraphic(Paths.image('game/jta/logo'));
+        logo = new FlxSprite(0, 215).loadGraphic(Paths.image('game/jta/logo'));
         logo.screenCenter(X);
         logo.scale.set(3, 3);
         add(logo);

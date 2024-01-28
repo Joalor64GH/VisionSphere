@@ -3,6 +3,7 @@ package states.games.jta;
 import flixel.addons.editors.ogmo.FlxOgmo3Loader;
 import flixel.FlxCamera.FlxCameraFollowStyle;
 import flixel.tile.FlxTilemap;
+import flixel.sound.FlxSound;
 import flixel.FlxCamera;
 
 import states.games.jta.Coin;
@@ -23,6 +24,9 @@ class PlayState extends FlxState
     var jumpTimer:Float = 0;
     var jumping:Bool = false;
 
+    var walkSnd:FlxSound;
+    var coinSnd:FlxSound;
+
     override public function create()
     {
         super.create();
@@ -30,6 +34,9 @@ class PlayState extends FlxState
         openfl.system.System.gc();
 
         FlxG.camera.zoom = 2.95;
+
+        walkSnd = FlxG.sound.load(Paths.sound('jta/walk'), 1);
+        coinSnd = FlxG.sound.load(Paths.sound('jta/coin'), 1);
 
         var bg:FlxSprite = new FlxSprite().makeGraphic(1280, 720, 0xFF00FFFF);
         bg.scrollFactor.set();
@@ -68,8 +75,10 @@ class PlayState extends FlxState
         player.animation.play((player.velocity.x != 0) ? "walk" : "idle");
         player.velocity.x = Input.is('left', PRESSED) ? -150 : Input.is('right', PRESSED) ? 150 : 0;
 
-        if (player.velocity.x != 0)
+        if (player.velocity.x != 0) {
             player.flipX = player.velocity.x < 0;
+            walkSnd.play(true);
+        }
 
         if (jumping && !Input.is('up'))
             jumping = false;
@@ -136,6 +145,7 @@ class PlayState extends FlxState
         if (player.alive && player.exists && coin.alive && coin.exists)
         {
             coin.kill();
+            coinSnd.play(true);
         }
     }
 

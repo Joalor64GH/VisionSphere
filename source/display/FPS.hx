@@ -38,7 +38,7 @@ class FPS extends openfl.text.TextField
 			_fps++;
 
 		if (visible)
-			text = "FPS:" + fps + "\n"
+			text = "FPS: " + fps + "\n"
 				+ CoolUtil.formatBytes(Memory.getCurrentUsage()) + " / " + CoolUtil.formatBytes(Memory.getPeakUsage());
 	}
 }
