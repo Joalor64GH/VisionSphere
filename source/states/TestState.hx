@@ -12,7 +12,7 @@ class TestState extends FlxState
     {
         super.create();
 
-        event = new Event<String->String>(function(str:String) {
+        event = new Event<String->String>(function(str:String):String {
             var tmp:String = str;
             tmp = tmp.substr(2, 3);
             return tmp;
