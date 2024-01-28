@@ -2,7 +2,7 @@ package states;
 
 class MenuState extends FlxState
 {
-    public static var gameVersion:String = '0.2.5';
+    public static var gameVersion:String = '0.3.0';
 
     var dateText:FlxText;
     

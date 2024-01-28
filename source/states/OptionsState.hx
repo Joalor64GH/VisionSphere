@@ -12,6 +12,9 @@ class OptionsState extends FlxState
         #end
         "FPS Counter", 
         "Time Format", 
+        #if windows
+        "Dark Mode",
+        #end
         "Language", 
         "Theme", 
         "Credits",
@@ -64,6 +67,10 @@ class OptionsState extends FlxState
                 daText.text = "Toggles FPS counter.";
             case "Time Format":
                 daText.text = "Use LEFT/RIGHT to change the time format. Current Format: " + FlxG.save.data.timeFormat;
+            #if windows
+            case "Dark Mode":
+                daText.text = "Toggles dark mode application window. (Windows 10 Only)";
+            #end
             case "Language":
                 daText.text = "Changes the current language.";
             case "Theme":
@@ -92,6 +99,11 @@ class OptionsState extends FlxState
                     FlxG.save.data.fpsCounter = !FlxG.save.data.fpsCounter;
                     if (Main.fpsDisplay != null)
                         Main.fpsDisplay.visible = FlxG.save.data.fpsCounter;
+                #if windows
+                case "Dark Mode":
+                    FlxG.save.data.darkMode = !FlxG.save.data.darkMode;
+                    util.Windows.setDarkMode(FlxG.save.data.darkMode);
+                #end
                 case "Language":
                     openSubState(new states.substates.LanguageSubState());
                 case "Credits":
@@ -169,6 +181,10 @@ class OptionsState extends FlxState
                 daText.text = "Toggles FPS counter.";
             case "Time Format":
                 daText.text = "Use LEFT/RIGHT to change the time format. Current Format: " + FlxG.save.data.timeFormat;
+            #if windows
+            case "Dark Mode":
+                daText.text = "Toggles dark mode application window. (Windows 10 Only)";
+            #end
             case "Language":
                 daText.text = "Changes the current language.";
             case "Theme":

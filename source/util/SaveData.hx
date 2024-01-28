@@ -21,6 +21,11 @@ class SaveData
             FlxG.save.data.fullscreen = false;
         #end
 
+        #if windows
+        if (FlxG.save.data.darkMode == null)
+            FlxG.save.data.darkMode = false;
+        #end
+
         if (FlxG.save.data.firstLaunch == null)
             FlxG.save.data.firstLaunch = true;
 
