@@ -12,21 +12,23 @@ class TestState extends FlxState
     {
         super.create();
 
-        event = new Event<String->String>();
+        event = new Event<String->String>(function(str:String) {
+            var tmp:String = str;
+            tmp = tmp.substr(2, 3);
+            return tmp;
+        });
 
         // setup event
         event.createEvent("EVENT_PARSE");
         event.addEventCallback(function(str:String) {
-            var tmp:String = str;
-            tmp = tmp.substr(2, 3);
-            return tmp;
+            return "Modified Text: " + str;
         }, "EVENT_PARSE");
 
         // trigger event
         something = event.trigger("EVENT_PARSE", [text]);
         trace(something);
 
-        var text2 = new FlxText(0, 0, 0, "Hello World", 64);
+        var text2 = new FlxText(0, 0, 0, something, 64);
         text2.screenCenter();
         add(text2);
     }

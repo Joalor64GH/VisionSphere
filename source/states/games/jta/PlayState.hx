@@ -23,8 +23,7 @@ class PlayState extends FlxState
 
     var jumpTimer:Float = 0;
     var jumping:Bool = false;
-
-    var walkSnd:FlxSound;
+    
     var coinSnd:FlxSound;
 
     override public function create()
@@ -35,7 +34,6 @@ class PlayState extends FlxState
 
         FlxG.camera.zoom = 2.95;
 
-        walkSnd = FlxG.sound.load(Paths.sound('jta/walk'), 1);
         coinSnd = FlxG.sound.load(Paths.sound('jta/coin'), 1);
 
         var bg:FlxSprite = new FlxSprite().makeGraphic(1280, 720, 0xFF00FFFF);
@@ -77,7 +75,7 @@ class PlayState extends FlxState
 
         if (player.velocity.x != 0) {
             player.flipX = player.velocity.x < 0;
-            walkSnd.play(true);
+            FlxG.sound.play(Paths.sound('jta/walk'));
         }
 
         if (jumping && !Input.is('up'))
