@@ -12,7 +12,7 @@ class TestState extends FlxState
     {
         super.create();
 
-        event = new Event<String->String>(function(str:String):String {
+        event = new Event<String->String>(function(str:String->String):String {
             var tmp:String = str;
             tmp = tmp.substr(2, 3);
             return tmp;
@@ -20,7 +20,7 @@ class TestState extends FlxState
 
         // setup event
         event.createEvent("EVENT_PARSE");
-        event.addEventCallback(function(str:String) {
+        event.addEventCallback(function(str:String->String):String {
             return "Modified Text: " + str;
         }, "EVENT_PARSE");
 
