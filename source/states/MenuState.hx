@@ -87,10 +87,12 @@ class MenuState extends FlxState
             FlxG.sound.play(Paths.sound('confirm'));
         }
 
+        /*
         #if debug
         if (Input.is('t'))
             FlxG.switchState(new states.TestState());
         #end
+        */
 
         dateText.text = DateTools.format(Date.now(), "%F") + ' / ' + DateTools.format(Date.now(), FlxG.save.data.timeFormat);
     }

@@ -22,7 +22,7 @@ class Event<T>
             Ref.setProperty(this, event, event);
     }
 
-    public function addEventCallback(callback:T -> T, event:String) {
+    public function addEventCallback(callback:T, event:String) {
         if (!Ref.hasField(this, event))
             throw new Exception("no such Event, use createEvent to add one");
         else
