@@ -55,7 +55,7 @@ class GamepadInput
         "left" => DPAD_LEFT,
         "down" => DPAD_DOWN,
         "up" => DPAD_UP,
-        "right", => DPAD_RIGHT,
+        "right" => DPAD_RIGHT,
         "accept" => A,
         "exit" => B
     ];
