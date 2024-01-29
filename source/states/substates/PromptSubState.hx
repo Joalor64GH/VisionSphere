@@ -27,14 +27,18 @@ class PromptSubState extends FlxSubState
         questionTxt.setFormat(Paths.font('vcr.ttf'), 50, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
         add(questionTxt);
 
-        var btnYes:FlxButton = new FlxButton(box.x + 60, box.y + box.height - 50, "Yes", callbackYes);
-        btnYes.scale.set(3, 3);
-        btnYes.label.scale.set(3, 3);
+        var btnYes:FlxButton = new FlxButton(0, box.height / 2 + 30, "Yes", callbackYes);
+        btnYes.screenCenter(X);
+        btnYes.scale.set(2, 2);
+        btnYes.label.scale.set(2, 2);
+        btnYes.label.screenCenter(XY);
         add(btnYes);
 
-        var btnNo:FlxButton = new FlxButton(box.x + box.width - 120, box.y + box.height - 50, "No", callbackNo);
-        btnNo.scale.set(3, 3);
-        btnNo.label.scale.set(3, 3);
+        var btnNo:FlxButton = new FlxButton(0, btnYes.y + 50, "No", callbackNo);
+        btnNo.screenCenter(X);
+        btnNo.scale.set(2, 2);
+        btnNo.label.scale.set(2, 2);
+        btnNo.label.screenCenter(XY);
         add(btnNo);
     }
 }

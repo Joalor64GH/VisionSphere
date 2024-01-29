@@ -1,0 +1,98 @@
+package base;
+
+import hscript.*;
+import openfl.Lib;
+import flixel.FlxBasic;
+
+/**
+ * A simple scripting class based on Wednesday's Infedelity
+ * Credits: lunarcleint and YoshiCrafter29
+ */
+
+class Script extends FlxBasic
+{
+    public var hscript:Interp;
+
+    public override function new()
+    {
+        super();
+        hscript = new Interp();
+    }
+
+    public function runScript(script:String)
+    {
+        var parser = new hscript.Parser();
+
+        try
+        {
+            var ast = parser.parseString(script);
+
+            hscript.execute(ast);
+        }
+        catch (e)
+        {
+            Lib.application.window.alert(e.message, "HSCRIPT ERROR!1111");
+        }
+    }
+
+    public inline function setVariable(name:String, val:Dynamic)
+    {
+        hscript.variables.set(name, val);
+    }
+
+    public inline function getVariable(name:String):Dynamic
+    {
+        return hscript.variables.get(name);
+    }
+
+    public inline function variableExists(name:String):Dynamic
+    {
+        return hscript.variables.exists(name);
+    }
+
+    public function executeFunc(funcName:String, ?args:Array<Any>):Dynamic
+    {
+        if (hscript == null)
+            return null;
+
+        if (hscript.variables.exists(funcName))
+        {
+            var args = hscript.variables.get(funcName);
+
+            if (args == null)
+            {
+                var result = null;
+                try
+                {
+                    result = func();
+                }
+                catch (e)
+                {
+                    trace('$e');
+                }
+
+                return result;
+            }
+            else
+            {
+                var result = null;
+                try
+                {
+                    result = Reflect.callMethod(null, func, args);
+                }
+                catch (e)
+                {
+                    trace('$e');
+                }
+            }
+        }
+
+        return null;
+    }
+
+    public override function destroy()
+    {
+        super.destroy();
+        hscript = null;
+    }
+}

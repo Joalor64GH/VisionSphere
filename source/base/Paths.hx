@@ -121,6 +121,11 @@ class Paths
 		return getPath('data/$key.json', TEXT);
 	}
 
+	inline static public function script(key:String)
+	{
+		return getPath('data/$key.hx', TEXT);
+	}
+
 	inline static public function exists(asset:String, ?type:lime.utils.AssetType)
 	{
 		#if sys 
@@ -373,6 +378,9 @@ class Paths
 
 	inline static public function modsJson(key:String)
 		return modFolders('data/' + key + '.json');
+	
+	inline static public function modsScript(key:String)
+		return modFolders('data/' + key + '.hx');
 
 	inline static public function modsSounds(path:String, key:String)
 		return modFolders(path + '/' + key + '.ogg');

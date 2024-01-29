@@ -10,7 +10,7 @@ import haxe.Exception;
 
 class Event<T>
 {
-    public function new() {
+    public function new() { // TO-DO: add an Exception here I guess
         trace("new Event successful");
     }
 
