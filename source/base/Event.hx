@@ -10,7 +10,10 @@ import haxe.Exception;
 
 class Event<T>
 {
-    public function new() { // TO-DO: add an Exception here I guess
+    public function new() {
+        if (!Std.isOfType(Any -> Any, Any -> Any))
+            throw new Exception("not sure what you did, but it didnt work");
+        
         trace("new Event successful");
     }
 

@@ -97,7 +97,7 @@ class State extends FlxState
             });
 
             script.setVariable("getEnum", function(name:String) {
-                Type.resolveEnum(name);
+                return Type.resolveEnum(name);
             });
 
             // i'm being generous with these
