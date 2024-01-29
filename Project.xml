@@ -32,6 +32,7 @@
 	<set name="BUILD_DIR" value="export/release" unless="debug" />
 
 	<define name="MODS_ALLOWED" if="desktop" />
+	<define name="CRASH_HANDLER" if="desktop release" unless="debug" />
 
 	<source path="source" />
 	<assets path="assets" />
@@ -74,8 +75,8 @@
 	<haxeflag name="--macro" value="include('my.pack')" />
 
 	<!--Used for the crash handler-->
-	<haxedef name="HXCPP_CHECK_POINTER" if="desktop release" />
-	<haxedef name="HXCPP_STACK_LINE" if="desktop release" />
+	<haxedef name="HXCPP_CHECK_POINTER" if="CRASH_HANDLER" />
+	<haxedef name="HXCPP_STACK_LINE" if="CRASH_HANDLER" />
 
 	<!-- _________________________________ Icons _______________________________ -->
 

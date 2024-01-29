@@ -5,7 +5,7 @@ import flixel.FlxGame;
 import openfl.Lib;
 import openfl.display.Sprite;
 
-#if desktop
+#if CRASH_HANDLER
 import openfl.events.UncaughtErrorEvent;
 import haxe.CallStack;
 import haxe.io.Path;
@@ -41,7 +41,7 @@ class Main extends Sprite
 		fpsDisplay = new FPS(10, 3, 0xFFFFFFFF);
 		addChild(fpsDisplay);
 
-		#if desktop
+		#if CRASH_HANDLER
 		Lib.current.loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, onCrash);
 		#end
 
@@ -54,7 +54,7 @@ class Main extends Sprite
 		addChild(toast);
 	}
 
-	#if desktop
+	#if CRASH_HANDLER
 	function onCrash(e:UncaughtErrorEvent):Void
 	{
 		var errMsg:String = "";
