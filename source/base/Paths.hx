@@ -121,11 +121,6 @@ class Paths
 		return getPath('data/$key.json', TEXT);
 	}
 
-	inline static public function hx(key:String)
-	{
-		return getPath('scripts/$key.hx', TEXT);
-	}
-
 	inline static public function exists(asset:String, ?type:lime.utils.AssetType)
 	{
 		#if sys 

@@ -53,7 +53,7 @@ class State extends FlxState
             if (FileSystem.exists(folder)) {
                 for (file in FileSystem.readDirectory(folder)) {
                     if (file.toLowerCase().endsWith('.hx'))
-                        path = Paths.hx(folder + file);
+                        path = folder + file;
                 }
             }
         }
