@@ -54,7 +54,7 @@ class GamepadInput
     public static var gamepadMap:Map<String, FlxGamepadInputID> = [
         "left" => DPAD_LEFT,
         "down" => DPAD_DOWN,
-        "up", => DPAD_UP,
+        "up" => DPAD_UP,
         "right", => DPAD_RIGHT,
         "accept" => A,
         "exit" => B
