@@ -4,7 +4,6 @@ import flixel.FlxBasic;
 import flixel.FlxObject;
 import flixel.group.FlxGroup;
 import flixel.group.FlxGroup.FlxTypedGroup;
-
 import openfl.utils.Assets;
 
 class State extends FlxState 
@@ -42,19 +41,19 @@ class State extends FlxState
     public function startScript()
     {
         var path:String = null;
-        var files:Array<String> = [Paths.getPreloadPath('data/scripts/')];
+        var files:Array<String> = [Paths.getPreloadPath('scripts/')];
 
         #if MODS_ALLOWED
-        files.insert(0, Paths.mods('data/scripts/'));
+        files.insert(0, Paths.mods('scripts/'));
         if (Paths.currentModDirectory != null && Paths.currentModDirectory.length > 0)
-            files.insert(0, Paths.mods(Paths.currentModDirectory + '/data/scripts/'));
+            files.insert(0, Paths.mods(Paths.currentModDirectory + '/scripts/'));
         #end
 
         for (folder in files) {
             if (FileSystem.exists(folder)) {
                 for (file in FileSystem.readDirectory(folder)) {
                     if (file.toLowerCase().endsWith('.hx'))
-                        path = Paths.script(folder + file);
+                        path = Paths.hx(folder + file);
                 }
             }
         }
@@ -128,7 +127,6 @@ class State extends FlxState
             script.setVariable("Alphabet", Alphabet);
             script.setVariable("AttachedSprite", AttachedSprite);
             script.setVariable("FlxTimer", FlxTimer);
-            script.setVariable("FlxColor", FlxColor);
             script.setVariable("Main", Main);
             script.setVariable("StringTools", StringTools);
             script.setVariable("Reflect", Reflect);

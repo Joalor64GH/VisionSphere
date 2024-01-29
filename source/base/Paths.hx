@@ -121,9 +121,9 @@ class Paths
 		return getPath('data/$key.json', TEXT);
 	}
 
-	inline static public function script(key:String)
+	inline static public function hx(key:String)
 	{
-		return getPath('data/$key.hx', TEXT);
+		return getPath('scripts/$key.hx', TEXT);
 	}
 
 	inline static public function exists(asset:String, ?type:lime.utils.AssetType)
