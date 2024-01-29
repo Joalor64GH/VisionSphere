@@ -32,6 +32,7 @@ class MusicState extends states.MusicState.BeatState
         {name:"Forever Confusing", song:"forever-confusing", disc:"forever", bpm:110},
         {name:"Game Development", song:"game-development", disc:"game", bpm:130},
         {name:"GBA Cliche", song:"gba-cliche", disc:"gba", bpm:100},
+        {name:"Gem City", song:"gem-city", disc:"gem", bpm:120},
         {name:"Harmony of No Tomorrow", song:"harmony-of-no-tomorrow", disc:"harmony", bpm:110},
         {name:"Mystical Desert", song:"mystical-desert", disc:"mystical", bpm:100},
         {name:"New Era", song:"new-era", disc:"new", bpm:125},
