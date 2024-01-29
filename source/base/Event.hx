@@ -10,10 +10,7 @@ import haxe.Exception;
 
 class Event<T>
 {
-    public function new(callback:T -> T) {
-        if (!Std.isOfType(callback, T -> T))
-            throw new Exception("callback must be type T -> T");
-        
+    public function new() {
         trace("new Event successful");
     }
 

@@ -143,6 +143,11 @@ class OptionsState extends FlxState
                     switchTime(Input.is('right') ? 1 : -1);
             }
         }
+
+        #if debug
+        if (Input.is('t'))
+            FlxG.switchState(new states.TestState());
+        #end
     }
 
     override function closeSubState()
