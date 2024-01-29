@@ -57,7 +57,7 @@ class Script extends FlxBasic
 
         if (hscript.variables.exists(funcName))
         {
-            var args = hscript.variables.get(funcName);
+            var func = hscript.variables.get(funcName);
 
             if (args == null)
             {

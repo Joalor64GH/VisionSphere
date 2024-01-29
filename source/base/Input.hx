@@ -60,7 +60,7 @@ class GamepadInput
         "exit" => B
     ];
 
-    public static function is(action:String, ?state:flixel.input.FlxInput.FlxInputState = JUST_PRESSED, ?exact:Bool = false):Bool
+    public function is(action:String, ?state:flixel.input.FlxInput.FlxInputState = JUST_PRESSED, ?exact:Bool = false):Bool
     {
         if (!exact)
         {
@@ -73,7 +73,7 @@ class GamepadInput
         if (gamepadMap.exists(action))
             return FlxGamepad.checkStatus(gamepadMap.get(action), state);
 
-        return FlxGamepad.checkStatus(FlxGampad.fromString(action), state);
+        return FlxGamepad.checkStatus(FlxGamepad.fromString(action), state);
     }
 
     public static function get(action:String):flixel.input.FlxInput.FlxInputState
