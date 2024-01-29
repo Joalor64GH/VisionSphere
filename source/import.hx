@@ -19,7 +19,6 @@ import lime.app.Application;
 
 import base.Paths;
 import base.Input;
-import base.Input.GamepadInput;
 import base.Event;
 import base.Script;
 import util.CoolUtil;
