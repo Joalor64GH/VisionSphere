@@ -1,5 +1,6 @@
 package base;
 
+import Reflect;
 import flixel.FlxBasic;
 import flixel.FlxObject;
 import flixel.group.FlxGroup;
@@ -79,11 +80,35 @@ class State extends FlxState
             {
             });
 
-            script.setVariable("import", function(lib:String, ?as:Null<String>)
+            script.setVariable("import", function(daClass:String, ?asDa:Null<String>)
             {
-                if (lib != null && Type.resolveClass(lib) != null)
+                final splitClassName:Array<String> = [for (e in daClass.split('.')) e.trim()];
+                final className:String = splitClassName.join('.');
+                final daClass:Class<Dynamic> = Type.resolveClass(className);
+                final daEnum:Enum<Dynamic> = Type.resolveEnum(className);
+
+                if (daClass == null && daEnum == null)
+                    Lib.application.window.alert('Class / Enum at $className does not exist.', 'Hscript Error!');
+                else 
                 {
-                    script.setVariable(as != null ? as : lib, Type.resolveClass(lib));
+                    if (daEnum != null)
+                    {
+                        var daEnumField = {};
+                        for (daConstructor in daEnum.getConstructors())
+                            Reflect.setField(daEnumField, daConstructor, daEnum.createByName(daConstructor));
+                        
+                        if (asDa != null && asDa != '')
+                            script.setVariable(asDa, daEnumField);
+                        else
+                            script.setVariable(splitClassName[splitClassName.length - 1], daEnumField);
+                    }
+                    else
+                    {
+                        if (asDa != null && asDa != '')
+                            script.setVariable(asDa, daClass);
+                        else
+                            script.setVariable(splitClassName[splitClassName.length - 1], daClass);
+                    }
                 }
             });
 
@@ -101,7 +126,6 @@ class State extends FlxState
             });
 
             // i'm being generous with these
-            script.setVariable("this", this);
             #if sys
             script.setVariable("File", File);
             script.setVariable("FileSystem", FileSystem);
