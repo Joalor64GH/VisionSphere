@@ -1,3 +1,8 @@
 {
-    "greeting": "Hello World!"
+    "createdBy": "Created By",
+    "madeWith": "Made with",
+
+    "firstLaunch1": "Hey you!",
+    "firstLaunch2": "Would you like to set your options first?",
+    "firstLaunch3": "Y - Yes (Recommended) / N - No"
 }
