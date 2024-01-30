@@ -110,7 +110,7 @@ class GameOverState extends FlxState
         text.screenCenter(X);
         add(text);
 
-        var menuBtn:FlxButton = new FlxButton(0, FlxG.height / 2 + 50, "Easy", function()
+        var menuBtn:FlxButton = new FlxButton(0, FlxG.height / 2 + 50, "Menu", function()
         {
             FlxG.camera.fade(FlxColor.BLACK, 0.33, false, function() 
 	        {
