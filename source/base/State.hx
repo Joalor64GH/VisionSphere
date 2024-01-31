@@ -5,7 +5,6 @@ import flixel.FlxBasic;
 import flixel.FlxObject;
 import flixel.group.FlxGroup;
 import flixel.group.FlxGroup.FlxTypedGroup;
-
 import openfl.utils.Assets;
 import openfl.Lib;
 
@@ -117,6 +116,11 @@ class State extends FlxState
             script.setVariable("fromRGB", function(Red:Int, Green:Int, Blue:Int, Alpha:Int = 255) 
             {
                 return FlxColor.fromRGB(Red, Green, Blue, Alpha);
+            });
+
+            script.setVariable("fromCMYK", function(Cyan:Int, Magenta:Int, Yellow:Int, Black, Alpha:Int = 255) 
+            {
+                return FlxColor.fromCMYK(Cyan, Magenta, Yellow, Black, Alpha);
             });
 
             script.setVariable("getClass", function(name:String) {
