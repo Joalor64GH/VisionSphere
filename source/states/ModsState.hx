@@ -362,7 +362,6 @@ class ModsState extends FlxState
 			if(colorTween != null) {
 				colorTween.cancel();
 			}
-			FlxG.mouse.visible = false;
 			saveTxt();
 			FlxG.sound.play(Paths.sound('cancel'));
 

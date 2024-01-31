@@ -3,7 +3,7 @@
 
 	<!-- _________________________ Application Settings _________________________ -->
 
-	<app title="VisionSphere" file="VisionSphere" main="Main" version="0.3.5" company="Joalor64GH" />
+	<app title="VisionSphere" file="VisionSphere" main="Main" version="0.4.0" company="Joalor64GH" />
 	<app preloader="flixel.system.FlxPreloader" />
 
 	<!--Minimum without FLX_NO_GAMEPAD: 11.8, without FLX_NO_NATIVE_CURSOR: 11.2-->
@@ -47,7 +47,7 @@
 	<haxelib name="flixel-addons" />
 	<haxelib name="flixel-ui" />
 
-	<haxelib name="hscript" />
+	<haxelib name="hscript" /> <!--For the debug console-->
 
 	<haxelib name="hxcpp-debug-server" if="desktop debug" />
 

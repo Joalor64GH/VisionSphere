@@ -147,6 +147,8 @@ class OptionsState extends FlxState
         #if debug
         if (Input.is('t'))
             FlxG.switchState(new states.TestState());
+        if (Input.is('k'))
+            FlxG.switchState(new states.KeybindsState());
         #end
     }
 

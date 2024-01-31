@@ -14,6 +14,7 @@
     "modRestart": " (This mod will restart the game!)",
     "on": "ON",
     "off": "OFF",
+    "top": "TOP",
 
     "fullScreen": "Fullscreen",
     "fpsCounter": "FPS Counter",
@@ -24,7 +25,6 @@
     "sysInfo": "System Information",
     "restart": "Restart",
     "shutDown": "Shut Down",
-
     "textFlScrn": "Toggles fullscreen.",
     "textFPS": "Toggles FPS Counter.",
     "textTime": "Use LEFT/RIGHT to change the time format. Current Format: ",
@@ -50,9 +50,9 @@
     "hardTxt": "Hard",
     "easyTime": "Timed (Easy)",
     "hardTime": "Timed (Hard)",
-
     "menu": "Menu",
     "math": "What is ",
+    "score": "Score: ",
     "timer": "Time Left: ",
     "right1": "Correct!",
     "right2": "That was the answer!",
