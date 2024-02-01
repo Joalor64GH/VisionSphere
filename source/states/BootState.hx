@@ -1,6 +1,8 @@
 package states;
 
 import util.PlatformUtil;
+import djFlixel.gfx.TextScroller;
+import djFlixel.gfx.pal.Pal_CPCBoy;
 
 class BootState extends FlxState
 {
@@ -13,14 +15,28 @@ class BootState extends FlxState
         FlxG.sound.volumeDownKeys = [NUMPADMINUS];
         FlxG.sound.volumeUpKeys = [NUMPADPLUS];
 
-        #if desktop
-        states.UpdateState.updateCheck();
-        FlxG.switchState((states.UpdateState.mustUpdate) ? new states.UpdateState() : (FlxG.save.data.firstLaunch) ? new states.FirstLaunchState() : new states.SplashState());
-        #else
-        trace('Sorry! No update support on: ' + PlatformUtil.getPlatform() + '!')
-        FlxG.switchState((FlxG.save.data.firstLaunch) ? new states.FirstLaunchState() : new states.SplashState());
-        #end
+        var ts = new TextScroller("Loading... Please Wait :)", 
+            {f:Paths.font('vcr.ttf'), s:16, bc:Pal_CPCBoy.COL[2]}, 
+            {y:100, speed:2, sHeight:32, w1:0.06, w0:4}
+        );
+        add(ts);
 
         super.create();
+    }
+
+    override public function update(elapsed:Float)
+    {
+        new FlxTimer().start(6, function(tmr:FlxTimer)
+        {
+            #if desktop
+            states.UpdateState.updateCheck();
+            FlxG.switchState((states.UpdateState.mustUpdate) ? new states.UpdateState() : (FlxG.save.data.firstLaunch) ? new states.FirstLaunchState() : new states.SplashState());
+            #else
+            trace('Sorry! No update support on: ' + PlatformUtil.getPlatform() + '!')
+            FlxG.switchState((FlxG.save.data.firstLaunch) ? new states.FirstLaunchState() : new states.SplashState());
+            #end
+        });
+
+        super.update(elapsed);
     }
 }
