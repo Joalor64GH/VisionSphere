@@ -12,7 +12,7 @@ import haxe.io.Path;
 #end
 
 import display.ToastCore;
-import display.FPS;
+import display.Info;
 
 #if linux
 import lime.graphics.Image;
@@ -30,7 +30,7 @@ using StringTools;
 class Main extends Sprite
 {
 	public static var toast:ToastCore;
-	public static var fpsDisplay:FPS;
+	public static var fpsDisplay:Info;
 
 	public function new()
 	{
@@ -38,7 +38,7 @@ class Main extends Sprite
 
 		addChild(new FlxGame(1280, 720, states.BootState, #if (flixel < "5.0.0") -1, #end 60, 60, true, false));
 
-		fpsDisplay = new FPS(10, 3, 0xFFFFFFFF);
+		fpsDisplay = new Info(10, 3, 0xFFFFFFFF);
 		addChild(fpsDisplay);
 
 		#if CRASH_HANDLER

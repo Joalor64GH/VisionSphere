@@ -5,7 +5,7 @@ import openfl.display.FPS;
 import openfl.events.Event;
 import openfl.system.System;
 
-class FPS extends openfl.text.TextField
+class Info extends openfl.text.TextField
 {
 	public var memPeak:Float = 0;
 	public var curFps:Int = 0;
