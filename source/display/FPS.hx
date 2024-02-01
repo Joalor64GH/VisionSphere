@@ -10,7 +10,7 @@ class FPS extends openfl.text.TextField
 	public var memPeak:Float = 0;
 	public var curFps:Int = 0;
 
-	public var fps:FPS = 0.0;
+	public var fps:FPS;
 
 	public function new(x:Float = 10, y:Float = 3, color:Int = 0x000000)
 	{
