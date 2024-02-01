@@ -34,17 +34,13 @@ class FPS extends openfl.text.TextField
 
 	private function onEnter(event:Event)
 	{
-		curFPS = fps.currentFPS;
-		text = (visible) ? "FPS: " + curFPS + "\n" + memFunc() : "";
-	}
+		curFps = fps.currentFPS;
 
-	function memFunc()
-	{
 		var mem:Float = Math.abs(Math.round(System.totalMemory / 1024 / 1024 * 100) / 100);
 
 		if (mem > memPeak)
 			memPeak = mem;
 
-		text += "Memory: " + mem + " MB\n" + "Memory Peak: " + memPeak + " MB";
+		text = (visible) ? "FPS: " + curFps + "\n" + "Memory: " + mem + " MB\n" + "Memory Peak: " + memPeak + " MB" : "";
 	}
 }
