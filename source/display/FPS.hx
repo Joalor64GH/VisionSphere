@@ -32,7 +32,7 @@ class FPS extends openfl.text.TextField
 		addEventListener(Event.ENTER_FRAME, onEnter);
 	}
 
-	private function update(event:Event)
+	private function onEnter(event:Event)
 	{
 		curFPS = fps.currentFPS;
 		text = (visible) ? "FPS: " + curFPS + "\n" + memFunc() : "";
