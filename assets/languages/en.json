@@ -1,6 +1,6 @@
 {
-    "createdBy": "Created By",
-    "madeWith": "Made with",
+    "createdBy": "Created By ",
+    "madeWith": "Made with ",
     "skipFr": "Press ENTER or SPACE to skip.",
 
     "firstLaunch1": "Hey you!",
@@ -32,8 +32,8 @@
     "textTheme": "Use LEFT/RIGHT to change the theme.",
 
     "upDate1": "Hey! You're running an outdated version of VisionSphere!",
-    "upDate2": "The version you're currently running is",
-    "upDate3": "Press ENTER to update to",
+    "upDate2": "The version you're currently running is ",
+    "upDate3": "Press ENTER to update to ",
     "upDate4": "Otherwise, press ESCAPE.",
     "upDate5": "Thanks for playing!",
 

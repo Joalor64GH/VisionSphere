@@ -1,13 +1,16 @@
 package display;
 
-import external.memory.Memory;
+import openfl.Lib;
+import openfl.display.FPS;
+import openfl.events.Event;
+import openfl.system.System;
 
 class FPS extends openfl.text.TextField
 {
-	public var fps:Int = 0;
-	public var _fps:Int = 0;
+	public var memPeak:Float = 0;
+	public var curFps:Int = 0;
 
-	public var curTime:Float = 0.0;
+	public var fps:FPS = 0.0;
 
 	public function new(x:Float = 10, y:Float = 3, color:Int = 0x000000)
 	{
@@ -22,23 +25,26 @@ class FPS extends openfl.text.TextField
 		selectable = false;
 		defaultTextFormat = new openfl.text.TextFormat(Paths.font('vcr.ttf'), 16, color);
 
-		FlxG.signals.postDraw.add(update);
+		fps = new FPS(10000, 10000, color);
+		fps.visible = false;
+		Lib.current.addChild(fps);
+
+		addEventListener(Event.ENTER_FRAME, onEnter);
 	}
 
-	public function update():Void
+	private function update(event:Event)
 	{
-		curTime += FlxG.elapsed;
-		
-		if (curTime >= 1.0) {
-			fps = _fps;
-			_fps = 0;
-			curTime = 0.0;
-		} 
-		else if (_fps < FlxG.stage.frameRate)
-			_fps++;
+		curFPS = fps.currentFPS;
+		text = (visible) ? "FPS: " + curFPS + "\n" + memFunc() : "";
+	}
 
-		if (visible)
-			text = "FPS: " + fps + "\n"
-				+ CoolUtil.formatBytes(Memory.getCurrentUsage()) + " / " + CoolUtil.formatBytes(Memory.getPeakUsage());
+	function memFunc()
+	{
+		var mem:Float = Math.abs(Math.round(System.totalMemory / 1024 / 1024 * 100) / 100);
+
+		if (mem > memPeak)
+			memPeak = mem;
+
+		text += "Memory: " + mem + " MB\n" + "Memory Peak: " + memPeak + " MB"
 	}
 }

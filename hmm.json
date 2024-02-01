@@ -32,6 +32,13 @@
       {
         "name": "hscript",
         "type": "haxelib"
+      },
+      {
+        "name": "djFlixel",
+        "type": "git",
+        "dir": null,
+        "ref": "master",
+        "url": "https://github.com/john32b/djFlixel"
       }
     ]
   }

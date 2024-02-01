@@ -161,7 +161,6 @@ class ModsState extends FlxState
 		add(buttonTop);
 		buttonsArray.push(buttonTop);
 		visibleWhenHasMods.push(buttonTop);
-
 		
 		startX -= 190;
 		buttonDisableAll = new FlxButton(startX, 0, "DISABLE ALL", function() {

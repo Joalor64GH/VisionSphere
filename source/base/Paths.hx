@@ -5,6 +5,7 @@ import flixel.graphics.frames.FlxAtlasFrames;
 
 import flash.media.Sound;
 
+import openfl.events.Event;
 import openfl.system.System;
 import openfl.utils.AssetType;
 import openfl.utils.Assets as Assets;
@@ -95,6 +96,11 @@ class Paths
 
 	public static function getPath(file:String, ?type:AssetType)
 	{
+		FlxG.stage.addEventListener(Event.ACTIVATE, function(_) 
+		{
+			System.gc();
+			Assets.unloadLibrary(file);
+		});
 		return getPreloadPath(file);
 	}
 
