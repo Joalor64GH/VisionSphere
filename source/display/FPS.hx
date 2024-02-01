@@ -45,6 +45,6 @@ class FPS extends openfl.text.TextField
 		if (mem > memPeak)
 			memPeak = mem;
 
-		text += "Memory: " + mem + " MB\n" + "Memory Peak: " + memPeak + " MB"
+		text += "Memory: " + mem + " MB\n" + "Memory Peak: " + memPeak + " MB";
 	}
 }
