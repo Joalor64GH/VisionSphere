@@ -9,6 +9,8 @@ class BootState extends FlxState
     override public function create()
     {
         SaveData.init();
+
+        Plugins.loadPlugins();
         
         Localization.loadLanguages(['de', 'en', 'es', 'fr', 'it', 'pt']);
         Localization.switchLanguage(FlxG.save.data.lang);
