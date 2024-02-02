@@ -23,8 +23,8 @@ class MenuState extends FlxState
 
         // did this so the bg isn't null when loading for the first time
         var bg:FlxSprite = new FlxSprite();
-        if (FileSystem.exists(Paths.image('theme/' + FlxG.save.data.theme)))
-            bg.loadGraphic(Paths.image('theme/' + FlxG.save.data.theme));
+        if (FileSystem.exists(Paths.image('theme/${FlxG.save.data.theme}')))
+            bg.loadGraphic(Paths.image('theme/${FlxG.save.data.theme}'));
         else
             bg.loadGraphic(Paths.image('theme/daylight'));
         add(bg);
