@@ -93,19 +93,14 @@ class Paths
 
 	static public var currentModDirectory:String = '';
 
-	public static function getPath(file:String, ?type:AssetType)
-	{
-		return getPreloadPath(file);
-	}
-
-	inline public static function getPreloadPath(file:String = '')
+	inline public static function getPath(file:String)
 	{
 		return 'assets/$file';
 	}
 
 	inline public static function plugin(key:String)
 	{
-		return 'plugins/$file';
+		return 'plugins/$key';
 	}
 
 	inline static public function txt(key:String)
@@ -220,8 +215,8 @@ class Paths
 			return File.getContent(modFolders(key));
 		#end
 
-		if (FileSystem.exists(getPreloadPath(key)))
-			return File.getContent(getPreloadPath(key));
+		if (FileSystem.exists(getPath(key)))
+			return File.getContent(getPath(key));
 		#end
 		
 		return Assets.getText(getPath(key, TEXT));

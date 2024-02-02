@@ -3,7 +3,6 @@ package states;
 class OptionsState extends FlxState
 {
     var bg:FlxSprite;
-    
     var times:Array<String> = ['%r', '%T'];
     var themes:Array<String> = ['daylight', 'night', 'dreamcast', 'ps3', 'xp'];
     var options:Array<String> = [
@@ -28,7 +27,11 @@ class OptionsState extends FlxState
     {
         super.create();
 
-        bg = new FlxSprite().loadGraphic(Paths.image('theme/' + FlxG.save.data.theme));
+        bg = new FlxSprite();
+        if (FileSystem.exists(Paths.image('theme/' + FlxG.save.data.theme)))
+            bg.loadGraphic(Paths.image('theme/' + FlxG.save.data.theme));
+        else
+            bg.loadGraphic(Paths.image('theme/daylight'));
         add(bg);
 
         group = new FlxTypedGroup<FlxText>();

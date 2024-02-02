@@ -35,14 +35,14 @@ class Localization
     private static function loadLanguageData(language:String):Dynamic
     {
         var jsonContent:String;
-        var path:String = Paths.getPreloadPath("languages/" + language + ".json");
+        var path:String = Paths.getPath("languages/" + language + ".json");
 
         if (FileSystem.exists(path)) {
             jsonContent = File.getContent(path);
             currentLanguage = language;
         } else {
             trace("oops! file not found for: " + language + "!");
-            jsonContent = File.getContent(Paths.getPreloadPath("languages/" + DEFAULT_LANGUAGE + ".json"));
+            jsonContent = File.getContent(Paths.getPath("languages/" + DEFAULT_LANGUAGE + ".json"));
             currentLanguage = DEFAULT_LANGUAGE;
         }
 
