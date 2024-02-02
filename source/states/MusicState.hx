@@ -54,7 +54,7 @@ class MusicState extends states.MusicState.BeatState
         super.create();
 
         var bg:FlxSprite = new FlxSprite();
-        var themePath = Paths.image('theme/${FlxG.save.data.theme}');
+        var themePath:String = Paths.image('theme/${FlxG.save.data.theme}');
         bg.loadGraphic((FileSystem.exists(themePath)) ? themePath : Paths.image('theme/daylight'));
         add(bg);
 
