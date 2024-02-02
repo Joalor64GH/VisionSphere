@@ -105,17 +105,17 @@ class Paths
 
 	inline static public function txt(key:String)
 	{
-		return getPath('data/$key.txt', TEXT);
+		return getPath('data/$key.txt');
 	}
 
 	inline static public function xml(key:String)
 	{
-		return getPath('data/$key.xml', TEXT);
+		return getPath('data/$key.xml');
 	}
 
 	inline static public function json(key:String)
 	{
-		return getPath('data/$key.json', TEXT);
+		return getPath('data/$key.json');
 	}
 
 	inline static public function exists(asset:String, ?type:lime.utils.AssetType)
@@ -219,7 +219,7 @@ class Paths
 			return File.getContent(getPath(key));
 		#end
 		
-		return Assets.getText(getPath(key, TEXT));
+		return Assets.getText(getPath(key));
 	}
 
 	inline static public function font(key:String)
@@ -240,7 +240,7 @@ class Paths
 			return true;
 		#end
 		
-		return Paths.exists(getPath(key, type));
+		return Paths.exists(getPath(key));
 	}
 
 	inline static public function getSparrowAtlas(key:String):FlxAtlasFrames
@@ -301,7 +301,7 @@ class Paths
 		}
 		#end
 
-		var path = getPath('images/$key.png', IMAGE);
+		var path = getPath('images/$key.png');
 		if (Assets.exists(path, IMAGE))
 		{
 			if (!currentTrackedAssets.exists(path))
@@ -327,7 +327,7 @@ class Paths
 			return file;
 		
 		#end
-		var gottenPath:String = getPath('$path/$key.ogg', SOUND);
+		var gottenPath:String = getPath('$path/$key.ogg');
 		return gottenPath;
 	}
 
@@ -344,7 +344,7 @@ class Paths
 			return currentTrackedSounds.get(file);
 		}
 		#end
-		var gottenPath:String = getPath('$path/$key.ogg', SOUND);
+		var gottenPath:String = getPath('$path/$key.ogg');
 		gottenPath = gottenPath.substring(gottenPath.indexOf(':') + 1, gottenPath.length);
 		if (!currentTrackedSounds.exists(gottenPath))
 			#if MODS_ALLOWED
@@ -352,7 +352,7 @@ class Paths
 			#else
 				currentTrackedSounds.set(
 					gottenPath, 
-					Assets.getSound(getPath('$path/$key.ogg', SOUND))
+					Assets.getSound(getPath('$path/$key.ogg'))
 				);
 			#end
 		localTrackedAssets.push(gottenPath);
