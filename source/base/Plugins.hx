@@ -1,6 +1,5 @@
 package base;
 
-import Type;
 import Reflect;
 
 class Plugins 
@@ -17,7 +16,7 @@ class Plugins
 
     private static function loadPlugin(path:String)
     {
-        var plugin:Dynamic = Type.resolveClass(Paths.plugin(path + ".hx"));
+        var plugin:Dynamic = Paths.plugin(path + ".hx");
 
         if (plugin != null) {
             callInitializeFunction(plugin);
