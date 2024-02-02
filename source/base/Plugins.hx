@@ -15,7 +15,7 @@ class Plugins
         }
     }
 
-    private function loadPlugin(path:String)
+    private static function loadPlugin(path:String)
     {
         var plugin:Dynamic = Type.resolveClass(Paths.plugin(path + ".hx"));
 
@@ -27,7 +27,7 @@ class Plugins
             trace("oops! failed to load plugin: " + plugin);
     }
 
-    private function callInitializeFunction(plugin:Dynamic)
+    private static function callInitializeFunction(plugin:Dynamic)
     {
         if (Reflect.hasField(plugin, "initialize") && Reflect.isFunction(Reflect.field(plugin, "initialize")))
             Reflect.callMethod(plugin, Reflect.field(plugin, "initialize"), []);
