@@ -27,9 +27,7 @@ class OptionsState extends FlxState
     {
         super.create();
 
-        bg = new FlxSprite();
-        var themePath:String = Paths.image('theme/${FlxG.save.data.theme}');
-        bg.loadGraphic((FileSystem.exists(themePath)) ? themePath : Paths.image('theme/daylight'));
+        bg = new FlxSprite().loadGraphic(Paths.image('theme/' + FlxG.save.data.theme));
         add(bg);
 
         group = new FlxTypedGroup<FlxText>();

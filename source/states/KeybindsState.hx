@@ -17,9 +17,7 @@ class KeybindsState extends FlxState
     {
         controlsStrings = CoolUtil.getText(Paths.txt('controls'));
 
-        var bg:FlxSprite = new FlxSprite();
-        var themePath:String = Paths.image('theme/${FlxG.save.data.theme}');
-        bg.loadGraphic((FileSystem.exists(themePath)) ? themePath : Paths.image('theme/daylight'));
+        var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('theme/' + FlxG.save.data.theme));
         add(bg);
 
         grpControls = new FlxTypedGroup<Alphabet>();
