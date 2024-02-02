@@ -5,7 +5,7 @@ import Reflect;
 
 class Plugins 
 {
-    public function loadPlugins():Void
+    public static function loadPlugins()
     {
         var config:Dynamic = Json.parse(Paths.plugin("config.json"));
         var pluginPaths:Array<String> = config.plugins;
