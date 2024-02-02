@@ -15,10 +15,8 @@ class CreditsState extends FlxState
         credits = CoolUtil.getText(Paths.txt('credits'));
 
         var bg:FlxSprite = new FlxSprite();
-        if (FileSystem.exists(Paths.image('theme/${FlxG.save.data.theme}')))
-            bg.loadGraphic(Paths.image('theme/${FlxG.save.data.theme}'));
-        else
-            bg.loadGraphic(Paths.image('theme/daylight'));
+        var themePath = Paths.image('theme/${FlxG.save.data.theme}');
+        bg.loadGraphic((FileSystem.exists(themePath)) ? themePath : Paths.image('theme/daylight'));
         add(bg);
 
         credsGrp = new FlxTypedGroup<Alphabet>();

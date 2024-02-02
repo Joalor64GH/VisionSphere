@@ -21,12 +21,9 @@ class MenuState extends FlxState
 
         FlxG.mouse.visible = true;
 
-        // did this so the bg isn't null when loading for the first time
         var bg:FlxSprite = new FlxSprite();
-        if (FileSystem.exists(Paths.image('theme/${FlxG.save.data.theme}')))
-            bg.loadGraphic(Paths.image('theme/${FlxG.save.data.theme}'));
-        else
-            bg.loadGraphic(Paths.image('theme/daylight'));
+        var themePath = Paths.image('theme/${FlxG.save.data.theme}');
+        bg.loadGraphic((FileSystem.exists(themePath)) ? themePath : Paths.image('theme/daylight'));
         add(bg);
 
         var bar:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menu/bar'));
