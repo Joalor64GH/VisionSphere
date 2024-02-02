@@ -1,4 +1,7 @@
 {
+    "memTxt": "Memoria: ",
+    "memPeakTxt": "Pico de memoria: ", 
+    
     "createdBy": "Creador por ",
     "madeWith": "Hecho con ",
     "skipFr": "Presione ENTER o ESPACIO para saltar.",
@@ -12,6 +15,7 @@
     "disable": "DESACTIVAR TODO",
     "enable": "ACTIVAR TODO",
     "modRestart": " (¡Este mod reiniciará el juego!)",
+    "modNoDesc": "No se proporciona descripción.",
     "on": "ENCENDER",
     "off": "APAGADO",
     "top": "ARRIBA",

@@ -3,7 +3,7 @@
 
 	<!-- _________________________ Application Settings _________________________ -->
 
-	<app title="VisionSphere" file="VisionSphere" main="Main" version="0.4.0" company="Joalor64GH" />
+	<app title="VisionSphere" file="VisionSphere" main="Main" version="0.4.5" company="Joalor64GH" />
 	<app preloader="flixel.system.FlxPreloader" />
 
 	<!--Minimum without FLX_NO_GAMEPAD: 11.8, without FLX_NO_NATIVE_CURSOR: 11.2-->
@@ -36,6 +36,7 @@
 
 	<source path="source" />
 	<assets path="assets" />
+	<assets path="plugins" />
 	<assets path="mods" if="MODS_ALLOWED" />
 	<assets path="compileData/modsList.txt" rename="modsList.txt" if="MODS_ALLOWED" />
 	<assets path="VERSION" embed="false" />

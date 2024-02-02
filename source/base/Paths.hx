@@ -91,25 +91,21 @@ class Paths
 		Assets.cache.clear("songs");
 	}
 
-	static var currentLevel:String;
 	static public var currentModDirectory:String = '';
 
 	public static function getPath(file:String, ?type:AssetType)
 	{
-		FlxG.stage.addEventListener(Event.ACTIVATE, function(_) 
-		{
-			System.gc();
-			Assets.unloadLibrary(file);
-		});
 		return getPreloadPath(file);
 	}
 
 	inline public static function getPreloadPath(file:String = '')
 	{
-		var path = 'assets/$file';
-		if (currentLevel != null && Assets.exists('$currentLevel:$path'))
-			return '$currentLevel:$path';
-		return path;
+		return 'assets/$file';
+	}
+
+	inline public static function plugin(key:String)
+	{
+		return 'plugins/$file';
 	}
 
 	inline static public function txt(key:String)

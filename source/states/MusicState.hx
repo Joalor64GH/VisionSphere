@@ -53,7 +53,7 @@ class MusicState extends states.MusicState.BeatState
 
         super.create();
 
-        var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('theme/' + FlxG.save.data.theme));
+        var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('theme/' + (FileSystem.exists(Paths.image('theme/' + FlxG.save.data.theme))) ? FlxG.save.data.theme : 'daylight'));
         add(bg);
 
         var musplayer:FlxSprite = new FlxSprite(0, 0).loadGraphic(Paths.image('music/musplayer'));

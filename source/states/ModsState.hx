@@ -22,7 +22,7 @@ class ModsState extends FlxState
 	var descriptionTxt:FlxText;
 	var needaReset = false;
 	private static var curSelected:Int = 0;
-	public static var defaultColor:FlxColor = 0xFF665AFF;
+	public static var defaultColor:FlxColor = 0xFFea71fd;
 
 	var buttonDown:FlxButton;
 	var buttonTop:FlxButton;

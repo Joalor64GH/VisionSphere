@@ -2,7 +2,7 @@ package states;
 
 class MenuState extends FlxState
 {
-    public static var gameVersion:String = '0.4.0';
+    public static var gameVersion:String = '0.4.5';
 
     var dateText:FlxText;
     
@@ -21,7 +21,8 @@ class MenuState extends FlxState
 
         FlxG.mouse.visible = true;
 
-        var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('theme/' + FlxG.save.data.theme));
+        // did this so the bg isn't null when loading for the first time
+        var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('theme/' + (FileSystem.exists(Paths.image('theme/' + FlxG.save.data.theme))) ? FlxG.save.data.theme : 'daylight'));
         add(bg);
 
         var bar:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menu/bar'));

@@ -1,4 +1,7 @@
 {
+    "memTxt": "Erinnerung: ",
+    "memPeakTxt": "Erinnerungsspitze: ", 
+
     "createdBy": "Erstellt von ",
     "madeWith": "Gemacht mit ",
     "skipFr": "Drücken Sie zum Überspringen die Eingabetaste oder die Leertaste.",
@@ -12,6 +15,7 @@
     "disable": "ALLE DEAKTIVIEREN",
     "enable": "ALLE AKTIVIEREN",
     "modRestart": " (Dieser Mod startet das Spiel neu!)",
+    "modNoDesc": "Keine Beschreibung angegeben.",
     "on": "ANMACHEN",
     "off": "ABSCHALTEN",
     "top": "SPITZE",

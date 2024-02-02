@@ -1,4 +1,7 @@
 {
+    "memTxt": "Memory: ",
+    "memPeakTxt": "Memory Peak: ", 
+
     "createdBy": "Created By ",
     "madeWith": "Made with ",
     "skipFr": "Press ENTER or SPACE to skip.",
@@ -12,6 +15,7 @@
     "disable": "DISABLE ALL",
     "enable": "ENABLE ALL",
     "modRestart": " (This mod will restart the game!)",
+    "modNoDesc": "No description provided.",
     "on": "ON",
     "off": "OFF",
     "top": "TOP",

@@ -37,7 +37,7 @@ class UpdateState extends FlxState
         {
             FlxG.camera.fade(FlxColor.BLACK, 0.5, false, function()
             {
-                FlxG.switchState((FlxG.save.data.firstLaunch) ? new states.FirstLaunchState() : new states.SplashState());
+                FlxG.switchState(new states.SplashState());
             });
             FlxG.sound.play(Paths.sound('cancel'));
         }

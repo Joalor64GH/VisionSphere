@@ -9,7 +9,9 @@ class BootState extends FlxState
     override public function create()
     {
         SaveData.init();
+        
         Localization.loadLanguages(['de', 'en', 'es', 'fr', 'it', 'pt']);
+        Localization.switchLanguage(FlxG.save.data.lang);
 
         FlxG.sound.muteKeys = [NUMPADZERO];
         FlxG.sound.volumeDownKeys = [NUMPADMINUS];
@@ -30,10 +32,10 @@ class BootState extends FlxState
         {
             #if desktop
             states.UpdateState.updateCheck();
-            FlxG.switchState((states.UpdateState.mustUpdate) ? new states.UpdateState() : (FlxG.save.data.firstLaunch) ? new states.FirstLaunchState() : new states.SplashState());
+            FlxG.switchState((states.UpdateState.mustUpdate) ? new states.UpdateState() : new states.SplashState());
             #else
             trace('Sorry! No update support on: ' + PlatformUtil.getPlatform() + '!')
-            FlxG.switchState((FlxG.save.data.firstLaunch) ? new states.FirstLaunchState() : new states.SplashState());
+            FlxG.switchState(new states.SplashState());
             #end
         });
 

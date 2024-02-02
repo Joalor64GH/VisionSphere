@@ -21,9 +21,6 @@ class SaveData
             FlxG.save.data.fullscreen = false;
         #end
 
-        if (FlxG.save.data.firstLaunch == null)
-            FlxG.save.data.firstLaunch = true;
-
         FlxG.save.bind('VisionSphere', 'Joalor64');
     }
 }
