@@ -9,7 +9,6 @@ class Info extends openfl.text.TextField
 {
 	public var memPeak:Float = 0;
 	public var curFps:Int = 0;
-
 	public var fps:FPS;
 
 	public function new(x:Float = 10, y:Float = 3, color:Int = 0x000000)
@@ -41,6 +40,9 @@ class Info extends openfl.text.TextField
 		if (mem > memPeak)
 			memPeak = mem;
 
-		text = (visible) ? "FPS: " + curFps + "\n" + "Memory: " + mem + " MB\n" + "Memory Peak: " + memPeak + " MB" : "";
+		text = (visible) ? 
+			"FPS: " + curFps + "\n" 
+			+ "Memory: " + mem + " MB\n" + "Memory Peak: " + memPeak + " MB" + "\n"
+			+ "Version: " + Application.current.meta.get('version') : "";
 	}
 }

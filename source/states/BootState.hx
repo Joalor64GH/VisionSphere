@@ -8,7 +8,7 @@ class BootState extends FlxState
     {
         SaveData.init();
 
-        // Plugins.loadPlugins();
+        Plugins.loadPlugins();
 
         #if desktop
         states.UpdateState.updateCheck();
@@ -19,7 +19,6 @@ class BootState extends FlxState
         #end
         
         Localization.loadLanguages(['de', 'en', 'es', 'fr', 'it', 'pt']);
-        Localization.switchLanguage(FlxG.save.data.lang);
 
         FlxG.sound.muteKeys = [NUMPADZERO];
         FlxG.sound.volumeDownKeys = [NUMPADMINUS];

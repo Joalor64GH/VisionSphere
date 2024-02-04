@@ -50,7 +50,7 @@ class UpdateState extends FlxState
         http.onData = (data:String) ->
         {
             updateVersion = data.split('\n')[0].trim();
-            var curVersion:String = states.MenuState.gameVersion.trim();
+            var curVersion:String = Main.gameVersion.trim();
             mustUpdate = (updateVersion != curVersion) ? true : false;
         }
 

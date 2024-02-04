@@ -2,9 +2,12 @@ package states;
 
 class MenuState extends FlxState
 {
-    public static var gameVersion:String = '0.4.5';
-
     var dateText:FlxText;
+    var splashTxt:FlxText;
+
+    var isTweening:Bool = false;
+    var lastString:String = '';
+    var timer:Float = 0;
     
     var btnPlay:FlxSprite;
     var btnMods:FlxSprite;
@@ -52,9 +55,9 @@ class MenuState extends FlxState
         dateText.setFormat(Paths.font('vcr.ttf'), 30, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
         add(dateText);
 
-        var versionTxt:FlxText = new FlxText(logo.x + 145, 50, 0, "VisionSphere v" + gameVersion, 12);
-        versionTxt.setFormat(Paths.font('vcr.ttf'), 30, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-        add(versionTxt);
+        splashTxt = new FlxText(logo.x + 145, 50, 0, "hello world", 12); // will do this later
+        splashTxt.setFormat(Paths.font('vcr.ttf'), 30, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+        add(splashTxt);
     }
 
     override public function update(elapsed:Float)

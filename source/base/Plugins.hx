@@ -1,22 +1,16 @@
 package base;
 
-import Reflect;
-
-class Plugins // kinda broken
+class Plugins
 {
     public static function loadPlugins()
     {
-        var config:Dynamic = Json.parse(Paths.plugin("config.json"));
-        var pluginPaths:Array<String> = config.plugins;
-
-        for (path in pluginPaths) {
+        for (path in Json.parse(File.getContent(Paths.plugin("config.json"))).plugins) 
             loadPlugin(path);
-        }
     }
 
     private static function loadPlugin(path:String)
     {
-        var plugin:Dynamic = Paths.plugin(path + ".hx");
+        var plugin = Paths.plugin(path + ".hx");
 
         if (plugin != null) {
             callInitializeFunction(plugin);

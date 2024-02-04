@@ -3,7 +3,6 @@ package;
 import flixel.FlxGame;
 
 import openfl.Lib;
-import openfl.display.Sprite;
 
 #if CRASH_HANDLER
 import openfl.events.UncaughtErrorEvent;
@@ -27,14 +26,20 @@ import lime.graphics.Image;
 
 using StringTools;
 
-class Main extends Sprite
+class Main extends openfl.display.Sprite
 {
+	public static final gameVersion:String = '0.4.5';
+
 	public static var toast:ToastCore;
 	public static var fpsDisplay:Info;
 
 	public function new()
 	{
 		super();
+
+		#if windows
+		util.Windows.darkMode(true);
+		#end
 
 		addChild(new FlxGame(1280, 720, states.BootState, #if (flixel < "5.0.0") -1, #end 60, 60, true, false));
 
