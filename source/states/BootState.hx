@@ -16,8 +16,8 @@ class BootState extends FlxState
         FlxG.sound.volumeUpKeys = [NUMPADPLUS];
 
         var ts = new TextScroller("Loading... Please Wait :)", 
-            {f:Paths.font('vcr.ttf'), s:16, bc:Pal_CPCBoy.COL[2]}, 
-            {y:100, speed:2, loopMode:0, sHeight:32, w1:0.06, w0:4}
+            {f:'assets/fonts/vcr.ttf', s:16, bc:Pal_CPCBoy.COL[2]}, 
+            {y:100, speed:2, loopMode:0, sHeight:20, w0:4}
         );
         add(ts);
 
