@@ -15,7 +15,7 @@ class UpdateState extends FlxState
 
         var text:FlxText = new FlxText(0, 0, FlxG.width, 
             "Hey! You're running an outdated version of VisionSphere!\n
-            The version you're currently running is v" + states.MenuState.gameVersion + "!\n
+            The version you're currently running is v" + Main.gameVersion + "!\n
             Press ENTER to update to v" + updateVersion + "! Otherwise, press ESCAPE.\n
             Thanks for playing!",
             32);

@@ -4,8 +4,8 @@ class Plugins
 {
     public static function loadPlugins()
     {
-        for (path in Json.parse(File.getContent(Paths.plugin("config.json"))).plugins) 
-            loadPlugin(path);
+        var config = Json.parse(File.getContent(Paths.plugin("config.json"))).plugins;
+        for (path in config) loadPlugin(path);
     }
 
     private static function loadPlugin(path:String)

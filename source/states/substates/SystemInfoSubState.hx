@@ -21,7 +21,7 @@ class SystemInfoSubState extends FlxSubState
             + "\nCommit ID: " + commitId
             + "\nBuild Number: " + buildNum
             + "\nHaxeflixel Version: 5.5.0"
-            + "\nHaxe Version: 4.2.5"
+            + "\nHaxe Version: 4.3.3"
             + "\nOpenFL Version: 9.3.2"
             + "\nLime Version: 8.1.1"
         , 12);
