@@ -15,6 +15,23 @@ class MenuState extends FlxState
     var btnMusic:FlxSprite;
     var btnSettings:FlxSprite;
 
+    var coolColors:Array<FlxColor> = [
+        0xFFFFFFFF,
+        0xFF808080,
+        0xFF000000,
+        0xFF008000,
+        0xFF00FF00,
+        0xFFFFFF00,
+        0xFFFFA500,
+        0xFFFF0000,
+        0xFF800080,
+        0xFF0000FF,
+        0xFF8B4513,
+        0xFFFFC0CB,
+        0xFFFF00FF,
+        0xFF00FFFF
+    ];
+
     override public function create()
     {
         super.create();
@@ -55,14 +72,23 @@ class MenuState extends FlxState
         dateText.setFormat(Paths.font('vcr.ttf'), 30, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
         add(dateText);
 
-        splashTxt = new FlxText(logo.x + 145, 50, 0, "hello world", 12); // will do this later
-        splashTxt.setFormat(Paths.font('vcr.ttf'), 30, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+        splashTxt = new FlxText(logo.x + 145, 50, 0, "", 12);
+        splashTxt.setFormat(Paths.font('vcr.ttf'), 30, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+        splashTxt.color = randomColor();
         add(splashTxt);
     }
 
     override public function update(elapsed:Float)
     {
         super.update(elapsed);
+
+        if (isTweening)
+            timer = 0;
+        else {
+            timer += elapsed;
+            if (timer >= 3)
+                changeText();
+        }
 
         if (FlxG.mouse.overlaps(btnPlay) && FlxG.mouse.pressed)
         {
@@ -91,5 +117,45 @@ class MenuState extends FlxState
         }
 
         dateText.text = DateTools.format(Date.now(), "%F") + ' / ' + DateTools.format(Date.now(), FlxG.save.data.timeFormat);
+    }
+
+    private function changeText()
+    {
+        var selectedText:String = '';
+        var textArray:Array<String> = CoolUtil.getText(Paths.txt('splash'));
+
+        splashTxt.alpha = 1;
+        isTweening = true;
+        selectedText = textArray[FlxG.random.int(0, (textArray.length - 1))];
+        FlxTween.tween(splashTxt, {alpha: 0}, 1, {
+            ease: FlxEase.linear,
+            onComplete: function(blud:FlxTween) 
+            {
+                if (selectedText != lastString) {
+                    splashTxt.text = selectedText;
+                    lastString = selectedText;
+                } else {
+                    selectedText = textArray[FlxG.random.int(0, (textArray.length - 1))];
+                    splashTxt.text = selectedText;
+                }
+
+                splashTxt.alpha = 0;
+
+                FlxTween.tween(splashTxt, {alpha: 1}, 1, {
+                    ease: FlxEase.linear,
+                    onComplete: function(blud:FlxTween)
+                    {
+                        isTweening = false;
+                    }
+                });
+            }
+        });
+    }
+
+    private function randomColor()
+    {
+        var chance:Int = FlxG.random.int(0, coolColors.length - 1);
+        var color:FlxColor = coolColors[chance];
+        return color;
     }
 }

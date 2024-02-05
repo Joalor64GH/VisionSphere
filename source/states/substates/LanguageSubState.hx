@@ -59,21 +59,22 @@ class LanguageSubState extends FlxSubState
 
         if (Input.is('accept'))
         {
+            SaveData.saveSettings();
             FlxG.sound.play(Paths.sound('confirm'));
             switch(curSelected)
             {
                 case 0:
-                    FlxG.save.data.lang = 'de';
+                    SaveData.lang = 'de';
                 case 1:
-                    FlxG.save.data.lang = 'en';
+                    SaveData.lang = 'en';
                 case 2:
-                    FlxG.save.data.lang = 'es';
+                    SaveData.lang = 'es';
                 case 3:
-                    FlxG.save.data.lang = 'fr';
+                    SaveData.lang = 'fr';
                 case 4:
-                    FlxG.save.data.lang = 'it';
+                    SaveData.lang = 'it';
                 case 5:
-                    FlxG.save.data.lang = 'pt';
+                    SaveData.lang = 'pt';
             }
 
             close();

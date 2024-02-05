@@ -27,7 +27,7 @@ class OptionsState extends FlxState
     {
         super.create();
 
-        bg = new FlxSprite().loadGraphic(Paths.image('theme/' + FlxG.save.data.theme));
+        bg = new FlxSprite().loadGraphic(Paths.image('theme/' + SaveData.theme));
         add(bg);
 
         group = new FlxTypedGroup<FlxText>();
@@ -62,7 +62,7 @@ class OptionsState extends FlxState
             case "FPS Counter":
                 daText.text = "Toggles FPS counter.";
             case "Time Format":
-                daText.text = "Use LEFT/RIGHT to change the time format. Current Format: " + FlxG.save.data.timeFormat;
+                daText.text = "Use LEFT/RIGHT to change the time format. Current Format: " + SaveData.timeFormat;
             case "Language":
                 daText.text = "Changes the current language.";
             case "Theme":
@@ -84,13 +84,13 @@ class OptionsState extends FlxState
             {
                 #if desktop
                 case "Fullscreen":
-                    FlxG.save.data.fullscreen = !FlxG.save.data.fullscreen;
-                    FlxG.fullscreen = FlxG.save.data.fullscreen;
+                    SaveData.fullscreen = !SaveData.fullscreen;
+                    FlxG.fullscreen = SaveData.fullscreen;
                 #end
                 case "FPS Counter":
-                    FlxG.save.data.fpsCounter = !FlxG.save.data.fpsCounter;
+                    SaveData.fpsCounter = !SaveData.fpsCounter;
                     if (Main.fpsDisplay != null)
-                        Main.fpsDisplay.visible = FlxG.save.data.fpsCounter;
+                        Main.fpsDisplay.visible = SaveData.fpsCounter;
                 case "Language":
                     openSubState(new states.substates.LanguageSubState());
                 case "Credits":
@@ -119,6 +119,7 @@ class OptionsState extends FlxState
         {
             FlxG.switchState(new states.MenuState());
             FlxG.sound.play(Paths.sound('cancel'));
+            SaveData.saveSettings();
         }
 
         if (Input.is('right') || Input.is('left'))
@@ -162,7 +163,7 @@ class OptionsState extends FlxState
             case "FPS Counter":
                 daText.text = "Toggles FPS counter.";
             case "Time Format":
-                daText.text = "Use LEFT/RIGHT to change the time format. Current Format: " + FlxG.save.data.timeFormat;
+                daText.text = "Use LEFT/RIGHT to change the time format. Current Format: " + SaveData.timeFormat;
             case "Language":
                 daText.text = "Changes the current language.";
             case "Theme":
@@ -179,24 +180,24 @@ class OptionsState extends FlxState
 
     private function switchTheme(direction:Int = 0)
     {
-        var currentThemeIndex:Int = themes.indexOf(FlxG.save.data.theme);
+        var currentThemeIndex:Int = themes.indexOf(SaveData.theme);
         var newThemeIndex:Int = (currentThemeIndex + direction) % themes.length;
         if (newThemeIndex < 0)
             newThemeIndex += themes.length;
 
-        FlxG.save.data.theme = themes[newThemeIndex];
+        SaveData.theme = themes[newThemeIndex];
 
-        bg.loadGraphic(Paths.image('theme/' + FlxG.save.data.theme));
+        bg.loadGraphic(Paths.image('theme/' + SaveData.theme));
     }
 
     // yes i copied the theme switching code
     private function switchTime(direction:Int = 0)
     {
-        var currentTimeIndex:Int = times.indexOf(FlxG.save.data.timeFormat);
+        var currentTimeIndex:Int = times.indexOf(SaveData.timeFormat);
         var newTimeIndex:Int = (currentTimeIndex + direction) % times.length;
         if (newTimeIndex < 0)
             newTimeIndex += times.length;
 
-        FlxG.save.data.timeFormat = times[newTimeIndex];
+        SaveData.timeFormat = times[newTimeIndex];
     }
 }

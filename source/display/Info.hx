@@ -41,8 +41,6 @@ class Info extends openfl.text.TextField
 			memPeak = mem;
 
 		text = (visible) ? 
-			"FPS: " + curFps + "\n" 
-			+ "Memory: " + mem + " MB\n" + "Memory Peak: " + memPeak + " MB" + "\n"
-			+ "Version: " + Application.current.meta.get('version') : "";
+			"FPS: " + curFps + "\nMemory: " + mem + " MB\nMemory Peak: " + memPeak + " MB\nVersion: " + Application.current.meta.get('version') : "";
 	}
 }

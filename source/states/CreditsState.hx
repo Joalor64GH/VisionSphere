@@ -14,7 +14,7 @@ class CreditsState extends FlxState
         // this is so swagger
         credits = CoolUtil.getText(Paths.txt('credits'));
 
-        var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('theme/' + FlxG.save.data.theme));
+        var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('theme/' + SaveData.theme));
         add(bg);
 
         credsGrp = new FlxTypedGroup<Alphabet>();
