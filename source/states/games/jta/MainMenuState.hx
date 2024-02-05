@@ -4,8 +4,6 @@ import flixel.ui.FlxButton;
 
 class MainMenuState extends FlxState
 {
-    var logo:FlxSprite;
-
     override public function create()
     {
         super.create();
@@ -14,10 +12,31 @@ class MainMenuState extends FlxState
         bg.screenCenter();
         add(bg);
 
-        logo = new FlxSprite(0, 215).loadGraphic(Paths.image('game/jta/logo'));
+        var logoBl:FlxSprite = new FlxSprite(0, 215).loadGraphic(Paths.image('game/jta/logo'));
+        logoBl.color = FlxColor.BLACK;
+        logoBl.screenCenter(X);
+        logoBl.scale.set(3, 3);
+        logoBl.angle = -4;
+        add(logoBl);
+
+        var logo:FlxSprite = new FlxSprite(0, 215).loadGraphic(Paths.image('game/jta/logo'));
         logo.screenCenter(X);
         logo.scale.set(3, 3);
+        logo.angle = -4;
         add(logo);
+
+        new FlxTimer().start(0.01, function(tmr:FlxTimer) 
+        {
+            if (logo.angle == -4)
+                FlxTween.angle(logo, logo.angle, 4, 4, {ease: FlxEase.quartInOut});
+            if (logo.angle == 4)
+                FlxTween.angle(logo, logo.angle, -4, 4, {ease: FlxEase.quartInOut});
+            
+            if (logoBl.angle == -4)
+                FlxTween.angle(logoBl, logoBl.angle, 4, 4, {ease: FlxEase.quartInOut, startDelay: 0.1});
+            if (logoBl.angle == 4)
+                FlxTween.angle(logoBl, logoBl.angle, -4, 4, {ease: FlxEase.quartInOut, startDelay: 0.1});
+        }, 0);
 
         var playBtn:FlxButton = new FlxButton(0, FlxG.height / 2 + 50, "Play", function()
         {
@@ -46,8 +65,6 @@ class MainMenuState extends FlxState
         exitBtn.label.screenCenter();
         exitBtn.screenCenter(X);
         add(exitBtn);
-
-        logoTween();
     }
 
     override public function update(elapsed:Float)
@@ -62,18 +79,5 @@ class MainMenuState extends FlxState
             });
             FlxG.sound.play(Paths.sound('jta/exit'));
         }
-    }
-
-    private function logoTween()
-    {
-        logo.angle = -4;
-
-        new FlxTimer().start(0.01, function(tmr:FlxTimer) 
-        {
-            if (logo.angle == -4)
-                FlxTween.angle(logo, logo.angle, 4, 4, {ease: FlxEase.quartInOut});
-            if (logo.angle == 4)
-                FlxTween.angle(logo, logo.angle, -4, 4, {ease: FlxEase.quartInOut});
-        }, 0);
     }
 }

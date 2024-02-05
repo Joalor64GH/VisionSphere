@@ -92,15 +92,17 @@ class Paths
 	}
 
 	static public var currentModDirectory:String = '';
+	static public var currentModAddons:Array<String> = [];
+	static public var currentModLibraries:Array<String> = [];
 
 	inline public static function getPath(file:String)
 	{
 		return 'assets/$file';
 	}
 
-	inline public static function plugin(key:String)
+	inline public static function getPluginPath(file:String)
 	{
-		return 'plugins/$key';
+		return 'plugins/$file';
 	}
 
 	inline static public function txt(key:String)
@@ -139,50 +141,6 @@ class Paths
 
 		return null;
 	}
-
-	#if html5
-	static var pathMap = new Map<String, Array<String>>();
-
-	public static function initPaths() 
-	{	
-		pathMap.clear();
-
-		for (path in Assets.list())
-		{
-			var file = path.split("/").pop();
-			var parent = path.substr(0, path.length - (file.length + 1));
-
-			if (pathMap.exists(parent))
-				pathMap.get(parent).push(file);
-			else
-				pathMap.set(parent, [file]);
-		}
-
-		return pathMap;
-	}
-	
-	inline static public function iterateDirectory(Directory:String, Func)
-	{
-		var dir:String = Directory.endsWith("/") ? Directory.substr(0, -1) : Directory;
-
-		if (!pathMap.exists(dir))
-			return;
-
-		for (i in pathMap.get(dir))
-			Func(i);
-	}
-	#else
-	inline static public function iterateDirectory(Directory:String, Func):Bool
-	{
-		if (!FileSystem.exists(Directory) || !FileSystem.isDirectory(Directory))
-			return false;
-		
-		for (i in FileSystem.readDirectory(Directory))
-			Func(i);
-
-		return true;
-	}
-	#end
 
 	static public function sound(key:String):Sound
 	{
@@ -271,18 +229,10 @@ class Paths
 		#end
 	}
 
-	inline static public function formatToSongPath(path:String) {
-		return path.toLowerCase().replace(' ', '-');
-	}
-
 	public static var currentTrackedAssets:Map<String, FlxGraphic> = [];
 	public static function getGraphic(path:String):FlxGraphic
 	{
-		#if html5
-		return FlxG.bitmap.add(path, false, path);
-		#elseif sys
 		return FlxGraphic.fromBitmapData(BitmapData.fromFile(path), false, path);
-		#end
 	}
 
 	public static function returnGraphic(key:String)
@@ -360,10 +310,8 @@ class Paths
 	}
 	
 	#if MODS_ALLOWED
-	static final modFolderPath:String = "mods/";
-
 	inline static public function mods(key:String = '')
-		return modFolderPath + key;
+		return 'mods/' + key;
 	
 	inline static public function modsFont(key:String)
 		return modFolders('fonts/' + key);
