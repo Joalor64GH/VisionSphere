@@ -2,6 +2,7 @@ package util;
 
 import openfl.Lib;
 import flixel.util.FlxSave;
+import flixel.input.keyboard.FlxKey;
 
 /**
  * A simple save data class based on psych engine lol
