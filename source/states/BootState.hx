@@ -15,22 +15,20 @@ class BootState extends FlxState
         FlxG.sound.volumeDownKeys = [NUMPADMINUS];
         FlxG.sound.volumeUpKeys = [NUMPADPLUS];
 
-        var ts = new TextScroller("Loading... Please Wait :)", 
+        // why won't this work
+        /*var ts = new TextScroller("Loading... Please Wait :)", 
             {f:'assets/fonts/vcr.ttf', s:16, bc:Pal_CPCBoy.COL[2]}, 
             {y:100, speed:2, loopMode:0, sHeight:20, w0:4}
         );
-        add(ts);
+        add(ts);*/
 
-        new FlxTimer().start(8, function(timer)
-        {
-            #if desktop
-            states.UpdateState.updateCheck();
-            FlxG.switchState((states.UpdateState.mustUpdate) ? new states.UpdateState() : new states.SplashState());
-            #else
-            trace('Sorry! No update support on: ' + PlatformUtil.getPlatform() + '!')
-            FlxG.switchState(new states.SplashState());
-            #end
-        });
+        #if desktop
+        states.UpdateState.updateCheck();
+        FlxG.switchState((states.UpdateState.mustUpdate) ? new states.UpdateState() : new states.SplashState());
+        #else
+        trace('Sorry! No update support on: ' + PlatformUtil.getPlatform() + '!')
+        FlxG.switchState(new states.SplashState());
+        #end
 
         super.create();
     }

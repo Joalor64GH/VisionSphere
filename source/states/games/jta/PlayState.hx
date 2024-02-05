@@ -73,10 +73,8 @@ class PlayState extends FlxState
         player.animation.play((player.velocity.x != 0) ? "walk" : "idle");
         player.velocity.x = Input.is('left', PRESSED) ? -150 : Input.is('right', PRESSED) ? 150 : 0;
 
-        if (player.velocity.x != 0) {
+        if (player.velocity.x != 0)
             player.flipX = player.velocity.x < 0;
-            FlxG.sound.play(Paths.sound('jta/walk'));
-        }
 
         if (jumping && !Input.is('up'))
             jumping = false;

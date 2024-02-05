@@ -106,7 +106,7 @@ class OptionsState extends FlxState
                 case "Shut Down":
                     FlxG.camera.fade(FlxColor.BLACK, 0.5, false, function() 
                     { 
-                        #if sys
+                        #if (sys || cpp)
                         Sys.exit(0);
                         #else 
                         openfl.system.System.exit(0);
@@ -134,8 +134,6 @@ class OptionsState extends FlxState
         }
 
         #if debug
-        if (Input.is('t'))
-            FlxG.switchState(new states.TestState());
         if (Input.is('k'))
             FlxG.switchState(new states.KeybindsState());
         #end

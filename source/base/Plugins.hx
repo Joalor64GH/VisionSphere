@@ -1,5 +1,6 @@
 package base;
 
+// TO-DO: Completely rewrite the plugins system because what is this
 class Plugins
 {
     public static function loadPlugins()
