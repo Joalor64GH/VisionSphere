@@ -35,6 +35,8 @@ class Plugins
     public static function addVarstoInterp<T:Interp>(interp:T):T
     {
         interp.variables.set("FlxG", FlxG);
+        interp.variables.set("FlxState", FlxState);
+        interp.variables.set("FlxSubState", FlxSubState);
         interp.variables.set("FlxText", FlxText);
         interp.variables.set("FlxGroup", FlxGroup);
         interp.variables.set("FlxSound", FlxSound);
@@ -49,6 +51,7 @@ class Plugins
         interp.variables.set("FlxSprite", FlxSprite);
         interp.variables.set("FlxBasic", FlxBasic);
         interp.variables.set("FlxObject", FlxObject);
+        interp.variables.set("Application", Application);
         #if sys
         interp.variables.set("File", File);
         interp.variables.set("FileSystem", FileSystem);
@@ -59,13 +62,20 @@ class Plugins
         interp.variables.set("Std", Std);
         interp.variables.set("Sys", Sys);
 
+        interp.variables.set("Main", Main);
         interp.variables.set("Paths", Paths);
         interp.variables.set("Event", Event);
         interp.variables.set("Input", Input);
         interp.variables.set("CoolUtil", CoolUtil);
+        interp.variables.set("SaveData", SaveData);
         interp.variables.set("Plugins", Plugins); // lol
 
         interp.variables.set("debug", #if debug true #else false #end);
+
+        interp.variables.set("getVarFromClass", function(instance:String, variable:String)
+        {
+            Reflect.field(Type.resolveClass(instance), variable);
+        });
 
         return interp;
     }

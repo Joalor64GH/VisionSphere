@@ -17,17 +17,7 @@ class SaveData
     public static var fpsCounter:Bool = true;
     public static var fullscreen:Bool = false;
     public static var antialiasing:Bool = false;
-
-    public static var keyBinds:Map<String, FlxKey> = [
-        "left" => LEFT,
-        "down" => DOWN,
-        "up" => UP,
-        "right" => RIGHT,
-        "accept" => ENTER,
-        "exit" => ESCAPE
-    ];
-
-    public static var defaultKeys:Map<String, FlxKey> = [
+    public static var controls:Map<String, FlxKey> = [
         "left" => LEFT,
         "down" => DOWN,
         "up" => UP,
@@ -50,19 +40,19 @@ class SaveData
     
     public static function init()
     {
-        if (FlxG.save.data.timeFormat == null)
+        if (FlxG.save.data.timeFormat != null)
             timeFormat = FlxG.save.data.timeFormat;
-        if (FlxG.save.data.theme == null)
+        if (FlxG.save.data.theme != null)
             theme = FlxG.save.data.theme;
-        if (FlxG.save.data.lang == null)
+        if (FlxG.save.data.lang != null)
             lang = FlxG.save.data.lang;
-        if (FlxG.save.data.fpsCounter == null)
+        if (FlxG.save.data.fpsCounter != null)
             fpsCounter = FlxG.save.data.fpsCounter;
         #if desktop
-        if (FlxG.save.data.fullscreen == null)
+        if (FlxG.save.data.fullscreen != null)
             fullscreen = FlxG.save.data.fullscreen;
         #end
-        if (FlxG.save.data.antialiasing == null)
+        if (FlxG.save.data.antialiasing != null)
             antialiasing = FlxG.save.data.antialiasing;
 
         FlxG.save.bind('VisionSphere', 'Joalor64');

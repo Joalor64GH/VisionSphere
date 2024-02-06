@@ -5,18 +5,18 @@ import haxe.Timer;
 class Info extends openfl.text.TextField
 {
 	public var memPeak:Float = 0;
-	public var times:Array<Float>;
+	public var times:Array<Float> = [];
 
 	public function new(x:Float = 10, y:Float = 3, color:Int = 0x000000)
 	{
 		super();
 
+		text = "";
+
 		this.x = x;
 		this.y = y;
 		width = 1280;
 		height = 720;
-		text = "FPS: ";
-		times = [];
 		selectable = false;
 		defaultTextFormat = new openfl.text.TextFormat(Paths.font('vcr.ttf'), 16, color);
 		addEventListener(openfl.events.Event.ENTER_FRAME, onEnter);
@@ -24,7 +24,7 @@ class Info extends openfl.text.TextField
 
 	private function onEnter(_)
 	{
-		var now = Timer.stamp();
+		var now:Float = Timer.stamp();
 		times.push(now);
 		while (times[0] < now - 1)
 			times.shift();
