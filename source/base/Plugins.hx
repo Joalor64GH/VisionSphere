@@ -1,30 +1,72 @@
 package base;
 
+import hscript.Interp;
+import hscript.InterpEx;
+
+import flixel.FlxBasic;
+import flixel.FlxObject;
+import flixel.group.FlxGroup;
+import flixel.sound.FlxSound;
+import flixel.graphics.frames.FlxAtlasFrames;
+
 class Plugins
 {
-    public static function loadPlugins()
+    public static var interp = new InterpEx();
+    public static var hscriptClasses:Array<String> = [];
+
+    @:access(hscript.InterpEx)
+    public static function init()
     {
-        var config = Json.parse(File.getContent(Paths.plugin("config.json"))).plugins;
-        for (path in config) loadPlugin(path);
+        if (!FileSystem.exists(Paths.getPluginPath("config.txt")))
+            return;
+
+        hscriptClasses = CoolUtil.getText(Paths.getPluginPath("config.txt"));
+        interp = addVarstoInterp(interp);
+
+        for (file in hscriptClasses)
+        {
+            if (FileSystem.exists(Paths.getPluginPath("scripts/" + file + ".hx")))
+                interp.addModule(Paths.getPluginPath("scripts/" + file + ".hx"));
+        }
+
+        trace(InterpEx._scriptClassDescriptors);
     }
 
-    private static function loadPlugin(path:String)
+    public static function addVarstoInterp<T:Interp>():Interp
     {
-        var plugin = Paths.plugin(path + ".hx");
+        interp.variables.set("FlxG", FlxG);
+        interp.variables.set("FlxText", FlxText);
+        interp.variables.set("FlxGroup", FlxGroup);
+        interp.variables.set("FlxSound", FlxSound);
+        interp.variables.set("FlxSprite", FlxSprite);
+        interp.variables.set("FlxMath", FlxMath);
+        interp.variables.set("FlxTimer", FlxTimer);
+        interp.variables.set("FlxTween", FlxTween);
+        interp.variables.set("FlxEase", FlxEase);
+        interp.variables.set("FlxSprite", FlxSprite);
+        interp.variables.set("FlxTypedGroup", FlxTypedGroup);
+        interp.variables.set("FlxAtlasFrames", FlxAtlasFrames);
+        interp.variables.set("FlxSprite", FlxSprite);
+        interp.variables.set("FlxBasic", FlxBasic);
+        interp.variables.set("FlxObject", FlxObject);
+        #if sys
+        interp.variables.set("File", File);
+        interp.variables.set("FileSystem", FileSystem);
+        #end
+        interp.variables.set("Reflect", Reflect);
+        interp.variables.set("StringTools", StringTools);
+        interp.variables.set("Math", Math);
+        interp.variables.set("Std", Std);
+        interp.variables.set("Sys", Sys);
 
-        if (plugin != null) {
-            callInitializeFunction(plugin);
-            trace("plugin loaded: " + plugin);
-        } 
-        else
-            trace("oops! failed to load plugin: " + plugin);
-    }
+        interp.variables.set("Paths", Paths);
+        interp.variables.set("Event", Event);
+        interp.variables.set("Input", Input);
+        interp.variables.set("CoolUtil", CoolUtil);
+        interp.variables.set("Plugins", Plugins); // lol
 
-    private static function callInitializeFunction(plugin:Dynamic)
-    {
-        if (Reflect.hasField(plugin, "initialize") && Reflect.isFunction(Reflect.field(plugin, "initialize")))
-            Reflect.callMethod(plugin, Reflect.field(plugin, "initialize"), []);
-        else
-            trace("Plugin " + plugin + " does not have function 'initialize'");
+        interp.variables.set("debug", #if debug true #else false #end);
+
+        return interp;
     }
 }

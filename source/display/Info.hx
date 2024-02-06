@@ -1,15 +1,11 @@
 package display;
 
-import openfl.Lib;
-import openfl.display.FPS;
-import openfl.events.Event;
-import openfl.system.System;
+import haxe.Timer;
 
 class Info extends openfl.text.TextField
 {
 	public var memPeak:Float = 0;
-	public var curFps:Int = 0;
-	public var fps:FPS;
+	public var times:Array<Float>;
 
 	public function new(x:Float = 10, y:Float = 3, color:Int = 0x000000)
 	{
@@ -17,30 +13,28 @@ class Info extends openfl.text.TextField
 
 		this.x = x;
 		this.y = y;
-
 		width = 1280;
 		height = 720;
-
+		text = "FPS: ";
+		times = [];
 		selectable = false;
 		defaultTextFormat = new openfl.text.TextFormat(Paths.font('vcr.ttf'), 16, color);
-
-		fps = new FPS(10000, 10000, color);
-		fps.visible = false;
-		Lib.current.addChild(fps);
-
-		addEventListener(Event.ENTER_FRAME, onEnter);
+		addEventListener(openfl.events.Event.ENTER_FRAME, onEnter);
 	}
 
-	private function onEnter(event:Event)
+	private function onEnter(_)
 	{
-		curFps = fps.currentFPS;
+		var now = Timer.stamp();
+		times.push(now);
+		while (times[0] < now - 1)
+			times.shift();
 
-		var mem:Float = Math.abs(Math.round(System.totalMemory / 1024 / 1024 * 100) / 100);
+		var mem:Float = Math.abs(Math.round(openfl.system.System.totalMemory / 1024 / 1024 * 100) / 100);
 
 		if (mem > memPeak)
 			memPeak = mem;
 
 		text = (visible) ? 
-			"FPS: " + curFps + "\nMemory: " + mem + " MB\nMemory Peak: " + memPeak + " MB\nVersion: " + Application.current.meta.get('version') : "";
+			"FPS: " + times.length + "\nMemory: " + mem + " MB\nMemory Peak: " + memPeak + " MB\nVersion: " + Application.current.meta.get('version') : "";
 	}
 }

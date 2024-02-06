@@ -6,7 +6,7 @@ Mostly based on Sega Dreamcast.
 
 ## To-Dos
 * [ ] Add 10 Games (5/10)
-* [ ] Rewrite Plugins System (HX Files)
+* [ ] Rewrite Plugins System (HX Files) [**WIP**]
 * [ ] Maybe better modding support (addons/libraries)
 * [ ] Actual working keybinds menu
 * [ ] Possibly optimize stuff idk??

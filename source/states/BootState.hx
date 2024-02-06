@@ -8,7 +8,9 @@ class BootState extends FlxState
 {
     override function create()
     {
+        Plugins.init();
         SaveData.init();
+        
         Localization.loadLanguages(['de', 'en', 'es', 'fr', 'it', 'pt']);
 
         FlxG.sound.muteKeys = [NUMPADZERO];
