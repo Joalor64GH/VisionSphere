@@ -32,7 +32,7 @@ class Plugins
         trace(InterpEx._scriptClassDescriptors);
     }
 
-    public static function addVarstoInterp<T:Interp>():Interp
+    public static function addVarstoInterp<T:Interp>(interp:T):T
     {
         interp.variables.set("FlxG", FlxG);
         interp.variables.set("FlxText", FlxText);
