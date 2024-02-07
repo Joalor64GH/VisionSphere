@@ -333,7 +333,10 @@ class AlphaCharacter extends FlxSprite
 		var suffix:String = '';
 		if(!bold)
 		{
-			suffix = (isTypeAlphabet(lowercase)) ? ' uppercase' : ' lowercase';
+			if(isTypeAlphabet(lowercase))
+			{
+				suffix = (lowercase != character) ? ' uppercase' : ' lowercase';
+			}
 			else
 			{
 				suffix = ' normal';
