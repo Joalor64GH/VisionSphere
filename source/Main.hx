@@ -28,7 +28,7 @@ using StringTools;
 
 class Main extends openfl.display.Sprite
 {
-	public static final gameVersion:String = '0.5.0';
+	public static final gameVersion:String = '0.5.5';
 
 	public static var toast:ToastCore;
 	public static var fpsDisplay:Info;

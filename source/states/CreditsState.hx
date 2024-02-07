@@ -59,7 +59,7 @@ class CreditsState extends FlxState
 
         descTxt = new FlxText(50, 600, 1180, "", 32);
         descTxt.setFormat(Paths.font('vcr.ttf'), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-        descTxt.borderSize = 24;
+        descTxt.borderSize = 24; // looks weird, but adds a cool effect
         add(descTxt);
 
         changeSelection();

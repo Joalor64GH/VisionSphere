@@ -116,7 +116,7 @@ class MenuState extends FlxState
             FlxG.sound.play(Paths.sound('confirm'));
         }
 
-        dateText.text = DateTools.format(Date.now(), "%F") + ' / ' + DateTools.format(Date.now(), FlxG.save.data.timeFormat);
+        dateText.text = DateTools.format(Date.now(), "%F") + ' / ' + DateTools.format(Date.now(), SaveData.timeFormat);
     }
 
     private function changeText()
@@ -139,6 +139,7 @@ class MenuState extends FlxState
                     splashTxt.text = selectedText;
                 }
 
+                randomColor();
                 splashTxt.alpha = 0;
 
                 FlxTween.tween(splashTxt, {alpha: 1}, 1, {
