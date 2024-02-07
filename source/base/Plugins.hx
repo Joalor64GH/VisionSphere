@@ -58,13 +58,19 @@ class Plugins
         interp.variables.set("FileSystem", FileSystem);
         #end
         interp.variables.set("Reflect", Reflect);
+        interp.variables.set("Dynamic", Dynamic);
         interp.variables.set("StringTools", StringTools);
         interp.variables.set("DateTools", DateTools);
+        interp.variables.set("String", String);
+        interp.variables.set("Float", Float);
+        interp.variables.set("Array", Array);
         interp.variables.set("Date", Date);
+        interp.variables.set("Bool", Bool);
         interp.variables.set("Type", Type);
         interp.variables.set("Math", Math);
         interp.variables.set("Std", Std);
         interp.variables.set("Sys", Sys);
+        interp.variables.set("Int", Int);
 
         interp.variables.set("Main", Main);
         interp.variables.set("Paths", Paths);
@@ -76,6 +82,8 @@ class Plugins
 
         interp.variables.set("debug", #if debug true #else false #end);
 
+        interp.variables.set("create", FlxG.state.create);
+        interp.variables.set("update", FlxG.state.update);
         interp.variables.set("getVarFromClass", function(instance:String, variable:String)
         {
             Reflect.field(Type.resolveClass(instance), variable);

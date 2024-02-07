@@ -96,10 +96,8 @@ class OptionsState extends FlxState
                         Main.fpsDisplay.visible = SaveData.fpsCounter;
                 case "Language":
                     openSubState(new states.substates.LanguageSubState());
-                /*
                 case "Controls":
                     FlxG.switchState(new states.ControlsState());
-                */
                 case "Credits":
                     FlxG.switchState(new states.CreditsState());
                 case "System Information":
