@@ -43,7 +43,7 @@ class CreditsState extends FlxState
             changeSelection(Input.is('up') ? -1 : 1);
         }
 
-        if (Input.is('escape'))
+        if (Input.is('exit'))
         {
             FlxG.sound.play(Paths.sound('cancel'));
             FlxG.switchState(new states.OptionsState());

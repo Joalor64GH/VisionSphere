@@ -40,7 +40,7 @@ class DVDScreensaver extends FlxState
     {
         super.update(elapsed);
 
-        if (Input.is('escape')) 
+        if (Input.is('exit')) 
         {
             FlxG.camera.fade(FlxColor.BLACK, 0.5, false, function()
             {

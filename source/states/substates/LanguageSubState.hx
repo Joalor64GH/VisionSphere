@@ -57,7 +57,7 @@ class LanguageSubState extends FlxSubState
             changeSelection(Input.is('up') ? -1 : 1);
         }
 
-        if (Input.is('enter'))
+        if (Input.is('accept'))
         {
             SaveData.saveSettings();
             FlxG.sound.play(Paths.sound('confirm'));
@@ -80,7 +80,7 @@ class LanguageSubState extends FlxSubState
             close();
         }
 
-        if (Input.is('escape'))
+        if (Input.is('exit'))
         {
             FlxG.sound.play(Paths.sound('cancel'));
             close();

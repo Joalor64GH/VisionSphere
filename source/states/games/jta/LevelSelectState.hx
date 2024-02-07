@@ -53,7 +53,7 @@ class LevelSelectState extends FlxState
             }
         }
 
-        if (Input.is('escape'))
+        if (Input.is('exit'))
         {
             FlxG.camera.fade(FlxColor.BLACK, 0.33, false, function()
             {

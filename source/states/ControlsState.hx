@@ -13,8 +13,13 @@ class ControlsState extends FlxState
     var text1:FlxText;
     var text2:FlxText;
 
-    public function new()
+    override public function create()
     {
-        super();
+        super.create();
+    }
+
+    override public function update(elapsed:Float)
+    {
+        super.update(elapsed);
     }
 }

@@ -356,7 +356,7 @@ class ModsState extends FlxState
 			noModsTxt.alpha = 1 - Math.sin((Math.PI * noModsSine) / 180);
 		}
 
-		if(canExit && Input.is('escape'))
+		if(canExit && Input.is('exit'))
 		{
 			if(colorTween != null) {
 				colorTween.cancel();

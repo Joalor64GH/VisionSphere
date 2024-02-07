@@ -1,5 +1,7 @@
 package base;
 
+import flixel.input.keyboard.FlxKey;
+
 /*
  * @author Leather128
  * @see https://github.com/Leather128/FabricEngine
@@ -7,6 +9,15 @@ package base;
 
 class Input
 {
+    public static var actionMap:Map<String, FlxKey> = [
+        "left" => SaveData.leftKey,
+        "down" => SaveData.downKey,
+        "up" => SaveData.upKey,
+        "right" => SaveData.rightKey,
+        "accept" => SaveData.acceptKey,
+        "exit" => SaveData.exitKey
+    ];
+
     public static function is(action:String, ?state:flixel.input.FlxInput.FlxInputState = JUST_PRESSED, ?exact:Bool = false):Bool
     {
         if (!exact)
@@ -16,8 +27,11 @@ class Input
             if (state == RELEASED && is(action, JUST_RELEASED))
                 return true;
         }
+
+        if (actionMap.exists(action))
+            return FlxG.keys.checkStatus(actionMap.get(action), state);
         
-        return FlxG.keys.checkStatus(flixel.input.keyboard.FlxKey.fromString(action), state);
+        return FlxG.keys.checkStatus(FlxKey.fromString(action), state);
     }
 
     public static function get(action:String):flixel.input.FlxInput.FlxInputState

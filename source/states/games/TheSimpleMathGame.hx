@@ -206,13 +206,13 @@ class PlayState extends FlxState
 
         scoreTxt.text = 'Score: $score';
 
-        if (Input.is('enter') && input.text != '')
+        if (Input.is('accept') && input.text != '')
             checkAnswer();
 
         if (Input.is('space'))
             generateQuestion();
 
-        if (Input.is('escape'))
+        if (Input.is('exit'))
             FlxG.switchState(new states.games.TheSimpleMathGame.MainMenuState());
 
         if (Input.is('end')) // end game

@@ -97,7 +97,7 @@ class PlayState extends FlxState
         if (jumpTimer > 0 && jumpTimer < 0.25)
             player.velocity.y = -300;
 
-        if (Input.is('escape'))
+        if (Input.is('exit'))
         {
             FlxG.camera.fade(FlxColor.BLACK, 0.33, false, function()
             {

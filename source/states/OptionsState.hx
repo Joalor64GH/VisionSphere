@@ -80,7 +80,7 @@ class OptionsState extends FlxState
             changeSelection(Input.is('up') ? -1 : 1);
         }
 
-        if (Input.is('enter'))
+        if (Input.is('accept'))
         {
             FlxG.sound.play(Paths.sound('confirm'));
             switch (options[curSelected])
@@ -122,7 +122,7 @@ class OptionsState extends FlxState
             }
         }
 
-        if (Input.is('escape')) 
+        if (Input.is('exit')) 
         {
             FlxG.switchState(new states.MenuState());
             FlxG.sound.play(Paths.sound('cancel'));

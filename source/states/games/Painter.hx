@@ -149,7 +149,7 @@ class Painter extends FlxState
 
         if (Input.is('r'))
             FlxG.resetState();
-        else if (Input.is('escape')) 
+        else if (Input.is('exit')) 
         {
             FlxG.camera.fade(FlxColor.BLACK, 0.5, false, function()
             {
