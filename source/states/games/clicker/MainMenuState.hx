@@ -52,7 +52,7 @@ class MainMenuState extends FlxState
     {
         super.update(elapsed);
 
-        if (Input.is('exit')) 
+        if (Input.is('escape')) 
         {
             FlxG.camera.fade(FlxColor.BLACK, 0.5, false, function()
             {

@@ -52,12 +52,16 @@ class Plugins
         interp.variables.set("FlxBasic", FlxBasic);
         interp.variables.set("FlxObject", FlxObject);
         interp.variables.set("Application", Application);
+        
         #if sys
         interp.variables.set("File", File);
         interp.variables.set("FileSystem", FileSystem);
         #end
         interp.variables.set("Reflect", Reflect);
         interp.variables.set("StringTools", StringTools);
+        interp.variables.set("DateTools", DateTools);
+        interp.variables.set("Date", Date);
+        interp.variables.set("Type", Type);
         interp.variables.set("Math", Math);
         interp.variables.set("Std", Std);
         interp.variables.set("Sys", Sys);

@@ -26,7 +26,7 @@ class GameOverState extends FlxState
             });
             FlxG.sound.play(Paths.sound('jta/play'));
         }
-        else if (Input.is('exit'))
+        else if (Input.is('escape'))
         {
             FlxG.camera.fade(FlxColor.BLACK, 0.33, false, function()
             {

@@ -28,12 +28,12 @@ class UpdateState extends FlxState
     {
         super.update(elapsed);
 
-        if (Input.is('accept'))
+        if (Input.is('enter'))
         {
             FlxG.sound.play(Paths.sound('confirm'));
             CoolUtil.browserLoad("https://github.com/Joalor64GH/VisionSphere/actions/");
         }
-        else if (Input.is('exit'))
+        else if (Input.is('escape'))
         {
             FlxG.camera.fade(FlxColor.BLACK, 0.5, false, function()
             {

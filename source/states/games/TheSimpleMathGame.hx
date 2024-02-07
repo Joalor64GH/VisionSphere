@@ -80,7 +80,7 @@ class MainMenuState extends FlxState
     {
         super.update(elapsed);
 
-        if (Input.is('exit')) 
+        if (Input.is('escape')) 
         {
             FlxG.camera.fade(FlxColor.BLACK, 0.5, false, function()
             {
@@ -206,13 +206,13 @@ class PlayState extends FlxState
 
         scoreTxt.text = 'Score: $score';
 
-        if (Input.is('accept') && input.text != '')
+        if (Input.is('enter') && input.text != '')
             checkAnswer();
 
         if (Input.is('space'))
             generateQuestion();
 
-        if (Input.is('exit'))
+        if (Input.is('escape'))
             FlxG.switchState(new states.games.TheSimpleMathGame.MainMenuState());
 
         if (Input.is('end')) // end game

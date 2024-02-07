@@ -87,7 +87,7 @@ class MusicState extends states.MusicState.BeatState
         if (Input.is('r'))
             FlxG.resetState();
 
-        if (Input.is('exit'))
+        if (Input.is('escape'))
         {
             FlxG.switchState(new states.MenuState());
             FlxG.sound.music.volume = 0;
@@ -104,7 +104,7 @@ class MusicState extends states.MusicState.BeatState
         if (FlxG.sound.music != null)
         {
             states.MusicState.Conductor.songPosition = FlxG.sound.music.time;
-            if ((Input.is('accept') || Input.is('space')) && loaded)
+            if ((Input.is('enter') || Input.is('space')) && loaded)
             {
                 if (!FlxG.sound.music.playing)
                 {

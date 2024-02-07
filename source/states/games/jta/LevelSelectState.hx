@@ -36,7 +36,7 @@ class LevelSelectState extends FlxState
             changeSelection(Input.is('up') ? -1 : 1);
         }
 
-        if (Input.is('accept'))
+        if (Input.is('enter'))
         {
             FlxG.sound.play(Paths.sound('confirm'));
 
@@ -53,7 +53,7 @@ class LevelSelectState extends FlxState
             }
         }
 
-        if (Input.is('exit'))
+        if (Input.is('escape'))
         {
             FlxG.camera.fade(FlxColor.BLACK, 0.33, false, function()
             {

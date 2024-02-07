@@ -104,7 +104,7 @@ class PlayState extends FlxState
         checker.x -= 0.45;
         checker.y -= 0.16;
 
-        if (Input.is('exit')) 
+        if (Input.is('escape')) 
         {
             FlxG.switchState(new states.MenuState());
             FlxG.sound.play(Paths.sound('cancel'));
@@ -116,7 +116,7 @@ class PlayState extends FlxState
             changeSelection(Input.is('left') ? -1 : 1);
         }
 
-        if (Input.is('accept'))
+        if (Input.is('enter'))
         {
             FlxG.sound.play(Paths.sound('confirm'));
             

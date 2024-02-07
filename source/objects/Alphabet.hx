@@ -333,13 +333,7 @@ class AlphaCharacter extends FlxSprite
 		var suffix:String = '';
 		if(!bold)
 		{
-			if(isTypeAlphabet(lowercase))
-			{
-				if(lowercase != character)
-					suffix = ' uppercase';
-				else
-					suffix = ' lowercase';
-			}
+			suffix = (isTypeAlphabet(lowercase)) ? ' uppercase' : ' lowercase';
 			else
 			{
 				suffix = ' normal';
@@ -415,13 +409,6 @@ class AlphaCharacter extends FlxSprite
 	{
 		if (animation.curAnim == null) return;
 
-		if(!animation.curAnim.name.endsWith('bold'))
-		{
-			offset.y += -(110 - height);
-		}
-		else
-		{
-			offset.y += -(70 - height);
-		}
+		offset.y += (!animation.curAnim.name.endsWith('bold')) ? -(110 - height) : -(70 - height);
 	}
 }

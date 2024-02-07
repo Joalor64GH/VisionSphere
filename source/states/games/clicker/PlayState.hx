@@ -69,7 +69,7 @@ class PlayState extends FlxState
                 FlxG.switchState(new states.games.clicker.WinState());
             });
         }
-        else if (Input.is('exit'))
+        else if (Input.is('escape'))
         {
             FlxG.camera.fade(FlxColor.BLACK, 0.33, false, function()
             {

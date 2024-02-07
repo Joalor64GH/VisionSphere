@@ -34,7 +34,7 @@ class SystemInfoSubState extends FlxSubState
     {
         super.update(elapsed);
 
-        if (Input.is('exit')) {
+        if (Input.is('escape')) {
             FlxG.sound.play(Paths.sound("cancel"));
             close();
         }

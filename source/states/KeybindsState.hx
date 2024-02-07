@@ -4,8 +4,6 @@ import flixel.input.keyboard.FlxKey;
 
 using StringTools;
 
-// scuffed
-// it's just copy of CreditsState for now
 class KeybindsState extends FlxState
 {
     private var grpControls:FlxTypedGroup<Alphabet>;
@@ -49,7 +47,7 @@ class KeybindsState extends FlxState
             changeSelection(Input.is('up') ? -1 : 1);
         }
 
-        if (Input.is('exit'))
+        if (Input.is('escape'))
         {
             FlxG.sound.play(Paths.sound('cancel'));
             FlxG.switchState(new states.MenuState());

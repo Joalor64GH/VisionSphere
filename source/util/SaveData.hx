@@ -1,9 +1,5 @@
 package util;
 
-import openfl.Lib;
-import flixel.util.FlxSave;
-import flixel.input.keyboard.FlxKey;
-
 /**
  * A simple save data class based on psych engine lol
  * @see https://github.com/ShadowMario/FNF-PsychEngine/
@@ -17,14 +13,12 @@ class SaveData
     public static var fpsCounter:Bool = true;
     public static var fullscreen:Bool = false;
     public static var antialiasing:Bool = false;
-    public static var controls:Map<String, FlxKey> = [
-        "left" => LEFT,
-        "down" => DOWN,
-        "up" => UP,
-        "right" => RIGHT,
-        "accept" => ENTER,
-        "exit" => ESCAPE
-    ];
+    public static var leftKey:String = "LEFT";
+    public static var rightKey:String = "RIGHT";
+    public static var downKey:String = "DOWN";
+    public static var upKey:String = "UP";
+    public static var acceptKey:String = "ENTER";
+    public static var exitKey:String = "ESCAPE";
 
     public static function saveSettings()
     {
@@ -34,6 +28,12 @@ class SaveData
         FlxG.save.data.fpsCounter = fpsCounter;
         FlxG.save.data.fullscreen = fullscreen;
         FlxG.save.data.antialiasing = antialiasing;
+        FlxG.save.data.leftKey = leftKey;
+        FlxG.save.data.rightKey = rightKey;
+        FlxG.save.data.downKey = downKey;
+        FlxG.save.data.upKey = upKey;
+        FlxG.save.data.acceptKey = acceptKey;
+        FlxG.save.data.exitKey = exitKey;
         
         FlxG.save.flush();
     }
@@ -54,6 +54,18 @@ class SaveData
         #end
         if (FlxG.save.data.antialiasing != null)
             antialiasing = FlxG.save.data.antialiasing;
+        if (FlxG.save.data.leftKey != null)
+            leftKey = FlxG.save.data.leftKey;
+        if (FlxG.save.data.rightKey != null)
+            rightKey = FlxG.save.data.rightKey;
+        if (FlxG.save.data.downKey != null)
+            downKey = FlxG.save.data.downKey;
+        if (FlxG.save.data.upKey != null)
+            upKey = FlxG.save.data.upKey;
+        if (FlxG.save.data.acceptKey != null)
+            acceptKey = FlxG.save.data.acceptKey;
+        if (FlxG.save.data.exitKey != null)
+            exitKey = FlxG.save.data.exitKey;
 
         FlxG.save.bind('VisionSphere', 'Joalor64');
     }

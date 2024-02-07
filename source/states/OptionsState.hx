@@ -12,6 +12,7 @@ class OptionsState extends FlxState
         "FPS Counter", 
         "Time Format", 
         "Language", 
+        "Controls",
         "Theme", 
         "Credits",
         "System Information", 
@@ -65,6 +66,8 @@ class OptionsState extends FlxState
                 daText.text = "Use LEFT/RIGHT to change the time format. Current Format: " + SaveData.timeFormat;
             case "Language":
                 daText.text = "Changes the current language.";
+            case "Controls":
+                daText.text = "Change your controls.";
             case "Theme":
                 daText.text = "Use LEFT/RIGHT to change the theme.";
             default:
@@ -77,7 +80,7 @@ class OptionsState extends FlxState
             changeSelection(Input.is('up') ? -1 : 1);
         }
 
-        if (Input.is('accept'))
+        if (Input.is('enter'))
         {
             FlxG.sound.play(Paths.sound('confirm'));
             switch (options[curSelected])
@@ -93,6 +96,10 @@ class OptionsState extends FlxState
                         Main.fpsDisplay.visible = SaveData.fpsCounter;
                 case "Language":
                     openSubState(new states.substates.LanguageSubState());
+                /*
+                case "Controls":
+                    FlxG.switchState(new states.ControlsState());
+                */
                 case "Credits":
                     FlxG.switchState(new states.CreditsState());
                 case "System Information":
@@ -115,7 +122,7 @@ class OptionsState extends FlxState
             }
         }
 
-        if (Input.is('exit')) 
+        if (Input.is('escape')) 
         {
             FlxG.switchState(new states.MenuState());
             FlxG.sound.play(Paths.sound('cancel'));
@@ -166,6 +173,8 @@ class OptionsState extends FlxState
                 daText.text = "Use LEFT/RIGHT to change the time format. Current Format: " + SaveData.timeFormat;
             case "Language":
                 daText.text = "Changes the current language.";
+            case "Controls":
+                daText.text = "Change your controls.";
             case "Theme":
                 daText.text = "Use LEFT/RIGHT to change the theme.";
             default:
