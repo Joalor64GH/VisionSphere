@@ -93,7 +93,11 @@ class Main extends openfl.display.Sprite
 		Sys.println(errMsg);
 		Sys.println("Crash dump saved in " + Path.normalize(path));
 
+		#if windows
+		util.Windows.messageBox("Error!", errMsg, MSG_ERROR);
+		#else
 		Application.current.window.alert(errMsg, "Error!");
+		#end
 		Sys.exit(0);
 	}
 	#end

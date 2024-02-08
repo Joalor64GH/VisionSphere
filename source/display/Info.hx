@@ -19,22 +19,20 @@ class Info extends openfl.text.TextField
 		height = 720;
 		selectable = false;
 		defaultTextFormat = new openfl.text.TextFormat(Paths.font('vcr.ttf'), 16, color);
-		addEventListener(openfl.events.Event.ENTER_FRAME, onEnter);
-	}
+		addEventListener(openfl.events.Event.ENTER_FRAME, function(_)
+		{
+			var now:Float = Timer.stamp();
+			times.push(now);
+			while (times[0] < now - 1)
+				times.shift();
 
-	private function onEnter(_)
-	{
-		var now:Float = Timer.stamp();
-		times.push(now);
-		while (times[0] < now - 1)
-			times.shift();
+			var mem:Float = Math.abs(Math.round(openfl.system.System.totalMemory / 1024 / 1024 * 100) / 100);
 
-		var mem:Float = Math.abs(Math.round(openfl.system.System.totalMemory / 1024 / 1024 * 100) / 100);
-
-		if (mem > memPeak)
-			memPeak = mem;
-
-		text = (visible) ? 
-			"FPS: " + times.length + "\nMemory: " + mem + " MB\nMemory Peak: " + memPeak + " MB\nVersion: " + Application.current.meta.get('version') : "";
+			if (mem > memPeak)
+				memPeak = mem;
+			
+			text = (visible) ? 
+				"FPS: " + times.length + "\nMemory: " + mem + " MB\nMemory Peak: " + memPeak + " MB\nVersion: " + Application.current.meta.get('version') : "";
+		});
 	}
 }
