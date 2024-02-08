@@ -1,6 +1,7 @@
 {
     "memTxt": "Memoria: ",
     "memPeakTxt": "Pico de memoria: ", 
+    "versionTxt": "Version: ",
     
     "createdBy": "Creador por ",
     "madeWith": "Hecho con ",
@@ -20,6 +21,7 @@
     "fpsCounter": "Contador de FPS",
     "timeFormat": "Formato de tiempo",
     "language": "Idioma",
+    "controls": "Controls",
     "theme": "Tema",
     "credits": "Créditos",
     "sysInfo": "Información del sistema",
@@ -29,7 +31,17 @@
     "textFPS": "Alterna el contador de FPS.",
     "textTime": "Utilice IZQUIERDA/DERECHA para cambiar el formato de hora. Formato actual: ",
     "textLang": "Cambia el idioma actual.",
+    "textCtrls": "Change your controls.",
     "textTheme": "Utilice IZQUIERDA/DERECHA para cambiar el tema.",
+
+    "controlsTxt1": "Press LEFT/RIGHT to change your keys.",
+    "controlsTxt2": "PRESS ANY KEY TO CONTINUE",
+    "leftKeyTxt": "LEFT KEY: ",
+    "rightKeyTxt": "RIGHT KEY: ",
+    "downKeyTxt": "DOWN KEY: ",
+    "upKeyTxt": "UP KEY: ",
+    "acceptKeyTxt": "ACCEPT KEY: ",
+    "exitKeyTxt": "EXIT KEY: ",
 
     "upDate1": "¡Ey! ¡Estás ejecutando una versión desactualizada de VisionSphere!",
     "upDate2": "La versión que estás ejecutando actualmente es",

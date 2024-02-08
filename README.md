@@ -8,7 +8,7 @@ Mostly based on Sega Dreamcast.
 * [ ] Add 10 Games (5/10)
 * [ ] More customizability
 * [ ] Possibly optimize stuff idk??
-* [ ] Maybe better modding support (addons/libraries)
+* [ ] Maybe better modding support (addons/libraries) **[WIP]**
 * [X] Rewrite Plugins System **[still WIP, at least it didn't crash]**
 * [X] Actual working keybinds menu **[I think it's good]**
 

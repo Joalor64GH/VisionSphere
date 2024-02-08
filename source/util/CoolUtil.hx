@@ -5,7 +5,6 @@ import lime.utils.Assets as LimeAssets;
 
 using StringTools;
 
-// epic functions!!
 class CoolUtil
 {
     inline public static function getText(path:String):Array<String> {
