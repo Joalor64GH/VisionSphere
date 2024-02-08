@@ -8,7 +8,7 @@ using StringTools;
 class CoolUtil
 {
     inline public static function getText(path:String):Array<String> {
-        OpenFlAssets.exists(path) ? [for (i in OpenFlAssets.getText(path).trim().split('\n')) i.trim()] : [];
+        return OpenFlAssets.exists(path) ? [for (i in OpenFlAssets.getText(path).trim().split('\n')) i.trim()] : [];
     }
 
     inline static public function textSplit(path:String) {
