@@ -10,6 +10,10 @@ class BootState extends FlxState
     {
         Plugins.init();
         SaveData.init();
+
+        #if MODS_ALLOWED
+        Paths.pushGlobalMods();
+        #end
         
         Localization.loadLanguages(['de', 'en', 'es', 'fr', 'it', 'pt']);
 

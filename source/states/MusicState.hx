@@ -248,8 +248,5 @@ class BeatState extends FlxState
             beatHit();
     }
 
-    public function beatHit():Void
-    {
-        // do nothing lmao
-    }
+    public function beatHit():Void {}
 }

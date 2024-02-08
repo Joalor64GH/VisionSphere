@@ -30,7 +30,7 @@ class ControlsState extends FlxState
         text1.setFormat(Paths.font('vcr.ttf'), 64, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
         add(text1);
 
-        text2 = new FlxText(0, FlxG.height * 0.9 + 10, FlxG.width, "", 32);
+        text2 = new FlxText(5, FlxG.height - 44, 0, "", 32);
         text2.setFormat(Paths.font('vcr.ttf'), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
         add(text2);
     }

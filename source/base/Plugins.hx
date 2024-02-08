@@ -15,7 +15,7 @@ class Plugins
     public static var hscriptClasses:Array<String> = [];
 
     @:access(hscript.InterpEx)
-    public static function init() // TO-DO: load files from 'config.txt' and i'll just go from there
+    public static function init() // TO-DO: load files from 'config.txt' and just go from there
     {
         if (!FileSystem.exists(Paths.getPluginPath("config.txt")))
             return;

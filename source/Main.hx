@@ -13,6 +13,8 @@ import haxe.io.Path;
 import display.ToastCore;
 import display.Info;
 
+import util.MacroUtil;
+
 #if linux
 import lime.graphics.Image;
 #end
@@ -29,6 +31,9 @@ using StringTools;
 class Main extends openfl.display.Sprite
 {
 	public static final gameVersion:String = '0.5.5';
+
+	public static var buildNum(default, never):Int = MacroUtil.get_build_num();
+    public static var commitId(default, never):String = MacroUtil.get_commit_id();
 
 	public static var toast:ToastCore;
 	public static var fpsDisplay:Info;

@@ -1,12 +1,7 @@
 package states.substates;
 
-import util.MacroUtil;
-
 class SystemInfoSubState extends FlxSubState
 {
-    public static var buildNum(default, never):Int = MacroUtil.get_build_num();
-    public static var commitId(default, never):String = MacroUtil.get_commit_id();
-
     public function new()
     {
         super();
@@ -18,8 +13,8 @@ class SystemInfoSubState extends FlxSubState
         var info:FlxText = new FlxText(0, 0, 0, 
             "VisionSphere Version: " + Application.current.meta.get('version')
             + "\nVersion ID: " + CoolUtil.getText('VERSION')
-            + "\nCommit ID: " + commitId
-            + "\nBuild Number: " + buildNum
+            + "\nCommit ID: " + Main.commitId
+            + "\nBuild Number: " + Main.buildNum
             + "\nHaxeflixel Version: 5.5.0"
             + "\nHaxe Version: 4.3.3"
             + "\nOpenFL Version: 9.3.2"
@@ -34,7 +29,8 @@ class SystemInfoSubState extends FlxSubState
     {
         super.update(elapsed);
 
-        if (Input.is('exit')) {
+        if (Input.is('exit')) 
+        {
             FlxG.sound.play(Paths.sound("cancel"));
             close();
         }

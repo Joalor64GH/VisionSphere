@@ -13,6 +13,8 @@ class KeybindsState extends FlxState
 
     override public function create()
     {
+        trace("this is old and scuffed why are you here");
+        
         controlsStrings = CoolUtil.getText(Paths.txt('controls'));
 
         var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('theme/' + SaveData.theme));

@@ -1,6 +1,5 @@
 package base;
 
-import Reflect as Ref;
 import haxe.Exception;
 
 /**
@@ -11,31 +10,28 @@ import haxe.Exception;
 class Event<T>
 {
     public function new() {
-        if (!Std.isOfType(Any -> Any, Any -> Any))
-            throw new Exception("not sure what you did, but it didnt work");
-        
-        trace("new Event successful");
+        trace("did your new Event work? if it did, good! otherwise, report the problem.");
     }
 
     public function createEvent(event:String) {
-        if (!Ref.hasField(this, event))
-            Ref.setProperty(this, event, event);
+        if (!Reflect.hasField(this, event))
+            Reflect.setProperty(this, event, event);
     }
 
     public function addEventCallback(callback:T, event:String) {
-        if (!Ref.hasField(this, event))
+        if (!Reflect.hasField(this, event))
             throw new Exception("no such Event, use createEvent to add one");
         else
-            Ref.setProperty(this, event + "callback", callback);
+            Reflect.setProperty(this, event + "callback", callback);
     }
 
     public function trigger(event:String, args:Array<Dynamic>):Dynamic {
-        if (Ref.hasField(this, event) && Ref.hasField(this, event + "callback"))
-            return Ref.callMethod(this, Ref.getProperty(this, event + "callback"), args);
+        if (Reflect.hasField(this, event) && Reflect.hasField(this, event + "callback"))
+            return Reflect.callMethod(this, Reflect.getProperty(this, event + "callback"), args);
         else {
-            if (!Ref.hasField(this, event) && Ref.hasField(this, event + "callback"))
+            if (!Reflect.hasField(this, event) && Reflect.hasField(this, event + "callback"))
                 throw new Exception("no such Event, use createEvent to add one");
-            else if (!Ref.hasField(this, event + "callback") && Ref.hasField(this, event))
+            else if (!Reflect.hasField(this, event + "callback") && Reflect.hasField(this, event))
                 throw new Exception("no such Event, use addEventCallback to add one");
             else
                 throw new Exception("no such event or callback, use createEvent, then addEventCallback to add them");

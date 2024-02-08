@@ -18,6 +18,16 @@ jobs:
       - uses: krdlab/setup-haxe@master
         with:
           haxe-version: 4.3.3
+      - name: Restore Cache
+        uses: actions/cache@v3
+        with:
+          key: cache-build-windows
+          path: |
+            .haxelib/
+            export/release/windows/haxe/
+            export/release/windows/obj/
+          restore-keys: |
+            cache-build-windows
       - name: Install Haxelib
         run: |
           haxelib setup C:/haxelib
