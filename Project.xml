@@ -3,8 +3,8 @@
 
 	<!-- [ Application Settings ] -->
 
-	<app title="VisionSphere" file="VisionSphere" main="Main" />
-	<app version="0.5.5" company="Joalor64GH" package="com.joalor64.visionsphere" />
+	<app title="VisionSphere" file="VisionSphere" company="Joalor64GH" />
+	<app package="com.joalor64.visionsphere" main="Main" version="0.5.0" />
 
 	<!-- [ Window Settings ] -->
 
@@ -18,10 +18,13 @@
 	<set name="BUILD_DIR" value="export/debug" if="debug" />
 	<set name="BUILD_DIR" value="export/release" unless="debug" />
 
+	<define name="MODS_ALLOWED" if="desktop" />
+	<define name="CRASH_HANDLER" if="desktop release" unless="debug" />
+
 	<source path="source" />
 	<assets path="assets" />
 	<assets path="plugins" if="desktop" />
-	<assets path="mods" if="MODS_ALLOWED" />
+	<assets path="mods" embed="false" if="MODS_ALLOWED" />
 	<assets path="compileData/modsList.txt" rename="modsList.txt" if="MODS_ALLOWED" />
 	<assets path="VERSION" embed="false" />
 	<assets path="build.txt" embed="false" />
@@ -32,28 +35,20 @@
 	<haxelib name="flixel-addons" />
 	<haxelib name="flixel-ui" />
 	<haxelib name="hscript" />
-	<haxelib name="hscript-ex" />
 	<haxelib name="djFlixel" />
 	<haxelib name="hxcpp-debug-server" if="desktop debug" />
 
 	<!-- [ Defines ] -->
 
-	<define name="MODS_ALLOWED" if="desktop" />
-	<define name="CRASH_HANDLER" if="desktop release" unless="debug" />
-
 	<haxedef name="FLX_RECORD" />
 	<haxedef name="FLX_NO_MOUSE" if="mobile" />
 	<haxedef name="FLX_NO_KEYBOARD" if="mobile" />
 	<haxedef name="FLX_NO_TOUCH" if="desktop" />
-	<section unless="debug">
-		<haxedef name="FLX_NO_DEBUG" />
-		<haxedef name="NAPE_RELEASE_BUILD" />
-	</section>
-
-	<haxedef name="no-deprecation-warnings" />
-
+	<haxedef name="FLX_NO_DEBUG" unless="debug" />
+	<haxedef name="NAPE_RELEASE_BUILD" unless="debug" />
 	<haxedef name="HXCPP_CHECK_POINTER" if="CRASH_HANDLER" />
 	<haxedef name="HXCPP_STACK_LINE" if="CRASH_HANDLER" />
+	<haxedef name="no-deprecation-warnings" />
 
 	<!-- [ Flags ] -->
 
@@ -62,7 +57,8 @@
 
 	<!-- [ Icons ] -->
 
-	<assets path="compileData/iconOG.png" rename="icon.png" if="linux"/> <!-- workaround for linux -->
+	<assets path="compileData/iconOG.png" rename="icon.png" if="linux"/> <!-- linux workaround -->
+	
 	<icon path="compileData/icon16.png" size="16" />
 	<icon path="compileData/icon32.png" size="32" />
 	<icon path="compileData/icon64.png" size="64" />
@@ -74,7 +70,7 @@
 		<lib name="/usr/lib64/libX11.so" if="HXCPP_M64" /> <!-- linux support -->
 	</target> 
 	<target id="haxe" tool="linker" if="macos">
-		<lib name="/lib64/libX11.a" if="HXCPP_M64" /> <!-- Macos support -->
+		<lib name="/lib64/libX11.a" if="HXCPP_M64" /> <!-- mac support -->
 	</target>
 
 </project>

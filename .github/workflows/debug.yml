@@ -19,7 +19,7 @@ jobs:
         with:
           haxe-version: 4.3.3
       - name: Restore Cache
-        uses: actions/cache@v3
+        uses: actions/cache@main
         with:
           key: cache-build-windows
           path: |

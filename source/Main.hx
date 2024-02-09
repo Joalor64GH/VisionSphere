@@ -31,9 +31,8 @@ using StringTools;
 class Main extends openfl.display.Sprite
 {
 	public static final gameVersion:String = '0.5.5';
-
-	public static var buildNum(default, never):Int = MacroUtil.get_build_num();
-    public static var commitId(default, never):String = MacroUtil.get_commit_id();
+	public static final buildNum(default, never):Int = MacroUtil.get_build_num();
+	public static final commitId(default, never):String = MacroUtil.get_commit_id();
 
 	public static var toast:ToastCore;
 	public static var fpsDisplay:Info;
