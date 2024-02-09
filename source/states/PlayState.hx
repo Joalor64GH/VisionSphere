@@ -27,9 +27,9 @@ class PlayState extends FlxState
     
     var itemGrp:FlxTypedGroup<GameThumbnail>;
 
-    var paths:Array<String>;
-    var descs:Array<String>;
-    var titles:Array<String>;
+    var paths:Array<String> = [];
+    var descs:Array<String> = [];
+    var titles:Array<String> = [];
 
     var titleTxt:FlxText;
     var descTxt:FlxText;
@@ -58,10 +58,6 @@ class PlayState extends FlxState
             {img: "painter", desc: "Let out your inner Picasso!", title: "Painter"},
             {img: "math", desc: "An endless math problem game!", title: "The Simple Math Game"},
         ];
-
-        paths = [];
-        descs = [];
-        titles = [];
 
         for (data in games)
         {
@@ -119,7 +115,6 @@ class PlayState extends FlxState
         if (Input.is('accept'))
         {
             FlxG.sound.play(Paths.sound('confirm'));
-            
             switch(currentIndex)
             {
                 case 0:
