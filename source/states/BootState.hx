@@ -33,7 +33,7 @@ class BootState extends FlxState
         var inc = FlxG.height / (colors.length - 1);
         for (i in 0...colors.length)
         {
-            var b = new BoxScroller(Paths.image("stripe"), 0, 0, FlxG.width);
+            var b = new BoxScroller("assets/images/stripe.png", 0, 0, FlxG.width);
             b.color = colors[i];
             b.autoScrollX = -(0.2 + (i * 0.15)) * (1 + (i * 0.06));
             b.randomOffset();
