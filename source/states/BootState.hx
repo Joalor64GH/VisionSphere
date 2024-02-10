@@ -82,7 +82,7 @@ class BootState extends FlxState
         if (text.x + text.width < 0)
             text.x = FlxG.width;
 
-        text.y = FlxG.height / 2 + 20 * FlxMath.sin(2 * text.x);
+        text.y = FlxG.height / 2 + 20 * FlxMath.sinh(2 * text.x);
     }
 }
 
