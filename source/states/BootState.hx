@@ -10,6 +10,8 @@ import flixel.effects.particles.FlxParticle;
 
 class BootState extends FlxState
 {
+    var text:FlxText;
+
     override function create()
     {
         Plugins.init();
@@ -51,8 +53,9 @@ class BootState extends FlxState
         em.lifespan.set(99);
         add(em);
 
-        var text = new FlxText(0, 0, 0, "Loading... Please Wait :)", 64);
-        text.screenCenter();
+        text = new FlxText(0, FlxG.height / 2 - 20, FlxG.width, "Loading... Please Wait :)", 12);
+        text.setFormat(Paths.font('vcr.ttf'), 64, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+        text.scrollFactor.x = -1;
         add(text);
 
         new FlxTimer().start(9, function(timer)
@@ -75,6 +78,11 @@ class BootState extends FlxState
     override function update(elapsed)
     {
         super.update(elapsed);
+
+        if (text.x + text.width < 0)
+            text.x = FlxG.width;
+
+        text.y = FlxG.height / 2 + 20 * FlxMath.sin(2 * text.x);
     }
 }
 
@@ -105,6 +113,8 @@ class Balls extends FlxParticle
             replaceColor(Pal_DB32.COL[28], Pal_DB32.COL[17]);
             replaceColor(Pal_DB32.COL[8], Pal_DB32.COL[19]);
         }
+
+        scale.set(8, 8);
     }
 
     override public function onEmit():Void
