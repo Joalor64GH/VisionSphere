@@ -1,7 +1,6 @@
 package states;
 
 import util.PlatformUtil;
-import display.TextScroll;
 
 import djFlixel.gfx.BoxScroller;
 import djFlixel.gfx.pal.Pal_DB32;
@@ -52,9 +51,9 @@ class BootState extends FlxState
         em.lifespan.set(99);
         add(em);
 
-        var ts:TextScroll = new TextScroll("Loading... Please Wait :)", FlxG.width, 200, 640);
-        ts.onLoop = null;
-        add(ts);
+        var text = new FlxText(0, 0, 0, "Loading... Please Wait :)", 64);
+        text.screenCenter();
+        add(text);
 
         new FlxTimer().start(9, function(timer)
         {
