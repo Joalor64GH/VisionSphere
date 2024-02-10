@@ -1,9 +1,8 @@
 package display;
 
-import flixel.FlxGroup;
+import flixel.group.FlxGroup;
 
-class TextScroll extends FlxGroup<FlxText>
-{
+class TextScroll extends FlxGroup<FlxText> {
     var text:String;
     var letterWidth:Int;
     var nextLetterIndex:Int;
@@ -14,14 +13,11 @@ class TextScroll extends FlxGroup<FlxText>
 
     public var onLoop:Void->Void;
 
-    public function new(text:String, x:Int = 0, y:Int = 32, width:Int = 0, speed:Int = 1, loopMode:Int = 1)
-    {
+    public function new(text:String, x:Int = 0, y:Int = 32, width:Int = 0, speed:Int = 1, loopMode:Int = 1) {
         super(x, y);
 
         this.text = text;
-
-        if (width == 0)
-            width = FlxG.width - 1;
+        width = (width == 0) ? FlxG.width - 1 : width;
 
         maxLetters = Math.ceil(width / FlxText.fieldHeight) + 1;
 
@@ -30,28 +26,19 @@ class TextScroll extends FlxGroup<FlxText>
         PiStep = (2 * Math.PI) / width;
 
         for (i in 0...maxLetters)
-        {
-            var l = new FlxText(0, 0, 0, '');
-            l.exists = false;
-            add(l);
-        }
+            add(new FlxText(0, 0, 0, '')).exists = false;
 
         fireNextLetter();
     }
 
-    function fireNextLetter():Void
-    {
-        if (nextLetterIndex == text.length)
-        {
-            if (lastLetter != null && lastLetter.ID == text.length - 1)
-            {
-                if (onLoop != null) 
-                {
+    function fireNextLetter():Void {
+        if (nextLetterIndex == text.length) {
+            if (lastLetter != null && lastLetter.ID == text.length - 1 && onLoop) {
+                if (onLoop != null) {
                     onLoop();
                     resetLetters();
                 }
             }
-
             nextLetterIndex = 0;
         }
 
@@ -65,27 +52,19 @@ class TextScroll extends FlxGroup<FlxText>
         nextLetterIndex++;
     }
 
-    function onLetterExit(l:FlxText):Void
-    {
+    private function onLetterExit(l:FlxText):Void {
         l.exists = false;
     }
 
-    function resetLetters()
-    {
-        forEach((l:FlxText) ->
-        {
-            l.exists = false;
-        });
+    private function resetLetters() {
+        forEach((l:FlxText) -> l.exists = false);
     }
 
-    override public function update(elapsed:Float):Void
-    {
+    override public function update(elapsed:Float):Void {
         super.update(elapsed);
-
         cc += 0.02;
 
-        forEachExists((l:FlxText) -> 
-        {
+        forEachExists((l:FlxText) -> {
             l.x -= 1;
             l.y = y + Math.cos(PiStep * (l.x - x) - cc) * 16;
 
