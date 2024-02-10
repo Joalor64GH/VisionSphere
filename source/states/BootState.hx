@@ -3,8 +3,6 @@ package states;
 import util.PlatformUtil;
 
 import djFlixel.gfx.BoxScroller;
-import djFlixel.gfx.TextScroller;
-import djFlixel.gfx.pal.Pal_CPCBoy;
 import djFlixel.gfx.pal.Pal_DB32;
 
 import flixel.effects.particles.FlxEmitter;
@@ -52,11 +50,9 @@ class BootState extends FlxState
         em.lifespan.set(99);
         add(em);
 
-        var ts = new TextScroller("Loading... Please Wait :)", 
-            {f:'assets/fonts/vcr.ttf', s:16, bc:Pal_CPCBoy.COL[2]}, 
-            {y:100, speed:2, sHeight:20, w0:4, w1:0.06}
-        );
-        add(ts);
+        var text = new FlxText(0, 0, 0, "Loading... Please Wait :)", 64);
+        text.screenCenter();
+        add(text);
 
         new FlxTimer().start(9, function(timer)
         {

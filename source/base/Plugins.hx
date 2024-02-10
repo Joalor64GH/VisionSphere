@@ -15,42 +15,48 @@ class Plugins
     public static var hscriptClasses:Array<String> = [];
 
     @:access(hscript.InterpEx)
-    public static function init() // TO-DO: load files from 'config.txt' and just go from there
+    public static function init()
     {
         if (!FileSystem.exists(Paths.getPluginPath("config.txt")))
             return;
 
         hscriptClasses = CoolUtil.getText(Paths.getPluginPath("config.txt"));
-        interp = addVarstoInterp(interp);
+        interp = addModulesToInterp(interp, hscriptClasses);
+    }
 
-        for (file in hscriptClasses)
+    private static function addModulesToInterp<T:Interp>(interp:T, classes:Array<String>):T
+    {
+        for (file in classes)
         {
             if (FileSystem.exists(Paths.getPluginPath("scripts/" + file + ".hx")))
                 interp.addModule(Paths.getPluginPath("scripts/" + file + ".hx"));
         }
-
-        trace(InterpEx._scriptClassDescriptors);
+        return interp;
     }
 
     public static function addVarstoInterp<T:Interp>(interp:T):T
     {
-        interp.variables.set("FlxG", FlxG);
-        interp.variables.set("FlxState", FlxState);
-        interp.variables.set("FlxSubState", FlxSubState);
-        interp.variables.set("FlxText", FlxText);
-        interp.variables.set("FlxGroup", FlxGroup);
-        interp.variables.set("FlxSound", FlxSound);
-        interp.variables.set("FlxSprite", FlxSprite);
-        interp.variables.set("FlxMath", FlxMath);
-        interp.variables.set("FlxTimer", FlxTimer);
-        interp.variables.set("FlxTween", FlxTween);
-        interp.variables.set("FlxEase", FlxEase);
-        interp.variables.set("FlxSprite", FlxSprite);
-        interp.variables.set("FlxTypedGroup", FlxTypedGroup);
-        interp.variables.set("FlxAtlasFrames", FlxAtlasFrames);
-        interp.variables.set("FlxSprite", FlxSprite);
-        interp.variables.set("FlxBasic", FlxBasic);
-        interp.variables.set("FlxObject", FlxObject);
+        var flxVars:Array<String> = [
+            "FlxG",
+            "FlxState",
+            "FlxSubState",
+            "FlxText", 
+            "FlxGroup", 
+            "FlxSound", 
+            "FlxSprite", 
+            "FlxMath",
+            "FlxTimer", 
+            "FlxTween", 
+            "FlxEase", 
+            "FlxTypedGroup", 
+            "FlxAtlasFrames", 
+            "FlxBasic", 
+            "FlxObject"
+        ];
+
+        for (flxVar in flxVars)
+            interp.variables.set(flxVar, Type.resolveClass(flxVar));
+
         interp.variables.set("Application", Application);
         
         #if sys
