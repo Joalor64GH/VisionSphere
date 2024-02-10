@@ -139,7 +139,7 @@ class MenuState extends FlxState
                     splashTxt.text = selectedText;
                 }
 
-                randomColor();
+                splashTxt.color = randomColor();
                 splashTxt.alpha = 0;
 
                 FlxTween.tween(splashTxt, {alpha: 1}, 1, {

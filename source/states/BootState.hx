@@ -1,6 +1,7 @@
 package states;
 
 import util.PlatformUtil;
+import display.TextScroll;
 
 import djFlixel.gfx.BoxScroller;
 import djFlixel.gfx.pal.Pal_DB32;
@@ -32,6 +33,7 @@ class BootState extends FlxState
         for (i in 0...colors.length)
         {
             var b = new BoxScroller("assets/images/stripe.png", 0, 0, FlxG.width);
+            b.scale.set(3.5, 3.5);
             b.color = colors[i];
             b.autoScrollX = -(0.2 + (i * 0.15)) * (1 + (i * 0.06));
             b.randomOffset();
@@ -41,7 +43,7 @@ class BootState extends FlxState
             add(b);
         }
 
-        var em = new FlxEmitter(320, 32, 64);
+        var em = new FlxEmitter(1280, 128, 256);
         em.height = 64;
         em.particleClass = Balls;
         em.launchMode = FlxEmitterMode.SQUARE;
@@ -50,9 +52,9 @@ class BootState extends FlxState
         em.lifespan.set(99);
         add(em);
 
-        var text = new FlxText(0, 0, 0, "Loading... Please Wait :)", 64);
-        text.screenCenter();
-        add(text);
+        var ts:TextScroll = new TextScroll("Loading... Please Wait :)", FlxG.width, 200, 640, 2, 1);
+        ts.onLoop = null;
+        add(ts);
 
         new FlxTimer().start(9, function(timer)
         {

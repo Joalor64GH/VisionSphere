@@ -41,7 +41,7 @@ class ControlsState extends FlxState
 
         if (Input.is('exit') && !inChange)
         {
-            FlxG.switchState(new states.MenuState());
+            FlxG.switchState(new states.OptionsState());
             FlxG.sound.play(Paths.sound('cancel'));
         }
 
