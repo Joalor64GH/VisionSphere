@@ -1,54 +1,32 @@
 package display;
 
-import flixel.group.FlxGroup;
-
-class TextScroll extends FlxGroup<FlxText> {
+class TextScroll {
     var text:String;
-    var letterWidth:Int;
-    var nextLetterIndex:Int;
-    var maxLetters:Int;
-    var PiStep:Float;
-    var lastLetter:FlxText;
+    var letters:Array<FlxText> = [];
+    var width:Int;
+    var nextLetterIndex:Int = 0;
     var cc:Float = 0;
 
     public var onLoop:Void->Void;
 
-    public function new(text:String, x:Int = 0, y:Int = 32, width:Int = 0, speed:Int = 1, loopMode:Int = 1) {
+    public function new(text:String, x:Int = 0, y:Int = 32, width:Int = 0) {
         super(x, y);
 
         this.text = text;
-        width = (width == 0) ? FlxG.width - 1 : width;
+        this.width = (width == 0) ? FlxG.width - 1 : width;
 
-        maxLetters = Math.ceil(width / FlxText.fieldHeight) + 1;
-
-        letterWidth = FlxText.fieldWidth;
-        nextLetterIndex = 0;
-        PiStep = (2 * Math.PI) / width;
-
-        for (i in 0...maxLetters)
+        for (i in 0...Math.ceil(width / FlxText.fieldHeight) + 1)
             add(new FlxText(0, 0, 0, '')).exists = false;
 
-        fireNextLetter();
+        updateDisplay(x, y);
     }
 
     function fireNextLetter():Void {
-        if (nextLetterIndex == text.length) {
-            if (lastLetter != null && lastLetter.ID == text.length - 1 && onLoop) {
-                if (onLoop != null) {
-                    onLoop();
-                    resetLetters();
-                }
-            }
-            nextLetterIndex = 0;
-        }
-
-        var l = getFirstAvailable(FlxText);
-        l.ID = nextLetterIndex;
+        var l = letters[nextLetterIndex % letters.length];
+        l.ID = l.x = nextLetterIndex % text.length;
         l.exists = true;
         l.text = text.charAt(l.ID);
-        l.x = x + width;
-        l.y = y + Math.cos(PiStep * (l.x - x)) * 16;
-        lastLetter = l;
+        l.y = letters[0].y + Math.cos((2 * Math.PI) / width * (l.x - letters[0].x) - cc) * 16;
         nextLetterIndex++;
     }
 
@@ -56,23 +34,33 @@ class TextScroll extends FlxGroup<FlxText> {
         l.exists = false;
     }
 
-    private function resetLetters() {
-        forEach((l:FlxText) -> l.exists = false);
+    private function resetLetters():Void {
+        for (l in letters)
+            l.exists = false;
     }
 
-    override public function update(elapsed:Float):Void {
-        super.update(elapsed);
-        cc += 0.02;
-
-        forEachExists((l:FlxText) -> {
+    private function updateDisplay(x:Int, y:Int):Void
+    {
+        for (l in letters) {
             l.x -= 1;
-            l.y = y + Math.cos(PiStep * (l.x - x) - cc) * 16;
+            l.y = y + Math.cos((2 * Math.PI) / width * (l.x - x) - cc) * 16;
 
-            if (l.x < x - letterWidth)
+            if (l.x < x - FlxText.fieldWidth)
                 onLetterExit(l);
-        });
+        }
 
-        if (lastLetter != null && lastLetter.x < (x + width - letterWidth))
+        if (letters[0].x < (x + width - FlxText.fieldWidth))
             fireNextLetter();
+        else if (letters[letters.length - 1].ID == text.length - 1 && onLoop != null) {
+            onLoop();
+            resetLetters();
+        }
+    }
+
+    public function update(elapsed:Float):Void {
+        super.update(elapsed);
+
+        cc += 0.02;
+        updateDisplay(0, 32);
     }
 }

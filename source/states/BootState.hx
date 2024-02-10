@@ -52,7 +52,7 @@ class BootState extends FlxState
         em.lifespan.set(99);
         add(em);
 
-        var ts:TextScroll = new TextScroll("Loading... Please Wait :)", FlxG.width, 200, 640, 2, 1);
+        var ts:TextScroll = new TextScroll("Loading... Please Wait :)", FlxG.width, 200, 640);
         ts.onLoop = null;
         add(ts);
 
