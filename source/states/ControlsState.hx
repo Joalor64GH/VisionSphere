@@ -9,7 +9,6 @@ class ControlsState extends FlxState
 {
     var init:Int = 0;
     var inChange:Bool = false;
-
     var text1:FlxText;
     var text2:FlxText;
 
@@ -85,26 +84,29 @@ class ControlsState extends FlxState
                 text1.text = "EXIT KEY: " + SaveData.exitKey;
         }
 
-        if (inChange && Input.is('any'))
+        if (inChange)
         {
-            switch (init)
+            if (!Input.is('accept') && !Input.is('exit') && Input.is('any')) 
             {
-                case 0:
-                    SaveData.leftKey = FlxG.keys.getIsDown()[0].ID.toString();
-                case 1:
-                    SaveData.rightKey = FlxG.keys.getIsDown()[0].ID.toString();
-                case 2:
-                    SaveData.downKey = FlxG.keys.getIsDown()[0].ID.toString();
-                case 3:
-                    SaveData.upKey = FlxG.keys.getIsDown()[0].ID.toString();
-                case 4:
-                    SaveData.acceptKey = FlxG.keys.getIsDown()[0].ID.toString();
-                case 5:
-                    SaveData.exitKey = FlxG.keys.getIsDown()[0].ID.toString();
+                switch (init)
+                {
+                    case 0:
+                        SaveData.leftKey = FlxG.keys.getIsDown()[0].ID.toString();
+                    case 1:
+                        SaveData.rightKey = FlxG.keys.getIsDown()[0].ID.toString();
+                    case 2:
+                        SaveData.downKey = FlxG.keys.getIsDown()[0].ID.toString();
+                    case 3:
+                        SaveData.upKey = FlxG.keys.getIsDown()[0].ID.toString();
+                    case 4:
+                        SaveData.acceptKey = FlxG.keys.getIsDown()[0].ID.toString();
+                    case 5:
+                        SaveData.exitKey = FlxG.keys.getIsDown()[0].ID.toString();
+                }
+                FlxG.sound.play(Paths.sound('scroll'));
+                text2.text = "";
+                inChange = false;
             }
-            FlxG.sound.play(Paths.sound('scroll'));
-            text2.text = "";
-            inChange = false;
         }
     }
 }
