@@ -10,8 +10,6 @@ import flixel.effects.particles.FlxParticle;
 
 class BootState extends FlxState
 {
-    var text:FlxText;
-
     override function create()
     {
         Plugins.init();
@@ -53,9 +51,9 @@ class BootState extends FlxState
         em.lifespan.set(99);
         add(em);
 
-        text = new FlxText(0, FlxG.height / 2 - 20, FlxG.width, "Loading... Please Wait :)", 12);
+        var text:FlxText = new FlxText(0, 0, 0, "Loading... Please Wait :)", 12);
         text.setFormat(Paths.font('vcr.ttf'), 64, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-        text.scrollFactor.x = -1;
+        text.screenCenter();
         add(text);
 
         new FlxTimer().start(9, function(timer)
@@ -78,11 +76,6 @@ class BootState extends FlxState
     override function update(elapsed)
     {
         super.update(elapsed);
-
-        if (text.x + text.width < 0)
-            text.x = FlxG.width;
-
-        text.y = FlxG.height / 2 + 40 * Math.sin(2 * text.x);
     }
 }
 
