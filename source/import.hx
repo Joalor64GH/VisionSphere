@@ -29,7 +29,6 @@ import objects.AttachedSprite;
 
 import haxe.Json;
 
-import djFlixel.ui.FlxMenu;
 import djFlixel.ui.FlxToast; // might replace ToastCore
 
 using StringTools;

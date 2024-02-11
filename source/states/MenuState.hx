@@ -15,23 +15,6 @@ class MenuState extends FlxState
     var btnMusic:FlxSprite;
     var btnSettings:FlxSprite;
 
-    var coolColors:Array<FlxColor> = [
-        0xFFFFFFFF,
-        0xFF808080,
-        0xFF000000,
-        0xFF008000,
-        0xFF00FF00,
-        0xFFFFFF00,
-        0xFFFFA500,
-        0xFFFF0000,
-        0xFF800080,
-        0xFF0000FF,
-        0xFF8B4513,
-        0xFFFFC0CB,
-        0xFFFF00FF,
-        0xFF00FFFF
-    ];
-
     override public function create()
     {
         super.create();
@@ -74,7 +57,7 @@ class MenuState extends FlxState
 
         splashTxt = new FlxText(logo.x + 145, 50, 0, "", 12);
         splashTxt.setFormat(Paths.font('vcr.ttf'), 30, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-        splashTxt.color = randomColor();
+        splashTxt.color = FlxColor.fromRGB(FlxG.random.int(0, 255), FlxG.random.int(0, 255), FlxG.random.int(0, 255));
         add(splashTxt);
     }
 
@@ -139,7 +122,7 @@ class MenuState extends FlxState
                     splashTxt.text = selectedText;
                 }
 
-                splashTxt.color = randomColor();
+                splashTxt.color = FlxColor.fromRGB(FlxG.random.int(0, 255), FlxG.random.int(0, 255), FlxG.random.int(0, 255));
                 splashTxt.alpha = 0;
 
                 FlxTween.tween(splashTxt, {alpha: 1}, 1, {
@@ -151,12 +134,5 @@ class MenuState extends FlxState
                 });
             }
         });
-    }
-
-    private function randomColor()
-    {
-        var chance:Int = FlxG.random.int(0, coolColors.length - 1);
-        var color:FlxColor = coolColors[chance];
-        return color;
     }
 }
