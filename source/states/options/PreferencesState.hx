@@ -1,15 +1,19 @@
 package states.options;
 
+import display.Colorblind;
+
 class PreferencesState extends FlxState
 {
     var bg:FlxSprite;
     var times:Array<String> = ['%r', '%T'];
+    var filters:Array<String> = ['None', 'Deuteranopia', 'Protanopia', 'Tritanopia'];
     var themes:Array<String> = ['daylight', 'night', 'dreamcast', 'ps3', 'xp'];
     var options:Array<String> = [
         #if desktop
         "Fullscreen",
         #end
         "FPS Counter", 
+        "Colorblind Filter",
         "Time Format", 
         "Language", 
         "Theme"
@@ -42,7 +46,6 @@ class PreferencesState extends FlxState
         add(daText);
 
         changeSelection();
-        switchTheme();
     }
 
     override public function update(elapsed:Float)
@@ -57,6 +60,8 @@ class PreferencesState extends FlxState
             #end
             case "FPS Counter":
                 daText.text = "Toggles FPS counter.";
+            case "Colorblind Filter":
+                daText.text = "In case you're colorblind. Current Filter: " + SaveData.colorBlindFilter;
             case "Time Format":
                 daText.text = "Use LEFT/RIGHT to change the time format. Current Format: " + SaveData.timeFormat;
             case "Language":
@@ -108,6 +113,8 @@ class PreferencesState extends FlxState
                     switchTheme(Input.is('right') ? 1 : -1);
                 case "Time Format":
                     switchTime(Input.is('right') ? 1 : -1);
+                case "Colorblind Filter":
+                    switchFilter(Input.is('right') ? 1 : -1);
             }
         }
     }
@@ -144,6 +151,8 @@ class PreferencesState extends FlxState
             #end
             case "FPS Counter":
                 daText.text = "Toggles FPS counter.";
+            case "Colorblind Filter":
+                daText.text = "In case you're colorblind. Current Filter: " + SaveData.colorBlindFilter;
             case "Time Format":
                 daText.text = "Use LEFT/RIGHT to change the time format. Current Format: " + SaveData.timeFormat;
             case "Language":
@@ -167,7 +176,6 @@ class PreferencesState extends FlxState
         bg.loadGraphic(Paths.image('theme/' + SaveData.theme));
     }
 
-    // yes i copied the theme switching code
     private function switchTime(direction:Int = 0)
     {
         var currentTimeIndex:Int = times.indexOf(SaveData.timeFormat);
@@ -176,5 +184,17 @@ class PreferencesState extends FlxState
             newTimeIndex += times.length;
 
         SaveData.timeFormat = times[newTimeIndex];
+    }
+
+    private function switchFilter(direction:Int = 0)
+    {
+        var currentFilterIndex:Int = filters.indexOf(SaveData.colorBlindFilter);
+        var newFilterIndex:Int = (currentFilterIndex + direction) % filters.length;
+        if (newFilterIndex < 0)
+            newFilterIndex += filters.length;
+
+        SaveData.colorBlindFilter = filters[newFilterIndex];
+
+        Colorblind.updateFilter();
     }
 }

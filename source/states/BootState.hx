@@ -56,6 +56,10 @@ class BootState extends FlxState
         text.screenCenter();
         add(text);
 
+        var spinner:FlxSprite = new FlxSprite(FlxG.width - 91, FlxG.height - 91).loadGraphic(Paths.image("loader"));
+        spinner.angularVelocity = 30;
+        add(spinner);
+
         new FlxTimer().start(9, function(timer)
         {
             FlxG.camera.fade(FlxColor.BLACK, 0.33, false, function()

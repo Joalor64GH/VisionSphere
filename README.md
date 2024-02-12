@@ -1,16 +1,14 @@
 # VisionSphere
 
-A work in progress console made in HaxeFlixel.
+A work in progress gaming console made in HaxeFlixel.
 
 Mostly based on Sega Dreamcast.
 
 ## To-Dos
 * [ ] Add 10 Games (5/10)
-* [ ] More customizability
+* [ ] Better Plugin Support
 * [ ] Possibly optimize stuff idk??
 * [ ] Maybe better modding support (addons/libraries) **[WIP]**
-* [X] Rewrite Plugins System **[still WIP, at least it didn't crash]**
-* [X] Actual working keybinds menu **[I think it's good]**
 
 ## Wanna build?
 

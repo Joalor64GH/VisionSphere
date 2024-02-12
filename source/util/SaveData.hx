@@ -12,6 +12,7 @@ class SaveData
     public static var lang:String = 'en';
     public static var fpsCounter:Bool = true;
     public static var fullscreen:Bool = false;
+    public static var colorBlindFilter:String = "None";
     public static var leftKey:String = "LEFT";
     public static var rightKey:String = "RIGHT";
     public static var downKey:String = "DOWN";
@@ -26,6 +27,7 @@ class SaveData
         FlxG.save.data.lang = lang;
         FlxG.save.data.fpsCounter = fpsCounter;
         FlxG.save.data.fullscreen = fullscreen;
+        FlxG.save.data.colorBlindFilter = colorBlindFilter;
         FlxG.save.data.leftKey = leftKey;
         FlxG.save.data.rightKey = rightKey;
         FlxG.save.data.downKey = downKey;
@@ -50,6 +52,8 @@ class SaveData
         if (FlxG.save.data.fullscreen != null)
             fullscreen = FlxG.save.data.fullscreen;
         #end
+        if (FlxG.save.data.colorBlindFilter != null)
+            colorBlindFilter = FlxG.save.data.colorBlindFilter;
         if (FlxG.save.data.leftKey != null)
             leftKey = FlxG.save.data.leftKey;
         if (FlxG.save.data.rightKey != null)
