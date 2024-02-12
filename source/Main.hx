@@ -36,6 +36,10 @@ class Main extends openfl.display.Sprite
 	public static var toast:ToastCore;
 	public static var fpsDisplay:Info;
 
+	private var gameWidth:Int = 1280;
+	private var gameHeight:Int = 720;
+	private var zoom:Float = -1;
+
 	public function new()
 	{
 		super();
@@ -44,13 +48,25 @@ class Main extends openfl.display.Sprite
 		util.Windows.darkMode(true);
 		#end
 
-		addChild(new flixel.FlxGame(1280, 720, states.BootState, #if (flixel < "5.0.0") -1, #end 60, 60, true, false));
+		final stageWidth:Int = Lib.current.stage.stageWidth;
+		final stageHeight:Int = Lib.current.stage.stageHeight;
+		
+		if (zoom == -1)
+		{
+			final ratioX:Float = stageWidth / gameWidth;
+			final ratioY:Float = stageHeight / gameHeight;
+			zoom = Math.min(ratioX, ratioY);
+			gameWidth = Math.ceil(stageWidth / zoom);
+			gameHeight = Math.ceil(stageHeight / zoom);
+		}
+
+		addChild(new flixel.FlxGame(gameWidth, gameHeight, states.BootState, #if (flixel < "5.0.0") zoom, #end 60, 60, true, false));
 
 		fpsDisplay = new Info(10, 3, 0xFFFFFFFF);
 		addChild(fpsDisplay);
 
 		#if CRASH_HANDLER
-		Lib.current.loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, function(e:UncaughtErrorEvent)
+		Lib.current.loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, (e) ->
 		{
 			var errMsg:String = "";
 			var path:String;

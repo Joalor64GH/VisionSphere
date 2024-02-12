@@ -95,7 +95,7 @@ class MenuState extends FlxState
         
         if (FlxG.mouse.overlaps(btnSettings) && FlxG.mouse.pressed)
         {
-            FlxG.switchState(new states.OptionsState());
+            FlxG.switchState(new states.options.OptionsState());
             FlxG.sound.play(Paths.sound('confirm'));
         }
 

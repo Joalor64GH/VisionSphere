@@ -1,4 +1,4 @@
-package states;
+package states.options;
 
 /**
  * @author khuonghoanghuy
@@ -9,6 +9,7 @@ class ControlsState extends FlxState
 {
     var init:Int = 0;
     var inChange:Bool = false;
+    
     var text1:FlxText;
     var text2:FlxText;
 
@@ -40,8 +41,9 @@ class ControlsState extends FlxState
 
         if (Input.is('exit') && !inChange)
         {
-            FlxG.switchState(new states.OptionsState());
+            FlxG.switchState(new states.options.OptionsState());
             FlxG.sound.play(Paths.sound('cancel'));
+            SaveData.saveSettings();
         }
 
         if (Input.is('accept'))

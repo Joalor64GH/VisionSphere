@@ -25,8 +25,8 @@ class Plugins
 
         for (file in hscriptClasses)
         {
-            if (FileSystem.exists(Paths.getPluginPath("scripts/" + file + ".hx")))
-                interp.addModule(Paths.getPluginPath("scripts/" + file + ".hx"));
+            if (FileSystem.exists(Paths.getPluginPath(file + ".hx")))
+                interp.addModule(Paths.getPluginPath(file + ".hx"));
         }
 
         trace(InterpEx._scriptClassDescriptors);
