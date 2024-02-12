@@ -26,7 +26,7 @@ class PreferencesState extends FlxState
         bg = new FlxSprite().loadGraphic(Paths.image('theme/' + SaveData.theme));
         add(bg);
 
-        group = new FlxTypedGroup<FlxText>();
+        group = new FlxTypedGroup<Alphabet>();
         add(group);
 
         for (i in 0...options.length)
@@ -128,7 +128,7 @@ class PreferencesState extends FlxState
         
         var ratio:Int = 0; // stay mad
 
-        for (item in grpOptions.members)
+        for (item in group.members)
         {
             item.targetY = ratio - curSelected;
             ratio++;
