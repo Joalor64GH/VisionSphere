@@ -102,7 +102,7 @@ class MiscState extends FlxState
             item.targetY = verbalase - curSelected;
             verbalase++;
 
-            item.alpha = (targetY == 0) ? 1 : 0.6;
+            item.alpha = (item.targetY == 0) ? 1 : 0.6;
         }
     }
 }

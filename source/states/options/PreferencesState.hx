@@ -133,7 +133,7 @@ class PreferencesState extends FlxState
             item.targetY = ratio - curSelected;
             ratio++;
 
-            item.alpha = (targetY == 0) ? 1 : 0.6;
+            item.alpha = (item.targetY == 0) ? 1 : 0.6;
         }
 
         switch (options[curSelected])

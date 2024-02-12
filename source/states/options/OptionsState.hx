@@ -88,7 +88,7 @@ class OptionsState extends FlxState
             item.targetY = something - curSelected;
             something++;
 
-            item.alpha = (targetY == 0) ? 1 : 0.6;
+            item.alpha = (item.targetY == 0) ? 1 : 0.6;
         }
     }
 }
