@@ -53,7 +53,7 @@ class OptionsState extends FlxState
                     FlxG.switchState(new states.options.PreferencesState());
                 case "Controls":
                     FlxG.switchState(new states.options.ControlsState());
-                case "Miscellaneous"
+                case "Miscellaneous":
                     FlxG.switchState(new states.options.MiscState());
                 case "Exit":
                     FlxG.switchState(new states.MenuState());
