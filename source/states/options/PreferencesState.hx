@@ -5,7 +5,7 @@ class PreferencesState extends FlxState
     var bg:FlxSprite;
     var times:Array<String> = ['%r', '%T'];
     var themes:Array<String> = ['daylight', 'night', 'dreamcast', 'ps3', 'xp'];
-    final options:Array<String> = [
+    var options:Array<String> = [
         #if desktop
         "Fullscreen",
         #end

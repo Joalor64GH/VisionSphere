@@ -5,7 +5,7 @@ class MiscState extends FlxState
     private var curSelected:Int = 0;
     private var grpOptions:FlxTypedGroup<Alphabet>;
 
-    private final options:Array<String> = [
+    var options:Array<String> = [
         "Credits",
         "System Information",
         "Restart",

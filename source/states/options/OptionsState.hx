@@ -5,7 +5,7 @@ class OptionsState extends FlxState
     private var curSelected:Int = 0;
     private var grpOptions:FlxTypedGroup<Alphabet>;
     
-    private final options:Array<String> = [
+    var options:Array<String> = [
         "Preferences",
         "Controls",
         "Miscellaneous",
@@ -81,12 +81,12 @@ class OptionsState extends FlxState
         else if (curSelected >= options.length)
             curSelected = 0;
         
-        var australia:Int = 0; // innit mate
+        var something:Int = 0;
 
         for (item in grpOptions.members)
         {
-            item.targetY = australia - curSelected;
-            australia++;
+            item.targetY = something - curSelected;
+            something++;
 
             item.alpha = (targetY == 0) ? 1 : 0.6;
         }
