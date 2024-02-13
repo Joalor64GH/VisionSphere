@@ -18,6 +18,9 @@
 	<set name="BUILD_DIR" value="export/debug" if="debug" />
 	<set name="BUILD_DIR" value="export/release" unless="debug" />
 
+	<define name="MODS_ALLOWED" if="desktop" /> <!-- DO NOT MOVE THIS! IF YOU DO, THE MODS FOLDER WONT EXIST AND IDK WHY -->
+	<define name="CRASH_HANDLER" if="desktop release" unless="debug" />
+
 	<source path="source" />
 	<assets path="assets" />
 	<assets path="plugins" if="desktop" />
@@ -37,9 +40,6 @@
 	<haxelib name="hxcpp-debug-server" if="desktop debug" />
 
 	<!-- [ Defines ] -->
-
-	<define name="MODS_ALLOWED" if="desktop" />
-	<define name="CRASH_HANDLER" if="desktop release" unless="debug" />
 
 	<haxedef name="FLX_RECORD" />
 	<haxedef name="FLX_NO_MOUSE" if="mobile" />

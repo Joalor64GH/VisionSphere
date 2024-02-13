@@ -94,16 +94,22 @@ class ControlsState extends FlxState
                 {
                     case 0:
                         SaveData.leftKey = FlxG.keys.getIsDown()[0].ID.toString();
+                        Input.actionMap.set("left", SaveData.leftKey);
                     case 1:
                         SaveData.rightKey = FlxG.keys.getIsDown()[0].ID.toString();
+                        Input.actionMap.set("right", SaveData.rightKey);
                     case 2:
                         SaveData.downKey = FlxG.keys.getIsDown()[0].ID.toString();
+                        Input.actionMap.set("down", SaveData.downKey);
                     case 3:
                         SaveData.upKey = FlxG.keys.getIsDown()[0].ID.toString();
+                        Input.actionMap.set("up", SaveData.upKey);
                     case 4:
                         SaveData.acceptKey = FlxG.keys.getIsDown()[0].ID.toString();
+                        Input.actionMap.set("accept", SaveData.acceptKey);
                     case 5:
                         SaveData.exitKey = FlxG.keys.getIsDown()[0].ID.toString();
+                        Input.actionMap.set("exit", SaveData.exitKey);
                 }
                 FlxG.sound.play(Paths.sound('scroll'));
                 text2.text = "";

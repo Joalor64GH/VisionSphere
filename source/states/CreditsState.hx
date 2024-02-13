@@ -80,7 +80,7 @@ class CreditsState extends FlxState
         if (Input.is('exit'))
         {
             FlxG.sound.play(Paths.sound('cancel'));
-            FlxG.switchState(new states.options.OptionsState());
+            FlxG.switchState(new states.options.MiscState());
         }
     }
 
