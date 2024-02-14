@@ -18,6 +18,9 @@ class PlayState extends FlxState
     {
         super.create();
 
+        Paths.clearStoredMemory();
+        Paths.clearUnusedMemory();
+
         coolText = new FlxText(0, 0, FlxG.width, 'Click on the number to multiply it by 2!', 32);
         coolText.setFormat(Paths.font("vcr.ttf"), 40, FlxColor.WHITE, FlxTextAlign.CENTER,FlxTextBorderStyle.OUTLINE,FlxColor.BLACK);
         add(coolText);

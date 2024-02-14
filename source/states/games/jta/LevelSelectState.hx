@@ -8,6 +8,9 @@ class LevelSelectState extends FlxState
 
     override public function create()
     {
+        Paths.clearStoredMemory();
+        Paths.clearUnusedMemory();
+        
         var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('game/jta/bgLevelSelect'));
         bg.screenCenter();
         add(bg);

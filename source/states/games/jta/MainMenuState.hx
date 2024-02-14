@@ -8,11 +8,14 @@ class MainMenuState extends FlxState
     {
         super.create();
 
+        Paths.clearStoredMemory();
+        Paths.clearUnusedMemory();
+
         var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('game/jta/bgMain'));
         bg.screenCenter();
         add(bg);
 
-        var logoBl:FlxSprite = new FlxSprite(0, 215).loadGraphic(Paths.image('game/jta/logo'));
+        var logoBl:FlxSprite = new FlxSprite(0, 230).loadGraphic(Paths.image('game/jta/logo'));
         logoBl.color = FlxColor.BLACK;
         logoBl.screenCenter(X);
         logoBl.scale.set(3, 3);

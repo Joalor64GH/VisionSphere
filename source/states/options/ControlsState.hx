@@ -9,13 +9,15 @@ class ControlsState extends FlxState
 {
     var init:Int = 0;
     var inChange:Bool = false;
-    
     var text1:FlxText;
     var text2:FlxText;
 
     override public function create()
     {
         super.create();
+
+        Paths.clearStoredMemory();
+        Paths.clearUnusedMemory();
 
         var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('theme/' + SaveData.theme));
         add(bg);
@@ -30,7 +32,7 @@ class ControlsState extends FlxState
         text1.setFormat(Paths.font('vcr.ttf'), 64, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
         add(text1);
 
-        text2 = new FlxText(5, FlxG.height - 44, 0, "", 32);
+        text2 = new FlxText(5, FlxG.height - 54, 0, "", 32);
         text2.setFormat(Paths.font('vcr.ttf'), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
         add(text2);
     }

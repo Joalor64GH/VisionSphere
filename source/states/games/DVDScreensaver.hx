@@ -3,7 +3,6 @@ package states.games;
 class DVDScreensaver extends FlxState
 {
     var dvdLogo:FlxSprite;
-
     var curColor:Int = 0;
     var colors = [
         [255, 255, 255],
@@ -23,6 +22,9 @@ class DVDScreensaver extends FlxState
 
     override public function create()
     {
+        Paths.clearStoredMemory();
+        Paths.clearUnusedMemory();
+
         dvdLogo = new FlxSprite(0, 0).loadGraphic(Paths.image('game/dvd/dvd'));
         dvdLogo.setGraphicSize(200, 5);
         dvdLogo.scale.y = dvdLogo.scale.x;

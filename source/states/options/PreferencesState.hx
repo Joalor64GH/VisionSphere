@@ -27,6 +27,9 @@ class PreferencesState extends FlxState
     {
         super.create();
 
+        Paths.clearStoredMemory();
+        Paths.clearUnusedMemory();
+
         bg = new FlxSprite().loadGraphic(Paths.image('theme/' + SaveData.theme));
         add(bg);
 

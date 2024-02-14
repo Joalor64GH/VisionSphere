@@ -1,7 +1,5 @@
 package states;
 
-import util.PlatformUtil;
-
 import djFlixel.gfx.BoxScroller;
 import djFlixel.gfx.pal.Pal_DB32;
 
@@ -18,6 +16,9 @@ class BootState extends FlxState
         #if MODS_ALLOWED
         Paths.pushGlobalMods();
         #end
+
+        Paths.clearStoredMemory();
+        Paths.clearUnusedMemory();
         
         Localization.loadLanguages(['de', 'en', 'es', 'fr', 'it', 'pt']);
 
@@ -68,7 +69,7 @@ class BootState extends FlxState
                 states.UpdateState.updateCheck();
                 FlxG.switchState((states.UpdateState.mustUpdate) ? new states.UpdateState() : new states.SplashState());
                 #else
-                trace('Sorry! No update support on: ' + PlatformUtil.getPlatform() + '!')
+                trace('Sorry! No update support on: ' + util.PlatformUtil.getPlatform() + '!')
                 FlxG.switchState(new states.SplashState());
                 #end
             });
@@ -83,8 +84,7 @@ class BootState extends FlxState
     }
 }
 
-// https://youtu.be/mM4jKMHuWtU?si=5dB-Z3blV3PK-lsC
-class Balls extends FlxParticle
+class Balls extends FlxParticle // https://youtu.be/mM4jKMHuWtU?si=5dB-Z3blV3PK-lsC
 {
     static var wMin = 32;
     static var wMax = 64;

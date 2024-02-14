@@ -42,6 +42,9 @@ class PlayState extends FlxState
 
     override public function create()
     {
+        Paths.clearStoredMemory();
+        Paths.clearUnusedMemory();
+        
         var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('theme/' + SaveData.theme));
         add(bg);
 

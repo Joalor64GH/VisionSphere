@@ -13,6 +13,9 @@ class KeybindsState extends FlxState
 
     override public function create()
     {
+        Paths.clearStoredMemory();
+        Paths.clearUnusedMemory();
+        
         trace("this is old and scuffed why are you here");
         
         controlsStrings = CoolUtil.getText(Paths.txt('controls'));

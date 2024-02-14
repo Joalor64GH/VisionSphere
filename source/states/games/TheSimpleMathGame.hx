@@ -6,11 +6,13 @@ import flixel.addons.ui.FlxUIInputText;
 using StringTools;
 
 // this is why subclasses are a thing
-// honestly, this is just easier
 class MainMenuState extends FlxState
 {
     override public function create()
     {
+        Paths.clearStoredMemory();
+        Paths.clearUnusedMemory();
+
         var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('game/math/background'));
         add(bg);
 
@@ -105,6 +107,9 @@ class GameOverState extends FlxState
     {
         super.create();
 
+        Paths.clearStoredMemory();
+        Paths.clearUnusedMemory();
+
         var text:FlxText = new FlxText(0, 0, 0, "Game Over!\nYour final score is $finalScore" + ".\nGood Job!", 12);
         text.setFormat(Paths.font('vcr.ttf'), 64, FlxColor.WHITE, FlxTextAlign.CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
         text.screenCenter(X);
@@ -161,6 +166,9 @@ class PlayState extends FlxState
 
     override public function create()
     {
+        Paths.clearStoredMemory();
+        Paths.clearUnusedMemory();
+
         var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('game/math/background'));
         add(bg);
 

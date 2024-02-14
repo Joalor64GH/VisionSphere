@@ -16,6 +16,9 @@ class OptionsState extends FlxState
     {
         super.create();
 
+        Paths.clearStoredMemory();
+        Paths.clearUnusedMemory();
+
         var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('theme/' + SaveData.theme));
         add(bg);
 
@@ -65,11 +68,6 @@ class OptionsState extends FlxState
             FlxG.switchState(new states.MenuState());
             FlxG.sound.play(Paths.sound('cancel'));
         }
-
-        #if debug
-        if (Input.is('k'))
-            FlxG.switchState(new states.KeybindsState());
-        #end
     }
 
     private function changeSelection(change:Int = 0)

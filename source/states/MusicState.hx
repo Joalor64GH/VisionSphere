@@ -49,6 +49,9 @@ class MusicState extends states.MusicState.BeatState
 
     override public function create()
     {
+        Paths.clearStoredMemory();
+        Paths.clearUnusedMemory();
+        
         openfl.system.System.gc();
 
         super.create();

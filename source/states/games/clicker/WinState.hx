@@ -4,6 +4,9 @@ class WinState extends FlxState
 {
     override public function create()
     {
+        Paths.clearStoredMemory();
+        Paths.clearUnusedMemory();
+        
         var winSpr:FlxSprite = new FlxSprite().loadGraphic(Paths.image('game/2048/win'));
         winSpr.screenCenter();
         add(winSpr);

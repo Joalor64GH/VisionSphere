@@ -11,6 +11,9 @@ class UpdateState extends FlxState
     {
         super.create();
 
+        Paths.clearStoredMemory();
+        Paths.clearUnusedMemory();
+
         FlxG.camera.fade(FlxColor.BLACK, 0.33, true);
 
         var text:FlxText = new FlxText(0, 0, FlxG.width, 

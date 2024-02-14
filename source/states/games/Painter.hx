@@ -36,6 +36,9 @@ class Painter extends FlxState
     {
         super.create();
 
+        Paths.clearStoredMemory();
+        Paths.clearUnusedMemory();
+
         camHUD = new FlxCamera();
         camHUD.bgColor.alpha = 0;
         FlxG.cameras.add(camHUD, false);

@@ -5,8 +5,6 @@ import flixel.graphics.frames.FlxAtlasFrames;
 
 import flash.media.Sound;
 
-import openfl.events.Event;
-import openfl.system.System;
 import openfl.utils.AssetType;
 import openfl.utils.Assets as Assets;
 import openfl.display.BitmapData;
@@ -34,33 +32,37 @@ class Paths
 
 	public static function clearUnusedMemory() 
 	{
-		for (key in currentTrackedAssets.keys()) 
+		for (key in currentTrackedAssets.keys())
 		{
-			if (!localTrackedAssets.contains(key)) {
+			if (!localTrackedAssets.contains(key) && key != null)
+			{
 				var obj = currentTrackedAssets.get(key);
 				@:privateAccess
-				if (obj != null) 
+				if (obj != null)
 				{
 					Assets.cache.removeBitmapData(key);
+					Assets.cache.clearBitmapData(key);
+					Assets.cache.clear(key);
 					FlxG.bitmap._cache.remove(key);
 					obj.destroy();
 					currentTrackedAssets.remove(key);
 				}
 			}
 		}
-		System.gc();
-	}
 
-	public static function removeBitmap(key)
-	{
-		var obj = currentTrackedAssets.get(key);
-		@:privateAccess
-		if (obj != null)
+		for (key in currentTrackedSounds.keys())
 		{
-			Assets.cache.removeBitmapData(key);
-			FlxG.bitmap._cache.remove(key);
-			obj.destroy();
-			currentTrackedAssets.remove(key);
+			if (!localTrackedAssets.contains(key) && key != null)
+			{
+				var obj = currentTrackedSounds.get(key);
+				if (obj != null)
+				{
+					Assets.cache.removeSound(key);
+					Assets.cache.clearSounds(key);
+					Assets.cache.clear(key);
+					currentTrackedSounds.remove(key);
+				}
+			}
 		}
 	}
 
@@ -71,24 +73,32 @@ class Paths
 		for (key in FlxG.bitmap._cache.keys())
 		{
 			var obj = FlxG.bitmap._cache.get(key);
-			if (obj != null && !currentTrackedAssets.exists(key)) 
+			if (obj != null && !currentTrackedAssets.exists(key))
 			{
 				Assets.cache.removeBitmapData(key);
+				Assets.cache.clearBitmapData(key);
+				Assets.cache.clear(key);
 				FlxG.bitmap._cache.remove(key);
 				obj.destroy();
 			}
 		}
 
-		for (key in currentTrackedSounds.keys()) 
+		@:privateAccess
+		for (key in Assets.cache.getSoundKeys())
 		{
-			if (!localTrackedAssets.contains(key) && key != null) 
+			if (key != null && !currentTrackedSounds.exists(key))
 			{
-				Assets.cache.clear(key);
-				currentTrackedSounds.remove(key);
+				var obj = Assets.cache.getSound(key);
+				if (obj != null)
+				{
+					Assets.cache.removeSound(key);
+					Assets.cache.clearSounds(key);
+					Assets.cache.clear(key);
+				}
 			}
 		}
+
 		localTrackedAssets = [];
-		Assets.cache.clear("songs");
 	}
 
 	static public var currentModDirectory:String = '';

@@ -6,6 +6,9 @@ class MainMenuState extends FlxState
 {
     override public function create()
     {
+        Paths.clearStoredMemory();
+        Paths.clearUnusedMemory();
+        
         var logo:FlxSprite = new FlxSprite().loadGraphic(Paths.image('game/2048/logo'));
         logo.screenCenter(X);
         add(logo);

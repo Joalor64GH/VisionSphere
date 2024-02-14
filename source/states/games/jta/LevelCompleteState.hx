@@ -6,6 +6,9 @@ class LevelCompleteState extends FlxState
     {
         super.create();
 
+        Paths.clearStoredMemory();
+        Paths.clearUnusedMemory();
+
         var theText:FlxText = new FlxText(0, 0, 0, "Level Complete!\nPress any button to continue.", 12);
         theText.setFormat(Paths.font("vcr.ttf"), 60, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
         theText.screenCenter();

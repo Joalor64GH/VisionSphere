@@ -12,6 +12,9 @@ class CreditsState extends FlxState
 
     override public function create()
     {
+        Paths.clearStoredMemory();
+        Paths.clearUnusedMemory();
+        
         // this is even swaggier
         var initCredits = CoolUtil.getText(Paths.txt('credits'));
 

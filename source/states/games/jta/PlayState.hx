@@ -30,6 +30,9 @@ class PlayState extends FlxState
     {
         super.create();
 
+        Paths.clearStoredMemory();
+        Paths.clearUnusedMemory();
+
         openfl.system.System.gc();
 
         FlxG.camera.zoom = 2.95;
