@@ -5,7 +5,7 @@ import flixel.graphics.frames.FlxAtlasFrames;
 
 import flash.media.Sound;
 
-import openfl.utils.AssetType;
+import openfl.system.System;
 import openfl.utils.Assets as Assets;
 import openfl.display.BitmapData;
 
@@ -32,38 +32,21 @@ class Paths
 
 	public static function clearUnusedMemory() 
 	{
-		for (key in currentTrackedAssets.keys())
+		for (key in currentTrackedAssets.keys()) 
 		{
-			if (!localTrackedAssets.contains(key) && key != null)
-			{
+			if (!localTrackedAssets.contains(key)) {
 				var obj = currentTrackedAssets.get(key);
 				@:privateAccess
-				if (obj != null)
+				if (obj != null) 
 				{
 					Assets.cache.removeBitmapData(key);
-					Assets.cache.clearBitmapData(key);
-					Assets.cache.clear(key);
 					FlxG.bitmap._cache.remove(key);
 					obj.destroy();
 					currentTrackedAssets.remove(key);
 				}
 			}
 		}
-
-		for (key in currentTrackedSounds.keys())
-		{
-			if (!localTrackedAssets.contains(key) && key != null)
-			{
-				var obj = currentTrackedSounds.get(key);
-				if (obj != null)
-				{
-					Assets.cache.removeSound(key);
-					Assets.cache.clearSounds(key);
-					Assets.cache.clear(key);
-					currentTrackedSounds.remove(key);
-				}
-			}
-		}
+		System.gc();
 	}
 
 	public static var localTrackedAssets:Array<String> = [];
@@ -73,31 +56,22 @@ class Paths
 		for (key in FlxG.bitmap._cache.keys())
 		{
 			var obj = FlxG.bitmap._cache.get(key);
-			if (obj != null && !currentTrackedAssets.exists(key))
+			if (obj != null && !currentTrackedAssets.exists(key)) 
 			{
 				Assets.cache.removeBitmapData(key);
-				Assets.cache.clearBitmapData(key);
-				Assets.cache.clear(key);
 				FlxG.bitmap._cache.remove(key);
 				obj.destroy();
 			}
 		}
 
-		@:privateAccess
-		for (key in Assets.cache.getSoundKeys())
+		for (key in currentTrackedSounds.keys()) 
 		{
-			if (key != null && !currentTrackedSounds.exists(key))
+			if (!localTrackedAssets.contains(key) && key != null) 
 			{
-				var obj = Assets.cache.getSound(key);
-				if (obj != null)
-				{
-					Assets.cache.removeSound(key);
-					Assets.cache.clearSounds(key);
-					Assets.cache.clear(key);
-				}
+				Assets.cache.clear(key);
+				currentTrackedSounds.remove(key);
 			}
 		}
-
 		localTrackedAssets = [];
 	}
 
@@ -201,7 +175,7 @@ class Paths
 		return 'assets/fonts/$key';
 	}
 
-	inline static public function fileExists(key:String, type:AssetType, ?ignoreMods:Bool = false)
+	inline static public function fileExists(key:String, ?ignoreMods:Bool = false)
 	{
 		#if MODS_ALLOWED
 		if (FileSystem.exists(mods(currentModDirectory + '/' + key)) || FileSystem.exists(mods(key)))
