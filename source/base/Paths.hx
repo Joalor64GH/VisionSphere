@@ -3,8 +3,7 @@ package base;
 import flixel.graphics.FlxGraphic;
 import flixel.graphics.frames.FlxAtlasFrames;
 
-import flash.media.Sound;
-
+import openfl.media.Sound;
 import openfl.system.System;
 import openfl.utils.Assets as Assets;
 import openfl.display.BitmapData;
@@ -30,6 +29,14 @@ class Paths
 	];
 	#end
 
+	public static var localTrackedAssets:Array<String> = [];
+	public static var currentTrackedAssets:Map<String, FlxGraphic> = [];
+	public static var currentTrackedSounds:Map<String, Sound> = [];
+
+	static public var currentModDirectory:String = '';
+	static public var currentModAddons:Array<String> = [];
+	static public var currentModLibraries:Array<String> = [];
+
 	public static function clearUnusedMemory() 
 	{
 		for (key in currentTrackedAssets.keys()) 
@@ -49,7 +56,6 @@ class Paths
 		System.gc();
 	}
 
-	public static var localTrackedAssets:Array<String> = [];
 	public static function clearStoredMemory() 
 	{
 		@:privateAccess
@@ -74,10 +80,6 @@ class Paths
 		}
 		localTrackedAssets = [];
 	}
-
-	static public var currentModDirectory:String = '';
-	static public var currentModAddons:Array<String> = [];
-	static public var currentModLibraries:Array<String> = [];
 
 	inline public static function getPath(file:String)
 	{
@@ -104,28 +106,6 @@ class Paths
 		return getPath('data/$key.json');
 	}
 
-	inline static public function exists(asset:String, ?type:lime.utils.AssetType)
-	{
-		#if sys 
-		return FileSystem.exists(asset);
-		#else
-		return Assets.exists(asset, type);
-		#end
-	}
-
-	inline static public function getContent(asset:String):Null<String> 
-	{
-		#if sys
-		if (FileSystem.exists(asset))
-			return File.getContent(asset);
-		#else
-		if (Assets.exists(asset))
-			return Assets.getText(asset);
-		#end
-
-		return null;
-	}
-
 	static public function sound(key:String):Sound
 	{
 		var sound:Sound = returnSound('sounds', key);
@@ -148,21 +128,6 @@ class Paths
 		var returnAsset:FlxGraphic = returnGraphic(key);
 		return returnAsset;
 	}
-	
-	static public function getTextFromFile(key:String, ?ignoreMods:Bool = false):String
-	{
-		#if sys
-		#if MODS_ALLOWED
-		if (!ignoreMods && FileSystem.exists(modFolders(key)))
-			return File.getContent(modFolders(key));
-		#end
-
-		if (FileSystem.exists(getPath(key)))
-			return File.getContent(getPath(key));
-		#end
-		
-		return Assets.getText(getPath(key));
-	}
 
 	inline static public function font(key:String)
 	{
@@ -173,16 +138,6 @@ class Paths
 		}
 		#end
 		return 'assets/fonts/$key';
-	}
-
-	inline static public function fileExists(key:String, ?ignoreMods:Bool = false)
-	{
-		#if MODS_ALLOWED
-		if (FileSystem.exists(mods(currentModDirectory + '/' + key)) || FileSystem.exists(mods(key)))
-			return true;
-		#end
-		
-		return Paths.exists(getPath(key));
 	}
 
 	inline static public function getSparrowAtlas(key:String):FlxAtlasFrames
@@ -199,7 +154,6 @@ class Paths
 		#end
 	}
 
-
 	inline static public function getPackerAtlas(key:String)
 	{
 		#if MODS_ALLOWED
@@ -213,7 +167,38 @@ class Paths
 		#end
 	}
 
-	public static var currentTrackedAssets:Map<String, FlxGraphic> = [];
+	inline static public function fileExists(key:String, ?ignoreMods:Bool = false)
+	{
+		#if MODS_ALLOWED
+		if (FileSystem.exists(mods(currentModDirectory + '/' + key)) || FileSystem.exists(mods(key)))
+			return true;
+		#end
+		
+		return Paths.exists(getPath(key));
+	}
+
+	inline static public function exists(asset:String)
+	{
+		#if sys 
+		return FileSystem.exists(asset);
+		#else
+		return Assets.exists(asset);
+		#end
+	}
+
+	inline static public function getContent(asset:String):Null<String> 
+	{
+		#if sys
+		if (FileSystem.exists(asset))
+			return File.getContent(asset);
+		#else
+		if (Assets.exists(asset))
+			return Assets.getText(asset);
+		#end
+
+		return null;
+	}
+
 	public static function getGraphic(path:String):FlxGraphic
 	{
 		return FlxGraphic.fromBitmapData(BitmapData.fromFile(path), false, path);
@@ -250,8 +235,6 @@ class Paths
 		trace('oh no!!' + '$key' + 'returned null!');
 		return null;
 	}
-
-	public static var currentTrackedSounds:Map<String, Sound> = [];
 
 	public static function returnSoundPath(path:String, key:String)
 	{
@@ -318,14 +301,14 @@ class Paths
 	static public function modFolders(key:String) {
 		if(currentModDirectory != null && currentModDirectory.length > 0) {
 			var fileToCheck:String = mods(currentModDirectory + '/' + key);
-			if(FileSystem.exists(fileToCheck)) {
+			if (FileSystem.exists(fileToCheck)) {
 				return fileToCheck;
 			}
 		}
 
 		for(mod in getGlobalMods()){
 			var fileToCheck:String = mods(mod + '/' + key);
-			if(FileSystem.exists(fileToCheck))
+			if (FileSystem.exists(fileToCheck))
 				return fileToCheck;
 
 		}
@@ -341,7 +324,7 @@ class Paths
 	{
 		globalMods = [];
 		var path:String = 'modsList.txt';
-		if(FileSystem.exists(path))
+		if (FileSystem.exists(path))
 		{
 			var list:Array<String> = CoolUtil.getText(path);
 			for (i in list)
@@ -351,20 +334,25 @@ class Paths
 				{
 					var folder = dat[0];
 					var path = Paths.mods(folder + '/pack.json');
-					if(FileSystem.exists(path)) {
-						try{
+					if (FileSystem.exists(path)) {
+						try {
 							var rawJson:String = File.getContent(path);
-							if(rawJson != null && rawJson.length > 0) {
+							if (rawJson != null && rawJson.length > 0) {
 								var stuff:Dynamic = Json.parse(rawJson);
 								var global:Bool = Reflect.getProperty(stuff, "runsGlobally");
 								if(global)globalMods.push(dat[0]);
 							}
-						} catch(e:Dynamic){
+						} catch(e:Dynamic) {
 							trace(e);
 						}
 					}
 				}
 			}
+		}
+		else
+		{
+			trace("Oops! Could not find 'modsList.txt'! Creating an new file...");
+			File.saveContent('./' + path, 'my-mod|1');
 		}
 		return globalMods;
 	}
@@ -372,7 +360,7 @@ class Paths
 	static public function getModDirectories():Array<String> {
 		var list:Array<String> = [];
 		var modsFolder:String = mods();
-		if(FileSystem.exists(modsFolder)) {
+		if (FileSystem.exists(modsFolder)) {
 			for (folder in FileSystem.readDirectory(modsFolder)) {
 				var path = haxe.io.Path.join([modsFolder, folder]);
 				if (sys.FileSystem.isDirectory(path) && !ignoreModFolders.contains(folder) && !list.contains(folder)) {

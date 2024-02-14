@@ -82,7 +82,7 @@ class MainMenuState extends FlxState
     {
         super.update(elapsed);
 
-        if (Input.is('escape')) 
+        if (Input.is('exit')) 
         {
             FlxG.camera.fade(FlxColor.BLACK, 0.5, false, function()
             {
@@ -266,7 +266,9 @@ class PlayState extends FlxState
         }
 
         math.text = 'What is ' + '$randomNum1 $symbol $randomNum2' + ' ?';
+
         input.text = '';
+        input.caretIndex = 0;
     }
 
     private function checkAnswer()
