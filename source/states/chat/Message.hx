@@ -15,12 +15,11 @@ class Message extends FlxSpriteGroup
         add(modBadge);
 
         username = new FlxText(modBadge.width + 5, 0, 0, userName, 14);
-        username.color = textColor;
-        username.font = Paths.font('vcr.ttf');
+        username.setFormat(Paths.font('vcr.ttf'), 14, textColor, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
         add(username);
 
         daMessage = new FlxText(username.x + username.width - 3, 0, 0, ": " + message, 14);
-        daMessage.font = Paths.font('vcr.ttf');
+        daMessage.setFormat(Paths.font('vcr.ttf'), 14, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
         add(daMessage);
     }
 }
