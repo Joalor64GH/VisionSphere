@@ -13,6 +13,9 @@ class ChatState extends FlxState
 
     override public function create()
     {
+        var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('theme/' + SaveData.theme));
+        add(bg);
+        
         mess = new MsgGroup(25, FlxG.height - 70);
         add(mess);
 
