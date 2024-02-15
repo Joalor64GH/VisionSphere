@@ -127,8 +127,8 @@ class Main extends openfl.display.Sprite
 
 				var curDate:String = Date.now().toString();
 
-				curDate = StringTools.replace(dateNow, " ", "_");
-				curDate = StringTools.replace(dateNow, ":", "'");
+				curDate = StringTools.replace(curDate, " ", "_");
+				curDate = StringTools.replace(curDate, ":", "'");
 
 				File.saveBytes("screenshots/Screenshot-" + curDate + ".png", bytes);
 			}
