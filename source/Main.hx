@@ -110,7 +110,7 @@ class Main extends openfl.display.Sprite
 		#end
 
 		#if windows
-		Lib.current.stage.addEventListener(openfl.events.KeyboardEvent.KEY_DOWN, (evt:openfl.events.Keyboard) ->
+		Lib.current.stage.addEventListener(openfl.events.KeyboardEvent.KEY_DOWN, (evt:openfl.events.KeyboardEvent) ->
 		{
 			if (evt.keyCode == openfl.ui.Keyboard.F2)
 			{
