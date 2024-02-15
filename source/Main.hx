@@ -109,6 +109,7 @@ class Main extends openfl.display.Sprite
 		});
 		#end
 
+		#if windows
 		Lib.current.stage.addEventListener(openfl.events.KeyboardEvent.KEY_DOWN, (evt.openfl.events.Keyboard) ->
 		{
 			if (evt.keyCode == openfl.ui.Keyboard.F2)
@@ -132,6 +133,7 @@ class Main extends openfl.display.Sprite
 				File.saveBytes("screenshots/Screenshot-" + curDate + ".png", bytes);
 			}
 		});
+		#end
 
 		#if linux
 		var icon = Image.fromFile("icon.png");
