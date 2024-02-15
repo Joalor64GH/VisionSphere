@@ -4,7 +4,7 @@
 	<!-- [ Application Settings ] -->
 
 	<app title="VisionSphere" file="VisionSphere" main="Main" />
-	<app version="0.5.0" company="Joalor64GH" package="com.joalor64.visionsphere"/>
+	<app version="0.5.5" company="Joalor64GH" package="com.joalor64.visionsphere"/>
 
 	<!-- [ Window Settings ] -->
 

@@ -13,9 +13,6 @@ class ChatState extends FlxState
 
     override public function create()
     {
-        Paths.clearStoredMemory();
-        Paths.clearUnusedMemory();
-        
         var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('theme/' + SaveData.theme));
         add(bg);
         
@@ -34,7 +31,7 @@ class ChatState extends FlxState
         super.update(elapsed);
 
         if (Input.is('exit'))
-            FlxG.switchState(new MenuState());
+            FlxG.switchState(new states.MenuState());
 
         if (input.hasFocus && Input.is('accept'))
         {
