@@ -69,14 +69,18 @@ class MiscState extends FlxState
                         closeSubState();
                     }));
                 case "Shut Down":
-                    FlxG.camera.fade(FlxColor.BLACK, 0.5, false, function() 
-                    { 
-                        #if (sys || cpp)
-                        Sys.exit(0);
-                        #else 
-                        openfl.system.System.exit(0);
-                        #end
-                    }, false);
+                    openSubState(new states.substates.PromptSubState("Are you sure?", function() {
+                        FlxG.camera.fade(FlxColor.BLACK, 0.5, false, function()
+                        {
+                            #if (sys || cpp)
+                            Sys.exit(0);
+                            #else
+                            openfl.system.System.exit(0);
+                            #end
+                        });
+                    }, function() {
+                        closeSubState();
+                    }));
                 case "Back":
                     FlxG.switchState(new states.options.OptionsState());
             }

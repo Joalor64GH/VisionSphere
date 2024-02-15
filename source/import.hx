@@ -17,10 +17,12 @@ import flixel.tweens.FlxTween;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import lime.app.Application;
 
+import base.Menu;
 import base.Paths;
 import base.Input;
 import base.Event;
 import base.Plugins;
+
 import util.CoolUtil;
 import util.Localization;
 import util.SaveData;

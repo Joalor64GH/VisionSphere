@@ -109,6 +109,30 @@ class Main extends openfl.display.Sprite
 		});
 		#end
 
+		Lib.current.stage.addEventListener(openfl.events.KeyboardEvent.KEY_DOWN, (evt.openfl.events.Keyboard) ->
+		{
+			if (evt.keyCode == openfl.ui.Keyboard.F2)
+			{
+				var sp = Lib.current.stage;
+				var position = new openfl.geom.Rectangle(0, 0, Lib.current.stage.stageWidth, Lib.current.stage.stageHeight);
+
+				var image:flash.display.BitmapData = new flash.display.BitmapData(Std.int(position.width), Std.int(position.height), false, 0xFEFEFE);
+				image.draw(sp, true);
+
+				if (!FileSystem.exists("./screenshots/"))
+					FileSystem.createDirectory("./screenshots/");
+
+				var bytes = image.encode(position, new openfl.display.PNGEncoderOptions());
+
+				var curDate:String = Date.now().toString();
+
+				curDate = StringTools.replace(dateNow, " ", "_");
+				curDate = StringTools.replace(dateNow, ":", "'");
+
+				File.saveBytes("screenshots/Screenshot-" + curDate + ".png", bytes);
+			}
+		});
+
 		#if linux
 		var icon = Image.fromFile("icon.png");
 		Lib.current.stage.window.setIcon(icon);

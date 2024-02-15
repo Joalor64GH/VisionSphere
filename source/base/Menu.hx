@@ -64,5 +64,81 @@ class Menu extends FlxSubState
         ready = true;
     }
 
-    
+    public override function update(elapsed:Float)
+    {
+        if (ready)
+        {
+            cursor.x += Math.sin(uhhhh);
+            cursor.setGraphicSize(Std.int(cursor.width += Math.sin(uhhhh)));
+            uhhhh += 1;
+
+            if (currentOption < 0)
+            {
+                currentOption = maxOptions;
+                FlxTween.tween(cursor, {y: optionsT.y + (40 * maxOptions)}, 0.2, {ease: FlxEase.quadInOut});
+            }
+            else if (currentOption > maxOptions)
+            {
+                currentOption = 0;
+                FlxTween.tween(cursor, {y: optionsT.y}, 0.2, {ease: FlxEase.quadInOut});
+            }
+
+            if (Input.is('up') && !justPressedEnter && currentOption >= 0 && currentOption <= maxOptions)
+            {
+                currentOption--;
+                FlxTween.tween(cursor, {y: cursor.y - 40}, 0.2, {ease: FlxEase.quadInOut});
+            }
+            else if (Input.is('down') && !justPressedEnter && currentOption >= 0 && currentOption <= maxOptions)
+            {
+                currentOption++;
+                FlxTween.tween(cursor, {y: cursor.y + 40}, 0.2, {ease: FlxEase.quadInOut})
+            }
+            else if (Input.is('accept') && !justPressedEnter && currentOption >= 0 && currentOption <= maxOptions)
+            {
+                if (flashTimer != null)
+                {
+                    flashTimer.cancel();
+                    flashTimer = null;
+                }
+                flashTimer = new FlxTimer().start(0.1, (timer:FlxTimer) -> 
+                {
+                    cursor.visible = !cursor.visible;
+                }, 0);
+
+                FlxG.sound.play(Paths.sound('selection'));
+
+                justPressedEnter = true;
+
+                new FlxTimer().start(2, (?timer:FlxTimer) -> 
+                {
+                    trace("eugh");
+
+                    if (includeExitBtn && currentOption == maxOptions)
+                        close();
+                    else {
+                        cb({id: currentOption, text: splitText(currentOption)});
+                        close();
+                    }
+                }, 1);
+            }
+        }
+    }
+
+    inline function splitText(returnOption:Int)
+    {
+        final tempArray = optionsT.text.trim().split('\n');
+        return tempArray[returnOption].trim();
+    }
+
+    inline function stopFlash()
+    {
+        flashTimer.cancel();
+        flashTimer = null;
+    }
+
+    override function destroy()
+    {
+        instance = null;
+        return super.destroy();
+    }
 }
