@@ -81,6 +81,11 @@ class BootState extends FlxState
     override function update(elapsed)
     {
         super.update(elapsed);
+
+        #if debug
+        if (Input.is('space'))
+            FlxG.switchState(new states.SplashState());
+        #end
     }
 }
 
