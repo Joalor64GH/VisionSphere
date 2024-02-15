@@ -11,7 +11,12 @@ class Message extends FlxSpriteGroup
     {
         super(x, y);
 
-        var modBadge:FlxSprite = new FlxSprite().makeGraphic((isMod) ? 15, 15, FlxColor.GREEN : 1, 1, FlxColor.TRANSPARENT);
+        var modBadge:FlxSprite = new FlxSprite();
+        modBadge.makeGraphic(1, 1, FlxColor.TRANSPARENT);
+        
+        if (isMod)
+            modBadge.makeGraphic(15, 15, FlxColor.GREEN);
+            
         add(modBadge);
 
         username = new FlxText(modBadge.width + 5, 0, 0, userName, 14);
