@@ -91,7 +91,7 @@ class Menu extends FlxSubState
             else if (Input.is('down') && !justPressedEnter && currentOption >= 0 && currentOption <= maxOptions)
             {
                 currentOption++;
-                FlxTween.tween(cursor, {y: cursor.y + 40}, 0.2, {ease: FlxEase.quadInOut})
+                FlxTween.tween(cursor, {y: cursor.y + 40}, 0.2, {ease: FlxEase.quadInOut});
             }
             else if (Input.is('accept') && !justPressedEnter && currentOption >= 0 && currentOption <= maxOptions)
             {
