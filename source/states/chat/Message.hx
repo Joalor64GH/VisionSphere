@@ -7,7 +7,7 @@ class Message extends FlxSpriteGroup
     var daMessage:FlxText;
     var username:FlxText;
 
-    public function new(x:Float = 0, y:Float = 0, userName:String = "user", message:String, "test message", textColor:FlxColor, ?isMod:Bool = false)
+    public function new(x:Float = 0, y:Float = 0, userName:String = "user", message:String = "test message", textColor:FlxColor, ?isMod:Bool = false)
     {
         super(x, y);
 
