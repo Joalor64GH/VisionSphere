@@ -232,7 +232,7 @@ class Paths
 			localTrackedAssets.push(path);
 			return currentTrackedAssets.get(path);
 		}
-		trace('oh no!!' + '$key' + 'returned null!');
+		trace('oh no!! $key returned null!');
 		return null;
 	}
 
@@ -278,36 +278,36 @@ class Paths
 	
 	#if MODS_ALLOWED
 	inline static public function mods(key:String = '')
-		return 'mods/' + key;
+		return 'mods/$key';
 	
 	inline static public function modsFont(key:String)
-		return modFolders('fonts/' + key);
+		return modFolders('fonts/$key');
 
 	inline static public function modsJson(key:String)
-		return modFolders('data/' + key + '.json');
+		return modFolders('data/$key.json');
 
 	inline static public function modsSounds(path:String, key:String)
-		return modFolders(path + '/' + key + '.ogg');
+		return modFolders('$path/$key.ogg');
 
 	inline static public function modsImages(key:String)
-		return modFolders('images/' + key + '.png');
+		return modFolders('images/$key.png');
 
 	inline static public function modsXml(key:String)
-		return modFolders('images/' + key + '.xml');
+		return modFolders('images/$key.xml');
 
 	inline static public function modsTxt(key:String)
-		return modFolders('images/' + key + '.txt');
+		return modFolders('images/$key.txt');
 
 	static public function modFolders(key:String) {
-		if(currentModDirectory != null && currentModDirectory.length > 0) {
-			var fileToCheck:String = mods(currentModDirectory + '/' + key);
+		if (currentModDirectory != null && currentModDirectory.length > 0) {
+			var fileToCheck:String = mods('$currentModDirectory/$key');
 			if (FileSystem.exists(fileToCheck)) {
 				return fileToCheck;
 			}
 		}
 
-		for(mod in getGlobalMods()){
-			var fileToCheck:String = mods(mod + '/' + key);
+		for(mod in getGlobalMods()) {
+			var fileToCheck:String = mods('$mod/$key');
 			if (FileSystem.exists(fileToCheck))
 				return fileToCheck;
 
@@ -333,14 +333,14 @@ class Paths
 				if (dat[1] == "1")
 				{
 					var folder = dat[0];
-					var path = Paths.mods(folder + '/pack.json');
+					var path = Paths.mods('$folder/pack.json');
 					if (FileSystem.exists(path)) {
 						try {
 							var rawJson:String = File.getContent(path);
 							if (rawJson != null && rawJson.length > 0) {
 								var stuff:Dynamic = Json.parse(rawJson);
 								var global:Bool = Reflect.getProperty(stuff, "runsGlobally");
-								if(global)globalMods.push(dat[0]);
+								if (global) globalMods.push(dat[0]);
 							}
 						} catch(e:Dynamic) {
 							trace(e);

@@ -48,7 +48,6 @@ class Plugins
         interp.variables.set("FlxSprite", FlxSprite);
         interp.variables.set("FlxTypedGroup", FlxTypedGroup);
         interp.variables.set("FlxAtlasFrames", FlxAtlasFrames);
-        interp.variables.set("FlxSprite", FlxSprite);
         interp.variables.set("FlxBasic", FlxBasic);
         interp.variables.set("FlxObject", FlxObject);
         interp.variables.set("Application", Application);
@@ -81,7 +80,6 @@ class Plugins
         interp.variables.set("Plugins", Plugins); // lol
 
         interp.variables.set("debug", #if debug true #else false #end);
-
         interp.variables.set("create", FlxG.state.create);
         interp.variables.set("update", FlxG.state.update);
         interp.variables.set("getVarFromClass", function(instance:String, variable:String)

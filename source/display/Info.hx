@@ -19,7 +19,7 @@ class Info extends openfl.text.TextField
 		height = 720;
 		selectable = false;
 		defaultTextFormat = new openfl.text.TextFormat(Paths.font('vcr.ttf'), 16, color);
-		addEventListener(openfl.events.Event.ENTER_FRAME, function(_)
+		addEventListener(openfl.events.Event.ENTER_FRAME, (_) ->
 		{
 			var now:Float = Timer.stamp();
 			times.push(now);

@@ -99,11 +99,6 @@ class MenuState extends FlxState
             FlxG.sound.play(Paths.sound('confirm'));
         }
 
-        #if debug // testing for now
-        if (Input.is('c'))
-            FlxG.switchState(new states.chat.ChatState());
-        #end
-
         dateText.text = DateTools.format(Date.now(), "%F") + ' / ' + DateTools.format(Date.now(), SaveData.timeFormat);
     }
 
@@ -117,7 +112,7 @@ class MenuState extends FlxState
         selectedText = textArray[FlxG.random.int(0, (textArray.length - 1))];
         FlxTween.tween(splashTxt, {alpha: 0}, 1, {
             ease: FlxEase.linear,
-            onComplete: function(blud:FlxTween) 
+            onComplete: (blud:FlxTween) ->
             {
                 if (selectedText != lastString) {
                     splashTxt.text = selectedText;
@@ -132,7 +127,7 @@ class MenuState extends FlxState
 
                 FlxTween.tween(splashTxt, {alpha: 1}, 1, {
                     ease: FlxEase.linear,
-                    onComplete: function(blud:FlxTween)
+                    onComplete: (blud:FlxTween) ->
                     {
                         isTweening = false;
                     }
