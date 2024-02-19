@@ -146,7 +146,7 @@ class PlayState extends FlxState
                 case 5:
                     FlxG.camera.fade(FlxColor.BLACK, 0.5, false, function()
                     {
-                        FlxG.switchState(new states.games.TestGame());
+                        FlxG.switchState(new states.games.tetris.PlayState());
                     });
             }
         }
