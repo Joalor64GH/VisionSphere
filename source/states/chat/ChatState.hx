@@ -6,7 +6,7 @@ import states.chat.Message;
 
 import flixel.addons.ui.FlxInputText;
 
-class ChatState extends FlxState
+class ChatState extends FlxState // this is broken and idk why
 {
     private var mess:MsgGroup;
     private var txtInput:FlxInputText;

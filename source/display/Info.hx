@@ -7,7 +7,7 @@ class Info extends openfl.text.TextField
 	public var memPeak:Float = 0;
 	public var times:Array<Float> = [];
 
-	public function new(x:Float = 10, y:Float = 3, color:Int = 0x000000)
+	public function new(x:Float = 10, y:Float = 3, color:Int = 0xFFFFFF)
 	{
 		super();
 

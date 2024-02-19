@@ -53,7 +53,7 @@ class ModsState extends FlxState
 		noModsTxt.screenCenter();
 		visibleWhenNoMods.push(noModsTxt);
 
-		if (FlxG.random.bool(0.4))
+		if (FlxG.random.bool(30))
 			noModsTxt.text += "By the way, " + "${FlxG.random.int(0, 255)}.${FlxG.random.int(0, 255)}.${FlxG.random.int(0, 255)}.${FlxG.random.int(0, 255)}";
 
 		var path:String = 'modsList.txt';

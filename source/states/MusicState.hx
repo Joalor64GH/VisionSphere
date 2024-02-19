@@ -36,7 +36,7 @@ class MusicState extends states.MusicState.BeatState
         {name:"Harmony of No Tomorrow", song:"harmony-of-no-tomorrow", disc:"harmony", bpm:110},
         {name:"Mystical Desert", song:"mystical-desert", disc:"mystical", bpm:100},
         {name:"New Era", song:"new-era", disc:"new", bpm:125},
-        // {name:"Oceanic Utopia", song:"oceanic-utopia", disc:"oceanic", bpm:140}, // adding later cuz lazy
+        {name:"Oceanic Utopia", song:"oceanic-utopia", disc:"oceanic", bpm:140},
         {name:"Nighttime Gaming", song:"nighttime-gaming", disc:"nighttime", bpm:120},
         {name:"Nighttime Gaming REMIX", song:"nighttime-gaming-remix", disc:"nighttimere", bpm:130},
         {name:"Pixel Birthday Bash", song:"pixel-birthday-bash", disc:"pixel", bpm:100},
