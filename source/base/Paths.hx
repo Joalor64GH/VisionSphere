@@ -11,7 +11,6 @@ import openfl.display.BitmapData;
 using StringTools;
 
 /**
- * Paths.hx, but with a modding extension based off of Psych Engine.
  * @author ShadowMario
  * @see https://github.com/ShadowMario/FNF-PsychEngine/
  */
@@ -81,30 +80,20 @@ class Paths
 		localTrackedAssets = [];
 	}
 
-	inline public static function getPath(file:String)
-	{
+	public static function getPath(file:String)
 		return 'assets/$file';
-	}
 
 	inline public static function getPluginPath(file:String)
-	{
 		return 'plugins/$file';
-	}
 
 	inline static public function txt(key:String)
-	{
 		return getPath('data/$key.txt');
-	}
 
 	inline static public function xml(key:String)
-	{
 		return getPath('data/$key.xml');
-	}
 
 	inline static public function json(key:String)
-	{
 		return getPath('data/$key.json');
-	}
 
 	static public function sound(key:String):Sound
 	{
@@ -113,9 +102,7 @@ class Paths
 	}
 	
 	inline static public function soundRandom(key:String, min:Int, max:Int)
-	{
 		return sound(key + FlxG.random.int(min, max));
-	}
 
 	inline static public function music(key:String):Sound
 	{
@@ -133,9 +120,8 @@ class Paths
 	{
 		#if MODS_ALLOWED
 		var file:String = modsFont(key);
-		if(FileSystem.exists(file)) {
+		if (FileSystem.exists(file))
 			return file;
-		}
 		#end
 		return 'assets/fonts/$key';
 	}
@@ -306,13 +292,13 @@ class Paths
 			}
 		}
 
-		for(mod in getGlobalMods()) {
+		for (mod in getGlobalMods()) {
 			var fileToCheck:String = mods('$mod/$key');
 			if (FileSystem.exists(fileToCheck))
 				return fileToCheck;
 
 		}
-		return 'mods/' + key;
+		return 'mods/$key';
 	}
 
 	public static var globalMods:Array<String> = [];

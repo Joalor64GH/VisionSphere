@@ -14,10 +14,6 @@ import display.Info;
 import util.MacroUtil;
 
 #if linux
-import lime.graphics.Image;
-#end
-
-#if linux
 @:cppInclude('./external/gamemode_client.h')
 @:cppFileCode('
 	#define GAMEMODE_AUTO
@@ -28,17 +24,13 @@ using StringTools;
 
 class Main extends openfl.display.Sprite
 {
-	public static final gameVersion:String = '0.5.5'; // don't assign another value to this please
+	public static final gameVersion:String = '0.6.0';
 
 	public static var buildNum(default, never):Int = MacroUtil.get_build_num();
 	public static var commitId(default, never):String = MacroUtil.get_commit_id();
 
 	public static var toast:ToastCore;
 	public static var fpsDisplay:Info;
-
-	private var gameWidth:Int = 1280;
-	private var gameHeight:Int = 720;
-	private var zoom:Float = -1;
 
 	public function new()
 	{
@@ -48,19 +40,7 @@ class Main extends openfl.display.Sprite
 		util.Windows.darkMode(true);
 		#end
 
-		final stageWidth:Int = Lib.current.stage.stageWidth;
-		final stageHeight:Int = Lib.current.stage.stageHeight;
-		
-		if (zoom == -1)
-		{
-			final ratioX:Float = stageWidth / gameWidth;
-			final ratioY:Float = stageHeight / gameHeight;
-			zoom = Math.min(ratioX, ratioY);
-			gameWidth = Math.ceil(stageWidth / zoom);
-			gameHeight = Math.ceil(stageHeight / zoom);
-		}
-
-		addChild(new flixel.FlxGame(gameWidth, gameHeight, states.BootState, #if (flixel < "5.0.0") zoom, #end 60, 60, true, false));
+		addChild(new flixel.FlxGame(1280, 720, states.BootState, #if (flixel < "5.0.0") -1, #end 60, 60, true, false));
 
 		fpsDisplay = new Info();
 		addChild(fpsDisplay);
@@ -136,8 +116,7 @@ class Main extends openfl.display.Sprite
 		#end
 
 		#if linux
-		var icon = Image.fromFile("icon.png");
-		Lib.current.stage.window.setIcon(icon);
+		Lib.current.stage.window.setIcon(lime.graphics.Image.fromFile("icon.png"));
 		#end
 
 		toast = new ToastCore();

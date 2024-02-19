@@ -21,8 +21,6 @@ import base.Menu;
 import base.Paths;
 import base.Input;
 import base.Event;
-import base.Plugins;
-
 import util.CoolUtil;
 import util.Localization;
 import util.SaveData;
@@ -30,8 +28,6 @@ import objects.Alphabet;
 import objects.AttachedSprite;
 
 import haxe.Json;
-
-import djFlixel.ui.FlxToast; // might replace ToastCore
 
 using StringTools;
 using util.CoolUtil;

@@ -1,4 +1,4 @@
-package states;
+package states.unused;
 
 // this is just a simple event test
 class TestState extends FlxState
@@ -35,7 +35,7 @@ class TestState extends FlxState
     {
         super.update(elapsed);
 
-        if (Input.is('escape'))
+        if (Input.is('exit'))
             FlxG.switchState(new states.MenuState());
     }
 }

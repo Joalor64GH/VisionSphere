@@ -99,6 +99,10 @@ class MenuState extends FlxState
             FlxG.sound.play(Paths.sound('confirm'));
         }
 
+        #if debug
+        if (Input.is('c')) FlxG.switchState(new states.chat.ChatState());
+        #end
+
         dateText.text = DateTools.format(Date.now(), "%F") + ' / ' + DateTools.format(Date.now(), SaveData.timeFormat);
     }
 

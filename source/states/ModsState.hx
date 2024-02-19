@@ -32,9 +32,6 @@ class ModsState extends FlxState
 	var buttonToggle:FlxButton;
 	var buttonsArray:Array<FlxButton> = [];
 
-	var installButton:FlxButton;
-	var removeButton:FlxButton;
-
 	var modsList:Array<Dynamic> = [];
 
 	var visibleWhenNoMods:Array<FlxBasic> = [];
@@ -55,6 +52,9 @@ class ModsState extends FlxState
 		add(noModsTxt);
 		noModsTxt.screenCenter();
 		visibleWhenNoMods.push(noModsTxt);
+
+		if (FlxG.random.bool(0.4))
+			noModsTxt.text += "By the way, " + "${FlxG.random.int(0, 255)}.${FlxG.random.int(0, 255)}.${FlxG.random.int(0, 255)}.${FlxG.random.int(0, 255)}";
 
 		var path:String = 'modsList.txt';
 		if(FileSystem.exists(path))

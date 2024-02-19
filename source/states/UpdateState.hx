@@ -1,7 +1,5 @@
 package states;
 
-import haxe.Http;
-
 class UpdateState extends FlxState
 {
     public static var mustUpdate:Bool = false;
@@ -48,7 +46,7 @@ class UpdateState extends FlxState
 
     public static function updateCheck()
     {
-        var http = new Http("https://raw.githubusercontent.com/Joalor64GH/VisionSphere/main/compileData/gitVersion.txt");
+        var http = new haxe.Http("https://raw.githubusercontent.com/Joalor64GH/VisionSphere/main/compileData/gitVersion.txt");
 
         http.onData = (data:String) ->
         {

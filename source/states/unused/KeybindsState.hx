@@ -1,4 +1,4 @@
-package states;
+package states.unused;
 
 import flixel.input.keyboard.FlxKey;
 

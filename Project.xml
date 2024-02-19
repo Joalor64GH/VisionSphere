@@ -4,7 +4,7 @@
 	<!-- [ Application Settings ] -->
 
 	<app title="VisionSphere" file="VisionSphere" main="Main" />
-	<app version="0.5.5" company="Joalor64GH" package="com.joalor64.visionsphere"/>
+	<app version="0.6.0" company="Joalor64GH" package="com.joalor64.visionsphere"/>
 
 	<!-- [ Window Settings ] -->
 
@@ -23,7 +23,6 @@
 
 	<source path="source" />
 	<assets path="assets" />
-	<assets path="plugins" if="desktop" />
 	<assets path="mods" embed="false" if="MODS_ALLOWED" />
 	<assets path="compileData/modsList.txt" rename="modsList.txt" if="MODS_ALLOWED" />
 	<assets path="VERSION" embed="false" />
@@ -35,7 +34,6 @@
 	<haxelib name="flixel-addons" />
 	<haxelib name="flixel-ui" />
 	<haxelib name="hscript" />
-	<haxelib name="hscript-ex" />
 	<haxelib name="djFlixel" />
 	<haxelib name="hxcpp-debug-server" if="desktop debug" />
 

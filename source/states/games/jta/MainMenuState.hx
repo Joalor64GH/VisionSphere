@@ -36,9 +36,9 @@ class MainMenuState extends FlxState
                 FlxTween.angle(logo, logo.angle, -4, 4, {ease: FlxEase.quartInOut});
             
             if (logoBl.angle == -4)
-                FlxTween.angle(logoBl, logoBl.angle, 4, 4, {ease: FlxEase.quartInOut, startDelay: 0.1});
+                FlxTween.angle(logoBl, logoBl.angle, 4, 4, {ease: FlxEase.quartInOut});
             if (logoBl.angle == 4)
-                FlxTween.angle(logoBl, logoBl.angle, -4, 4, {ease: FlxEase.quartInOut, startDelay: 0.1});
+                FlxTween.angle(logoBl, logoBl.angle, -4, 4, {ease: FlxEase.quartInOut});
         }, 0);
 
         var playBtn:FlxButton = new FlxButton(0, FlxG.height / 2 + 50, "Play", function()

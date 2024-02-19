@@ -6,11 +6,10 @@ import states.chat.Message;
 
 import flixel.addons.ui.FlxInputText;
 
-// BROKEN!! WILL FIX LATER...
 class ChatState extends FlxState
 {
     private var mess:MsgGroup;
-    private var input:FlxInputText;
+    private var txtInput:FlxInputText;
 
     override public function create()
     {
@@ -20,9 +19,9 @@ class ChatState extends FlxState
         mess = new MsgGroup(25, FlxG.height - 70);
         add(mess);
 
-        input = new FlxInputText(25, FlxG.height - 55, 300);
-        input.height *= 2;
-        add(input);
+        txtInput = new FlxInputText(25, FlxG.height - 55, 300);
+        txtInput.height *= 2;
+        add(txtInput);
 
         super.create();
     }
@@ -32,14 +31,17 @@ class ChatState extends FlxState
         super.update(elapsed);
 
         if (Input.is('exit'))
-            FlxG.switchState(new states.MenuState());
-
-        if (input.hasFocus && Input.is('accept'))
         {
-            mess.addMessage(new Message(8, 0, "you", input.text, FlxColor.WHITE, true));
+            FlxG.sound.play(Paths.sound('cancel'));
+            FlxG.switchState(new states.options.MiscState());
+        }
 
-            input.text = "";
-            input.caretIndex = 0;
+        if (txtInput.hasFocus && Input.is('accept'))
+        {
+            mess.addMessage(new Message(8, 0, "you", txtInput.text, FlxColor.WHITE, true));
+
+            txtInput.text = "";
+            txtInput.caretIndex = 0;
         }
 
         if (FlxG.random.bool(3.5))

@@ -16,7 +16,7 @@ class Coin extends FlxSprite
     {
         alive = false;
         FlxTween.tween(this, {alpha: 0, y: y - 16}, 0.22, {
-            ease: FlxEase.circOut, onComplete: function(_) {
+            ease: FlxEase.circOut, onComplete: (_) -> {
                 exists = false;
             }
         });

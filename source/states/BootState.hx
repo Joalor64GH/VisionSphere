@@ -10,7 +10,6 @@ class BootState extends FlxState
 {
     override function create()
     {
-        Plugins.init();
         SaveData.init();
 
         #if MODS_ALLOWED
@@ -75,6 +74,8 @@ class BootState extends FlxState
             });
         });
 
+        trace("Installed Mods: " + getInstalledMods());
+
         super.create();
     }
 
@@ -82,10 +83,14 @@ class BootState extends FlxState
     {
         super.update(elapsed);
 
-        #if debug
-        if (Input.is('space'))
+        if (Input.is('escape'))
             FlxG.switchState(new states.SplashState());
-        #end
+    }
+
+    private function getInstalledMods():String
+    {
+        var installedMods:Array<String> = Paths.getModDirectories();
+        return (installedMods.length > 0) ? installedMods.join("\n") : "No mods currently installed.";
     }
 }
 

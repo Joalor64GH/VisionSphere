@@ -16,22 +16,18 @@ enum Alignment
 class Alphabet extends FlxSpriteGroup
 {
 	public var text(default, set):String;
-
 	public var bold:Bool = false;
 	public var letters:Array<AlphaCharacter> = [];
-
 	public var isMenuItem:Bool = false;
 	public var targetY:Int = 0;
 	public var changeX:Bool = true;
 	public var changeY:Bool = true;
-
 	public var alignment(default, set):Alignment = LEFT;
 	public var scaleX(default, set):Float = 1;
 	public var scaleY(default, set):Float = 1;
 	public var rows:Int = 0;
-
 	public var distancePerItem:FlxPoint = new FlxPoint(20, 120);
-	public var startPosition:FlxPoint = new FlxPoint(0, 0); //for the calculations
+	public var startPosition:FlxPoint = new FlxPoint(0, 0);
 
 	public function new(x:Float, y:Float, text:String = "", ?bold:Bool = true)
 	{
@@ -235,10 +231,6 @@ class Alphabet extends FlxSpriteGroup
 	}
 }
 
-///////////////////////////////////////////
-// ALPHABET LETTERS, SYMBOLS AND NUMBERS //
-///////////////////////////////////////////
-
 
 typedef Letter = {
 	?anim:Null<String>,
@@ -251,14 +243,12 @@ class AlphaCharacter extends FlxSprite
 	public var image(default, set):String;
 
 	public static var allLetters:Map<String, Null<Letter>> = [
-		//alphabet
 		'a'  => null, 'b'  => null, 'c'  => null, 'd'  => null, 'e'  => null, 'f'  => null,
 		'g'  => null, 'h'  => null, 'i'  => null, 'j'  => null, 'k'  => null, 'l'  => null,
 		'm'  => null, 'n'  => null, 'o'  => null, 'p'  => null, 'q'  => null, 'r'  => null,
 		's'  => null, 't'  => null, 'u'  => null, 'v'  => null, 'w'  => null, 'x'  => null,
 		'y'  => null, 'z'  => null,
 
-		//additional alphabet
 		'á'  => null, 'é'  => null, 'í'  => null, 'ó'  => null, 'ú'  => null,
 		'à'  => null, 'è'  => null, 'ì'  => null, 'ò'  => null, 'ù'  => null,
 		'â'  => null, 'ê'  => null, 'î'  => null, 'ô'  => null, 'û'  => null,
@@ -267,11 +257,9 @@ class AlphaCharacter extends FlxSprite
 		'ñ'  => null, 'ç'  => {offsetsBold: [0, -11]}, 'š'  => null, 'ž'  => null, 'ý'  => null, 'ÿ'  => null,
 		'ß'  => null,
 		
-		//numbers
 		'0'  => null, '1'  => null, '2'  => null, '3'  => null, '4'  => null,
 		'5'  => null, '6'  => null, '7'  => null, '8'  => null, '9'  => null,
 
-		//symbols
 		'&'  => {offsetsBold: [0, 2]},
 		'('  => {offsetsBold: [0, 5]},
 		')'  => {offsetsBold: [0, 5]},
@@ -283,7 +271,7 @@ class AlphaCharacter extends FlxSprite
 		'\'' => {anim: 'apostrophe', offsets: [0, 32], offsetsBold: [0, 40]},
 		'"'  => {anim: 'quote', offsets: [0, 32], offsetsBold: [0, 40]},
 		'!'  => {anim: 'exclamation'},
-		'?'  => {anim: 'question'},			//also used for "unknown"
+		'?'  => {anim: 'question'},
 		'.'  => {anim: 'period'},
 		'❝'  => {anim: 'start quote', offsets: [0, 24], offsetsBold: [0, 40]},
 		'❞'  => {anim: 'end quote', offsets: [0, 24], offsetsBold: [0, 40]},
@@ -303,7 +291,6 @@ class AlphaCharacter extends FlxSprite
 		'|'  => null,
 		'~'  => {offsets: [0, 16], offsetsBold: [0, 20]},
 
-		//additional symbols
 		'¡'  => {anim: 'inverted exclamation', offsets: [0, -20], offsetsBold: [0, -20]},
 		'¿'  => {anim: 'inverted question', offsets: [0, -20], offsetsBold: [0, -20]},
 		'{'  => null,
@@ -312,7 +299,7 @@ class AlphaCharacter extends FlxSprite
 	];
 
 	var parent:Alphabet;
-	public var alignOffset:Float = 0; //Don't change this
+	public var alignOffset:Float = 0;
 	public var letterOffset:Array<Float> = [0, 0];
 	public var spawnPos:FlxPoint = new FlxPoint();
 	public var spawnScale:FlxPoint = new FlxPoint();
@@ -374,7 +361,7 @@ class AlphaCharacter extends FlxSprite
 		updateLetterOffset();
 	}
 
-	public static function isTypeAlphabet(c:String) // thanks kade
+	public static function isTypeAlphabet(c:String)
 	{
 		var ascii = StringTools.fastCodeAt(c, 0);
 		return (ascii >= 65 && ascii <= 90)

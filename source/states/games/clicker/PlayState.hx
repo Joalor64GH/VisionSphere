@@ -6,10 +6,9 @@ class PlayState extends FlxState
     var infinity:FlxSprite;
 
     var clicks:Int = 0;
+    
     var clicksTxt:FlxText;
-
     var coolText:FlxText;
-
     var winTxt:FlxText;
 
     public var win:Bool = false;
@@ -47,8 +46,6 @@ class PlayState extends FlxState
         infinity.animation.addByPrefix('rainbow', 'infinity', 12);
         infinity.animation.play('rainbow');
         infinity.screenCenter();
-        infinity.visible = false;
-        add(infinity);
 
         FlxG.sound.playMusic(Paths.music('2048/game'));
 
@@ -179,8 +176,8 @@ class PlayState extends FlxState
                 case 37:
                     number.loadGraphic(Paths.image('game/2048/numbers/exponents/100'));
                 case 38:
-                    number.visible = false;
-                    infinity.visible = true;
+                    remove(number);
+                    add(infinity);
                     coolText.text = 'To infinity!';
                     winTxt.text = 'Press W to win the game!';
             }
