@@ -57,6 +57,7 @@ class PlayState extends FlxState
             {img: "jta", desc: "The journey ever!", title: "Journey Through Aubekhia"},
             {img: "painter", desc: "Let out your inner Picasso!", title: "Painter"},
             {img: "math", desc: "An endless math problem game!", title: "The Simple Math Game"},
+            {img: "blank", desc: "testing for now", title: "Test Game"}
         ];
 
         for (data in games)
@@ -141,6 +142,11 @@ class PlayState extends FlxState
                     FlxG.camera.fade(FlxColor.BLACK, 0.5, false, function()
                     {
                         FlxG.switchState(new states.games.TheSimpleMathGame.MainMenuState());
+                    });
+                case 5:
+                    FlxG.camera.fade(FlxColor.BLACK, 0.5, false, function()
+                    {
+                        FlxG.switchState(new states.games.TestGame());
                     });
             }
         }
