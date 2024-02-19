@@ -88,7 +88,7 @@ class MiscState extends FlxState
 
         if (Input.is('exit')) 
         {
-            FlxG.switchState(new states.MenuState());
+            FlxG.switchState(new states.options.OptionsState());
             FlxG.sound.play(Paths.sound('cancel'));
         }
     }

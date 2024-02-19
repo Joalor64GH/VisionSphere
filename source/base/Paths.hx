@@ -24,7 +24,9 @@ class Paths
 		'sounds',
 		'images',
 		'fonts',
-		'languages'
+		'languages',
+		'libraries',
+		'addons'
 	];
 	#end
 

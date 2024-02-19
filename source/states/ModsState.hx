@@ -54,17 +54,18 @@ class ModsState extends FlxState
 		visibleWhenNoMods.push(noModsTxt);
 
 		if (FlxG.random.bool(30))
-			noModsTxt.text += "By the way, " + "${FlxG.random.int(0, 255)}.${FlxG.random.int(0, 255)}.${FlxG.random.int(0, 255)}.${FlxG.random.int(0, 255)}";
+			noModsTxt.text += "\nBY THE WAY, " 
+				+ FlxG.random.int(0, 255) + "." + FlxG.random.int(0, 255) + "." + FlxG.random.int(0, 255) + "." + FlxG.random.int(0, 255);
 
 		var path:String = 'modsList.txt';
-		if(FileSystem.exists(path))
+		if (FileSystem.exists(path))
 		{
 			var leMods:Array<String> = CoolUtil.getText(path);
 			for (i in 0...leMods.length)
 			{
 				if(leMods.length > 1 && leMods[0].length > 0) {
 					var modSplit:Array<String> = leMods[i].split('|');
-					if(!Paths.ignoreModFolders.contains(modSplit[0].toLowerCase()))
+					if (!Paths.ignoreModFolders.contains(modSplit[0].toLowerCase()))
 					{
 						addToModsList([modSplit[0], (modSplit[1] == '1')]);
 					}
@@ -244,13 +245,13 @@ class ModsState extends FlxState
 			add(newMod.alphabet);
 			var loadedIcon:BitmapData = null;
 			var iconToUse:String = Paths.mods(values[0] + '/pack.png');
-			if(FileSystem.exists(iconToUse))
+			if (FileSystem.exists(iconToUse))
 			{
 				loadedIcon = BitmapData.fromFile(iconToUse);
 			}
 
 			newMod.icon = new AttachedSprite();
-			if(loadedIcon != null)
+			if (loadedIcon != null)
 			{
 				newMod.icon.loadGraphic(loadedIcon, true, 150, 150);
 				var totalFrames = Math.floor(loadedIcon.width / 150) * Math.floor(loadedIcon.height / 150);
@@ -531,9 +532,9 @@ class ModMetadata
 		this.restart = false;
 		
 		var path = Paths.mods(folder + '/pack.json');
-		if(FileSystem.exists(path)) {
+		if (FileSystem.exists(path)) {
 			var rawJson:String = File.getContent(path);
-			if(rawJson != null && rawJson.length > 0) {
+			if (rawJson != null && rawJson.length > 0) {
 				var stuff:Dynamic = Json.parse(rawJson);
 				var colors:Array<Int> = Reflect.getProperty(stuff, "color");
 				var description:String = Reflect.getProperty(stuff, "description");
