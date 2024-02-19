@@ -48,7 +48,7 @@ class TestGame extends FlxState
     private function generateTilemap()
     {
         tilemap = new FlxTilemap();
-        var tiles:Array<Array<Int>> = [];
+        var tiles:Array<Int> = [];
 
         for (i in 0...numRows)
         {
