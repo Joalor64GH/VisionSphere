@@ -6,7 +6,7 @@ Mostly based on Sega Dreamcast.
 
 ## To-Dos
 * [ ] Add 10 Games (6/10)
-* [ ] Chatting **[WIP, broken atm]**
+* [ ] Save Slots **[WIP]**
 * [ ] Account settings **[WIP]**
 * [ ] Maybe expand modding support (addons/libraries) **[WIP]**
 

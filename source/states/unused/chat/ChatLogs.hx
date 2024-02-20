@@ -1,4 +1,4 @@
-package states.chat;
+package states.unused.chat;
 
 /**
  * @author ninjamuffin99

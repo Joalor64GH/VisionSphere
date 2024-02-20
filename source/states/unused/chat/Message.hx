@@ -1,4 +1,4 @@
-package states.chat;
+package states.unused.chat;
 
 import flixel.group.FlxSpriteGroup;
 

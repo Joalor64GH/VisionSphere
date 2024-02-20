@@ -1,8 +1,8 @@
-package states.chat;
+package states.unused.chat;
 
-import states.chat.ChatLogs;
-import states.chat.MsgGroup;
-import states.chat.Message;
+import states.unused.chat.ChatLogs;
+import states.unused.chat.MsgGroup;
+import states.unused.chat.Message;
 
 import flixel.addons.ui.FlxInputText;
 
