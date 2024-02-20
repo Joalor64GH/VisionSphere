@@ -1,54 +1,59 @@
 package states.games.tetris;
 
-import djFlixel.gfx.BoxScroller;
-import djFlixel.gfx.pal.Pal_DB32;
-
-import flixel.effects.particles.FlxEmitter;
-import flixel.effects.particles.FlxParticle;
-
 import states.games.tetris.GameGrid;
 
 import states.games.tetris.Point;
 import states.games.tetris.Piece;
 import states.games.tetris.PieceQueue;
 
+import flixel.group.FlxSpriteGroup;
+
 class PlayState extends FlxState
 {
+    public static var curPiece(default, set):Piece;
+    public static var borderWidth:Int = 18;
+
+    var frames:Int = 0;
+
+    var cleared(default, set):Int = 0;
+    var clearedText:FlxText;
+    var gameOver:Bool;
+    var grid:GameGrid.Sprites;
+    var heldPiece(default, set):Piece;
+    var heldPieceDisplay:PieceDisplay;
+    var nextPieceDisplay:PieceDisplay;
+
     override public function create()
     {
         Paths.clearStoredMemory();
         Paths.clearUnusedMemory();
 
-        var colors = FlxColor.gradient(0xFF0080FF, 0xFF200050, 12);
-        var parallaxes:Array<BoxScroller> = [];
-        var h0 = 48;
-        var inc = FlxG.height / (colors.length - 1);
-        for (i in 0...colors.length)
-        {
-            var b = new BoxScroller("assets/images/stripe.png", 0, 0, FlxG.width);
-            b.scale.set(3.5, 3.5);
-            b.color = colors[i];
-            b.autoScrollX = -(0.2 + (i * 0.15)) * (1 + (i * 0.06));
-            b.randomOffset();
-            parallaxes.push(b);
-            b.x = 0;
-            b.y = (inc * i) - 24;
-            add(b);
-        }
+        PieceQueue.updatePiece();
 
-        var em = new FlxEmitter(1280, 128, 256);
-        em.height = 64;
-        em.particleClass = Balls;
-        em.launchMode = FlxEmitterMode.SQUARE;
-        em.velocity.set(-40, 0, -70);
-        em.start(false, 0.3);
-        em.lifespan.set(99);
-        add(em);
+        curPiece = PieceQueue.getAndUpdatePiece();
 
-        var text:FlxText = new FlxText(0, 0, 0, "hello world\nthis unfinished lmao", 12);
-        text.setFormat(Paths.font('vcr.ttf'), 64, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-        text.screenCenter();
-        add(text);
+        var gridWidth = GameGrid.columns * GameGrid.Sprites.cellSize;
+        var gridHeight = (GameGrid.rows - GameGrid.Sprites.hiddenRows) * GameGrid.Sprites.cellSize;
+
+        grid = new GameGrid.Sprites((FlxG.width - gridWidth) / 2, (FlxG.height - gridHeight) / 2);
+        add(grid);
+
+        add(new FlxSprite(grid.x - borderWidth, grid.y).makeGraphic(borderWidth, gridHeight, 0xFF808080));
+        add(new FlxSprite(grid.x + gridWidth, grid.y).makeGraphic(borderWidth, gridHeight, 0xFF808080));
+        add(new FlxSprite(grid.x - borderWidth, grid.y - borderWidth).makeGraphic(gridWidth + borderWidth * 2, borderWidth, 0xFF808080));
+        add(new FlxSprite(grid.x - borderWidth, grid.y + gridHeight).makeGraphic(gridWidth + borderWidth * 2, borderWidth, 0xFF808080));
+
+        heldPieceDisplay = new PieceDisplay(95, 95);
+        heldPieceDisplay.updateSprites();
+        add(heldPieceDisplay);
+
+        nextPieceDisplay = new PieceDisplay(951, 95);
+        nextPieceDisplay.updateSprites(PieceQueue.next);
+        add(nextPieceDisplay);
+
+        clearedText = new FlxText((460 - clearedText.width) / 2, 600, 0, "Score: 0", 24);
+        clearedText.setFormat(Paths.font('vcr.ttf'), 26, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+        add(clearedText);
 
         super.create();
     }
@@ -56,6 +61,76 @@ class PlayState extends FlxState
     override public function update(elapsed:Float)
     {
         super.update(elapsed);
+
+        frames++;
+
+        gameOver = !GameGrid.isRowEmpty(0) && !GameGrid.isRowEmpty(1);
+
+        if (!gameOver)
+        {
+            if (Input.is('left'))
+            {
+                curPiece.move(0, -1);
+                if (!doesFit())
+                    curPiece.move(0, 1);
+                grid.updateSprites();
+            }
+            if (Input.is('right'))
+            {
+                curPiece.move(0, 1);
+                if (!doesFit())
+                    curPiece.move(0, -1);
+                grid.updateSprites();
+            }
+            if (Input.is('down'))
+            {
+                curPiece.move(1, 0);
+                if (!doesFit()) 
+                {
+                    curPiece.move(-1, 0);
+                    placePiece();
+                }
+                grid.updateSprites();
+            }
+            if (Input.is('up'))
+            {
+                curPiece.rotateClockwise();
+                if (!doesFit())
+                    curPiece.rotateCounterClockwise();
+                grid.updateSprites();
+            }
+            if (Input.is('z'))
+            {
+                curPiece.rotateCounterClockwise();
+                if (!doesFit())
+                    curPiece.rotateClockwise();
+                grid.updateSprites();
+            }
+            if (Input.is('c'))
+                heldPiece = curPiece;
+            if (Input.is('enter') || Input.is('space'))
+            {
+                curPiece.move(getDropDistance(), 0);
+                placePiece();
+            }
+
+            if (frames % 30 == 0)
+            {
+                frames = 0;
+                curPiece.move(1, 0);
+                if (!doesFit()) 
+                {
+                    curPiece.move(-1, 0);
+                    placePiece();
+                }
+                grid.updateSprites();
+            }
+        }
+        else
+        {
+            GameGrid.clear();
+            FlxG.resetState();
+        }
 
         if (Input.is('exit')) 
         {
@@ -66,59 +141,130 @@ class PlayState extends FlxState
             FlxG.sound.play(Paths.sound('cancel'));
         }
     }
-}
 
-class Balls extends FlxParticle // https://youtu.be/mM4jKMHuWtU?si=5dB-Z3blV3PK-lsC
-{
-    static var wMin = 32;
-    static var wMax = 64;
-    static var FREQ = 0.12;
-    static var inc = 0.4;
-
-    var c:Float = 0;
-    var t:Float = 0;
-    var w:Float = 0;
-
-    public function new()
+    static function doesFit() 
     {
-        super();
-
-        loadGraphic(Paths.image("baller"), true, 16, 16, true);
-        animation.add("main", [0, 1, 2, 3, 4, 5, 6], 14);
-        lifespan = 0;
-
-        if (FlxG.random.bool())
-            replaceColor(Pal_DB32.COL[28], Pal_DB32.COL[26]);
-        else if (FlxG.random.bool())
+        for (i in curPiece.getTilePoints()) 
         {
-            replaceColor(Pal_DB32.COL[28], Pal_DB32.COL[17]);
-            replaceColor(Pal_DB32.COL[8], Pal_DB32.COL[19]);
+            if (!GameGrid.isEmpty(i.row, i.column))
+                return false;
         }
 
-        scale.set(8, 8);
+        return true;
     }
 
-    override public function onEmit():Void
+    public function placePiece() 
     {
-        super.onEmit();
+        for (i in curPiece.getTilePoints())
+            GameGrid.set(i.row, i.column, curPiece.id);
 
-        animation.play("main");
-        c = Math.random() * Math.PI;
-        w = FlxG.random.int(wMin, wMax);
-    }
+        cleared += GameGrid.clearRows();
 
-    override public function update(elapsed:Float):Void
-    {
-        super.update(elapsed);
-
-        if ((t += elapsed) > FREQ)
+        if (!gameOver) 
         {
-            t = 0;
-            velocity.y = Math.sin(c) * w;
-            c += inc;
+            curPiece = PieceQueue.getAndUpdatePiece();
+            nextPieceDisplay.updateSprites(PieceQueue.next);
+        }
+    }
 
-            if (x > FlxG.width)
-                kill();
+    public static function getDropDistance() 
+    {
+        var drop = GameGrid.rows;
+
+        for (i in curPiece.getTilePoints()) 
+        {
+            var distance = 0;
+            while (GameGrid.isEmpty(i.row + distance + 1, i.column))
+                distance++;
+            drop = Std.int(Math.min(drop, distance));
+        }
+
+        return drop;
+    }
+
+    public static function getGhostPiece() {
+        return curPiece.getTilePoints().map(x -> new Point(x.row + getDropDistance(), x.column));
+    }
+
+    static function set_curPiece(value:Piece) 
+    {
+        curPiece = value;
+        curPiece.reset();
+
+        curPiece.move(1, 0);
+
+        if (!doesFit())
+            curPiece.move(-1, 0);
+        else 
+        {
+            curPiece.move(1, 0);
+            if (!doesFit())
+                curPiece.move(-1, 0);
+        }
+
+        return value;
+    }
+
+    function set_heldPiece(value:Piece) 
+    {
+        var previousHeldPiece = heldPiece;
+        heldPiece = value;
+        heldPiece.reset();
+
+        curPiece = (previousHeldPiece != null) ? previousHeldPiece : PieceQueue.getAndUpdatePiece();
+        heldPieceDisplay.updateSprites(heldPiece);
+        return value;
+    }
+
+    function set_cleared(value:Int) 
+    {
+        cleared = value;
+        clearedText.text = "Score: " + value;
+        return value;
+    }
+}
+
+class PieceDisplay extends FlxSpriteGroup 
+{
+    public static var outlineWidth:Int = 18;
+    public static var pieceBlockWidth:Int = 36;
+    public static var pieceBlockOutlineWidth:Int = 2;
+    public static var sprWidth:Int = 252;
+
+    public static var pieces:Array<Array<Dynamic>> = [
+        [[0, 0], [0, 0], [0, 0], [0, 0], 0, 0],
+        [[0, 0], [1, 0], [2, 0], [3, 0], 4, 1],
+        [[0, 0], [0, 1], [1, 1], [2, 1], 3, 2],
+        [[2, 0], [0, 1], [1, 1], [2, 1], 3, 2],
+        [[0, 0], [1, 0], [0, 1], [1, 1], 2, 2],
+        [[1, 0], [2, 0], [0, 1], [1, 1], 3, 2],
+        [[0, 1], [1, 1], [2, 1], [1, 0], 3, 2],
+        [[0, 0], [1, 0], [1, 1], [2, 1], 3, 2]
+    ];
+
+    public function updateSprites(?piece:Piece) 
+    {
+        clear();
+
+        add(new FlxSprite().makeGraphic(sprWidth, sprWidth, 0xFF808080));
+        add(new FlxSprite(outlineWidth, outlineWidth).makeGraphic(sprWidth - outlineWidth * 2, sprWidth - outlineWidth * 2, 0xFF000000));
+
+        if (piece != null) 
+        {
+            var pieceData = pieces[piece.id];
+            var sprite = new FlxSpriteGroup((sprWidth - pieceData[4] * pieceBlockWidth) / 2, (sprWidth - pieceData[5] * pieceBlockWidth) / 2);
+            for (i in 0...4) 
+            {
+                sprite.add(new FlxSprite(
+                    pieceData[i][0] * pieceBlockWidth + pieceBlockOutlineWidth,
+                    pieceData[i][1] * pieceBlockWidth + pieceBlockOutlineWidth
+                ).makeGraphic(
+                    pieceBlockWidth - pieceBlockOutlineWidth * 2,
+                    pieceBlockWidth - pieceBlockOutlineWidth * 2,
+                    GameGrid.Sprites.blockColors[piece.id]
+                ));
+            }
+            add(sprite);
         }
     }
 }

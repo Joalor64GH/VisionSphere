@@ -2,6 +2,7 @@ package states.games.tetris;
 
 import flixel.group.FlxSpriteGroup;
 import states.games.tetris.Point;
+import states.games.tetris.PlayState;
 
 class GameGrid
 {
@@ -59,7 +60,8 @@ class GameGrid
 
     public static function isRowFull(r:Int) 
     {
-        for (c in 0...columns) {
+        for (c in 0...columns) 
+        {
             if (grid[r][c] == 0)
                 return false;
         }
@@ -67,7 +69,7 @@ class GameGrid
         return true;
     }
 
-    public static function isRowEmpty(r: Int) 
+    public static function isRowEmpty(r:Int) 
     {
         for (c in 0...columns) 
         {
@@ -154,9 +156,25 @@ class Sprites extends FlxSpriteGroup
         updateSprites();
     }
 
-    public function updateSprites() {
+    public function updateSprites() 
+    {
         clear();
 
-        // unfinished lmao
+        for (r in 0...GameGrid.rows) 
+        {
+            for (c in 0...GameGrid.columns) 
+            {
+                var isNormalBlock = PlayState.curPiece.getTilePoints().filter(x -> x.row == r && x.column == c).length > 0;
+                var isGhostBlock = PlayState.curPiece.getTilePoints().map(x -> new Point(x.row + PlayState.getDropDistance(), x.column))
+                .filter(x -> x.row == r && x.column == c).length > 0;
+
+                var sprite = new FlxSprite(c * cellSize + outlineWidth, (r * cellSize - hiddenRows * cellSize) + outlineWidth)
+                .makeGraphic(cellSize - outlineWidth * 2, cellSize - outlineWidth * 2,
+                    r < hiddenRows ? 0 : blockColors[isNormalBlock || isGhostBlock ? PlayState.curPiece.id : GameGrid.get(r, c)]
+                );
+                sprite.alpha = isNormalBlock ? 1 : isGhostBlock ? 0.25 : 1;
+                add(sprite);
+            }
+        }
     }
 }

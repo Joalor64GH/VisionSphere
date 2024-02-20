@@ -5,7 +5,7 @@ A work in progress gaming console made in HaxeFlixel.
 Mostly based on Sega Dreamcast.
 
 ## To-Dos
-* [ ] Add 10 Games (5/10)
+* [ ] Add 10 Games (6/10)
 * [ ] Chatting **[WIP, broken atm]**
 * [ ] Account settings **[WIP]**
 * [ ] Maybe expand modding support (addons/libraries) **[WIP]**

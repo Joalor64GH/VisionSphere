@@ -15,9 +15,14 @@ class PreferencesState extends FlxState
         "FPS Counter", 
         "Colorblind Filter",
         "Time Format", 
+        // "Framerate",
         "Language", 
         "Theme"
     ];
+
+    // i'll do this later okay
+    var fpsMin:Int = 60;
+    var fpsMax:Int = 240;
 
     var group:FlxTypedGroup<Alphabet>;
     var curSelected:Int = 0;
