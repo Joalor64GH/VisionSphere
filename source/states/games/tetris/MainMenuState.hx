@@ -37,7 +37,7 @@ class MainMenuState extends FlxState
 
     override public function update(elapsed:Float)
     {
-        suepr.update(elapsed);
+        super.update(elapsed);
 
         if (Input.is('left') || Input.is('right'))
             changeSelection();
