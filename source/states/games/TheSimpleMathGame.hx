@@ -280,14 +280,14 @@ class PlayState extends FlxState
             FlxG.camera.flash(FlxColor.GREEN, 1);
             FlxG.sound.play(Paths.sound('math/correct'));
             math.text = 'Correct!\nThat was the answer!';
-            score += 1;
+            score++;
         }
         else
         {
             FlxG.camera.flash(FlxColor.RED, 1);
             FlxG.sound.play(Paths.sound('math/incorrect'));
             math.text = 'Wrong!\nThe answer was $correctAnswer!';
-            score -= 1;
+            score--;
         }
 
         new FlxTimer().start(2.5, function(tmr:FlxTimer)

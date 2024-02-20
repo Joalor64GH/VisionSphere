@@ -27,7 +27,7 @@ class MainMenuState extends FlxState
         exitBtn.animation.play('idle');
         add(exitBtn);
 
-        var scoreTxt:FlxText = new FlxText(5, FlxG.height - 144, 0, 
+        var scoreTxt:FlxText = new FlxText(5, FlxG.height - 444, 0, 
             'Controls:\nRight/Left/Down - Move Piece\nUp - Rotate Clockwise\nZ - Rotate Counterclockwise\nC - Hold Piece\nEnter/Space - Drop Piece', 12);
         scoreTxt.setFormat(Paths.font('vcr.ttf'), 30, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
         add(scoreTxt);
