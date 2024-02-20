@@ -13,7 +13,6 @@ class PlayState extends FlxState
     public static var borderWidth:Int = 18;
 
     var frames:Int = 0;
-
     var cleared(default, set):Int = 0;
     var clearedText:FlxText;
     var gameOver:Bool;
@@ -129,14 +128,15 @@ class PlayState extends FlxState
         else
         {
             GameGrid.clear();
-            FlxG.resetState();
+            persistentUpdate = false;
+            openSubState(new states.games.tetris.GameOverSubState());
         }
 
         if (Input.is('exit')) 
         {
-            FlxG.camera.fade(FlxColor.BLACK, 0.5, false, function()
+            FlxG.camera.fade(FlxColor.BLACK, 0.33, false, function()
             {
-                FlxG.switchState(new states.MenuState());
+                FlxG.switchState(new states.games.tetris.MainMenuState());
             });
             FlxG.sound.play(Paths.sound('cancel'));
         }
