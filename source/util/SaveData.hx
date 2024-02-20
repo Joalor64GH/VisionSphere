@@ -88,7 +88,7 @@ class SaveData
     }
 
     static var currentSaveSlot:Int = 0;
-    public static function getSaveData(saveToRetuen:Int)
+    public static function getSaveData(saveToReturn:Int)
     {
         if (saveToReturn == -1 || saveToReturn == 0)
             return FlxG.save;
