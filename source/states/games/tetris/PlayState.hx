@@ -1,7 +1,6 @@
 package states.games.tetris;
 
 import states.games.tetris.GameGrid;
-
 import states.games.tetris.Point;
 import states.games.tetris.Piece;
 import states.games.tetris.PieceQueue;
@@ -51,7 +50,8 @@ class PlayState extends FlxState
         nextPieceDisplay.updateSprites(PieceQueue.next);
         add(nextPieceDisplay);
 
-        clearedText = new FlxText((460 - clearedText.width) / 2, 600, 0, "Score: 0", 24);
+        clearedText = new FlxText(0, 600, 0, "Score: 0", 24);
+        clearedText.x = (460 - clearedText.width) / 2;
         clearedText.setFormat(Paths.font('vcr.ttf'), 26, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
         add(clearedText);
 
