@@ -30,8 +30,6 @@ class Paths
 	];
 	#end
 
-	public static var freeableAssets:Array<String> = [];
-
 	public static var localTrackedAssets:Array<String> = [];
 	public static var currentTrackedAssets:Map<String, FlxGraphic> = [];
 	public static var currentTrackedSounds:Map<String, Sound> = [];
@@ -42,41 +40,33 @@ class Paths
 
 	public static function clearUnusedMemory() 
 	{
-		for (key in currentTrackedAssets) 
+		for (key in currentTrackedAssets.keys()) 
 		{
-			if ((!localTrackedAssets.contains(key) || freeableAssets.contains(key))) 
-			{
-				var obj = FlxG.bitmap.get(key);
+			if (!localTrackedAssets.contains(key)) {
+				var obj = currentTrackedAssets.get(key);
 				@:privateAccess
 				if (obj != null) 
 				{
 					Assets.cache.removeBitmapData(key);
 					FlxG.bitmap._cache.remove(key);
-					obj.dump();
 					obj.destroy();
+					currentTrackedAssets.remove(key);
 				}
-				currentTrackedAssets.remove(key);
 			}
 		}
-		freeableAssets = [];
-		#if cpp
-		cpp.vm.Gc.run(false);
-		#else
-		openfl.system.System.gc();
-		#end
+		System.gc();
 	}
 
-	public static function clearStoredMemory(?cleanUnused:Bool = false) 
+	public static function clearStoredMemory() 
 	{
 		@:privateAccess
 		for (key in FlxG.bitmap._cache.keys())
 		{
-			var obj = FlxG.bitmap.get(key);
-			if (obj != null && !currentTrackedAssets.contains(key)) 
+			var obj = FlxG.bitmap._cache.get(key);
+			if (obj != null && !currentTrackedAssets.exists(key)) 
 			{
-				openfl.Assets.cache.removeBitmapData(key);
+				Assets.cache.removeBitmapData(key);
 				FlxG.bitmap._cache.remove(key);
-				obj.dump();
 				obj.destroy();
 			}
 		}
@@ -90,8 +80,6 @@ class Paths
 			}
 		}
 		localTrackedAssets = [];
-		if (!cleanUnused) return;
-		clearUnusedMemory();
 	}
 
 	public static function getPath(file:String)
