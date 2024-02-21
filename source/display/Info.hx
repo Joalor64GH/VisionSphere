@@ -4,10 +4,10 @@ import haxe.Timer;
 
 class Info extends openfl.text.TextField
 {
-	public var memPeak:Float = 0;
-	public var times:Array<Float> = [];
+	private var memPeak:Float = 0;
+	private var times:Array<Float> = [];
 
-	public function new(x:Float = 10, y:Float = 3, color:Int = 0xFFFFFF)
+	public function new(x:Float, y:Float, color:Int)
 	{
 		super();
 
@@ -18,7 +18,7 @@ class Info extends openfl.text.TextField
 		width = 1280;
 		height = 720;
 		selectable = false;
-		defaultTextFormat = new openfl.text.TextFormat(Paths.font('vcr.ttf'), 16, color);
+		defaultTextFormat = new openfl.text.TextFormat(Paths.font('vcr.ttf'), 16, 0xFFFFFF);
 		addEventListener(openfl.events.Event.ENTER_FRAME, (_) ->
 		{
 			var now:Float = Timer.stamp();
@@ -26,13 +26,21 @@ class Info extends openfl.text.TextField
 			while (times[0] < now - 1)
 				times.shift();
 
-			var mem:Float = Math.abs(Math.round(openfl.system.System.totalMemory / 1024 / 1024 * 100) / 100);
+			var currentFrames:Int = times.length;
+			if (currentFrames > SaveData.framerate)
+				currentFrames = SaveData.framerate;
+
+			textColor = (currentFrames <= SaveData.framerate / 4) ? 
+				0xFFFF0000 : (currentFrames <= SaveData.framerate / 2) ?
+					0xFFFFFF00 : 0xFFFFFFFF;
+
+			var mem:Float = openfl.system.System.totalMemory;
 
 			if (mem > memPeak)
 				memPeak = mem;
 			
 			text = (visible) ? 
-				"FPS: " + times.length + "\nMemory: " + mem + " MB\nMemory Peak: " + memPeak + " MB\nVersion: " + Application.current.meta.get('version') : "";
+				"FPS: " + currentFrames + "\nMemory: " + mem + " MB\nMemory Peak: " + memPeak + " MB\nVersion: " + Application.current.meta.get('version') : "";
 		});
 	}
 }

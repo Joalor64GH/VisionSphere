@@ -42,7 +42,7 @@ class Main extends openfl.display.Sprite
 
 		addChild(new flixel.FlxGame(1280, 720, states.BootState, #if (flixel < "5.0.0") -1, #end 60, 60, true, false));
 
-		fpsDisplay = new Info();
+		fpsDisplay = new Info(10, 3, 0xFFFFFF);
 		addChild(fpsDisplay);
 
 		#if CRASH_HANDLER

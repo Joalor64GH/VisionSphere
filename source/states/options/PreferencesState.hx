@@ -1,5 +1,6 @@
 package states.options;
 
+import openfl.Lib;
 import display.Colorblind;
 
 class PreferencesState extends FlxState
@@ -15,12 +16,11 @@ class PreferencesState extends FlxState
         "FPS Counter", 
         "Colorblind Filter",
         "Time Format", 
-        // "Framerate",
+        "Framerate",
         "Language", 
         "Theme"
     ];
 
-    // i'll do this later okay
     var fpsMin:Int = 60;
     var fpsMax:Int = 240;
 
@@ -76,6 +76,8 @@ class PreferencesState extends FlxState
                 daText.text = "Changes the current language.";
             case "Theme":
                 daText.text = "Use LEFT/RIGHT to change the theme.";
+            case "Framerate":
+                daText.text = "Use LEFT/RIGHT to change the framerate (Max 240). Current Framerate: " + SaveData.framerate;
             default:
                 daText.text = "";
         }
@@ -167,6 +169,8 @@ class PreferencesState extends FlxState
                 daText.text = "Changes the current language.";
             case "Theme":
                 daText.text = "Use LEFT/RIGHT to change the theme.";
+            case "Framerate":
+                daText.text = "Use LEFT/RIGHT to change the framerate (Max 240). Current Framerate: " + SaveData.framerate;
             default:
                 daText.text = "";
         }
@@ -204,5 +208,20 @@ class PreferencesState extends FlxState
         SaveData.colorBlindFilter = filters[newFilterIndex];
 
         Colorblind.updateFilter();
+    }
+
+    private function switchFramerate(direction:Int = 0)
+    {
+        SaveData.framerate += direction * 10;
+
+        if (SaveData.framerate < fpsMin)
+            SaveData.framerate = fpsMax;
+        else if (SaveData.framerate > fpsMax)
+            SaveData.framerate = fpsMin;
+
+        FlxG.updateFramerate = SaveData.framerate;
+        FlxG.drawFramerate = SaveData.framerate;
+        FlxG.game.focusLostFramerate = SaveData.framerate;
+        Lib.current.stage.frameRate = SaveData.framerate;
     }
 }

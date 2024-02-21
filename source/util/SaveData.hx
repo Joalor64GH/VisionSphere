@@ -1,5 +1,7 @@
 package util;
 
+import openfl.Lib;
+
 import hscript.Parser;
 import hscript.Interp;
 
@@ -69,8 +71,14 @@ class SaveData
             username = FlxG.save.data.username;
         if (FlxG.save.data.profile != null)
             profile = FlxG.save.data.profile;
-        if (FlxG.save.data.framerate != null)
+        if (FlxG.save.data.framerate != null) 
+        {
             framerate = FlxG.save.data.framerate;
+            FlxG.updateFramerate = framerate;
+            FlxG.drawFramerate = framerate;
+            FlxG.game.focusLostFramerate = framerate;
+            Lib.current.stage.frameRate = framerate;
+        }
         if (FlxG.save.data.leftKey != null)
             leftKey = FlxG.save.data.leftKey;
         if (FlxG.save.data.rightKey != null)
