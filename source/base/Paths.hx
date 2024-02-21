@@ -5,7 +5,7 @@ import flixel.graphics.frames.FlxAtlasFrames;
 
 import openfl.media.Sound;
 import openfl.system.System;
-import openfl.utils.Assets as Assets;
+import openfl.utils.Assets;
 import openfl.display.BitmapData;
 
 using StringTools;
@@ -30,6 +30,8 @@ class Paths
 	];
 	#end
 
+	public static var freeableAssets:Array<String> = [];
+
 	public static var localTrackedAssets:Array<String> = [];
 	public static var currentTrackedAssets:Map<String, FlxGraphic> = [];
 	public static var currentTrackedSounds:Map<String, Sound> = [];
@@ -40,33 +42,41 @@ class Paths
 
 	public static function clearUnusedMemory() 
 	{
-		for (key in currentTrackedAssets.keys()) 
+		for (key in currentTrackedAssets) 
 		{
-			if (!localTrackedAssets.contains(key)) {
-				var obj = currentTrackedAssets.get(key);
+			if ((!localTrackedAssets.contains(key) || freeableAssets.contains(key))) 
+			{
+				var obj = FlxG.bitmap.get(key);
 				@:privateAccess
 				if (obj != null) 
 				{
 					Assets.cache.removeBitmapData(key);
 					FlxG.bitmap._cache.remove(key);
+					obj.dump();
 					obj.destroy();
-					currentTrackedAssets.remove(key);
 				}
+				currentTrackedAssets.remove(key);
 			}
 		}
-		System.gc();
+		freeableAssets = [];
+		#if cpp
+		cpp.vm.Gc.run(false);
+		#else
+		openfl.system.System.gc();
+		#end
 	}
 
-	public static function clearStoredMemory() 
+	public static function clearStoredMemory(?cleanUnused:Bool = false) 
 	{
 		@:privateAccess
 		for (key in FlxG.bitmap._cache.keys())
 		{
-			var obj = FlxG.bitmap._cache.get(key);
-			if (obj != null && !currentTrackedAssets.exists(key)) 
+			var obj = FlxG.bitmap.get(key);
+			if (obj != null && !currentTrackedAssets.contains(key)) 
 			{
-				Assets.cache.removeBitmapData(key);
+				openfl.Assets.cache.removeBitmapData(key);
 				FlxG.bitmap._cache.remove(key);
+				obj.dump();
 				obj.destroy();
 			}
 		}
@@ -80,13 +90,12 @@ class Paths
 			}
 		}
 		localTrackedAssets = [];
+		if (!cleanUnused) return;
+		clearUnusedMemory();
 	}
 
 	public static function getPath(file:String)
 		return 'assets/$file';
-
-	inline public static function getPluginPath(file:String)
-		return 'plugins/$file';
 
 	inline static public function txt(key:String)
 		return getPath('data/$key.txt');
@@ -98,32 +107,21 @@ class Paths
 		return getPath('data/$key.json');
 
 	static public function sound(key:String):Sound
-	{
-		var sound:Sound = returnSound('sounds', key);
-		return sound;
-	}
+		return returnSound('sounds', key);
 	
 	inline static public function soundRandom(key:String, min:Int, max:Int)
 		return sound(key + FlxG.random.int(min, max));
 
 	inline static public function music(key:String):Sound
-	{
-		var file:Sound = returnSound('music', key);
-		return file;
-	}
+		return returnSound('music', key);
 
 	inline static public function image(key:String):FlxGraphic
-	{
-		var returnAsset:FlxGraphic = returnGraphic(key);
-		return returnAsset;
-	}
+		return returnGraphic(key);
 
 	inline static public function font(key:String)
 	{
 		#if MODS_ALLOWED
-		var file:String = modsFont(key);
-		if (FileSystem.exists(file))
-			return file;
+		if (FileSystem.exists(modsFont(key))) return modsFont(key);
 		#end
 		return 'assets/fonts/$key';
 	}

@@ -39,4 +39,28 @@ class CoolUtil
     inline public static function hypotenuse(a:Float, b:Float) {
         return Math.sqrt(a * 2 + b * 2);
     }
+
+    /**
+     * @author MAJigsaw77
+     * @see https://github.com/MAJigsaw77/UTF
+     */
+
+    public static function getWeather():Int
+    {
+        final curDate:Date = Date.now();
+
+        switch(curDate.getMonth() + 1)
+        {
+            case 12 | 1 | 2: // winter
+                return 1;
+            case 3 | 4 | 5: // spring
+                return 2;
+            case 6 | 7 | 8: // summer
+                return 3;
+            case 9 | 10 | 11: // autumn
+                return 4;
+        }
+
+        return 0;
+    }
 }
