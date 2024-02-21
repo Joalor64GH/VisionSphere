@@ -21,6 +21,7 @@ class SaveData
     public static var fullscreen:Bool = false;
     public static var colorBlindFilter:String = "None";
     public static var framerate:Int = 60;
+    public static var antialiasing:Bool = true;
     public static var username:String = "user";
     public static var profile:String = "default";
     public static var leftKey:String = "LEFT";
@@ -39,6 +40,7 @@ class SaveData
         FlxG.save.data.fullscreen = fullscreen;
         FlxG.save.data.colorBlindFilter = colorBlindFilter;
         FlxG.save.data.framerate = framerate;
+        FlxG.save.data.antialiasing = antialiasing;
         FlxG.save.data.username = username;
         FlxG.save.data.profile = profile;
         FlxG.save.data.leftKey = leftKey;
@@ -79,6 +81,8 @@ class SaveData
             FlxG.game.focusLostFramerate = framerate;
             Lib.current.stage.frameRate = framerate;
         }
+        if (FlxG.save.data.antialiasing != null)
+            antialiasing = FlxG.save.data.antialiasing;
         if (FlxG.save.data.leftKey != null)
             leftKey = FlxG.save.data.leftKey;
         if (FlxG.save.data.rightKey != null)

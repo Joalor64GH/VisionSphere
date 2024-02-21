@@ -51,7 +51,7 @@ class BootState extends FlxState
         em.lifespan.set(99);
         add(em);
 
-        var text:FlxText = new FlxText(0, 0, 0, "Loading... Please Wait :)", 12);
+        var text:FlxText = new FlxText(0, 0, 0, "Press ENTER whenever you're ready :)", 12);
         text.setFormat(Paths.font('vcr.ttf'), 64, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
         text.screenCenter();
         add(text);
@@ -60,7 +60,16 @@ class BootState extends FlxState
         spinner.angularVelocity = 30;
         add(spinner);
 
-        new FlxTimer().start(9, function(timer)
+        trace("Installed Mods: " + getInstalledMods());
+
+        super.create();
+    }
+
+    override function update(elapsed)
+    {
+        super.update(elapsed);
+
+        if (Input.is('enter'))
         {
             FlxG.camera.fade(FlxColor.BLACK, 0.33, false, function()
             {
@@ -72,19 +81,7 @@ class BootState extends FlxState
                 FlxG.switchState(new states.SplashState());
                 #end
             });
-        });
-
-        trace("Installed Mods: " + getInstalledMods());
-
-        super.create();
-    }
-
-    override function update(elapsed)
-    {
-        super.update(elapsed);
-
-        if (Input.is('escape'))
-            FlxG.switchState(new states.SplashState());
+        }
     }
 
     private function getInstalledMods():String

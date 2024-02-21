@@ -31,8 +31,6 @@ class MainMenuState extends FlxState
             'Controls:\nRight/Left/Down - Move Piece\nUp - Rotate Clockwise\nZ - Rotate Counterclockwise\nC - Hold Piece\nEnter/Space - Drop Piece', 12);
         scoreTxt.setFormat(Paths.font('vcr.ttf'), 30, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
         add(scoreTxt);
-
-        changeSelection();
     }
 
     override public function update(elapsed:Float)

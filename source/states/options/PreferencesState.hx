@@ -14,6 +14,7 @@ class PreferencesState extends FlxState
         #end
         "FPS Counter", 
         "Colorblind Filter",
+        "Antialiasing",
         "Time Format", 
         "Framerate",
         "Language", 
@@ -59,27 +60,7 @@ class PreferencesState extends FlxState
     {
         super.update(elapsed);
 
-        switch (options[curSelected])
-        {
-            #if desktop
-            case "Fullscreen":
-                daText.text = "Toggles fullscreen.";
-            #end
-            case "FPS Counter":
-                daText.text = "Toggles FPS counter.";
-            case "Colorblind Filter":
-                daText.text = "In case you're colorblind. Current Filter: " + SaveData.colorBlindFilter;
-            case "Time Format":
-                daText.text = "Use LEFT/RIGHT to change the time format. Current Format: " + SaveData.timeFormat;
-            case "Language":
-                daText.text = "Changes the current language.";
-            case "Theme":
-                daText.text = "Use LEFT/RIGHT to change the theme.";
-            case "Framerate":
-                daText.text = "Use LEFT/RIGHT to change the framerate (Max 240). Current Framerate: " + SaveData.framerate;
-            default:
-                daText.text = "";
-        }
+        updateText();
 
         if (Input.is('up') || Input.is('down'))
         {
@@ -103,6 +84,9 @@ class PreferencesState extends FlxState
                         Main.fpsDisplay.visible = SaveData.fpsCounter;
                 case "Language":
                     openSubState(new states.substates.LanguageSubState());
+                case "Antialiasing":
+                    SaveData.antialiasing = !SaveData.antialiasing;
+                    FlxSprite.defaultAntialiasing = SaveData.antialiasing;
             }
         }
 
@@ -124,8 +108,32 @@ class PreferencesState extends FlxState
                     switchTime(Input.is('right') ? 1 : -1);
                 case "Colorblind Filter":
                     switchFilter(Input.is('right') ? 1 : -1);
-                case "Framerate":
-                    switchFramerate(Input.is('right') ? 1 : 1);
+            }
+        }
+        
+        // i know i could've used another function, but this still works
+        if (options[curSelected] == "Framerate")
+        {
+            if (Input.is('right') || Input.is('left'))
+            {
+                FlxG.updateFramerate = SaveData.framerate;
+                FlxG.drawFramerate = SaveData.framerate;
+                FlxG.game.focusLostFramerate = SaveData.framerate;
+                openfl.Lib.current.stage.frameRate = SaveData.framerate;
+                if (!Input.is('left'))
+                {
+                    if (SaveData.framerate > fpsMax)
+                        SaveData.framerate = fpsMin;
+                    else
+                        SaveData.frameRate += 10;
+                }
+                else
+                {
+                    if (SaveData.framerate < fpsMin)
+                        SaveData.framerate = fpsMax;
+                    else
+                        SaveData.frameRate -= 10;
+                }
             }
         }
     }
@@ -143,6 +151,8 @@ class PreferencesState extends FlxState
             curSelected = options.length - 1;
         else if (curSelected >= options.length)
             curSelected = 0;
+
+        updateText();
         
         var ratio:Int = 0; // stay mad
 
@@ -152,28 +162,6 @@ class PreferencesState extends FlxState
             ratio++;
 
             item.alpha = (item.targetY == 0) ? 1 : 0.6;
-        }
-
-        switch (options[curSelected])
-        {
-            #if desktop
-            case "Fullscreen":
-                daText.text = "Toggles fullscreen.";
-            #end
-            case "FPS Counter":
-                daText.text = "Toggles FPS counter.";
-            case "Colorblind Filter":
-                daText.text = "In case you're colorblind. Current Filter: " + SaveData.colorBlindFilter;
-            case "Time Format":
-                daText.text = "Use LEFT/RIGHT to change the time format. Current Format: " + SaveData.timeFormat;
-            case "Language":
-                daText.text = "Changes the current language.";
-            case "Theme":
-                daText.text = "Use LEFT/RIGHT to change the theme.";
-            case "Framerate":
-                daText.text = "Use LEFT/RIGHT to change the framerate (Max 240). Current Framerate: " + SaveData.framerate;
-            default:
-                daText.text = "";
         }
     }
 
@@ -211,18 +199,30 @@ class PreferencesState extends FlxState
         Colorblind.updateFilter();
     }
 
-    private function switchFramerate(direction:Int = 0)
+    function updateText()
     {
-        SaveData.framerate += direction * 10;
-
-        if (SaveData.framerate < fpsMin)
-            SaveData.framerate = fpsMax;
-        else if (SaveData.framerate > fpsMax)
-            SaveData.framerate = fpsMin;
-
-        FlxG.updateFramerate = SaveData.framerate;
-        FlxG.drawFramerate = SaveData.framerate;
-        FlxG.game.focusLostFramerate = SaveData.framerate;
-        openfl.Lib.current.stage.frameRate = SaveData.framerate;
+        switch (options[curSelected])
+        {
+            #if desktop
+            case "Fullscreen":
+                daText.text = "Toggles fullscreen.";
+            #end
+            case "FPS Counter":
+                daText.text = "Toggles FPS counter.";
+            case "Colorblind Filter":
+                daText.text = "In case you're colorblind. Current Filter: " + SaveData.colorBlindFilter;
+            case "Time Format":
+                daText.text = "Use LEFT/RIGHT to change the time format. Current Format: " + SaveData.timeFormat;
+            case "Language":
+                daText.text = "Changes the current language.";
+            case "Theme":
+                daText.text = "Use LEFT/RIGHT to change the theme.";
+            case "Framerate":
+                daText.text = "Use LEFT/RIGHT to change the framerate (Max 240). Current Framerate: " + SaveData.framerate;
+            case "Antialiasing":
+                daText.text = "If disabled, increases performance, at the cost of sharper visuals.";
+            default:
+                daText.text = "";
+        }
     }
 }
