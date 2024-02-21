@@ -14,7 +14,6 @@ class PreferencesState extends FlxState
         #end
         "FPS Counter", 
         "Colorblind Filter",
-        "Antialiasing",
         "Time Format", 
         "Framerate",
         "Language", 
@@ -84,9 +83,6 @@ class PreferencesState extends FlxState
                         Main.fpsDisplay.visible = SaveData.fpsCounter;
                 case "Language":
                     openSubState(new states.substates.LanguageSubState());
-                case "Antialiasing":
-                    SaveData.antialiasing = !SaveData.antialiasing;
-                    FlxSprite.defaultAntialiasing = SaveData.antialiasing;
             }
         }
 
@@ -125,14 +121,14 @@ class PreferencesState extends FlxState
                     if (SaveData.framerate > fpsMax)
                         SaveData.framerate = fpsMin;
                     else
-                        SaveData.frameRate += 10;
+                        SaveData.framerate += 10;
                 }
                 else
                 {
                     if (SaveData.framerate < fpsMin)
                         SaveData.framerate = fpsMax;
                     else
-                        SaveData.frameRate -= 10;
+                        SaveData.framerate -= 10;
                 }
             }
         }
@@ -219,8 +215,6 @@ class PreferencesState extends FlxState
                 daText.text = "Use LEFT/RIGHT to change the theme.";
             case "Framerate":
                 daText.text = "Use LEFT/RIGHT to change the framerate (Max 240). Current Framerate: " + SaveData.framerate;
-            case "Antialiasing":
-                daText.text = "If disabled, increases performance, at the cost of sharper visuals.";
             default:
                 daText.text = "";
         }
