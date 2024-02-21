@@ -34,7 +34,7 @@ class Info extends openfl.text.TextField
 				0xFFFF0000 : (currentFrames <= SaveData.framerate / 2) ?
 					0xFFFFFF00 : 0xFFFFFFFF;
 
-			var mem:Float = openfl.system.System.totalMemory;
+			var mem:Float = Math.abs(Math.round(openfl.system.System.totalMemory / 1024 / 1024 * 100) / 100);
 
 			if (mem > memPeak)
 				memPeak = mem;

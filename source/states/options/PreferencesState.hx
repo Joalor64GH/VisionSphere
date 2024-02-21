@@ -1,6 +1,5 @@
 package states.options;
 
-import openfl.Lib;
 import display.Colorblind;
 
 class PreferencesState extends FlxState
@@ -125,6 +124,8 @@ class PreferencesState extends FlxState
                     switchTime(Input.is('right') ? 1 : -1);
                 case "Colorblind Filter":
                     switchFilter(Input.is('right') ? 1 : -1);
+                case "Framerate":
+                    switchFramerate(Input.is('right') ? 1 : 1);
             }
         }
     }
@@ -222,6 +223,6 @@ class PreferencesState extends FlxState
         FlxG.updateFramerate = SaveData.framerate;
         FlxG.drawFramerate = SaveData.framerate;
         FlxG.game.focusLostFramerate = SaveData.framerate;
-        Lib.current.stage.frameRate = SaveData.framerate;
+        openfl.Lib.current.stage.frameRate = SaveData.framerate;
     }
 }
