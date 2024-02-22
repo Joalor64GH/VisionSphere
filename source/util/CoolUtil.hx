@@ -19,6 +19,10 @@ class CoolUtil
         return Math.max(min, Math.min(max, value));
     }
 
+    inline public static function numberArray(max:Int, ?min:Int = 0):Array<Int> {
+        return [for (i in min...max) i];
+    }
+
     inline public static function browserLoad(site:String) {
         #if linux
         Sys.command('/usr/bin/xdg-open', [site]);

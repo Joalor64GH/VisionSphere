@@ -325,7 +325,7 @@ class Paths
 		}
 		else
 		{
-			trace("Oops! Could not find 'modsList.txt'! Creating an new file...");
+			trace("Oops! Could not find 'modsList.txt'! Creating a new file...");
 			File.saveContent('./' + path, 'my-mod|1');
 		}
 		return globalMods;

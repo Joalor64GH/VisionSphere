@@ -1,4 +1,7 @@
 # VisionSphere
+![](https://img.shields.io/github/repo-size/Joalor64GH/VisionSphere)
+![](https://img.shields.io/github/issues/Joalor64GH/VisionSphere)
+![](https://img.shields.io/badge/balls-in_your_jaws-green)
 
 A work in progress gaming console made in HaxeFlixel.
 
@@ -11,7 +14,6 @@ Mostly based on Sega Dreamcast.
 * [ ] Maybe expand modding support (addons/libraries) **[WIP]**
 
 ## Wanna build?
-
 1. Install [Haxe](https://haxe.org/download/)
 2. Run `haxelib install hmm` to download the dependency manager
 3. Run `haxelib run hmm install` to download the dependencies
