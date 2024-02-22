@@ -82,8 +82,13 @@ class Paths
 		localTrackedAssets = [];
 	}
 
-	public static function getPath(file:String)
+	public static function getPath(file:String, ?modsAllowed:Bool = false):String
+	{
+		#if MODS_ALLOWED
+		if (FileSystem.exists(modFolders(file))) return modFolders(file);
+		#end
 		return 'assets/$file';
+	}
 
 	inline static public function txt(key:String)
 		return getPath('data/$key.txt');
@@ -111,7 +116,7 @@ class Paths
 		#if MODS_ALLOWED
 		if (FileSystem.exists(modsFont(key))) return modsFont(key);
 		#end
-		return 'assets/fonts/$key';
+		return getPath('fonts/$key');
 	}
 
 	inline static public function getSparrowAtlas(key:String):FlxAtlasFrames
@@ -213,10 +218,7 @@ class Paths
 	public static function returnSoundPath(path:String, key:String)
 	{
 		#if MODS_ALLOWED
-		var file:String = modsSounds(path, key);
-		if (FileSystem.exists(file))
-			return file;
-		
+		if (FileSystem.exists(modsSounds(path, key))) return modsSounds(path, key);
 		#end
 		var gottenPath:String = getPath('$path/$key.ogg');
 		return gottenPath;
