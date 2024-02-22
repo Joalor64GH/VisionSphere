@@ -60,7 +60,6 @@ class BootState extends FlxState
         spinner.angularVelocity = 30;
         add(spinner);
 
-        Main.toast.create('Installed Mods', 0xFFFFFF00, getInstalledMods());
         trace("Installed Mods: " + getInstalledMods());
 
         super.create();
@@ -86,7 +85,8 @@ class BootState extends FlxState
     }
 }
 
-class Balls extends FlxParticle // https://youtu.be/mM4jKMHuWtU?si=5dB-Z3blV3PK-lsC
+// https://youtu.be/mM4jKMHuWtU?si=5dB-Z3blV3PK-lsC
+class Balls extends FlxParticle
 {
     static var wMin = 32;
     static var wMax = 64;
