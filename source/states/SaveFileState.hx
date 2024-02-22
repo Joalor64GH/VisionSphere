@@ -20,7 +20,7 @@ class SaveFileState extends FlxState // this doesn't actually do anything atm
     var selectorRight:Alphabet;
 
     var camFollow:FlxObject;
-    var camFollowPos:Flxobject;
+    var camFollowPos:FlxObject;
     var camMain:FlxCamera;
 
     var accepted:Bool;
