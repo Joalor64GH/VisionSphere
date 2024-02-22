@@ -3,16 +3,17 @@ package states;
 import flixel.FlxCamera;
 import flixel.FlxObject;
 
-class SaveFileState extends FlxState
+class SaveFileState extends FlxState // this doesn't actually do anything atm
 {
     var bg:FlxSprite;
 
     var curSelected:Int = 0;
     var saveGrp:FlxTypedGroup<Alphabet>;
     var saves:Array<String> = [
-        "Save Slot 1", "Save Slot 2",
-        "Save Slot 3", "Save Slot 4",
-        "Save Slot 5", "Save Slot 6"
+        "Save Data 1", "Save Data 2",
+        "Save Data 3", "Save Data 4",
+        "Save Data 5", "Save Data 6",
+        "Reset Save Data"
     ];
 
     var selectorLeft:Alphabet;
@@ -21,6 +22,9 @@ class SaveFileState extends FlxState
     var camFollow:FlxObject;
     var camFollowPos:Flxobject;
     var camMain:FlxCamera;
+
+    var accepted:Bool;
+    var allowInputs:Bool = true;
     
     override public function create()
     {
@@ -59,6 +63,10 @@ class SaveFileState extends FlxState
         selectorRight = new Alphabet(0, 0, '<', true);
         selectorRight.scrollFactor.set(0, yScroll);
         add(selectorRight);
+
+        changeSelection();
+
+        allowInputs = true;
     }
 
     override public function update(elapsed:Float)
@@ -72,6 +80,30 @@ class SaveFileState extends FlxState
         bg.scale.set(mult, mult);
         bg.updateHitbox();
         bg.offset.set();
+
+        if (allowInputs)
+        {
+            if ((Input.is('up') || Input.is('down')) && !accepted)
+            {
+                changeSelection(Input.is('up') ? -1 : 1);
+                FlxG.sound.play(Paths.sound('scroll'));
+            }
+
+            if (Input.is('accept') && !accepted)
+            {
+                accepted = true;
+                FlxG.camera.fade(FlxColor.BLACK, 0.33, false, function()
+                {
+                    #if desktop
+                    states.UpdateState.updateCheck();
+                    FlxG.switchState((states.UpdateState.mustUpdate) ? new states.UpdateState() : new states.SplashState());
+                    #else
+                    trace('Sorry! No update support on: ' + util.PlatformUtil.getPlatform() + '!')
+                    FlxG.switchState(new states.SplashState());
+                    #end
+                });
+            }
+        }
     }
 
     private function changeSelection(change:Int = 0)
@@ -96,6 +128,10 @@ class SaveFileState extends FlxState
                 item.alpha = 1;
                 selectorLeft.x = item.x - 63;
                 selectorLeft.y = item.y;
+                selectorRight.x = item.x + item.width + 15;
+                selectorRight.y = item.y;
+                var add:Float = (saveGrp.members.length > 4 ? saveGrp.members.length * 8 : 0);
+                camFollow.setPosition(item.getGraphicMidpoint().x, item.getGraphicMidpoint().y - add);
             }
         }
     }

@@ -60,6 +60,7 @@ class BootState extends FlxState
         spinner.angularVelocity = 30;
         add(spinner);
 
+        Main.toast.create('Installed Mods', 0xFFFFFF00, getInstalledMods());
         trace("Installed Mods: " + getInstalledMods());
 
         super.create();
@@ -73,13 +74,7 @@ class BootState extends FlxState
         {
             FlxG.camera.fade(FlxColor.BLACK, 0.33, false, function()
             {
-                #if desktop
-                states.UpdateState.updateCheck();
-                FlxG.switchState((states.UpdateState.mustUpdate) ? new states.UpdateState() : new states.SplashState());
-                #else
-                trace('Sorry! No update support on: ' + util.PlatformUtil.getPlatform() + '!')
-                FlxG.switchState(new states.SplashState());
-                #end
+                FlxG.switchState(new states.SaveFileState());
             });
         }
     }
