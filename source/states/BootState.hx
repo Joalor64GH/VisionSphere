@@ -51,7 +51,7 @@ class BootState extends FlxState
         em.lifespan.set(99);
         add(em);
 
-        var text:FlxText = new FlxText(0, 0, 0, "Press ENTER whenever you're ready :)", 12);
+        var text:FlxText = new FlxText(0, 0, 0, "Press ENTER to start!", 12);
         text.setFormat(Paths.font('vcr.ttf'), 64, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
         text.screenCenter();
         add(text);

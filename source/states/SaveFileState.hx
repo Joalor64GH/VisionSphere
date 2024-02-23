@@ -3,7 +3,8 @@ package states;
 import flixel.FlxCamera;
 import flixel.FlxObject;
 
-class SaveFileState extends FlxState // this doesn't actually do anything atm
+// this doesn't actually do anything atm
+class SaveFileState extends FlxState
 {
     var bg:FlxSprite;
 
@@ -51,9 +52,10 @@ class SaveFileState extends FlxState // this doesn't actually do anything atm
 
         for (i in 0...saves.length)
         {
-            var saveTxt:Alphabet = new Alphabet(90, 320, saves[i], true);
-            saveTxt.isMenuItem = true;
-            saveTxt.targetY = i;
+            var saveTxt:Alphabet = new Alphabet(0, 0, saves[i], true);
+            saveTxt.screenCenter();
+            saveTxt.y += (100 * (i - (saves.length / 2))) + 50;;
+            saveTxt.scrollFactor.set(0, Math.max(0.25 - (0.05 * (saves.length - 4)), 0.1));
             saveGrp.add(saveTxt);
         }
 
