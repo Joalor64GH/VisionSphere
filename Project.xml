@@ -19,7 +19,7 @@
 	<set name="BUILD_DIR" value="export/release" unless="debug" />
 
 	<define name="MODS_ALLOWED" if="desktop" /> <!-- DO NOT MOVE THIS! IF YOU DO, THE MODS FOLDER WONT EXIST AND IDK WHY -->
-	<define name="CRASH_HANDLER" if="desktop" />
+	<define name="CRASH_HANDLER" if="desktop" unless="debug" />
 
 	<source path="source" />
 	<assets path="assets" />

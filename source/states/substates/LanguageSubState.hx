@@ -77,6 +77,7 @@ class LanguageSubState extends FlxSubState
                     SaveData.lang = 'pt';
             }
 
+            Localization.switchLanguage(SaveData.lang);
             close();
         }
 
