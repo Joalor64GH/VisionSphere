@@ -54,7 +54,7 @@ class SaveFileState extends FlxState
         {
             var saveTxt:Alphabet = new Alphabet(0, 0, saves[i], true);
             saveTxt.screenCenter();
-            saveTxt.y += (100 * (i - (saves.length / 2))) + 50;;
+            saveTxt.y += (100 * (i - (saves.length / 2))) + 50;
             saveTxt.scrollFactor.set(0, Math.max(0.25 - (0.05 * (saves.length - 4)), 0.1));
             saveGrp.add(saveTxt);
         }
