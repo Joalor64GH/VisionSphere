@@ -13,7 +13,7 @@ import states.games.jta.Spike;
 
 class PlayState extends FlxState
 {
-    public var lev:Int;
+    public static var lev:Int = 1;
 
     var map:FlxOgmo3Loader;
     var walls:FlxTilemap;

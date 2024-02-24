@@ -4,7 +4,6 @@ class AccountState extends FlxState
 {
     var usernameTxt:FlxText;
     var profileSpr:FlxSprite;
-
     var icons:Array<FlxSprite> = [];
     var profiles:Array<String> = ['red', 'orange', 'yellow', 'green', 'blue', 'purple', 'pink'];
     
@@ -24,6 +23,7 @@ class AccountState extends FlxState
             icon.alpha = 0.6;
             icon.velocity.y = FlxG.random.int(-40, -110);
             icon.visible = false;
+            icon.scale.set(0.8, 0.8);
             icon.ID = i;
             icons.push(icon);
             add(icon);
@@ -37,9 +37,10 @@ class AccountState extends FlxState
 
         profileSpr = new FlxSprite(0, 50).loadGraphic(Paths.image('menu/profile/' + SaveData.profile));
         profileSpr.screenCenter(X);
+        profileSpr.scale.set(2, 32);
         add(profileSpr);
 
-        usernameTxt = new FlxText(0, profileSpr.y + 100, 0, SaveData.username, 12);
+        usernameTxt = new FlxText(0, profileSpr.y + 530, 0, SaveData.username, 12);
         usernameTxt.setFormat(Paths.font('vcr.ttf'), 64, FlxColor.WHITE, FlxTextAlign.CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
         usernameTxt.screenCenter(X);
         add(usernameTxt);
@@ -63,6 +64,8 @@ class AccountState extends FlxState
             icon.velocity.y = FlxG.random.int(-40, -110);
             icon.angle = FlxG.random.float(0, 360);
             icon.loadGraphic(profiles[FlxG.random.int(0, profiles.length - 1)]);
+            if (icon.y > FlxG.height)
+                FlxTween.tween(icon, {alpha: 0}, 1, {ease: FlxEase.quadOut});
         }
 
         if (FlxG.mouse.overlaps(usernameTxt) && FlxG.mouse.pressed)

@@ -1,5 +1,7 @@
 package states.games.jta;
 
+import states.games.jta.PlayState;
+
 class GameOverSubState extends FlxSubState
 {
     public function new()
@@ -11,7 +13,7 @@ class GameOverSubState extends FlxSubState
         bg.alpha = 0.65;
         add(bg);
 
-        var theText:FlxText = new FlxText(0, 0, 0, "Game Over!\nPress R to restart.\nOtherwise, press ESCAPE.", 16);
+        var theText:FlxText = new FlxText(0, 0, 0, "Game Over!\nPress R to restart.\nOtherwise, press ESCAPE.", 20);
         theText.alignment = LEFT;
         theText.scrollFactor.set();
         theText.screenCenter();
@@ -30,6 +32,13 @@ class GameOverSubState extends FlxSubState
             {
                 close();
                 FlxG.resetState();
+                switch (PlayState.lev)
+                {
+                    case 1:
+                        PlayState.lev = 1;
+                    case 2:
+                        PlayState.lev = 2;
+                }
             });
             FlxG.sound.play(Paths.sound('jta/play'));
         }

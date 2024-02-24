@@ -10,7 +10,12 @@ class AccountNameSubState extends FlxSubState
     {
         super();
 
+        var bg:FlxSprite = new FlxSprite().makeGraphic(1280, 720, FlxColor.BLACK);
+        bg.alpha = 0.65;
+        add(bg);
+
         var text:FlxText = new FlxText(0, 0, 0, "Enter a Username", 32);
+        text.setFormat(Paths.font('vcr.ttf'), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
         text.screenCenter();
         add(text);
 
@@ -34,6 +39,7 @@ class AccountNameSubState extends FlxSubState
 
         if (Input.is('accept') && input.text != '')
         {
+            trace('changed username to: ' + input.text);
             SaveData.username = input.text;
             SaveData.saveSettings();
             close();

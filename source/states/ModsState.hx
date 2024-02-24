@@ -11,8 +11,9 @@ using StringTools;
 
 class ModsState extends FlxState
 {
+	static var changedAThing:Bool = false;
+	
 	var mods:Array<ModMetadata> = [];
-	static var changedAThing = false;
 	var bg:FlxSprite;
 	var intendedColor:Int;
 	var colorTween:FlxTween;
@@ -20,8 +21,9 @@ class ModsState extends FlxState
 	var noModsTxt:FlxText;
 	var selector:AttachedSprite;
 	var descriptionTxt:FlxText;
-	var needaReset = false;
-	private static var curSelected:Int = 0;
+	var needaReset:Bool = false;
+	var curSelected:Int = 0;
+
 	public static var defaultColor:FlxColor = 0xFFea71fd;
 
 	var buttonDown:FlxButton;

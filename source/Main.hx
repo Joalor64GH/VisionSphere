@@ -4,13 +4,10 @@ import openfl.Lib;
 
 #if CRASH_HANDLER
 import openfl.events.UncaughtErrorEvent;
-import haxe.CallStack;
-import haxe.io.Path;
 #end
 
 import display.ToastCore;
 import display.Info;
-
 import util.MacroUtil;
 
 #if linux
@@ -50,7 +47,7 @@ class Main extends openfl.display.Sprite
 		{
 			var errMsg:String = "";
 			var path:String;
-			var callStack:Array<StackItem> = CallStack.exceptionStack(true);
+			var callStack:Array<StackItem> = haxe.CallStack.exceptionStack(true);
 			var dateNow:String = Date.now().toString();
 
 			dateNow = dateNow.replace(" ", "_");
@@ -77,7 +74,7 @@ class Main extends openfl.display.Sprite
 			File.saveContent(path, errMsg + "\n");
 
 			Sys.println(errMsg);
-			Sys.println("Crash dump saved in " + Path.normalize(path));
+			Sys.println("Crash dump saved in " + haxe.io.Path.normalize(path));
 
 			#if windows
 			util.Windows.messageBox("Error!", errMsg, MSG_ERROR);
@@ -118,6 +115,8 @@ class Main extends openfl.display.Sprite
 		#if linux
 		Lib.current.stage.window.setIcon(lime.graphics.Image.fromFile("icon.png"));
 		#end
+
+		FlxG.mouse.visible = true;
 
 		toast = new ToastCore();
 		addChild(toast);

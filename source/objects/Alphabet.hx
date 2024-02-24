@@ -97,7 +97,7 @@ class Alphabet extends FlxSpriteGroup
 		{
 			--i;
 			var letter:AlphaCharacter = letters[i];
-			if(letter != null)
+			if (letter != null)
 			{
 				letter.kill();
 				letters.remove(letter);
@@ -326,7 +326,7 @@ class AlphaCharacter extends FlxSprite
 			else
 			{
 				suffix = ' normal';
-				if(curLetter != null && curLetter.offsets != null)
+				if (curLetter != null && curLetter.offsets != null)
 				{
 					letterOffset[0] = curLetter.offsets[0];
 					letterOffset[1] = curLetter.offsets[1];
@@ -336,7 +336,7 @@ class AlphaCharacter extends FlxSprite
 		else
 		{
 			suffix = ' bold';
-			if(curLetter != null && curLetter.offsetsBold != null)
+			if (curLetter != null && curLetter.offsetsBold != null)
 			{
 				letterOffset[0] = curLetter.offsetsBold[0];
 				letterOffset[1] = curLetter.offsetsBold[1];
