@@ -1,16 +1,19 @@
 package states.games.jta;
 
-class GameOverState extends FlxState
+class GameOverSubState extends FlxSubState
 {
-    override public function create()
+    public function new()
     {
-        super.create();
+        super();
 
-        Paths.clearStoredMemory();
-        Paths.clearUnusedMemory();
+        var bg:FlxSprite = new FlxSprite().makeGraphic(1280, 720, FlxColor.BLACK);
+        bg.scrollFactor.set();
+        bg.alpha = 0.65;
+        add(bg);
 
-        var theText:FlxText = new FlxText(0, 0, 0, "Game Over!\nPress R to restart.\nOtherwise, press ESCAPE.", 12);
-        theText.setFormat(Paths.font("vcr.ttf"), 60, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+        var theText:FlxText = new FlxText(0, 0, 0, "Game Over!\nPress R to restart.\nOtherwise, press ESCAPE.", 16);
+        theText.alignment = LEFT;
+        theText.scrollFactor.set();
         theText.screenCenter();
         add(theText);
 
@@ -25,7 +28,8 @@ class GameOverState extends FlxState
         {
             FlxG.camera.fade(FlxColor.BLACK, 0.33, false, function()
             {
-                FlxG.switchState(new states.games.jta.PlayState());
+                close();
+                FlxG.resetState();
             });
             FlxG.sound.play(Paths.sound('jta/play'));
         }

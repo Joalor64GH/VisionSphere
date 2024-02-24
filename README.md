@@ -7,11 +7,13 @@ A gaming console made in HaxeFlixel. Mostly based on Sega Dreamcast.
 
 > [!WARNING]
 > This project is currently in development, and stuff may be unstable or not work at the moment.
+>
 > So if you want to help, issue reports and pull requests would be nice!
 
 ## To-Dos
 > [!NOTE]
 > !! - High Priority
+>
 > ?? - Low Priority
 
 * [ ] Add 10 Games (6/10) **[!!]**

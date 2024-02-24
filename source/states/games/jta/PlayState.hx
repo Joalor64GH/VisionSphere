@@ -13,6 +13,8 @@ import states.games.jta.Spike;
 
 class PlayState extends FlxState
 {
+    public var lev:Int;
+
     var map:FlxOgmo3Loader;
     var walls:FlxTilemap;
 
@@ -25,8 +27,6 @@ class PlayState extends FlxState
     var jumping:Bool = false;
     
     var coinSnd:FlxSound;
-    
-    var lev:Int;
 
     public function new(lev:Int)
     {
@@ -169,7 +169,8 @@ class PlayState extends FlxState
     {
         if (player.alive && player.exists && spike.alive && spike.exists)
         {
-            FlxG.switchState(new states.games.jta.GameOverState());
+            player.kill();
+            openSubState(new states.games.jta.GameOverSubState());
         }
     }
 }
