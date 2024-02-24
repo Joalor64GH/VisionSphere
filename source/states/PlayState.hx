@@ -34,11 +34,7 @@ class PlayState extends FlxState
     var titleTxt:FlxText;
     var descTxt:FlxText;
 
-    #if (flixel_addons < "3.0.0")
-    var checker:FlxBackdrop = new FlxBackdrop(Paths.image('game/grid'), 0.2, 0.2, true, true);
-    #else
-    var checker:FlxBackdrop = new FlxBackdrop(Paths.image('game/grid'));
-    #end
+    var checker:FlxBackdrop = new FlxBackdrop(Paths.image('game/grid') #if (flixel_addons < "3.0.0"), 0.2, 0.2, true, true #end);
 
     override public function create()
     {

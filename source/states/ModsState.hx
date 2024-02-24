@@ -63,7 +63,7 @@ class ModsState extends FlxState
 			var leMods:Array<String> = CoolUtil.getText(path);
 			for (i in 0...leMods.length)
 			{
-				if(leMods.length > 1 && leMods[0].length > 0) {
+				if (leMods.length > 1 && leMods[0].length > 0) {
 					var modSplit:Array<String> = leMods[i].split('|');
 					if (!Paths.ignoreModFolders.contains(modSplit[0].toLowerCase()))
 					{
@@ -74,10 +74,10 @@ class ModsState extends FlxState
 		}
 
 		var boolshit = true;
-		if (FileSystem.exists("modsList.txt")){
+		if (FileSystem.exists("modsList.txt")) {
 			for (folder in Paths.getModDirectories())
 			{
-				if(!Paths.ignoreModFolders.contains(folder))
+				if (!Paths.ignoreModFolders.contains(folder))
 				{
 					addToModsList([folder, true]);
 				}
@@ -166,9 +166,8 @@ class ModsState extends FlxState
 		startX -= 190;
 		buttonDisableAll = new FlxButton(startX, 0, "DISABLE ALL", function() {
 			for (i in modsList)
-			{
 				i[1] = false;
-			}
+			
 			for (mod in mods)
 			{
 				if (mod.restart)
@@ -192,9 +191,8 @@ class ModsState extends FlxState
 		startX -= 190;
 		buttonEnableAll = new FlxButton(startX, 0, "ENABLE ALL", function() {
 			for (i in modsList)
-			{
 				i[1] = true;
-			}
+
 			for (mod in mods)
 			{
 				if (mod.restart)
@@ -228,7 +226,7 @@ class ModsState extends FlxState
 		while (i < modsList.length)
 		{
 			var values:Array<Dynamic> = modsList[i];
-			if(!FileSystem.exists(Paths.mods(values[0])))
+			if (!FileSystem.exists(Paths.mods(values[0])))
 			{
 				modsList.remove(modsList[i]);
 				continue;
@@ -269,7 +267,7 @@ class ModsState extends FlxState
 			i++;
 		}
 		
-		if(curSelected >= mods.length) 
+		if (curSelected >= mods.length) 
 			curSelected = 0;
 
 		bg.color = (mods.length < 1) ? defaultColor : mods[curSelected].color;
@@ -307,12 +305,12 @@ class ModsState extends FlxState
 			var doRestart:Bool = (mods[0].restart);
 
 			var newPos:Int = curSelected + change;
-			if(newPos < 0)
+			if (newPos < 0)
 			{
 				modsList.push(modsList.shift());
 				mods.push(mods.shift());
 			}
-			else if(newPos >= mods.length)
+			else if (newPos >= mods.length)
 			{
 				modsList.insert(0, modsList.pop());
 				mods.insert(0, mods.pop());
@@ -329,8 +327,8 @@ class ModsState extends FlxState
 			}
 			changeSelection(change);
 
-			if(!doRestart) doRestart = mods[curSelected].restart;
-			if(!skipResetCheck && doRestart) needaReset = true;
+			if (!doRestart) doRestart = mods[curSelected].restart;
+			if (!skipResetCheck && doRestart) needaReset = true;
 		}
 	}
 
@@ -351,21 +349,21 @@ class ModsState extends FlxState
 	var canExit:Bool = true;
 	override function update(elapsed:Float)
 	{
-		if(noModsTxt.visible)
+		if (noModsTxt.visible)
 		{
 			noModsSine += 180 * elapsed;
 			noModsTxt.alpha = 1 - Math.sin((Math.PI * noModsSine) / 180);
 		}
 
-		if(canExit && Input.is('exit'))
+		if (canExit && Input.is('exit'))
 		{
-			if(colorTween != null) {
+			if(colorTween != null)
 				colorTween.cancel();
-			}
+			
 			saveTxt();
 			FlxG.sound.play(Paths.sound('cancel'));
 
-			if(needaReset)
+			if (needaReset)
 				FlxG.camera.fade(FlxColor.BLACK, 0.5, false, FlxG.resetGame, false);
 			else
 				FlxG.switchState(new states.MenuState());
@@ -388,7 +386,7 @@ class ModsState extends FlxState
 
 	function changeSelection(change:Int = 0)
 	{
-		if(mods.length < 1)
+		if (mods.length < 1)
 		{
 			for (obj in visibleWhenHasMods)
 			{
@@ -417,7 +415,7 @@ class ModsState extends FlxState
 			curSelected = 0;
 
 		var newColor:Int = mods[curSelected].color;
-		if(newColor != intendedColor) {
+		if (newColor != intendedColor) {
 			if(colorTween != null) {
 				colorTween.cancel();
 			}
@@ -433,14 +431,13 @@ class ModsState extends FlxState
 		for (mod in mods)
 		{
 			mod.alphabet.alpha = 0.6;
-			if(i == curSelected)
+			if (i == curSelected)
 			{
 				mod.alphabet.alpha = 1;
 				selector.sprTracker = mod.alphabet;
 				descriptionTxt.text = mod.description;
-				if (mod.restart){
+				if (mod.restart)
 					descriptionTxt.text += " (This Mod will restart the game!)";
-				}
 
 				var stuffArray:Array<FlxSprite> = [selector, descriptionTxt, mod.alphabet, mod.icon];
 				for (obj in stuffArray)
@@ -465,11 +462,11 @@ class ModsState extends FlxState
 		for (mod in mods)
 		{
 			var intendedPos:Float = (i - curSelected) * 225 + 200;
-			if(i > curSelected) intendedPos += 225;
+			if (i > curSelected) intendedPos += 225;
 
 			mod.alphabet.y = (elapsed == -1) ? intendedPos : FlxMath.lerp(mod.alphabet.y, intendedPos, CoolUtil.boundTo(elapsed * 12, 0, 1));
 
-			if(i == curSelected)
+			if (i == curSelected)
 			{
 				descriptionTxt.y = mod.alphabet.y + 160;
 				for (button in buttonsArray)
@@ -531,7 +528,7 @@ class ModMetadata
 		this.color = ModsState.defaultColor;
 		this.restart = false;
 		
-		var path = Paths.mods(folder + '/pack.json');
+		var path = Paths.mods('$folder/pack.json');
 		if (FileSystem.exists(path)) {
 			var rawJson:String = File.getContent(path);
 			if (rawJson != null && rawJson.length > 0) {

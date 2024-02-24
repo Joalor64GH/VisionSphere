@@ -85,7 +85,8 @@ class Paths
 	public static function getPath(file:String, ?modsAllowed:Bool = false):String
 	{
 		#if MODS_ALLOWED
-		if (FileSystem.exists(modFolders(file))) return modFolders(file);
+		if (modsAllowed)
+			if (FileSystem.exists(modFolders(file))) return modFolders(file);
 		#end
 		return 'assets/$file';
 	}
@@ -146,14 +147,27 @@ class Paths
 		#end
 	}
 
-	inline static public function fileExists(key:String, ?ignoreMods:Bool = false)
+	public static function fileExists(key:String, ?ignoreMods:Bool = false)
 	{
 		#if MODS_ALLOWED
-		if (FileSystem.exists(mods(currentModDirectory + '/' + key)) || FileSystem.exists(mods(key)))
-			return true;
+		if (!ignoreMods) 
+		{
+			for (mod in getGlobalMods())
+				if (FileSystem.exists(mods('$mod/$key')))
+					return true;
+
+			if (FileSystem.exists(mods('$currentModDirectory/$key')) || FileSystem.exists(mods(key)))
+				return true;
+			
+			if (FileSystem.exists(mods('$key')))
+				return true;
+		}
 		#end
+
+		if (Assets.exists(getPath(key, false)))
+			return true;
 		
-		return Paths.exists(getPath(key));
+		return false;
 	}
 
 	inline static public function exists(asset:String)
@@ -328,7 +342,7 @@ class Paths
 		else
 		{
 			trace("Oops! Could not find 'modsList.txt'! Creating a new file...");
-			File.saveContent('./' + path, 'my-mod|1');
+			File.saveContent(path, 'my-mod|1');
 		}
 		return globalMods;
 	}

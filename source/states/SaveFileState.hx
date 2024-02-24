@@ -3,8 +3,7 @@ package states;
 import flixel.FlxCamera;
 import flixel.FlxObject;
 
-// this doesn't actually do anything atm
-class SaveFileState extends FlxState
+class SaveFileState extends FlxState // this doesn't actually do anything atm
 {
     var bg:FlxSprite;
 
@@ -39,6 +38,7 @@ class SaveFileState extends FlxState
         camFollowPos = new FlxObject(0, 0, 1, 1);
         add(camFollow);
         add(camFollowPos);
+        FlxG.camera.follow(camFollowPos, null, 1);
 
         var yScroll:Float = Math.max(0.25 - (0.05 * (saves.length - 4)), 0.1);
         bg = new FlxSprite().loadGraphic(Paths.image('theme/' + SaveData.theme));
