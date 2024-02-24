@@ -13,6 +13,8 @@ import states.games.jta.Spike;
 
 class PlayState extends FlxState
 {
+    public static var instance:PlayState = null;
+
     public var lev:Int = 1;
 
     var map:FlxOgmo3Loader;
@@ -37,6 +39,8 @@ class PlayState extends FlxState
     override public function create()
     {
         super.create();
+
+        instance = this;
 
         Paths.clearStoredMemory();
         Paths.clearUnusedMemory();

@@ -32,12 +32,12 @@ class GameOverSubState extends FlxSubState
             {
                 close();
                 FlxG.resetState();
-                switch (PlayState.lev)
+                switch (PlayState.instance.lev)
                 {
                     case 1:
-                        PlayState.lev = 1;
+                        PlayState.instance.lev = 1;
                     case 2:
-                        PlayState.lev = 2;
+                        PlayState.instance.lev = 2;
                 }
             });
             FlxG.sound.play(Paths.sound('jta/play'));
