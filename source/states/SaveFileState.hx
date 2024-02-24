@@ -121,7 +121,7 @@ class SaveFileState extends FlxState
 
         for (item in saveGrp.members)
         {
-            item.targetY = whatever + curSelected;
+            item.targetY = whatever - curSelected;
             whatever++;
 
             item.alpha = 0.6;
