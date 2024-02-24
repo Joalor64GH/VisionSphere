@@ -62,7 +62,7 @@ class AccountState extends FlxState
             icon.y = FlxG.height + FlxG.random.int(60, 120);
             icon.velocity.y = FlxG.random.int(-40, -110);
             icon.angle = FlxG.random.float(0, 360);
-            icon.loadGraphic(profiles[FlxG.random.int(0, profiles.length - 1)])
+            icon.loadGraphic(profiles[FlxG.random.int(0, profiles.length - 1)]);
         }
 
         if (FlxG.mouse.overlaps(usernameTxt) && FlxG.mouse.pressed)
