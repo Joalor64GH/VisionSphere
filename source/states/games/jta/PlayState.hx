@@ -25,6 +25,14 @@ class PlayState extends FlxState
     var jumping:Bool = false;
     
     var coinSnd:FlxSound;
+    
+    var lev:Int;
+
+    public function new(lev:Int)
+    {
+        super();
+        this.lev = lev;
+    }
 
     override public function create()
     {
@@ -43,7 +51,7 @@ class PlayState extends FlxState
         bg.scrollFactor.set();
         add(bg);
 
-        map = new FlxOgmo3Loader(Paths.getPath('data/jta/level.ogmo'), Paths.json('jta/lev1'));
+        map = new FlxOgmo3Loader(Paths.getPath('data/jta/level.ogmo'), Paths.json('jta/lev' + lev));
         walls = map.loadTilemap(Paths.image('game/jta/tilemap_1'), 'walls');
         walls.follow();
         walls.setTileProperties(1, NONE);

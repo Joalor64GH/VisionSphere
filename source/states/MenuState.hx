@@ -89,9 +89,8 @@ class MenuState extends FlxState
 
         if (FlxG.mouse.overlaps(btnProfile) && FlxG.mouse.pressed)
         {
-            // FlxG.switchState(new states.AccountState());
+            FlxG.switchState(new states.AccountState());
             FlxG.sound.play(Paths.sound('confirm'));
-            Main.toast.create('Hey!', 0xFFFFFF00, "This menu isn't finished yet!");
         }
 
         if (FlxG.mouse.overlaps(btnMusic) && FlxG.mouse.pressed)

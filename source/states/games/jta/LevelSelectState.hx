@@ -20,7 +20,7 @@ class LevelSelectState extends FlxState
 
         for (i in 0...levels.length)
         {
-            var lvlText:FlxText = new FlxText(0, 50 + (i * 100), 0, levels[i], 64);
+            var lvlText:FlxText = new FlxText(0, 50 + (i * 120), 0, levels[i], 100);
             lvlText.screenCenter(X);
             lvlText.ID = i;
             lvlGrp.add(lvlText);
@@ -48,10 +48,15 @@ class LevelSelectState extends FlxState
                 case "Level 1":
                     FlxG.camera.fade(FlxColor.BLACK, 0.33, false, function()
                     {
-                        FlxG.switchState(new states.games.jta.PlayState());
+                        FlxG.switchState(new states.games.jta.PlayState(1));
+                    });
+                case "Level 2":
+                    FlxG.camera.fade(FlxColor.BLACK, 0.33, false, function()
+                    {
+                        FlxG.switchState(new states.games.jta.PlayState(2));
                     });
                     
-                case "Level 2" | "Level 3":
+                case "Level 3":
                     Main.toast.create('Nope.', 0xFFFFFF00, "This isn't finished yet.");
             }
         }
