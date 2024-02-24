@@ -4,6 +4,8 @@ import openfl.Lib;
 
 #if CRASH_HANDLER
 import openfl.events.UncaughtErrorEvent;
+import haxe.CallStack;
+import haxe.io.Path;
 #end
 
 import display.ToastCore;
@@ -39,7 +41,7 @@ class Main extends openfl.display.Sprite
 
 		addChild(new flixel.FlxGame(1280, 720, states.BootState, #if (flixel < "5.0.0") -1, #end 60, 60, true, false));
 
-		fpsDisplay = new Info(10, 3, 0xFFFFFF);
+		fpsDisplay = new Info(10, 10, 0xFFFFFF);
 		addChild(fpsDisplay);
 
 		#if CRASH_HANDLER
@@ -47,7 +49,7 @@ class Main extends openfl.display.Sprite
 		{
 			var errMsg:String = "";
 			var path:String;
-			var callStack:Array<StackItem> = haxe.CallStack.exceptionStack(true);
+			var callStack:Array<StackItem> = CallStack.exceptionStack(true);
 			var dateNow:String = Date.now().toString();
 
 			dateNow = dateNow.replace(" ", "_");
@@ -74,7 +76,7 @@ class Main extends openfl.display.Sprite
 			File.saveContent(path, errMsg + "\n");
 
 			Sys.println(errMsg);
-			Sys.println("Crash dump saved in " + haxe.io.Path.normalize(path));
+			Sys.println("Crash dump saved in " + Path.normalize(path));
 
 			#if windows
 			util.Windows.messageBox("Error!", errMsg, MSG_ERROR);
