@@ -1,6 +1,29 @@
 package states;
 
+import flixel.addons.display.FlxBackdrop;
+import flixel.group.FlxGroup;
+import flixel.util.FlxGradient;
+import flixel.util.FlxSpriteUtil;
+
+import flash.display.BitmapData;
+import openfl.display.BlendMode;
+
 using StringTools;
+
+typedef CreditsPrefDef = {
+    var bgSprite:String;
+    var bgAntialiasing:Bool;
+    var users:Array<CreditsUserDef>;
+}
+
+typedef CreditsUserDef = {
+    var name:String;
+    var icon:String;
+    var textData:Array<String>;
+    var colors:Array<Int>;
+    var urlData:Dynamic;
+    var sectionName:String;
+}
 
 class CreditsState extends FlxState
 {

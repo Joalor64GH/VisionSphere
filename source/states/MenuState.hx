@@ -11,7 +11,7 @@ class MenuState extends FlxState
     
     var btnPlay:FlxSprite;
     var btnMods:FlxSprite;
-    var btnCredits:FlxSprite;
+    var btnProfile:FlxSprite;
     var btnMusic:FlxSprite;
     var btnSettings:FlxSprite;
 
@@ -41,9 +41,9 @@ class MenuState extends FlxState
         add(btnMods);
         #end
 
-        btnCredits = new FlxSprite().loadGraphic(Paths.image('menu/credits'));
-        btnCredits.screenCenter(XY);
-        add(btnCredits);
+        btnProfile = new FlxSprite().loadGraphic(Paths.image('menu/profile/' + SaveData.profile));
+        btnProfile.screenCenter(XY);
+        add(btnProfile);
 
         btnMusic = new FlxSprite(150, FlxG.height - 300).loadGraphic(Paths.image('menu/music'));
         add(btnMusic);
@@ -86,6 +86,13 @@ class MenuState extends FlxState
             FlxG.sound.play(Paths.sound('confirm'));
         }
         #end
+
+        if (FlxG.mouse.overlaps(btnProfile) && FlxG.mouse.pressed)
+        {
+            // FlxG.switchState(new states.AccountState());
+            FlxG.sound.play(Paths.sound('confirm'));
+            Main.toast.create('Hey!', 0xFFFFFF00, "This menu isn't finished yet!");
+        }
 
         if (FlxG.mouse.overlaps(btnMusic) && FlxG.mouse.pressed)
         {

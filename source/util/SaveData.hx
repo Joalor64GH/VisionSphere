@@ -22,7 +22,7 @@ class SaveData
     public static var colorBlindFilter:String = "None";
     public static var framerate:Int = 60;
     public static var username:String = "user";
-    public static var profile:String = "default";
+    public static var profile:String = "blue";
     public static var leftKey:String = "LEFT";
     public static var rightKey:String = "RIGHT";
     public static var downKey:String = "DOWN";

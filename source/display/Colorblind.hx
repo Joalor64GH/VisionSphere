@@ -55,9 +55,8 @@ class Colorblind
         if (colorBlindFilters.get(curFilter) != null) {
             var daFilter = colorBlindFilters.get(curFilter).filter;
 
-            if (daFilter != null) {
+            if (daFilter != null)
                 filters.push(daFilter);
-            }
         }
 
         FlxG.game.setFilters(filters);

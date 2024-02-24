@@ -203,7 +203,7 @@ class Paths
 		var modKey:String = modsImages(key);
 		if (FileSystem.exists(modKey))
 		{
-			if (!currentTrackedAssets.exists(modKey)){
+			if (!currentTrackedAssets.exists(modKey)) {
 				var newGraphic:FlxGraphic = getGraphic(modKey);
 				newGraphic.persist = true;
 				currentTrackedAssets.set(modKey, newGraphic);
@@ -234,8 +234,7 @@ class Paths
 		#if MODS_ALLOWED
 		if (FileSystem.exists(modsSounds(path, key))) return modsSounds(path, key);
 		#end
-		var gottenPath:String = getPath('$path/$key.ogg');
-		return gottenPath;
+		return getPath('$path/$key.ogg');
 	}
 
 	public static function returnSound(path:String, key:String)
@@ -290,16 +289,13 @@ class Paths
 
 	static public function modFolders(key:String) {
 		if (currentModDirectory != null && currentModDirectory.length > 0) {
-			var fileToCheck:String = mods('$currentModDirectory/$key');
-			if (FileSystem.exists(fileToCheck)) {
-				return fileToCheck;
-			}
+			if (FileSystem.exists(mods('$currentModDirectory/$key')))
+				return mods('$currentModDirectory/$key');
 		}
 
 		for (mod in getGlobalMods()) {
-			var fileToCheck:String = mods('$mod/$key');
-			if (FileSystem.exists(fileToCheck))
-				return fileToCheck;
+			if (FileSystem.exists(mods('$mod/$key')))
+				return mods('$mod/$key');
 
 		}
 		return 'mods/$key';
@@ -351,12 +347,10 @@ class Paths
 		var list:Array<String> = [];
 		var modsFolder:String = mods();
 		if (FileSystem.exists(modsFolder)) {
-			for (folder in FileSystem.readDirectory(modsFolder)) {
-				var path = haxe.io.Path.join([modsFolder, folder]);
-				if (sys.FileSystem.isDirectory(path) && !ignoreModFolders.contains(folder) && !list.contains(folder)) {
+			for (folder in FileSystem.readDirectory(modsFolder))
+				if (FileSystem.isDirectory(haxe.io.Path.join([modsFolder, folder])) 
+					&& !ignoreModFolders.contains(folder) && !list.contains(folder))
 					list.push(folder);
-				}
-			}
 		}
 		return list;
 	}

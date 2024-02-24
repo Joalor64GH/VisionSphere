@@ -66,9 +66,7 @@ class ModsState extends FlxState
 				if (leMods.length > 1 && leMods[0].length > 0) {
 					var modSplit:Array<String> = leMods[i].split('|');
 					if (!Paths.ignoreModFolders.contains(modSplit[0].toLowerCase()))
-					{
 						addToModsList([modSplit[0], (modSplit[1] == '1')]);
-					}
 				}
 			}
 		}
@@ -76,12 +74,8 @@ class ModsState extends FlxState
 		var boolshit = true;
 		if (FileSystem.exists("modsList.txt")) {
 			for (folder in Paths.getModDirectories())
-			{
 				if (!Paths.ignoreModFolders.contains(folder))
-				{
 					addToModsList([folder, true]);
-				}
-			}
 		}
 		saveTxt();
 
@@ -97,10 +91,9 @@ class ModsState extends FlxState
 
 		buttonToggle = new FlxButton(startX, 0, "ON", function()
 		{
-			if(mods[curSelected].restart)
-			{
+			if (mods[curSelected].restart)
 				needaReset = true;
-			}
+			
 			modsList[curSelected][1] = !modsList[curSelected][1];
 			updateButtonToggle();
 			FlxG.sound.play(Paths.sound('scroll'), 0.6);
@@ -145,14 +138,11 @@ class ModsState extends FlxState
 		buttonTop = new FlxButton(startX, 0, "TOP", function() {
 			var doRestart:Bool = (mods[0].restart || mods[curSelected].restart);
 			for (i in 0...curSelected) 
-			{
 				moveMod(-1, true);
-			}
 
-			if(doRestart)
-			{
+			if (doRestart)
 				needaReset = true;
-			}
+			
 			FlxG.sound.play(Paths.sound('scroll'), 0.6);
 		});
 		buttonTop.setGraphicSize(80, 50);
@@ -244,9 +234,7 @@ class ModsState extends FlxState
 			var loadedIcon:BitmapData = null;
 			var iconToUse:String = Paths.mods(values[0] + '/pack.png');
 			if (FileSystem.exists(iconToUse))
-			{
 				loadedIcon = BitmapData.fromFile(iconToUse);
-			}
 
 			newMod.icon = new AttachedSprite();
 			if (loadedIcon != null)
@@ -257,9 +245,8 @@ class ModsState extends FlxState
 				newMod.icon.animation.play("icon");
 			}
 			else
-			{
 				newMod.icon.loadGraphic(Paths.image('unknownMod'));
-			}
+			
 			newMod.icon.sprTracker = newMod.alphabet;
 			newMod.icon.xAdd = -newMod.icon.width - 30;
 			newMod.icon.yAdd = -45;
@@ -283,12 +270,9 @@ class ModsState extends FlxState
 	function addToModsList(values:Array<Dynamic>)
 	{
 		for (i in 0...modsList.length)
-		{
-			if(modsList[i][0] == values[0])
-			{
+			if (modsList[i][0] == values[0])
 				return;
-			}
-		}
+		
 		modsList.push(values);
 	}
 
@@ -300,7 +284,7 @@ class ModsState extends FlxState
 
 	function moveMod(change:Int, skipResetCheck:Bool = false)
 	{
-		if(mods.length > 1)
+		if (mods.length > 1)
 		{
 			var doRestart:Bool = (mods[0].restart);
 
@@ -337,7 +321,7 @@ class ModsState extends FlxState
 		var fileStr:String = '';
 		for (values in modsList)
 		{
-			if(fileStr.length > 0) fileStr += '\n';
+			if (fileStr.length > 0) fileStr += '\n';
 			fileStr += values[0] + '|' + (values[1] ? '1' : '0');
 		}
 
@@ -357,16 +341,15 @@ class ModsState extends FlxState
 
 		if (canExit && Input.is('exit'))
 		{
-			if(colorTween != null)
+			if (colorTween != null)
 				colorTween.cancel();
 			
 			saveTxt();
 			FlxG.sound.play(Paths.sound('cancel'));
 
-			if (needaReset)
-				FlxG.camera.fade(FlxColor.BLACK, 0.5, false, FlxG.resetGame, false);
-			else
-				FlxG.switchState(new states.MenuState());
+			(needaReset) ? FlxG.camera.fade(FlxColor.BLACK, 0.5, false, FlxG.resetGame, false) 
+				: FlxG.switchState(new states.MenuState());
+				
 		}
 
 		if (Input.is('up') || Input.is('down'))
@@ -379,9 +362,7 @@ class ModsState extends FlxState
 	function setAllLabelsOffset(button:FlxButton, x:Float, y:Float)
 	{
 		for (point in button.labelOffsets)
-		{
 			point.set(x, y);
-		}
 	}
 
 	function changeSelection(change:Int = 0)
@@ -389,34 +370,29 @@ class ModsState extends FlxState
 		if (mods.length < 1)
 		{
 			for (obj in visibleWhenHasMods)
-			{
 				obj.visible = false;
-			}
+
 			for (obj in visibleWhenNoMods)
-			{
 				obj.visible = true;
-			}
+			
 			return;
 		}
 		
 		for (obj in visibleWhenHasMods)
-		{
 			obj.visible = true;
-		}
+		
 		for (obj in visibleWhenNoMods)
-		{
 			obj.visible = false;
-		}
 
 		curSelected += change;
-		if(curSelected < 0)
+		if (curSelected < 0)
 			curSelected = mods.length - 1;
-		else if(curSelected >= mods.length)
+		else if (curSelected >= mods.length)
 			curSelected = 0;
 
 		var newColor:Int = mods[curSelected].color;
 		if (newColor != intendedColor) {
-			if(colorTween != null) {
+			if (colorTween != null) {
 				colorTween.cancel();
 			}
 			intendedColor = newColor;
@@ -470,9 +446,7 @@ class ModsState extends FlxState
 			{
 				descriptionTxt.y = mod.alphabet.y + 160;
 				for (button in buttonsArray)
-				{
 					button.y = mod.alphabet.y + 320;
-				}
 			}
 			i++;
 		}
@@ -497,11 +471,11 @@ class ModsState extends FlxState
 	{
 		var antiX:Float = (selector.width - cornerSize);
 		var antiY:Float = flipY ? (selector.height - 1) : 0;
-		if(flipY) antiY -= 2;
+		if (flipY) antiY -= 2;
 		selector.pixels.fillRect(new Rectangle((flipX ? antiX : 1), Std.int(Math.abs(antiY - 8)), 10, 3), FlxColor.BLACK);
-		if(flipY) antiY += 1;
+		if (flipY) antiY += 1;
 		selector.pixels.fillRect(new Rectangle((flipX ? antiX : 2), Std.int(Math.abs(antiY - 6)),  9, 2), FlxColor.BLACK);
-		if(flipY) antiY += 1;
+		if (flipY) antiY += 1;
 		selector.pixels.fillRect(new Rectangle((flipX ? antiX : 3), Std.int(Math.abs(antiY - 5)),  8, 1), FlxColor.BLACK);
 		selector.pixels.fillRect(new Rectangle((flipX ? antiX : 4), Std.int(Math.abs(antiY - 4)),  7, 1), FlxColor.BLACK);
 		selector.pixels.fillRect(new Rectangle((flipX ? antiX : 5), Std.int(Math.abs(antiY - 3)),  6, 1), FlxColor.BLACK);
@@ -538,18 +512,14 @@ class ModMetadata
 				var name:String = Reflect.getProperty(stuff, "name");
 				var restart:Bool = Reflect.getProperty(stuff, "restart");
 					
-				if(name != null && name.length > 0)
-				{
+				if (name != null && name.length > 0)
 					this.name = name;
-				}
-				if(description != null && description.length > 0)
-				{
+				
+				if (description != null && description.length > 0)
 					this.description = description;
-				}
-				if(colors != null && colors.length > 2)
-				{
+				
+				if (colors != null && colors.length > 2)
 					this.color = FlxColor.fromRGB(colors[0], colors[1], colors[2]);
-				}
 				
 				this.restart = restart;
 			}

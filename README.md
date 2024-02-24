@@ -11,7 +11,7 @@ Mostly based on Sega Dreamcast.
 * [ ] Add 10 Games (6/10)
 * [ ] Save Slots **[WIP]**
 * [ ] Account settings **[WIP]**
-* [ ] Maybe expand modding support (addons/libraries) **[WIP]**
+* [ ] Credits with JSON **[high priority!!]**
 
 ## Wanna build?
 1. Install [Haxe](https://haxe.org/download/)
