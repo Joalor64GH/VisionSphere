@@ -44,7 +44,7 @@ class DVDScreensaver extends FlxState
 
         if (Input.is('exit')) 
         {
-            FlxG.camera.fade(FlxColor.BLACK, 0.5, false, function()
+            FlxG.camera.fade(FlxColor.BLACK, 0.5, false, () ->
             {
                 FlxG.switchState(new states.MenuState());
             });

@@ -41,10 +41,10 @@ class MainMenuState extends FlxState
                 FlxTween.angle(logoBl, logoBl.angle, -4, 4, {ease: FlxEase.quartInOut});
         }, 0);
 
-        var playBtn:FlxButton = new FlxButton(0, FlxG.height / 2 + 50, "Play", function()
+        var playBtn:FlxButton = new FlxButton(0, FlxG.height / 2 + 50, "Play", () ->
         {
             FlxG.sound.play(Paths.sound('jta/play'));
-            FlxG.camera.fade(FlxColor.BLACK, 0.33, false, function()
+            FlxG.camera.fade(FlxColor.BLACK, 0.33, false, () ->
             {
                 FlxG.switchState(new states.games.jta.LevelSelectState());
             });
@@ -55,10 +55,10 @@ class MainMenuState extends FlxState
         playBtn.screenCenter(X);
         add(playBtn);
 
-        var exitBtn:FlxButton = new FlxButton(0, playBtn.y + 70, "Exit", function()
+        var exitBtn:FlxButton = new FlxButton(0, playBtn.y + 70, "Exit", () ->
         {
             FlxG.sound.play(Paths.sound('jta/exit'));
-            FlxG.camera.fade(FlxColor.BLACK, 0.5, false, function()
+            FlxG.camera.fade(FlxColor.BLACK, 0.5, false, () ->
             {
                 FlxG.switchState(new states.MenuState());
             });
@@ -76,7 +76,7 @@ class MainMenuState extends FlxState
 
         if (Input.is('exit'))
         {
-            FlxG.camera.fade(FlxColor.BLACK, 0.5, false, function()
+            FlxG.camera.fade(FlxColor.BLACK, 0.5, false, () ->
             {
                 FlxG.switchState(new states.MenuState());
             });

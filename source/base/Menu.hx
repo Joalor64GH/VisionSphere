@@ -100,7 +100,7 @@ class Menu extends FlxSubState
                     flashTimer.cancel();
                     flashTimer = null;
                 }
-                flashTimer = new FlxTimer().start(0.1, (timer:FlxTimer) -> 
+                flashTimer = new FlxTimer().start(0.1, (timer) -> 
                 {
                     cursor.visible = !cursor.visible;
                 }, 0);
@@ -109,7 +109,7 @@ class Menu extends FlxSubState
 
                 justPressedEnter = true;
 
-                new FlxTimer().start(2, (?timer:FlxTimer) -> 
+                new FlxTimer().start(2, (?timer) -> 
                 {
                     trace("eugh");
 

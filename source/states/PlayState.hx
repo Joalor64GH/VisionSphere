@@ -115,32 +115,32 @@ class PlayState extends FlxState
             switch(currentIndex)
             {
                 case 0:
-                    FlxG.camera.fade(FlxColor.BLACK, 0.5, false, function()
+                    FlxG.camera.fade(FlxColor.BLACK, 0.5, false, () ->
                     {
                         FlxG.switchState(new states.games.clicker.MainMenuState());
                     });
                 case 1:
-                    FlxG.camera.fade(FlxColor.BLACK, 0.5, false, function()
+                    FlxG.camera.fade(FlxColor.BLACK, 0.5, false, () ->
                     {
                         FlxG.switchState(new states.games.DVDScreensaver());
                     });
                 case 2:
-                    FlxG.camera.fade(FlxColor.BLACK, 0.5, false, function()
+                    FlxG.camera.fade(FlxColor.BLACK, 0.5, false, () ->
                     {
                         FlxG.switchState(new states.games.jta.MainMenuState());
                     });
                 case 3:
-                    FlxG.camera.fade(FlxColor.BLACK, 0.5, false, function()
+                    FlxG.camera.fade(FlxColor.BLACK, 0.5, false, () ->
                     {
                         FlxG.switchState(new states.games.Painter());
                     });
                 case 4:
-                    FlxG.camera.fade(FlxColor.BLACK, 0.5, false, function()
+                    FlxG.camera.fade(FlxColor.BLACK, 0.5, false, () ->
                     {
                         FlxG.switchState(new states.games.TheSimpleMathGame.MainMenuState());
                     });
                 case 5:
-                    FlxG.camera.fade(FlxColor.BLACK, 0.5, false, function()
+                    FlxG.camera.fade(FlxColor.BLACK, 0.5, false, () ->
                     {
                         FlxG.switchState(new states.games.tetris.MainMenuState());
                     });

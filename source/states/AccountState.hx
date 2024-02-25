@@ -2,10 +2,7 @@ package states;
 
 class AccountState extends FlxState
 {
-    public static var instance:AccountState = null;
-
-    public var usernameTxt:FlxText;
-
+    var usernameTxt:FlxText;
     var profileSpr:FlxSprite;
     var icons:Array<FlxSprite> = [];
     var profiles:Array<String> = ['red', 'orange', 'yellow', 'green', 'blue', 'purple', 'pink'];
@@ -13,8 +10,6 @@ class AccountState extends FlxState
     override public function create()
     {
         super.create();
-
-        instance = this;
 
         Paths.clearStoredMemory();
         Paths.clearUnusedMemory();
@@ -67,6 +62,8 @@ class AccountState extends FlxState
     {
         super.update(elapsed);
 
+        usernameTxt.text = SaveData.username;
+
         for (icon in icons)
         {
             icon.angle += elapsed * 12;
@@ -82,7 +79,6 @@ class AccountState extends FlxState
         if (FlxG.mouse.overlaps(usernameTxt) && FlxG.mouse.pressed)
         {
             openSubState(new states.substates.AccountNameSubState());
-            FlxG.sound.play(Paths.sound('scroll'));
             persistentUpdate = true;
         }
 

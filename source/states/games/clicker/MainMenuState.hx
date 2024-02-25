@@ -13,9 +13,9 @@ class MainMenuState extends FlxState
         logo.screenCenter(X);
         add(logo);
 
-        var playBtn:FlxButton = new FlxButton(0, FlxG.height / 2 + 50, "Play", function()
+        var playBtn:FlxButton = new FlxButton(0, FlxG.height / 2 + 50, "Play", () ->
         {
-            FlxG.camera.fade(FlxColor.BLACK, 0.33, false, function()
+            FlxG.camera.fade(FlxColor.BLACK, 0.33, false, () ->
             {
                 FlxG.switchState(new states.games.clicker.PlayState());
             });
@@ -26,9 +26,9 @@ class MainMenuState extends FlxState
         playBtn.screenCenter(X);
         add(playBtn);
 
-        var exitBtn:FlxButton = new FlxButton(0, playBtn.y + 70, "Exit", function()
+        var exitBtn:FlxButton = new FlxButton(0, playBtn.y + 70, "Exit", () ->
         {
-            FlxG.camera.fade(FlxColor.BLACK, 0.5, false, function()
+            FlxG.camera.fade(FlxColor.BLACK, 0.5, false, () ->
             {
                 FlxG.switchState(new states.MenuState());
                 FlxG.sound.music.volume = 0;
@@ -57,7 +57,7 @@ class MainMenuState extends FlxState
 
         if (Input.is('exit')) 
         {
-            FlxG.camera.fade(FlxColor.BLACK, 0.5, false, function()
+            FlxG.camera.fade(FlxColor.BLACK, 0.5, false, () ->
             {
                 FlxG.switchState(new states.MenuState());
                 FlxG.sound.music.volume = 0;

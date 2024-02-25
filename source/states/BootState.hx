@@ -71,7 +71,7 @@ class BootState extends FlxState
 
         if (Input.is('enter'))
         {
-            FlxG.camera.fade(FlxColor.BLACK, 0.33, false, function()
+            FlxG.camera.fade(FlxColor.BLACK, 0.33, false, () ->
             {
                 FlxG.switchState(new states.SaveFileState());
             });

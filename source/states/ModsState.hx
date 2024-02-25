@@ -90,7 +90,7 @@ class ModsState extends FlxState
 
 		var startX:Int = 1120;
 
-		buttonToggle = new FlxButton(startX, 0, "ON", function()
+		buttonToggle = new FlxButton(startX, 0, "ON", () ->
 		{
 			if (mods[curSelected].restart)
 				needaReset = true;
@@ -109,7 +109,7 @@ class ModsState extends FlxState
 		setAllLabelsOffset(buttonToggle, -15, 10);
 		startX -= 70;
 
-		buttonUp = new FlxButton(startX, 0, "/\\", function()
+		buttonUp = new FlxButton(startX, 0, "/\\", () ->
 		{
 			moveMod(-1);
 			FlxG.sound.play(Paths.sound('scroll'), 0.6);
@@ -123,7 +123,7 @@ class ModsState extends FlxState
 		setAllLabelsOffset(buttonUp, -15, 10);
 		startX -= 70;
 
-		buttonDown = new FlxButton(startX, 0, "\\/", function() {
+		buttonDown = new FlxButton(startX, 0, "\\/", () -> {
 			moveMod(1);
 			FlxG.sound.play(Paths.sound('scroll'), 0.6);
 		});
@@ -136,7 +136,7 @@ class ModsState extends FlxState
 		setAllLabelsOffset(buttonDown, -15, 10);
 
 		startX -= 100;
-		buttonTop = new FlxButton(startX, 0, "TOP", function() {
+		buttonTop = new FlxButton(startX, 0, "TOP", () -> {
 			var doRestart:Bool = (mods[0].restart || mods[curSelected].restart);
 			for (i in 0...curSelected) 
 				moveMod(-1, true);
@@ -155,7 +155,7 @@ class ModsState extends FlxState
 		visibleWhenHasMods.push(buttonTop);
 		
 		startX -= 190;
-		buttonDisableAll = new FlxButton(startX, 0, "DISABLE ALL", function() {
+		buttonDisableAll = new FlxButton(startX, 0, "DISABLE ALL", () -> {
 			for (i in modsList)
 				i[1] = false;
 			
@@ -180,7 +180,7 @@ class ModsState extends FlxState
 		visibleWhenHasMods.push(buttonDisableAll);
 
 		startX -= 190;
-		buttonEnableAll = new FlxButton(startX, 0, "ENABLE ALL", function() {
+		buttonEnableAll = new FlxButton(startX, 0, "ENABLE ALL", () -> {
 			for (i in modsList)
 				i[1] = true;
 

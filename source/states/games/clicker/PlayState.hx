@@ -63,7 +63,7 @@ class PlayState extends FlxState
 
         if (Input.is('w') && win)
         {
-            FlxG.camera.fade(FlxColor.BLACK, 0.33, false, function()
+            FlxG.camera.fade(FlxColor.BLACK, 0.33, false, () ->
             {
                 FlxG.sound.music.volume = 0;
                 FlxG.switchState(new states.games.clicker.WinState());
@@ -71,7 +71,7 @@ class PlayState extends FlxState
         }
         else if (Input.is('exit'))
         {
-            FlxG.camera.fade(FlxColor.BLACK, 0.33, false, function()
+            FlxG.camera.fade(FlxColor.BLACK, 0.33, false, () ->
             {
                 FlxG.sound.music.volume = 0;
                 FlxG.switchState(new states.games.clicker.MainMenuState());
@@ -87,7 +87,7 @@ class PlayState extends FlxState
 
     function click()
     {
-        new FlxTimer().start(0.01, function(timer)
+        new FlxTimer().start(0.01, (timer) ->
         {
             switch(clicks)
             {

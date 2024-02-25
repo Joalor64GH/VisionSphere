@@ -73,7 +73,7 @@ class Painter extends FlxState
         brushSizeSlider.setPosition(colorWheel.x, colorWheel.y + 100);
         add(brushSizeSlider);
 
-        saveJPEGButton = new FlxButton(0, 0, "Save to JPEG", function()
+        saveJPEGButton = new FlxButton(0, 0, "Save to JPEG", () ->
         {
             saveArt(true);
         });
@@ -81,7 +81,7 @@ class Painter extends FlxState
         saveJPEGButton.setPosition(10, (FlxG.height - saveJPEGButton.height) - 45);
         add(saveJPEGButton);
 
-        savePNGButton = new FlxButton(0, 0, "Save to PNG", function()
+        savePNGButton = new FlxButton(0, 0, "Save to PNG", () ->
         {
             saveArt();
         });
@@ -154,7 +154,7 @@ class Painter extends FlxState
             FlxG.resetState();
         else if (Input.is('exit')) 
         {
-            FlxG.camera.fade(FlxColor.BLACK, 0.5, false, function()
+            FlxG.camera.fade(FlxColor.BLACK, 0.5, false, () ->
             {
                 FlxG.switchState(new states.MenuState());
             });

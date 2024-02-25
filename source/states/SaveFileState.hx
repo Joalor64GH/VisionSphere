@@ -94,7 +94,7 @@ class SaveFileState extends FlxState // this doesn't actually do anything atm
             if (Input.is('accept') && !accepted)
             {
                 accepted = true;
-                FlxG.camera.fade(FlxColor.BLACK, 0.33, false, function()
+                FlxG.camera.fade(FlxColor.BLACK, 0.33, false, () ->
                 {
                     #if desktop
                     states.UpdateState.updateCheck();

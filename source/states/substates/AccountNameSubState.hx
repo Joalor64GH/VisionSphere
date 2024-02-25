@@ -2,8 +2,6 @@ package states.substates;
 
 import flixel.addons.ui.FlxUIInputText;
 
-import states.AccountState;
-
 class AccountNameSubState extends FlxSubState
 {
     var input:FlxUIInputText;
@@ -42,8 +40,6 @@ class AccountNameSubState extends FlxSubState
         if (Input.is('accept') && input.text != '')
         {
             trace('changed username to: ' + input.text);
-
-            AccountState.instance.usernameTxt.text = SaveData.username;
             SaveData.username = input.text;
             SaveData.saveSettings();
             close();

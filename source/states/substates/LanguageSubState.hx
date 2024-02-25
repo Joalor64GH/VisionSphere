@@ -2,10 +2,9 @@ package states.substates;
 
 class LanguageSubState extends FlxSubState
 {
-    private var iconArray:Array<AttachedSprite> = [];
-    private var coolGrp:FlxTypedGroup<Alphabet>;
-
     var curSelected:Int = 0;
+    var iconArray:Array<AttachedSprite> = [];
+    var coolGrp:FlxTypedGroup<Alphabet>;
     var langStrings:Array<Locale> = [
         new Locale('Deutsch', 'de'),
         new Locale('English', 'en'),
@@ -80,8 +79,7 @@ class LanguageSubState extends FlxSubState
             Localization.switchLanguage(SaveData.lang);
             close();
         }
-
-        if (Input.is('exit'))
+        else if (Input.is('exit'))
         {
             FlxG.sound.play(Paths.sound('cancel'));
             close();

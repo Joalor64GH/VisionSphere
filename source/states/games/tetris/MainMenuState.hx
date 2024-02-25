@@ -42,7 +42,7 @@ class MainMenuState extends FlxState
 
         if (Input.is('accept'))
         {
-            FlxG.camera.fade(FlxColor.BLACK, 0.5, false, function()
+            FlxG.camera.fade(FlxColor.BLACK, 0.5, false, () ->
             {
                 FlxG.switchState((playSelect) ? new states.games.tetris.PlayState() : new states.MenuState());
             });

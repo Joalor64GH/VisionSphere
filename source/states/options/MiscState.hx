@@ -63,14 +63,14 @@ class MiscState extends FlxState
                 case "System Information":
                     openSubState(new states.substates.SystemInfoSubState());
                 case "Restart":
-                    openSubState(new states.substates.PromptSubState("Are you sure?", function() {
+                    openSubState(new states.substates.PromptSubState("Are you sure?", () -> {
                         FlxG.camera.fade(FlxColor.BLACK, 0.5, false, FlxG.resetGame, false);
-                    }, function() {
+                    }, () -> {
                         closeSubState();
                     }));
                 case "Shut Down":
-                    openSubState(new states.substates.PromptSubState("Are you sure?", function() {
-                        FlxG.camera.fade(FlxColor.BLACK, 0.5, false, function()
+                    openSubState(new states.substates.PromptSubState("Are you sure?", () -> {
+                        FlxG.camera.fade(FlxColor.BLACK, 0.5, false, () ->
                         {
                             #if (sys || cpp)
                             Sys.exit(0);
@@ -78,7 +78,7 @@ class MiscState extends FlxState
                             openfl.system.System.exit(0);
                             #end
                         });
-                    }, function() {
+                    }, () -> {
                         closeSubState();
                     }));
                 case "Back":

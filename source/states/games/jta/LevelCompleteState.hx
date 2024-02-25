@@ -22,7 +22,7 @@ class LevelCompleteState extends FlxState
 
         if (Input.is('any'))
         {
-            FlxG.camera.fade(FlxColor.BLACK, 0.33, false, function()
+            FlxG.camera.fade(FlxColor.BLACK, 0.33, false, () ->
             {
                 FlxG.switchState(new states.games.jta.MainMenuState());
             });

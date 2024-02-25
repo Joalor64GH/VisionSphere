@@ -28,7 +28,7 @@ class GameOverSubState extends FlxSubState
         }
         else if (Input.is('escape'))
         {
-            FlxG.camera.fade(FlxColor.BLACK, 0.33, false, function()
+            FlxG.camera.fade(FlxColor.BLACK, 0.33, false, () ->
             {
                 FlxG.switchState(new states.games.tetris.MainMenuState());
             });

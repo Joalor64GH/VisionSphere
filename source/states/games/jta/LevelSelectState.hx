@@ -20,7 +20,7 @@ class LevelSelectState extends FlxState
 
         for (i in 0...levels.length)
         {
-            var lvlText:FlxText = new FlxText(0, 50 + (i * 120), 0, levels[i], 100);
+            var lvlText:FlxText = new FlxText(0, 50 + (i * 130), 0, levels[i], 100);
             lvlText.screenCenter(X);
             lvlText.ID = i;
             lvlGrp.add(lvlText);
@@ -46,24 +46,26 @@ class LevelSelectState extends FlxState
             switch (levels[curSelected])
             {
                 case "Level 1":
-                    FlxG.camera.fade(FlxColor.BLACK, 0.33, false, function()
+                    FlxG.camera.fade(FlxColor.BLACK, 0.33, false, () ->
                     {
                         FlxG.switchState(new states.games.jta.PlayState(1));
                     });
                 case "Level 2":
-                    FlxG.camera.fade(FlxColor.BLACK, 0.33, false, function()
+                    FlxG.camera.fade(FlxColor.BLACK, 0.33, false, () ->
                     {
                         FlxG.switchState(new states.games.jta.PlayState(2));
                     });
-                    
                 case "Level 3":
-                    Main.toast.create("Hey!", 0xFFFFFF00, "This isn't finished yet!");
+                    FlxG.camera.fade(FlxColor.BLACK, 0.33, false, () ->
+                    {
+                        FlxG.switchState(new states.games.jta.PlayState(3));
+                    });
             }
         }
 
         if (Input.is('exit'))
         {
-            FlxG.camera.fade(FlxColor.BLACK, 0.33, false, function()
+            FlxG.camera.fade(FlxColor.BLACK, 0.33, false, () ->
             {
                 FlxG.switchState(new states.games.jta.MainMenuState());
             });
@@ -80,7 +82,7 @@ class LevelSelectState extends FlxState
         if (curSelected >= lvlGrp.length)
             curSelected = 0;
 
-        lvlGrp.forEach(function(txt:FlxText) 
+        lvlGrp.forEach((txt:FlxText) ->
         {
             txt.color = (txt.ID == curSelected) ? FlxColor.CYAN : FlxColor.WHITE;
         });

@@ -97,7 +97,7 @@ class PlayState extends FlxState
         {
             jumping = true;
             jumpTimer += elapsed;
-            new FlxTimer().start(0.01, function(tmr:FlxTimer)
+            new FlxTimer().start(0.01, (timer) ->
             {
                 FlxG.sound.play(Paths.sound('jta/jump'));
             });
@@ -110,7 +110,7 @@ class PlayState extends FlxState
 
         if (Input.is('exit'))
         {
-            FlxG.camera.fade(FlxColor.BLACK, 0.33, false, function()
+            FlxG.camera.fade(FlxColor.BLACK, 0.33, false, () ->
             {
                 FlxG.switchState(new states.games.jta.MainMenuState());
             });

@@ -51,7 +51,7 @@ class SplashState extends FlxState
     {
         super.update(elapsed);
 
-        new FlxTimer().start(5, function(tmr:FlxTimer)
+        new FlxTimer().start(5, (timer) ->
         {
             FlxTween.tween(haxeflixel, {x: -1500, angle: 10, alpha: 0}, 0.1, {ease: FlxEase.expoInOut});
             FlxTween.tween(haxeflixel, {alpha: 0}, 0.1, {ease: FlxEase.expoInOut});
@@ -61,9 +61,9 @@ class SplashState extends FlxState
             FlxTween.tween(logo, {alpha: 1}, 1, {ease: FlxEase.quadOut});
         });
 
-        new FlxTimer().start(12, function(tmr:FlxTimer)
+        new FlxTimer().start(12, (timer) ->
         {
-            FlxG.camera.fade(FlxColor.BLACK, 0.33, false, function()
+            FlxG.camera.fade(FlxColor.BLACK, 0.33, false, () ->
             {
                 FlxG.switchState(new states.MenuState());
             });
@@ -71,7 +71,7 @@ class SplashState extends FlxState
 
         if (Input.is('accept') || Input.is('space'))
         {
-            FlxG.camera.fade(FlxColor.BLACK, 0.33, false, function()
+            FlxG.camera.fade(FlxColor.BLACK, 0.33, false, () ->
             {
                 FlxG.switchState(new states.MenuState());
             });
