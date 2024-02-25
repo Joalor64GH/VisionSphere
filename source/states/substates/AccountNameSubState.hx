@@ -43,7 +43,7 @@ class AccountNameSubState extends FlxSubState
         {
             trace('changed username to: ' + input.text);
 
-            AccountState.usernameTxt.text = SaveData.username;
+            AccountState.instance.usernameTxt.text = SaveData.username;
             SaveData.username = input.text;
             SaveData.saveSettings();
             close();

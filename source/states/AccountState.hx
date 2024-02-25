@@ -2,6 +2,8 @@ package states;
 
 class AccountState extends FlxState
 {
+    public static var instance:AccountState = null;
+
     public var usernameTxt:FlxText;
 
     var profileSpr:FlxSprite;
@@ -11,6 +13,8 @@ class AccountState extends FlxState
     override public function create()
     {
         super.create();
+
+        instance = this;
 
         Paths.clearStoredMemory();
         Paths.clearUnusedMemory();
