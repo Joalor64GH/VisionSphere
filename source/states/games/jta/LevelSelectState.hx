@@ -55,9 +55,11 @@ class LevelSelectState extends FlxState
                     {
                         FlxG.switchState(new states.games.jta.PlayState(2));
                     });
-                    
                 case "Level 3":
-                    Main.toast.create('Nope.', 0xFFFFFF00, "This isn't finished yet.");
+                    FlxG.camera.fade(FlxColor.BLACK, 0.33, false, function()
+                    {
+                        FlxG.switchState(new states.games.jta.PlayState(3));
+                    });
             }
         }
 

@@ -35,12 +35,12 @@ class AccountState extends FlxState
             icon.visible = true;
         }
 
-        profileSpr = new FlxSprite(0, 50).loadGraphic(Paths.image('menu/profile/' + SaveData.profile));
+        profileSpr = new FlxSprite(0, 70).loadGraphic(Paths.image('menu/profile/' + SaveData.profile));
         profileSpr.screenCenter(X);
-        profileSpr.scale.set(2, 2);
+        profileSpr.scale.set(1.4, 1.4);
         add(profileSpr);
 
-        usernameTxt = new FlxText(0, profileSpr.y + 530, 0, SaveData.username, 12);
+        usernameTxt = new FlxText(0, profileSpr.y + 430, 0, SaveData.username, 12);
         usernameTxt.setFormat(Paths.font('vcr.ttf'), 64, FlxColor.WHITE, FlxTextAlign.CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
         usernameTxt.screenCenter(X);
         add(usernameTxt);
@@ -61,11 +61,7 @@ class AccountState extends FlxState
         for (icon in icons)
         {
             icon.angle += elapsed * 12;
-            if (icon.y > -160) 
-            {
-                FlxTween.tween(icon, {alpha: 0}, 1, {ease: FlxEase.quadOut});
-                continue;
-            }
+            if (icon.y > -160) continue;
             icon.screenCenter();
             icon.x += ((FlxG.width * 0.4) * (icon.ID % 2 == 0 ? -1 : 1)) + FlxG.random.float(-100, 100);
             icon.y = FlxG.height + FlxG.random.int(60, 120);

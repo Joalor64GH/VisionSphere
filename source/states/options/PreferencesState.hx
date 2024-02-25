@@ -114,22 +114,10 @@ class PreferencesState extends FlxState
             {
                 FlxG.updateFramerate = SaveData.framerate;
                 FlxG.drawFramerate = SaveData.framerate;
-                FlxG.game.focusLostFramerate = SaveData.framerate;
-                openfl.Lib.current.stage.frameRate = SaveData.framerate;
                 if (!Input.is('left'))
-                {
-                    if (SaveData.framerate > fpsMax)
-                        SaveData.framerate = fpsMin;
-                    else
-                        SaveData.framerate += 10;
-                }
+                    SaveData.framerate += (SaveData.framerate == fpsMax) ? 0 : 10;
                 else
-                {
-                    if (SaveData.framerate < fpsMin)
-                        SaveData.framerate = fpsMax;
-                    else
-                        SaveData.framerate -= 10;
-                }
+                    SaveData.framerate -= (SaveData.framerate == fpsMin) ? 0 : 10;
             }
         }
     }

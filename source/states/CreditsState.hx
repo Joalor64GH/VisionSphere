@@ -30,8 +30,35 @@ class CreditsState extends FlxState
     private var credsGrp:FlxTypedGroup<Alphabet>;
 
     var credits:Array<CreditsMetadata> = [];
+
+    var userData:CreditsUserDef;
+    var credData:CreditsPrefDef;
+
     var curSelected:Int = 0;
+    var curSocial:Int = 0;
+
+    var desc:FlxText;
     var descTxt:FlxText;
+    var descBG:FlxSprite;
+
+    var menuBck:FlxSprite;
+    var bckTween:FlxTween;
+    var bDrop:FlxBackdrop;
+
+    var socialsHolder:FlxSprite;
+    var socialSprite:FlxSprite;
+
+    var iconHolder:FlxSprite;
+    var iconSprite:AttachedSprite;
+
+    var userText:FlxText;
+    var quoteText:FlxText;
+    var labelText:FlxText;
+
+    var gradBG:GradSprite;
+    var groupTxt:FlxText;
+
+    var mediaAnimsArray:Array<String> = ['NG', 'Twitter', 'Twitch', 'YT', 'GitHub'];
 
     override public function create()
     {
@@ -142,5 +169,46 @@ class CreditsMetadata
     {
         this.name = name;
         this.desc = desc;
+    }
+}
+
+class GradSprite extends FlxSprite
+{
+    var width:Int;
+    var height:Int;
+    var bitmap:BitmapData;
+
+    public var _colors:Array<FlxColor>;
+
+    public function new(width:Int, height:Int, colors:Array<FlxColor>)
+    {
+        super();
+
+        this.width = width;
+        this.height = height;
+        updateColors(colors);
+    }
+
+    public function updateColors(colors:Array<FlxColor>)
+    {
+        _colors = colors;
+        bitmap.FlxGradient.createGradientBitmapData(width, height, colors);
+        pixels = bitmap;
+        pixels.lock();
+    }
+
+    public function flxColorTween(colors:Array<FlxColor>, duration:Float = 0.35)
+    {
+        for (i in 0...colors.length)
+        {
+            var formerColor:FlxColor = _colors[i];
+            FlxTween.num(0.0, 1.0, duration, {ease: FlxEase.linear}, (v:Float) ->
+            {
+                _colors[i] = FlxColor.interpolate(formerColor, colors[i], v);
+                pixels.dispose();
+                pixels.unlock();
+                updateColors(_colors);
+            });
+        }
     }
 }

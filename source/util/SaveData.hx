@@ -1,7 +1,5 @@
 package util;
 
-import openfl.Lib;
-
 import hscript.Parser;
 import hscript.Interp;
 
@@ -74,10 +72,8 @@ class SaveData
         if (FlxG.save.data.framerate != null) 
         {
             framerate = FlxG.save.data.framerate;
-            FlxG.updateFramerate = framerate;
-            FlxG.drawFramerate = framerate;
-            FlxG.game.focusLostFramerate = framerate;
-            Lib.current.stage.frameRate = framerate;
+            FlxG.updateFramerate = (framerate > FlxG.drawFramerate) ? framerate : framerate;
+            FlxG.drawFramerate = (framerate > FlxG.drawFramerate) ? framerate : framerate;
         }
         if (FlxG.save.data.leftKey != null)
             leftKey = FlxG.save.data.leftKey;
