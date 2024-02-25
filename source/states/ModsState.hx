@@ -3,7 +3,6 @@ package states;
 import flixel.ui.FlxButton;
 import flixel.FlxBasic;
 
-import haxe.format.JsonParser;
 import openfl.display.BitmapData;
 import flash.geom.Rectangle;
 
@@ -73,7 +72,7 @@ class ModsState extends FlxState
 			}
 		}
 
-		var boolshit = true;
+		var boolshit:Bool = true;
 		if (FileSystem.exists("modsList.txt")) {
 			for (folder in Paths.getModDirectories())
 				if (!Paths.ignoreModFolders.contains(folder))
@@ -351,7 +350,6 @@ class ModsState extends FlxState
 
 			(needaReset) ? FlxG.camera.fade(FlxColor.BLACK, 0.5, false, FlxG.resetGame, false) 
 				: FlxG.switchState(new states.MenuState());
-				
 		}
 
 		if (Input.is('up') || Input.is('down'))
@@ -394,12 +392,12 @@ class ModsState extends FlxState
 
 		var newColor:Int = mods[curSelected].color;
 		if (newColor != intendedColor) {
-			if (colorTween != null) {
+			if (colorTween != null)
 				colorTween.cancel();
-			}
+			
 			intendedColor = newColor;
 			colorTween = FlxTween.color(bg, 1, bg.color, intendedColor, {
-				onComplete: function(twn:FlxTween) {
+				onComplete: (twn:FlxTween) -> {
 					colorTween = null;
 				}
 			});

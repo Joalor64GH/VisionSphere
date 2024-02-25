@@ -75,7 +75,7 @@ class PlayState extends FlxState
         super.update(elapsed);
 
         FlxG.collide(player, walls);
-        FlxG.camera.follow(player, PLATFORMER);
+        FlxG.camera.follow(player, LOCKON);
 
         FlxG.overlap(player, coin, touchCoin);
         FlxG.overlap(player, flag, touchFlag);
