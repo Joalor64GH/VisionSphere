@@ -22,8 +22,6 @@ class MenuState extends FlxState
         Paths.clearStoredMemory();
         Paths.clearUnusedMemory();
 
-        FlxG.mouse.visible = true;
-
         var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('theme/' + SaveData.theme));
         add(bg);
 

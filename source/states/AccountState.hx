@@ -23,7 +23,7 @@ class AccountState extends FlxState
             icon.alpha = 0.6;
             icon.velocity.y = FlxG.random.int(-40, -110);
             icon.visible = false;
-            icon.scale.set(0.8, 0.8);
+            icon.scale.set(0.75, 0.75);
             icon.ID = i;
             icons.push(icon);
             add(icon);
@@ -37,13 +37,17 @@ class AccountState extends FlxState
 
         profileSpr = new FlxSprite(0, 50).loadGraphic(Paths.image('menu/profile/' + SaveData.profile));
         profileSpr.screenCenter(X);
-        profileSpr.scale.set(2, 32);
+        profileSpr.scale.set(2, 2);
         add(profileSpr);
 
         usernameTxt = new FlxText(0, profileSpr.y + 530, 0, SaveData.username, 12);
         usernameTxt.setFormat(Paths.font('vcr.ttf'), 64, FlxColor.WHITE, FlxTextAlign.CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
         usernameTxt.screenCenter(X);
         add(usernameTxt);
+
+        var daText2:FlxText = new FlxText(5, FlxG.height - 44, 0, "Click on your username to change it.", 12);
+        daText2.setFormat(Paths.font('vcr.ttf'), 26, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+        add(daText2);
 
         var daText:FlxText = new FlxText(5, FlxG.height - 24, 0, "Press LEFT/RIGHT to change your profile.", 12);
         daText.setFormat(Paths.font('vcr.ttf'), 26, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
@@ -57,15 +61,17 @@ class AccountState extends FlxState
         for (icon in icons)
         {
             icon.angle += elapsed * 12;
-            if (icon.y > -160) continue;
+            if (icon.y > -160) 
+            {
+                FlxTween.tween(icon, {alpha: 0}, 1, {ease: FlxEase.quadOut});
+                continue;
+            }
             icon.screenCenter();
             icon.x += ((FlxG.width * 0.4) * (icon.ID % 2 == 0 ? -1 : 1)) + FlxG.random.float(-100, 100);
             icon.y = FlxG.height + FlxG.random.int(60, 120);
             icon.velocity.y = FlxG.random.int(-40, -110);
             icon.angle = FlxG.random.float(0, 360);
             icon.loadGraphic(profiles[FlxG.random.int(0, profiles.length - 1)]);
-            if (icon.y > FlxG.height)
-                FlxTween.tween(icon, {alpha: 0}, 1, {ease: FlxEase.quadOut});
         }
 
         if (FlxG.mouse.overlaps(usernameTxt) && FlxG.mouse.pressed)

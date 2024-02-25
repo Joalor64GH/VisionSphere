@@ -55,7 +55,6 @@ class SplashState extends FlxState
         {
             FlxTween.tween(haxeflixel, {x: -1500, angle: 10, alpha: 0}, 0.1, {ease: FlxEase.expoInOut});
             FlxTween.tween(haxeflixel, {alpha: 0}, 0.1, {ease: FlxEase.expoInOut});
-
             FlxTween.tween(text, {x: -1500, angle: 10, alpha: 0}, 0.1, {ease: FlxEase.expoInOut});
             FlxTween.tween(text, {alpha: 0}, 0.1, {ease: FlxEase.expoInOut});
 
