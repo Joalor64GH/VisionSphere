@@ -71,8 +71,10 @@ class PlayState extends FlxState
 
         if (lev == 3) // for level 3
         {
+            FlxG.camera.x = (240 - FlxG.width) / 2;
+            FlxG.camera.y = (800 - FlxG.height) / 2;
+
             FlxG.worldBounds.set(0, 0, 240, 800);
-            FlxG.camera.setPosition((240 - FlxG.width) / 2, (800 - FlxG.height) / 2);
         }
     }
 
