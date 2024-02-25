@@ -68,6 +68,12 @@ class PlayState extends FlxState
         add(spike);
 
         map.loadEntities(placeEntities, 'entity');
+
+        if (lev == 3) // for level 3
+        {
+            FlxG.camera.setBounds(0, 0, 240, 800);
+            FlxG.camera.setPosition((240 - FlxG.width) / 2, (800 - FlxG.height) / 2)
+        }
     }
 
     override public function update(elapsed:Float)

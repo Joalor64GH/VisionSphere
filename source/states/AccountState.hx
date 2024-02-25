@@ -2,7 +2,8 @@ package states;
 
 class AccountState extends FlxState
 {
-    var usernameTxt:FlxText;
+    public var usernameTxt:FlxText;
+
     var profileSpr:FlxSprite;
     var icons:Array<FlxSprite> = [];
     var profiles:Array<String> = ['red', 'orange', 'yellow', 'green', 'blue', 'purple', 'pink'];
@@ -10,6 +11,9 @@ class AccountState extends FlxState
     override public function create()
     {
         super.create();
+
+        Paths.clearStoredMemory();
+        Paths.clearUnusedMemory();
 
         var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('theme/' + SaveData.theme));
         add(bg);
@@ -40,9 +44,10 @@ class AccountState extends FlxState
         profileSpr.scale.set(1.4, 1.4);
         add(profileSpr);
 
-        usernameTxt = new FlxText(0, profileSpr.y + 430, 0, SaveData.username, 12);
+        usernameTxt = new FlxText(0, profileSpr.y + 375, 0, SaveData.username, 12);
         usernameTxt.setFormat(Paths.font('vcr.ttf'), 64, FlxColor.WHITE, FlxTextAlign.CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
         usernameTxt.screenCenter(X);
+        usernameTxt.borderSize = 4;
         add(usernameTxt);
 
         var daText2:FlxText = new FlxText(5, FlxG.height - 44, 0, "Click on your username to change it.", 12);
@@ -74,6 +79,7 @@ class AccountState extends FlxState
         {
             openSubState(new states.substates.AccountNameSubState());
             FlxG.sound.play(Paths.sound('scroll'));
+            persistentUpdate = true;
         }
 
         if (Input.is('right') || Input.is('left'))
