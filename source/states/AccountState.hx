@@ -38,12 +38,12 @@ class AccountState extends FlxState
             icon.visible = true;
         }
 
-        profileSpr = new FlxSprite(0, 70).loadGraphic(Paths.image('menu/profile/' + SaveData.profile));
+        profileSpr = new FlxSprite(0, 90).loadGraphic(Paths.image('menu/profile/' + SaveData.profile));
         profileSpr.screenCenter(X);
         profileSpr.scale.set(1.4, 1.4);
         add(profileSpr);
 
-        usernameTxt = new FlxText(0, profileSpr.y + 375, 0, SaveData.username, 12);
+        usernameTxt = new FlxText(0, profileSpr.y + 385, 0, SaveData.username, 12);
         usernameTxt.setFormat(Paths.font('vcr.ttf'), 64, FlxColor.WHITE, FlxTextAlign.CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
         usernameTxt.screenCenter(X);
         usernameTxt.borderSize = 4;

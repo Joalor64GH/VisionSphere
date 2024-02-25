@@ -1,6 +1,8 @@
 package states;
 
+import flixel.addons.display.FlxGridOverlay;
 import flixel.addons.display.FlxBackdrop;
+
 import flixel.group.FlxGroup;
 import flixel.util.FlxGradient;
 import flixel.util.FlxSpriteUtil;
@@ -27,17 +29,12 @@ typedef CreditsUserDef = {
 
 class CreditsState extends FlxState
 {
-    private var credsGrp:FlxTypedGroup<Alphabet>;
-
-    var credits:Array<CreditsMetadata> = [];
-
     var userData:CreditsUserDef;
     var credData:CreditsPrefDef;
 
     var curSelected:Int = 0;
     var curSocial:Int = 0;
 
-    var desc:FlxText;
     var descTxt:FlxText;
     var descBG:FlxSprite;
 
@@ -64,58 +61,87 @@ class CreditsState extends FlxState
     {
         Paths.clearStoredMemory();
         Paths.clearUnusedMemory();
-        
-        // this is even swaggier
-        var initCredits = CoolUtil.getText(Paths.txt('credits'));
 
-        if (FileSystem.exists(Paths.txt('credits')))
-        {
-            initCredits = CoolUtil.getText(Paths.txt('credits'));
-
-            for (i in 0...initCredits.length)
-            {
-                initCredits[i] = initCredits[i].trim();
+        // now this is swaggy
+        if (FileSystem.exists(Paths.json('credits'))) {
+            try {
+                credData = Json.parse(Paths.json('credits'));
+            } catch (e:Dynamic) {
+                trace('$e');
             }
+        }
+
+        gradBG = new GradSprite(FlxG.width, FlxG.height, [0xFF000000, 0xFFffffff]);
+        add(gradBG);
+        
+        if (credData.bgSprite != null || credData.bgSprite.length > 0) {
+            menuBck = new FlxSprite().loadGraphic(Paths.image(credData.bgSprite));
+            menuBck.updateHitbox();
         }
         else
-        {
-            trace("Oops! Could not find 'credits.txt'!");
-            trace("Replacing with normal credits...");
-            initCredits = "person:what they did idk\n
-                engine start:no problem".trim().split('\n');
-            
-            for (i in 0...initCredits.length)
-            {
-                initCredits[i] = initCredits[i].trim();
-            }
-        }
+            menuBck = new FlxSprite().loadGraphic(Paths.image('desatBG'));
+        menuBck.blend = MULTIPLY;
+        add(menuBck);
 
-        for (i in 0...initCredits.length)
-        {
-            var data:Array<String> = initCredits[i].split(':');
-            credits.push(new CreditsMetadata(data[0], data[1]));
-        }
+        bDrop = new FlxBackdrop(FlxGridOverlay.createGrid(80, 80, 160, 160, true, 0x33FFFFFF, 0x0));
+        bDrop.velocity.x = 30;
+        bDrop.velocity.y = 30;
+        bDrop.screenCenter();
+        add(bDrop);
 
-        var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('theme/' + SaveData.theme));
-        add(bg);
+        iconHolder = new FlxSprite(100, 170).makeGraphic(300, 400, 0x00000000);
+        FlxSpriteUtil.drawRoundRect(iconHolder, 0, 0, 300, 400, 10, 10, 0x88000000);
+        iconHolder.scrollFactor.set(0, 0);
+        add(iconHolder);
 
-        credsGrp = new FlxTypedGroup<Alphabet>();
-        add(credsGrp);
+        iconSprite = new AttachedSprite();
+        iconSprite.scrollFactor.set(0, 0);
+        add(iconSprite);
 
-        for (i in 0...credits.length)
-        {
-            var creditsText:Alphabet = new Alphabet(90, 320, credits[i].name, true);
-            creditsText.isMenuItem = true;
-            creditsText.targetY = i - curSelected;
-            credsGrp.add(creditsText);
-        }
+        userText = new FlxText(0, 0, 0, "N/A", 25);
+        userText.setFormat(Paths.font('vcr.ttf'), 25, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+        userText.scrollFactor.set(0, 0);
+        add(userText);
 
-        descTxt = new FlxText(50, 600, 1180, "", 32);
+        quoteText = new FlxText(0, 0, 0, "SALMON", 32);
+        quoteText.setFormat(Paths.font('vcr.ttf'), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+        quoteText.scrollFactor.set(0, 0);
+        add(quoteText);
+
+        labelText = new FlxText(0, 0, 0, "UNKNOWN", 40);
+        labelText.setFormat(Paths.font('vcr.ttf'), 40, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+        labelText.scrollFactor.set(0, 0);
+        add(labelText);
+
+        socialsHolder = new FlxSprite(iconHolder.x + iconHolder.width + 100, 170).makeGraphic(600, 400, 0x00000000);
+        FlxSpriteUtil.drawRoundRect(socialsHolder, 0, 0, 600, 400, 10, 10, 0x88000000);
+        socialsHolder.scrollFactor.set(0, 0);
+        add(socialsHolder);
+
+        socialSprite = new FlxSprite(0, 0);
+        socialSprite.frames = Paths.getSparrowAtlas('PlatformIcons');
+        for (anim in mediaAnimsArray)
+            socialsHolder.animation.addByPrefix('$anim', '$anim', 24, true);
+        socialSprite.scale.set(0.6, 0.6);
+        socialSprite.updateHitbox();
+        socialSprite.x = socialsHolder.x + socialsHolder.width / 2 - socialSprite.width / 2;
+        add(socialSprite);
+
+        descTxt = new FlxText(0, 0, 0, "shrimp alfredo", 32);
         descTxt.setFormat(Paths.font('vcr.ttf'), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-        descTxt.borderSize = 24; // looks weird, but adds a cool effect
+        descTxt.scrollFactor.set(0, 0);
         add(descTxt);
 
+        var bar1:FlxSprite = new FlxSprite(0, -70).makeGraphic(FlxG.width + 100, 200, 0xFF000000);
+        bar1.scrollFactor.set(0, 0);
+        add(bar1);
+
+        var bar2:FlxSprite = new FlxSprite(-20, FlxG.height - 120).makeGraphic(FlxG.width + 120, 200, 0xFF000000);
+        bar2.scrollFactor.set(0, 0);
+        add(bar2);
+
         changeSelection();
+        updateSocial(0);
 
         super.create();
     }
@@ -123,6 +149,8 @@ class CreditsState extends FlxState
     override public function update(elapsed:Float)
     {
         super.update(elapsed);
+
+        bDrop.alpha = 0.5;
 
         if (Input.is('up') || Input.is('down'))
         {
@@ -137,13 +165,13 @@ class CreditsState extends FlxState
         }
     }
 
-    private function changeSelection(change:Int = 0)
+    function changeSelection(change:Int = 0)
     {
         curSelected += change;
 
         if (curSelected < 0)
-            curSelected = credsGrp.length - 1;
-        if (curSelected >= credsGrp.length)
+            curSelected = credData.users.length - 1;
+        if (curSelected >= credData.users.length)
             curSelected = 0;
 
         descTxt.text = credits[curSelected].desc;
@@ -158,17 +186,10 @@ class CreditsState extends FlxState
             item.alpha = (item.targetY == 0) ? 1 : 0.6;
         }
     }
-}
 
-class CreditsMetadata
-{
-    public var name:String = "";
-    public var desc:String = "";
-
-    public function new(name:String, desc:String)
+    function updateSocial(huh:Int = 0)
     {
-        this.name = name;
-        this.desc = desc;
+        //
     }
 }
 
