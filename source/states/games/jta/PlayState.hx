@@ -38,8 +38,6 @@ class PlayState extends FlxState
     {
         super.create();
 
-        instance = this;
-
         Paths.clearStoredMemory();
         Paths.clearUnusedMemory();
 
