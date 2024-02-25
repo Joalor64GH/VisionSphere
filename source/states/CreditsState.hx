@@ -180,19 +180,19 @@ class GradSprite extends FlxSprite
 
     public var _colors:Array<FlxColor>;
 
-    public function new(width:Int, height:Int, colors:Array<FlxColor>)
+    public function new(w:Int, h:Int, colors:Array<FlxColor>)
     {
         super();
 
-        this.width = width;
-        this.height = height;
+        width = w;
+        height = h;
         updateColors(colors);
     }
 
     public function updateColors(colors:Array<FlxColor>)
     {
         _colors = colors;
-        bitmap.FlxGradient.createGradientBitmapData(width, height, colors);
+        bitmap = FlxGradient.createGradientBitmapData(width, height, colors);
         pixels = bitmap;
         pixels.lock();
     }
