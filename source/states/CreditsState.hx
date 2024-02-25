@@ -174,9 +174,9 @@ class CreditsMetadata
 
 class GradSprite extends FlxSprite
 {
-    var width:Int;
-    var height:Int;
-    var bitmap:BitmapData;
+    var _width:Int;
+    var _height:Int;
+    var _bitmap:BitmapData;
 
     public var _colors:Array<FlxColor>;
 
@@ -184,16 +184,16 @@ class GradSprite extends FlxSprite
     {
         super();
 
-        width = w;
-        height = h;
+        _width = w;
+        _height = h;
         updateColors(colors);
     }
 
     public function updateColors(colors:Array<FlxColor>)
     {
         _colors = colors;
-        bitmap = FlxGradient.createGradientBitmapData(width, height, colors);
-        pixels = bitmap;
+        _bitmap = FlxGradient.createGradientBitmapData(_width, _height, colors);
+        pixels = _bitmap;
         pixels.lock();
     }
 
