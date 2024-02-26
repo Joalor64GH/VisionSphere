@@ -39,7 +39,7 @@ class Main extends openfl.display.Sprite
 		util.Windows.darkMode(true);
 		#end
 
-		var timer = new haxe.Timer();
+		var timer = new haxe.Timer(1);
 		timer.run = () -> {
 			coloring();
 			if (fpsDisplay.textColor == 0)

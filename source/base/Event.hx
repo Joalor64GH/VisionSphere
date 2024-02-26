@@ -10,7 +10,10 @@ import haxe.Exception;
 class Event<T>
 {
     public function new() {
-        trace("did your new Event work? if it did, good! otherwise, report the problem.");
+        if (!Std.isOfType(T -> T, T -> T))
+            throw new Exception("type of base.Event must be function");
+        
+        trace("new Event successful!");
     }
 
     public function createEvent(event:String) {
@@ -20,7 +23,7 @@ class Event<T>
 
     public function addEventCallback(callback:T, event:String) {
         if (!Reflect.hasField(this, event))
-            throw new Exception("no such Event, use createEvent to add one");
+            throw new Exception("no such Event, use createEvent to add one.");
         else
             Reflect.setProperty(this, event + "callback", callback);
     }
@@ -30,11 +33,11 @@ class Event<T>
             return Reflect.callMethod(this, Reflect.getProperty(this, event + "callback"), args);
         else {
             if (!Reflect.hasField(this, event) && Reflect.hasField(this, event + "callback"))
-                throw new Exception("no such Event, use createEvent to add one");
+                throw new Exception("no such Event, use createEvent to add one.");
             else if (!Reflect.hasField(this, event + "callback") && Reflect.hasField(this, event))
-                throw new Exception("no such Event, use addEventCallback to add one");
+                throw new Exception("no such Event, use addEventCallback to add one.");
             else
-                throw new Exception("no such event or callback, use createEvent, then addEventCallback to add them");
+                throw new Exception("no such event or callback, use createEvent, then addEventCallback to add them.");
         }
 
         return "haxe won't compile without this return so idk"; 
