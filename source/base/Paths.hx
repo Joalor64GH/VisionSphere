@@ -192,6 +192,21 @@ class Paths
 		return null;
 	}
 
+	static public function getTextFromFile(key:String, ?ignoreMods:Bool = false):String
+	{
+		#if sys
+		#if MODS_ALLOWED
+		if (!ignoreMods && FileSystem.exists(modFolders(key)))
+			return File.getContent(modFolders(key));
+		#end
+
+		if (FileSystem.exists(getPath(key)))
+			return File.getContent(getPath(key));
+		#end
+		
+		return (Assets.exists(getPath(key))) ? Assets.getText(getPath(key)) : null;
+	}
+
 	public static function getGraphic(path:String):FlxGraphic
 	{
 		return FlxGraphic.fromBitmapData(BitmapData.fromFile(path), false, path);

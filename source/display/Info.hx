@@ -1,6 +1,6 @@
 package display;
 
-import haxe.Timer;
+import haxe.Timer.stamp as stamp;
 
 class Info extends openfl.text.TextField
 {
@@ -21,7 +21,7 @@ class Info extends openfl.text.TextField
 		defaultTextFormat = new openfl.text.TextFormat(Paths.font('vcr.ttf'), 16, 0xFFFFFF);
 		addEventListener(openfl.events.Event.ENTER_FRAME, (_) ->
 		{
-			final now:Float = Timer.stamp();
+			final now:Float = stamp();
 			times.push(now);
 			while (times[0] < now - 1)
 				times.shift();

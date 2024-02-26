@@ -1,13 +1,12 @@
-package unused;
+package states.unused;
 
 import flixel.addons.display.FlxGridOverlay;
 import flixel.addons.display.FlxBackdrop;
 
-import flixel.group.FlxGroup;
 import flixel.util.FlxGradient;
 import flixel.util.FlxSpriteUtil;
 
-import flash.display.BitmapData;
+import openfl.display.BitmapData;
 import openfl.display.BlendMode;
 
 using StringTools;
@@ -30,8 +29,8 @@ class CreditsState extends FlxState
     var userData:CreditsUserDef;
     var credData:CreditsPrefDef;
 
-    var curSelected:Int = 0;
-    var curSocial:Int = 0;
+    var curSelected:Int;
+    var curSocial:Int;
 
     var descTxt:FlxText;
     var descBG:FlxSprite;
@@ -42,7 +41,6 @@ class CreditsState extends FlxState
 
     var socialsHolder:FlxSprite;
     var socialSprite:FlxSprite;
-
     var iconHolder:FlxSprite;
     var iconSprite:AttachedSprite;
 
@@ -60,13 +58,7 @@ class CreditsState extends FlxState
         Paths.clearUnusedMemory();
 
         // now this is swaggy
-        if (FileSystem.exists(Paths.json('credits'))) {
-            try {
-                credData = Json.parse(Paths.json('credits'));
-            } catch (e:Dynamic) {
-                trace('$e');
-            }
-        }
+        credData = Json.parse(Paths.getTextFromFile('data/credits.json'));
 
         generateBackground();
 
@@ -117,6 +109,9 @@ class CreditsState extends FlxState
         bar2.scrollFactor.set(0, 0);
         add(bar2);
 
+        curSelected = 0;
+        curSocial = 0;
+
         changeSelection();
         updateSocial(0);
 
@@ -157,6 +152,12 @@ class CreditsState extends FlxState
         {
             FlxG.sound.play(Paths.sound('scroll'));
             changeSelection(Input.is('up') ? -1 : 1);
+        }
+
+        if (Input.is('left') || Input.is('right'))
+        {
+            FlxG.sound.play(Paths.sound('scroll'));
+            updateSocial(Input.is('left') ? -1 : 1);
         }
 
         if (Input.is('accept') && Reflect.field(credData.users[curSelected].urlData, mediaAnimsArray[curSocial]) != null)
