@@ -72,7 +72,7 @@
         },
         {
             "name": "Github Contributors",
-            "icon": "face",
+            "icon": "github",
             "textData": [
                 "Thanks!"
             ],

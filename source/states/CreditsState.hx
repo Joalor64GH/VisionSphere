@@ -207,12 +207,12 @@ class CreditsState extends FlxState
         FlxTween.tween(quoteText, {y: (iconHolder.y + iconHolder.height - quoteText.height)}, 0.2, {type: BACKWARD, ease: FlxEase.elasticOut});
 
         descTxt.text = credData.users[curSelected].textData[0] + '\n';
-        if (descText.width > socialsHolder.width - 2)
+        if (descTxt.width > socialsHolder.width - 2)
             descTxt.setGraphicSize(Std.int(socialsHolder.width - 2), 0);
         descTxt.updateHitbox();
-        descTxt.y = socialsHolder.y + socialsHolder.height / 2 - descText.height / 2;
-        descTxt.x = socialsHolder.x + socialsHolder.width / 2 - descText.width / 2;
-        FlxTween.tween(descText, {y: (socialsHolder.y + socialsHolder.height - descText.height)}, 0.2, {type: BACKWARD, ease: FlxEase.elasticOut});
+        descTxt.y = socialsHolder.y + socialsHolder.height / 2 - descTxt.height / 2;
+        descTxt.x = socialsHolder.x + socialsHolder.width / 2 - descTxt.width / 2;
+        FlxTween.tween(descTxt, {y: (socialsHolder.y + socialsHolder.height - descTxt.height)}, 0.2, {type: BACKWARD, ease: FlxEase.elasticOut});
 
         if (credData.users[curSelected].sectionName != null && credData.users[curSelected].sectionName.length > 0)
             labelText.text = credData.users[curSelected].sectionName;
