@@ -82,8 +82,6 @@ class PreferencesState extends FlxState
                     SaveData.fpsCounter = !SaveData.fpsCounter;
                     if (Main.fpsDisplay != null)
                         Main.fpsDisplay.visible = SaveData.fpsCounter;
-                case "Rainbow FPS":
-                    SaveData.rainbowFps = !SaveData.rainbowFps;
                 case "Language":
                     openSubState(new states.substates.LanguageSubState());
             }
@@ -203,8 +201,6 @@ class PreferencesState extends FlxState
             #end
             case "FPS Counter":
                 daText.text = "Toggles FPS counter.";
-            case "Rainbow FPS":
-                daText.text = "If toggled, the FPS counter will have a rainbow effect.";
             case "Colorblind Filter":
                 daText.text = "In case you're colorblind. Current Filter: " + SaveData.colorBlindFilter;
             case "Time Format":

@@ -21,7 +21,6 @@ class SaveData
     public static var framerate:Int = 60;
     public static var username:String = "user";
     public static var profile:String = "blue";
-    public static var rainbowFps:Bool = false;
     public static var leftKey:String = "LEFT";
     public static var rightKey:String = "RIGHT";
     public static var downKey:String = "DOWN";
@@ -40,7 +39,6 @@ class SaveData
         FlxG.save.data.framerate = framerate;
         FlxG.save.data.username = username;
         FlxG.save.data.profile = profile;
-        FlxG.save.data.rainbowFps = rainbowFps;
         FlxG.save.data.leftKey = leftKey;
         FlxG.save.data.rightKey = rightKey;
         FlxG.save.data.downKey = downKey;
@@ -77,8 +75,6 @@ class SaveData
             username = FlxG.save.data.username;
         if (FlxG.save.data.profile != null)
             profile = FlxG.save.data.profile;
-        if (FlxG.save.data.rainbowFps != null)
-            rainbowFps = FlxG.save.data.rainbowFps;
         if (FlxG.save.data.leftKey != null)
             leftKey = FlxG.save.data.leftKey;
         if (FlxG.save.data.rightKey != null)

@@ -39,13 +39,6 @@ class Main extends openfl.display.Sprite
 		util.Windows.darkMode(true);
 		#end
 
-		var timer = new haxe.Timer(1);
-		timer.run = () -> {
-			coloring();
-			if (fpsDisplay.textColor == 0)
-				fpsDisplay.textColor = -4775566;
-		}
-
 		addChild(new flixel.FlxGame(1280, 720, states.BootState, #if (flixel < "5.0.0") -1, #end 60, 60, true, false));
 
 		fpsDisplay = new Info(10, 10, 0xFFFFFF);
@@ -130,41 +123,4 @@ class Main extends openfl.display.Sprite
 		toast = new ToastCore();
 		addChild(toast);
 	}
-
-	var array:Array<FlxColor> = [
-		FlxColor.fromRGB(216, 34, 83),
-		FlxColor.fromRGB(255, 38, 0),
-		FlxColor.fromRGB(255, 80, 0),
-		FlxColor.fromRGB(255, 147, 0),
-		FlxColor.fromRGB(255, 199, 0),
-		FlxColor.fromRGB(255, 255, 0),
-		FlxColor.fromRGB(202, 255, 0),
-		FlxColor.fromRGB(0, 255, 0),
-		FlxColor.fromRGB(0, 146, 146),
-		FlxColor.fromRGB(0, 0, 255),
-		FlxColor.fromRGB(82, 40, 204),
-		FlxColor.fromRGB(150, 33, 146)
-	];
-	
-	var skippedFrames:Int = 0;
-	var currentColor:Int = 0;
-
-	public function coloring():Void
-	{
-		if (SaveData.rainbowFps)
-		{
-			if (currentColor >= array.length)
-				currentColor = 0;
-			currentColor = Math.round(FlxMath.lerp(0, array.length, skippedFrames / SaveData.framerate));
-			(cast(Lib.current.getChildAt(0), Main)).changeFPSColor(array[currentColor]);
-			currentColor++;
-			skippedFrames++;
-			if (skippedFrames > SaveData.framerate)
-				skippedFrames = 0;
-		}
-		else
-			fpsDisplay.textColor = FlxColor.fromRGB(255, 255, 255);
-	}
-	inline public function changeFPSColor(color:FlxColor)
-		fpsDisplay.textColor = color;
 }
