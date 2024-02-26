@@ -98,7 +98,7 @@ class CreditsState extends FlxState
         socialSprite = new FlxSprite(0, 0);
         socialSprite.frames = Paths.getSparrowAtlas('menu/credits/PlatformIcons');
         for (anim in mediaAnimsArray)
-            socialsSprite.animation.addByPrefix('$anim', '$anim', 24, true);
+            socialSprite.animation.addByPrefix('$anim', '$anim', 24, true);
         socialSprite.scale.set(0.6, 0.6);
         socialSprite.updateHitbox();
         socialSprite.x = socialsHolder.x + socialsHolder.width / 2 - socialSprite.width / 2;
