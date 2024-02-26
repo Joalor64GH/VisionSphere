@@ -13,6 +13,7 @@ class PreferencesState extends FlxState
         "Fullscreen",
         #end
         "FPS Counter", 
+        "Rainbow FPS",
         "Colorblind Filter",
         "Time Format", 
         "Framerate",
@@ -81,16 +82,24 @@ class PreferencesState extends FlxState
                     SaveData.fpsCounter = !SaveData.fpsCounter;
                     if (Main.fpsDisplay != null)
                         Main.fpsDisplay.visible = SaveData.fpsCounter;
+                case "Rainbow FPS":
+                    SaveData.rainbowFps = !SaveData.rainbowFps;
                 case "Language":
                     openSubState(new states.substates.LanguageSubState());
             }
         }
 
-        if (Input.is('exit')) 
+        if (Input.is('exit') || Input.is('backspace')) 
         {
             FlxG.switchState(new states.options.OptionsState());
             FlxG.sound.play(Paths.sound('cancel'));
-            SaveData.saveSettings();
+            if (!Input.is('backspace'))
+            {
+                SaveData.saveSettings();
+                trace('settings saved!');
+            }
+            else
+                trace('settings not saved!');
         }
 
         if (Input.is('right') || Input.is('left'))
@@ -112,6 +121,7 @@ class PreferencesState extends FlxState
         {
             if (Input.is('right') || Input.is('left'))
             {
+                FlxG.sound.play(Paths.sound('scroll'));
                 FlxG.updateFramerate = SaveData.framerate;
                 FlxG.drawFramerate = SaveData.framerate;
                 if (!Input.is('left'))
@@ -193,6 +203,8 @@ class PreferencesState extends FlxState
             #end
             case "FPS Counter":
                 daText.text = "Toggles FPS counter.";
+            case "Rainbow FPS":
+                daText.text = "If toggled, the FPS counter will have a rainbow effect.";
             case "Colorblind Filter":
                 daText.text = "In case you're colorblind. Current Filter: " + SaveData.colorBlindFilter;
             case "Time Format":

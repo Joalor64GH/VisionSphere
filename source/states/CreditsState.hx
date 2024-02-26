@@ -118,7 +118,7 @@ class CreditsState extends FlxState
         curSocial = 0;
 
         changeSelection();
-        updateSocial(0);
+        updateSocial();
 
         super.create();
     }
@@ -151,7 +151,7 @@ class CreditsState extends FlxState
     {
         super.update(elapsed);
 
-        bDrop.alpha = 0.5;
+        bDrop.alpha = 0.7;
 
         if (Input.is('up') || Input.is('down'))
         {
