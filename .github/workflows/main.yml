@@ -28,13 +28,9 @@ jobs:
             export/release/windows/obj/
           restore-keys: |
             cache-build-windows
-      - name: Install Haxelib
+      - name: Install Libraries
         run: |
-          haxelib setup C:/haxelib
-          haxelib install hxcpp > /dev/null --quiet
-          haxelib install hmm --quiet
-          haxelib run hmm install
-        shell: cmd
+          haxe -cp ./compileData -D analyzer-optimize -main Libraries --interp
       - name: Create Version Tag
         run: echo "${{github.run_id}}" > VERSION
       - name: Compile
@@ -44,3 +40,13 @@ jobs:
         with:
           name: windowsBuild
           path: export/release/windows/bin
+      - name: Uploading new cache
+        uses: actions/cache@v3
+        with:
+          key: cache-build-windows
+          path: |
+            .haxelib/
+            export/release/windows/haxe/
+            export/release/windows/obj/
+          restore-keys: |
+            cache-build-windows
