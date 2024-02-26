@@ -98,7 +98,7 @@ class CreditsState extends FlxState
         socialSprite = new FlxSprite(0, 0);
         socialSprite.frames = Paths.getSparrowAtlas('menu/credits/PlatformIcons');
         for (anim in mediaAnimsArray)
-            socialsHolder.animation.addByPrefix('$anim', '$anim', 24, true);
+            socialsSprite.animation.addByPrefix('$anim', '$anim', 24, true);
         socialSprite.scale.set(0.6, 0.6);
         socialSprite.updateHitbox();
         socialSprite.x = socialsHolder.x + socialsHolder.width / 2 - socialSprite.width / 2;
@@ -216,7 +216,9 @@ class CreditsState extends FlxState
         descTxt.x = socialsHolder.x + socialsHolder.width / 2 - descTxt.width / 2;
         FlxTween.tween(descTxt, {y: (socialsHolder.y + socialsHolder.height - descTxt.height)}, 0.2, {type: BACKWARD, ease: FlxEase.elasticOut});
 
-        if (credData.users[curSelected].sectionName != null && credData.users[curSelected].sectionName.length > 0)
+        var validLabel = (credData.users[curSelected].sectionName != null && credData.users[curSelected].sectionName.length > 0);
+
+        if (validLabel)
             labelText.text = credData.users[curSelected].sectionName;
         if (labelText.width > iconHolder.width - 2)
             labelText.setGraphicSize(Std.int(iconHolder.width - 2), 0);
