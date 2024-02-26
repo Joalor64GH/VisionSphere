@@ -18,7 +18,7 @@ A gaming console made in HaxeFlixel. Mostly based on Sega Dreamcast.
 
 * [ ] Add 10 Games (6/10) **[!!]**
 * [ ] Save Slots **[!!]**
-* [ ] Account settings **[!!]**
+* [X] Account settings **[!!]**
 * [X] Credits with JSON **[!!]**
 
 ## Wanna build?

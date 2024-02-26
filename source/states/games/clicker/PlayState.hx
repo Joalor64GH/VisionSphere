@@ -38,7 +38,7 @@ class PlayState extends FlxState
     	add(clicksTxt);
 
         number = new FlxSprite().loadGraphic(Paths.image('game/2048/numbers/default/1'));
-        number.screenCenter(XY);
+        number.screenCenter();
         add(number);
 
         infinity = new FlxSprite();
@@ -89,6 +89,8 @@ class PlayState extends FlxState
     {
         new FlxTimer().start(0.01, (timer) ->
         {
+            number.screenCenter();
+
             switch(clicks)
             {
                 case 1:

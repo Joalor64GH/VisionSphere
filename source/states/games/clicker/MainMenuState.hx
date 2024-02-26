@@ -45,7 +45,6 @@ class MainMenuState extends FlxState
         add(funny);
 
         FlxG.camera.fade(FlxColor.BLACK, 0.33, true);
-
         FlxG.sound.playMusic(Paths.music('2048/menu'));
 
         super.create();
@@ -64,5 +63,8 @@ class MainMenuState extends FlxState
             });
             FlxG.sound.play(Paths.sound('cancel'));
         }
+
+        if (Input.is('o')) // the original version bleh
+            CoolUtil.browserLoad('https://github.com/Joalor64GH/2048-Clicker');
     }
 }

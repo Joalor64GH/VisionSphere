@@ -35,7 +35,7 @@ class Localization
     private static function loadLanguageData(language:String):Dynamic
     {
         var jsonContent:String;
-        var path:String = Paths.getTextFromFile("languages/" + language + ".json");
+        var path:String = Paths.getPath("languages/" + language + ".json");
 
         if (FileSystem.exists(path)) {
             jsonContent = File.getContent(path);

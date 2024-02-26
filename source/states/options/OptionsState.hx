@@ -68,11 +68,6 @@ class OptionsState extends FlxState
             FlxG.switchState(new states.MenuState());
             FlxG.sound.play(Paths.sound('cancel'));
         }
-
-        #if debug
-        if (Input.is('u'))
-            FlxG.switchState(new states.unused.CreditsState());
-        #end
     }
 
     private function changeSelection(change:Int = 0)
