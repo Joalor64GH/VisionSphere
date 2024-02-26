@@ -59,8 +59,7 @@ class MiscState extends FlxState
             switch (options[curSelected])
             {
                 case "Credits":
-                    // FlxG.switchState(new states.CreditsState());
-                    Main.toast.create("Hey!", 0xFFFFFF00, "This menu is inaccessible until it's finished!");
+                    FlxG.switchState(new states.CreditsState());
                 case "System Information":
                     openSubState(new states.substates.SystemInfoSubState());
                 case "Restart":

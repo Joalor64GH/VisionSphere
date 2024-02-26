@@ -14,7 +14,6 @@ using StringTools;
 
 typedef CreditsPrefDef = {
     var bgSprite:String;
-    var bgAntialiasing:Bool;
     var users:Array<CreditsUserDef>;
 }
 
@@ -53,7 +52,6 @@ class CreditsState extends FlxState
     var labelText:FlxText;
 
     var gradBG:GradSprite;
-    var groupTxt:FlxText;
 
     var mediaAnimsArray:Array<String> = ['NG', 'Twitter', 'Twitch', 'YT', 'GitHub'];
 
@@ -74,7 +72,8 @@ class CreditsState extends FlxState
         gradBG = new GradSprite(FlxG.width, FlxG.height, [0xFF000000, 0xFFffffff]);
         add(gradBG);
         
-        if (credData.bgSprite != null || credData.bgSprite.length > 0) {
+        if (credData.bgSprite != null || credData.bgSprite.length > 0) 
+        {
             menuBck = new FlxSprite().loadGraphic(Paths.image(credData.bgSprite));
             menuBck.updateHitbox();
         }
@@ -119,7 +118,7 @@ class CreditsState extends FlxState
         add(socialsHolder);
 
         socialSprite = new FlxSprite(0, 0);
-        socialSprite.frames = Paths.getSparrowAtlas('PlatformIcons');
+        socialSprite.frames = Paths.getSparrowAtlas('menu/credits/PlatformIcons');
         for (anim in mediaAnimsArray)
             socialsHolder.animation.addByPrefix('$anim', '$anim', 24, true);
         socialSprite.scale.set(0.6, 0.6);
@@ -158,12 +157,17 @@ class CreditsState extends FlxState
             changeSelection(Input.is('up') ? -1 : 1);
         }
 
+        if (Input.is('accept') && Reflect.field(credData.users[curSelected].urlData, mediaAnimsArray[curSocial]) != null)
+            CoolUtil.browserLoad(Reflect.field(credData.users[curSelected].urlData, mediaAnimsArray[curSocial]));
+
         if (Input.is('exit'))
         {
             FlxG.sound.play(Paths.sound('cancel'));
             FlxG.switchState(new states.options.MiscState());
         }
     }
+
+    var mainColor:FlxColor = FlxColor.WHITE;
 
     function changeSelection(change:Int = 0)
     {
@@ -174,22 +178,69 @@ class CreditsState extends FlxState
         if (curSelected >= credData.users.length)
             curSelected = 0;
 
-        descTxt.text = credits[curSelected].desc;
+        var pastColor = ((credData.users[curSelected - 1] != null) ? FlxColor.fromRGB(credData.users[curSelected - 1].colors[0],
+			credData.users[curSelected - 1].colors[1], credData.users[curSelected - 1].colors[2]) : 0xFFffffff);
+        mainColor = FlxColor.fromRGB(credData.users[curSelected].colors[0], credData.users[curSelected].colors[1], credData.users[curSelected].colors[2]);
+
+        gradBG.flxColorTween([pastColor, mainColor]);
+        FlxTween.color(bDrop, 0.35, bDrop.color, mainColor);
+
+        iconSprite.loadGraphic(Paths.image('menu/credits/' + credData.users[curSelected].icon));
+        iconSprite.y = iconHolder.y + 2;
+        iconSprite.x = iconHolder.x + iconHolder.width / 2 - iconSprite.width / 2;
+        FlxTween.tween(iconSprite, {y: iconHolder.y + iconHolder.height - iconSprite.height}, 0.2, {type: BACKWARD, ease: FlxEase.elasticOut});
+
+        userText.text = credData.users[curSelected].name;
+        if (userText.width > iconHolder.width - 2)
+            userText.setGraphicSize(Std.int(iconHolder.width - 2), 0);
+        userText.updateHitbox();
+        userText.y = iconSprite.y + iconSprite.height + 2;
+        userText.x = iconHolder.x + iconHolder.width / 2 - userText.width / 2;
+        FlxTween.tween(userText, {y: (iconHolder.y + iconHolder.height - userText.height)}, 0.2, {type: BACKWARD, ease: FlxEase.elasticOut});
+
+        quoteText.text = credData.users[curSelected].textData[1];
+        if (quoteText.width > iconHolder.width - 2)
+            quoteText.setGraphicSize(Std.int(iconHolder.width - 2), 0);
+        quoteText.updateHitbox();
+        quoteText.y = userText.y + userText.height + 2;
+        quoteText.x = iconHolder.x + iconHolder.width / 2 - quoteText.width / 2;
+        FlxTween.tween(quoteText, {y: (iconHolder.y + iconHolder.height - quoteText.height)}, 0.2, {type: BACKWARD, ease: FlxEase.elasticOut});
+
+        descTxt.text = credData.users[curSelected].textData[0] + '\n';
+        if (descText.width > socialsHolder.width - 2)
+            descTxt.setGraphicSize(Std.int(socialsHolder.width - 2), 0);
+        descTxt.updateHitbox();
+        descTxt.y = socialsHolder.y + socialsHolder.height / 2 - descText.height / 2;
+        descTxt.x = socialsHolder.x + socialsHolder.width / 2 - descText.width / 2;
+        FlxTween.tween(descText, {y: (socialsHolder.y + socialsHolder.height - descText.height)}, 0.2, {type: BACKWARD, ease: FlxEase.elasticOut});
+
+        if (credData.users[curSelected].sectionName != null && credData.users[curSelected].sectionName.length > 0)
+            labelText.text = credData.users[curSelected].sectionName;
+        if (labelText.width > iconHolder.width - 2)
+            labelText.setGraphicSize(Std.int(iconHolder.width - 2), 0);
+        labelText.updateHitbox();
+        labelText.y = iconHolder.y + iconHolder.height - labelText.height - 9;
+        labelText.x = iconHolder.x + 2;
+        if (labelText.text == credData.users[curSelected].sectionName)
+            FlxTween.tween(labelText, {x: (iconHolder.x - labelText.width)}, 0.2, {type: BACKWARD, ease: FlxEase.elasticOut});
         
-        var something:Int = 0;
-
-        for (item in credsGrp.members)
-        {
-            item.targetY = something - curSelected;
-            something++;
-
-            item.alpha = (item.targetY == 0) ? 1 : 0.6;
-        }
+        curSocial = 0;
+        updateSocial(0);
     }
 
     function updateSocial(huh:Int = 0)
     {
-        //
+        curSocial += huh;
+        mediaAnimsArray = Reflect.fields(credData.users[curSelected].urlData);
+
+        if (curSocial < 0)
+            curSocial = mediaAnimsArray.length - 1;
+        if (curSocial >= mediaAnimsArray.length)
+            curSocial = 0;
+
+        socialSprite.animation.play(mediaAnimsArray[curSocial]);
+        socialSprite.x = socialsHolder.x + socialsHolder.width / 2 - socialSprite.width / 2;
+        socialSprite.y = socialsHolder.y;
     }
 }
 
