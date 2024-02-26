@@ -131,7 +131,7 @@ class Main extends openfl.display.Sprite
 		addChild(toast);
 	}
 
-	var colArray:Array<FlxColor> = [
+	var array:Array<FlxColor> = [
 		FlxColor.fromRGB(216, 34, 83),
 		FlxColor.fromRGB(255, 38, 0),
 		FlxColor.fromRGB(255, 80, 0),
