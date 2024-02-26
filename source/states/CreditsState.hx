@@ -69,24 +69,7 @@ class CreditsState extends FlxState
             }
         }
 
-        gradBG = new GradSprite(FlxG.width, FlxG.height, [0xFF000000, 0xFFffffff]);
-        add(gradBG);
-        
-        if (credData.bgSprite != null || credData.bgSprite.length > 0) 
-        {
-            menuBck = new FlxSprite().loadGraphic(Paths.image(credData.bgSprite));
-            menuBck.updateHitbox();
-        }
-        else
-            menuBck = new FlxSprite().loadGraphic(Paths.image('desatBG'));
-        menuBck.blend = MULTIPLY;
-        add(menuBck);
-
-        bDrop = new FlxBackdrop(FlxGridOverlay.createGrid(80, 80, 160, 160, true, 0x33FFFFFF, 0x0));
-        bDrop.velocity.x = 30;
-        bDrop.velocity.y = 30;
-        bDrop.screenCenter();
-        add(bDrop);
+        generateBackground();
 
         iconHolder = new FlxSprite(100, 170).makeGraphic(300, 400, 0x00000000);
         FlxSpriteUtil.drawRoundRect(iconHolder, 0, 0, 300, 400, 10, 10, 0x88000000);
@@ -97,11 +80,7 @@ class CreditsState extends FlxState
         iconSprite.scrollFactor.set(0, 0);
         add(iconSprite);
 
-        userText = new FlxText(0, 0, 0, "N/A", 25);
-        userText.setFormat(Paths.font('vcr.ttf'), 25, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-        userText.scrollFactor.set(0, 0);
-        add(userText);
-
+        generateUserText("N/A", 25);
         quoteText = new FlxText(0, 0, 0, "SALMON", 32);
         quoteText.setFormat(Paths.font('vcr.ttf'), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
         quoteText.scrollFactor.set(0, 0);
@@ -143,6 +122,36 @@ class CreditsState extends FlxState
         updateSocial(0);
 
         super.create();
+    }
+
+    function generateBackground()
+    {
+        gradBG = new GradSprite(FlxG.width, FlxG.height, [0xFF000000, 0xFFffffff]);
+        add(gradBG);
+        
+        if (credData.bgSprite != null || credData.bgSprite.length > 0) 
+        {
+            menuBck = new FlxSprite().loadGraphic(Paths.image(credData.bgSprite));
+            menuBck.updateHitbox();
+        }
+        else
+            menuBck = new FlxSprite().loadGraphic(Paths.image('desatBG'));
+        menuBck.blend = MULTIPLY;
+        add(menuBck);
+
+        bDrop = new FlxBackdrop(FlxGridOverlay.createGrid(80, 80, 160, 160, true, 0x33FFFFFF, 0x0));
+        bDrop.velocity.x = 30;
+        bDrop.velocity.y = 30;
+        bDrop.screenCenter();
+        add(bDrop);
+    }
+
+    function generateUserText(text:Dynamic, size:Int)
+    {
+        userText = new FlxText(0, 0, 0, text, size);
+        userText.setFormat(Paths.font('vcr.ttf'), size, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+        userText.scrollFactor.set(0, 0);
+        add(userText);
     }
 
     override public function update(elapsed:Float)
