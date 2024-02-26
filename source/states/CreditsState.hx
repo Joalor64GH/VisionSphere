@@ -13,7 +13,6 @@ import openfl.display.BlendMode;
 using StringTools;
 
 typedef CreditsPrefDef = {
-    var bgSprite:String;
     var users:Array<CreditsUserDef>;
 }
 
@@ -129,13 +128,7 @@ class CreditsState extends FlxState
         gradBG = new GradSprite(FlxG.width, FlxG.height, [0xFF000000, 0xFFffffff]);
         add(gradBG);
         
-        if (credData.bgSprite != null || credData.bgSprite.length > 0) 
-        {
-            menuBck = new FlxSprite().loadGraphic(Paths.image(credData.bgSprite));
-            menuBck.updateHitbox();
-        }
-        else
-            menuBck = new FlxSprite().loadGraphic(Paths.image('desatBG'));
+        menuBck = new FlxSprite().loadGraphic(Paths.image('desatBG'));
         menuBck.blend = MULTIPLY;
         add(menuBck);
 
