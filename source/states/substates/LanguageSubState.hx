@@ -84,26 +84,16 @@ class LanguageSubState extends FlxSubState
             FlxG.sound.play(Paths.sound('cancel'));
             close();
         }
-    }
 
-    private function changeSelection(change:Int = 0)
-    {
-        curSelected += change;
-
-        if (curSelected < 0)
-            curSelected = coolGrp.length - 1;
-        if (curSelected >= coolGrp.length)
-            curSelected = 0;
-        
-        var lobotomy:Int = 0; // FIRE IN THE HOLE
-
-        for (item in coolGrp.members)
+        for (num => item in coolGrp.members)
         {
-            item.targetY = lobotomy - curSelected;
-            lobotomy++;
-
+            item.targetY = num - curSelected;
             item.alpha = (item.targetY == 0) ? 1 : 0.6;
         }
+    }
+
+    private function changeSelection(change:Int = 0) {
+        curSelected = FlxMath.wrap(curSelected + change, 0, langStrings.length - 1);
     }
 }
 

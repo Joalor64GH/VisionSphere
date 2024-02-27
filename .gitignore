@@ -1,7 +1,12 @@
+### VS Code
 export/
 .vscode/*
-*.code-workspace
 .haxelib/
+.github/
+*.code-workspace
+vs_Community.exe
+
+### Misc
 .DS_Store
 desktop.ini
 dump/

@@ -22,21 +22,23 @@ A gaming console made in HaxeFlixel. Mostly based on Sega Dreamcast.
 * [X] Credits with JSON **[!!]**
 
 ## Wanna build?
-1. Install the following:
+1. Install/Download the following:
+    * [Git](https://git-scm.com/download)
     * [Haxe](https://haxe.org/download/)
-    * VS Community 2019
+    * VS Community 2019 (Windows Only)
     * VS Code (Optional)
 
-2. Run `setup.bat` to download the dependencies.
-
-3. Install [Git](https://git-scm.com/download).
-
-4. Install these 2 components for VS Community 2019:
+2. Install these 2 components for VS Community 2019:
     * MSVC v142 - VS 2019 C++ x64/x86 build tools
     * Windows SDK (10.0.17763.0)
+        * You can skip this by running `msvc.bat`.
 
 > [!NOTE]
 > These will take up 4GB on your device!
 
-5. Use `lime test windows -release` to build (You can change windows to mac or linux lol).
+3. Download the dependencies.
+    * If your target platform is Windows, run `setup.bat`.
+    * If your target platorm is Linux or Mac, run `setup.sh`.
+
+4. Use `lime test <platform> -release` to build (Replace `<platform>` with your target (e.g., `windows`, `mac`, `linux`)).
     * If you want to compile as a debug, replace `-release` with `-debug`.

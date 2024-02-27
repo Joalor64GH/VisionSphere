@@ -110,21 +110,13 @@ class SaveFileState extends FlxState // this doesn't actually do anything atm
 
     private function changeSelection(change:Int = 0)
     {
-        curSelected += change;
-        
-        if (curSelected < 0)
-            curSelected = saves.length - 1;
-        if (curSelected >= saves.length)
-            curSelected = 0;
+        curSelected = FlxMath.wrap(curSelected + change, 0, saves.length - 1);
 
-        var whatever:Int = 0;
-
-        for (item in saveGrp.members)
+        for (num => item in saveGrp.members)
         {
-            item.targetY = whatever - curSelected;
-            whatever++;
-
+            item.targetY = num - curSelected;
             item.alpha = 0.6;
+            
             if (item.targetY == 0)
             {
                 item.alpha = 1;
