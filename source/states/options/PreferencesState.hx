@@ -120,8 +120,8 @@ class PreferencesState extends FlxState
             if (Input.is('right') || Input.is('left'))
             {
                 FlxG.sound.play(Paths.sound('scroll'));
-                FlxG.updateFramerate = SaveData.framerate;
-                FlxG.drawFramerate = SaveData.framerate;
+                FlxG.updateFramerate = (SaveData.framerate > FlxG.updateFramerate) ? SaveData.framerate : SaveData.framerate;
+                FlxG.drawFramerate = (SaveData.framerate > FlxG.drawFramerate) ? SaveData.framerate : SaveData.framerate;
                 if (!Input.is('left'))
                     SaveData.framerate += (SaveData.framerate == fpsMax) ? 0 : 10;
                 else

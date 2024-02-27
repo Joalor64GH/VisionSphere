@@ -39,6 +39,26 @@ class Main extends openfl.display.Sprite
 		util.Windows.darkMode(true);
 		#end
 
+		FlxG.signals.preStateSwitch.add(() -> {
+			#if cpp
+			cpp.NativeGc.run(true);
+			cpp.NativeGc.enable(true);
+			#end
+			FlxG.bitmap.dumpCache();
+			FlxG.bitmap.clearUnused();
+
+			openfl.system.System.gc();
+		});
+
+		FlxG.signals.postStateSwitch.add(() -> {
+			#if cpp
+			cpp.NativeGc.run(false);
+			cpp.NativeGc.enable(false);
+			#end
+
+			openfl.system.System.gc();
+		});
+
 		addChild(new flixel.FlxGame(1280, 720, states.BootState, #if (flixel < "5.0.0") -1, #end 60, 60, true, false));
 
 		fpsDisplay = new Info(10, 10, 0xFFFFFF);

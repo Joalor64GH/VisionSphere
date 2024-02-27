@@ -68,7 +68,7 @@ class SaveData
         if (FlxG.save.data.framerate != null) 
         {
             framerate = FlxG.save.data.framerate;
-            FlxG.updateFramerate = (framerate > FlxG.drawFramerate) ? framerate : framerate;
+            FlxG.updateFramerate = (framerate > FlxG.updateFramerate) ? framerate : framerate;
             FlxG.drawFramerate = (framerate > FlxG.drawFramerate) ? framerate : framerate;
         }
         if (FlxG.save.data.username != null)

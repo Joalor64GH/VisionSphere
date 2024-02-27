@@ -31,7 +31,7 @@ class CoolUtil
         #end
     }
 
-    /*
+    /**
      * @author MemeHoovy
      * @see https://github.com/Hoovy-Team/AdventureHaxe/
      */

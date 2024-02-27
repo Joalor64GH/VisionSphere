@@ -4,6 +4,7 @@ import sys.io.File;
 import sys.FileSystem;
 #end
 
+import haxe.Json;
 import flixel.FlxG;
 import flixel.FlxState;
 import flixel.FlxSprite;
@@ -27,8 +28,7 @@ import util.SaveData;
 import objects.Alphabet;
 import objects.AttachedSprite;
 
-import haxe.Json;
-
-using StringTools;
 using util.CoolUtil;
 #end
+
+using StringTools;
