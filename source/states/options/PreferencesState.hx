@@ -128,6 +128,12 @@ class PreferencesState extends FlxState
                     SaveData.framerate -= (SaveData.framerate == fpsMin) ? 0 : 10;
             }
         }
+
+        for (num => item in group.members)
+        {
+            item.targetY = num - curSelected;
+            item.alpha = (item.targetY == 0) ? 1 : 0.6;
+        }
     }
 
     override function closeSubState()
@@ -137,24 +143,8 @@ class PreferencesState extends FlxState
 
     private function changeSelection(change:Int = 0)
     {
-        curSelected += change;
-
-        if (curSelected < 0)
-            curSelected = options.length - 1;
-        else if (curSelected >= options.length)
-            curSelected = 0;
-
+        curSelected = FlxMath.wrap(curSelected + change, 0, options.length - 1);
         updateText();
-        
-        var ratio:Int = 0; // stay mad
-
-        for (item in group.members)
-        {
-            item.targetY = ratio - curSelected;
-            ratio++;
-
-            item.alpha = (item.targetY == 0) ? 1 : 0.6;
-        }
     }
 
     private function switchTheme(direction:Int = 0)

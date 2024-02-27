@@ -30,7 +30,6 @@ class OptionsState extends FlxState
             var optionTxt:Alphabet = new Alphabet(0, 0, options[i], true);
             optionTxt.screenCenter();
             optionTxt.y += (100 * (i - (options.length / 2))) + 50;
-            optionTxt.ID = i;
             grpOptions.add(optionTxt);
         }
 
@@ -72,20 +71,11 @@ class OptionsState extends FlxState
 
     private function changeSelection(change:Int = 0)
     {
-        curSelected += change;
+        curSelected = FlxMath.wrap(curSelected + change, 0, options.length - 1);
 
-        if (curSelected < 0)
-            curSelected = options.length - 1;
-        else if (curSelected >= options.length)
-            curSelected = 0;
-        
-        var something:Int = 0;
-
-        for (item in grpOptions.members)
+        for (num => item in grpOptions.members)
         {
-            item.targetY = something - curSelected;
-            something++;
-
+            item.targetY = num - curSelected;
             item.alpha = (item.targetY == 0) ? 1 : 0.6;
         }
     }
