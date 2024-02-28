@@ -28,7 +28,7 @@ class MainMenuState extends FlxState
         logo.angle = -4;
         add(logo);
 
-        new FlxTimer().start(0.01, function(tmr:FlxTimer) 
+        new FlxTimer().start(0.01, (tmr:FlxTimer) ->
         {
             if (logo.angle == -4)
                 FlxTween.angle(logo, logo.angle, 4, 4, {ease: FlxEase.quartInOut});

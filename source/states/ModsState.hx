@@ -72,7 +72,6 @@ class ModsState extends FlxState
 			}
 		}
 
-		var boolshit:Bool = true;
 		if (FileSystem.exists("modsList.txt")) {
 			for (folder in Paths.getModDirectories())
 				if (!Paths.ignoreModFolders.contains(folder))

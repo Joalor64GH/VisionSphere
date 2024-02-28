@@ -99,7 +99,7 @@ class MusicState extends states.MusicState.BeatState
 
         if (Input.is('left') || Input.is('right'))
         {
-            new FlxTimer().start(0.01, function(tmr:FlxTimer) {
+            new FlxTimer().start(0.01, (tmr:FlxTimer) -> {
                 FlxG.sound.play(Paths.sound('scroll'));
             });
             changeSong(Input.is('left') ? -1 : 1);

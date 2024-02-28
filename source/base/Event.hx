@@ -10,9 +10,6 @@ import haxe.Exception;
 class Event<T>
 {
     public function new() {
-        if (!Std.isOfType(T -> T, T -> T))
-            throw new Exception("type of base.Event must be function");
-        
         trace("new Event successful!");
     }
 

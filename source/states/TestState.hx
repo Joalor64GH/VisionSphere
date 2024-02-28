@@ -1,4 +1,4 @@
-package states.unused;
+package states;
 
 // this is just a simple event test
 class TestState extends FlxState
@@ -16,7 +16,7 @@ class TestState extends FlxState
 
         // setup event
         event.createEvent("EVENT_PARSE");
-        event.addEventCallback(function(str:String):String {
+        event.addEventCallback(function(str:String) {
             var tmp:String = str;
             tmp = tmp.substr(2, 3);
             return tmp;

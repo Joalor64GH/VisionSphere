@@ -145,6 +145,11 @@ class PlayState extends FlxState
                     {
                         FlxG.switchState(new states.games.tetris.MainMenuState());
                     });
+                case 6:
+                    FlxG.camera.fade(FlxColor.BLACK, 0.5, false, () ->
+                    {
+                        FlxG.switchState(new states.games.test.PlayState());
+                    });
             }
         }
     }

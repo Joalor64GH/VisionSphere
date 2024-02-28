@@ -48,13 +48,13 @@ class ToastCore extends Sprite
 			FlxTween.cancelTweensOf(child);
 			FlxTween.tween(child, {y: (numChildren - 1 - i) * child.height}, ENTER_TIME, {
 				ease: FlxEase.quadOut,
-				onComplete: function(tween:FlxTween)
+				onComplete: (tween:FlxTween) ->
 				{
 					FlxTween.cancelTweensOf(child);
 					FlxTween.tween(child, {y: (i + 1) * -child.height}, LEAVE_TIME, {
 						ease: FlxEase.quadOut,
 						startDelay: DISPLAY_TIME,
-						onComplete: function(tween:FlxTween)
+						onComplete: (tween:FlxTween) ->
 						{
 							cast(child, Toast).removeChildren();
 							removeChild(child);
@@ -75,7 +75,7 @@ class ToastCore extends Sprite
 			var child = getChildAt(i);
 			FlxTween.tween(child, {y: (i + 1) * -child.height}, LEAVE_TIME, {
 				ease: FlxEase.quadOut,
-				onComplete: function(tween:FlxTween)
+				onComplete: (tween:FlxTween) ->
 				{
 					cast(child, Toast).removeChildren();
 					removeChild(child);
@@ -101,13 +101,13 @@ class ToastCore extends Sprite
 				FlxTween.cancelTweensOf(child);
 				FlxTween.tween(child, {y: (numChildren - 1 - i) * child.height}, ENTER_TIME - elapsedSec, {
 					ease: FlxEase.quadOut,
-					onComplete: function(tween:FlxTween)
+					onComplete: (tween:FlxTween) ->
 					{
 						FlxTween.cancelTweensOf(child);
 						FlxTween.tween(child, {y: (i + 1) * -child.height}, LEAVE_TIME, {
 							ease: FlxEase.quadOut,
 							startDelay: DISPLAY_TIME,
-							onComplete: function(tween:FlxTween)
+							onComplete: (tween:FlxTween) ->
 							{
 								cast(child, Toast).removeChildren();
 								removeChild(child);
@@ -129,7 +129,7 @@ class ToastCore extends Sprite
 				FlxTween.tween(child, {y: (i + 1) * -child.height}, LEAVE_TIME, {
 					ease: FlxEase.quadOut,
 					startDelay: DISPLAY_TIME - (elapsedSec - ENTER_TIME),
-					onComplete: function(tween:FlxTween)
+					onComplete: (tween:FlxTween) ->
 					{
 						cast(child, Toast).removeChildren();
 						removeChild(child);
@@ -147,7 +147,7 @@ class ToastCore extends Sprite
 				var child = getChildAt(i);
 				FlxTween.tween(child, {y: (i + 1) * -child.height}, LEAVE_TIME - (elapsedSec - ENTER_TIME - DISPLAY_TIME), {
 					ease: FlxEase.quadOut,
-					onComplete: function(tween:FlxTween)
+					onComplete: (tween:FlxTween) ->
 					{
 						cast(child, Toast).removeChildren();
 						removeChild(child);

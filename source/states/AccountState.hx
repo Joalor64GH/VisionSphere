@@ -67,7 +67,8 @@ class AccountState extends FlxState
         for (icon in icons)
         {
             icon.angle += elapsed * 12;
-            if (icon.y > -160) continue;
+            if (icon.y > -160) 
+                continue;
             icon.screenCenter();
             icon.x += ((FlxG.width * 0.4) * (icon.ID % 2 == 0 ? -1 : 1)) + FlxG.random.float(-100, 100);
             icon.y = FlxG.height + FlxG.random.int(60, 120);
@@ -77,10 +78,7 @@ class AccountState extends FlxState
         }
 
         if (FlxG.mouse.overlaps(usernameTxt) && FlxG.mouse.pressed)
-        {
             openSubState(new states.substates.AccountNameSubState());
-            persistentUpdate = true;
-        }
 
         if (Input.is('right') || Input.is('left'))
             switchProfile(Input.is('right') ? 1 : -1);
