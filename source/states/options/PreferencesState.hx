@@ -13,7 +13,6 @@ class PreferencesState extends FlxState
         "Fullscreen",
         #end
         "FPS Counter", 
-        "Rainbow FPS",
         "Colorblind Filter",
         "Time Format", 
         "Framerate",
@@ -136,8 +135,7 @@ class PreferencesState extends FlxState
         }
     }
 
-    override function closeSubState()
-    {
+    override function closeSubState() {
         super.closeSubState();
     }
 

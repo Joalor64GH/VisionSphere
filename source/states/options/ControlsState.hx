@@ -41,11 +41,17 @@ class ControlsState extends FlxState
     {
         super.update(elapsed);
 
-        if (Input.is('exit') && !inChange)
+        if ((Input.is('exit') || Input.is('backspace')) && !inChange) 
         {
             FlxG.switchState(new states.options.OptionsState());
             FlxG.sound.play(Paths.sound('cancel'));
-            SaveData.saveSettings();
+            if (!Input.is('backspace'))
+            {
+                SaveData.saveSettings();
+                trace('settings saved!');
+            }
+            else
+                trace('settings not saved!');
         }
 
         if (Input.is('accept'))

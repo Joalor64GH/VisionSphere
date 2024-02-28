@@ -37,8 +37,7 @@ class MiscState extends FlxState
         changeSelection();
     }
 
-    override function closeSubState()
-    {
+    override function closeSubState() {
         super.closeSubState();
     }
 

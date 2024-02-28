@@ -6,8 +6,7 @@ using StringTools;
 
 class KeybindsState extends FlxState
 {
-    private var grpControls:FlxTypedGroup<Alphabet>;
-
+    var grpControls:FlxTypedGroup<Alphabet>;
     var controlsStrings:Array<String> = [];
     var curSelected:Int = 0;
 
@@ -57,25 +56,15 @@ class KeybindsState extends FlxState
             FlxG.sound.play(Paths.sound('cancel'));
             FlxG.switchState(new states.MenuState());
         }
-    }
 
-    private function changeSelection(change:Int = 0)
-    {
-        curSelected += change;
-
-        if (curSelected < 0)
-            curSelected = grpControls.length - 1;
-        if (curSelected >= grpControls.length)
-            curSelected = 0;
-        
-        var something:Int = 0;
-
-        for (item in grpControls.members)
+        for (num => item in grpControls.members)
         {
-            item.targetY = something - curSelected;
-            something++;
-
+            item.targetY = num - curSelected;
             item.alpha = (item.targetY == 0) ? 1 : 0.6;
         }
+    }
+
+    private function changeSelection(change:Int = 0) {
+        curSelected = FlxMath.wrap(curSelected + change, 0, controlsStrings.length - 1);
     }
 }

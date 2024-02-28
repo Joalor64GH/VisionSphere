@@ -18,8 +18,9 @@ A gaming console made in HaxeFlixel. Mostly based on Sega Dreamcast.
 
 * [ ] Add 10 Games (6/10) **[!!]**
 * [ ] Save Slots **[!!]**
-* [X] Account settings **[!!]**
-* [X] Credits with JSON **[!!]**
+* [ ] Controller Support **[!!]**
+* [X] Account settings
+* [X] Credits with JSON
 
 ## Wanna build?
 1. Install/Download the following:
@@ -32,7 +33,6 @@ A gaming console made in HaxeFlixel. Mostly based on Sega Dreamcast.
     * MSVC v142 - VS 2019 C++ x64/x86 build tools
     * Windows SDK (10.0.17763.0)
         * You can skip this by running `msvc.bat`.
-
 > [!NOTE]
 > These will take up 4GB on your device!
 

@@ -31,6 +31,8 @@ typedef CreditsUserDef = {
 
 class CreditsState extends FlxState
 {
+    var allowInputs:Bool = false; // to prevent low fps crash
+
     var userData:CreditsUserDef;
     var credData:CreditsPrefDef;
 
@@ -153,25 +155,28 @@ class CreditsState extends FlxState
 
         bDrop.alpha = 0.7;
 
-        if (Input.is('up') || Input.is('down'))
+        if (allowInputs) 
         {
-            FlxG.sound.play(Paths.sound('scroll'));
-            changeSelection(Input.is('up') ? -1 : 1);
-        }
+            if (Input.is('up') || Input.is('down'))
+            {
+                FlxG.sound.play(Paths.sound('scroll'));
+                changeSelection(Input.is('up') ? -1 : 1);
+            }
 
-        if (Input.is('left') || Input.is('right'))
-        {
-            FlxG.sound.play(Paths.sound('scroll'));
-            updateSocial(Input.is('left') ? -1 : 1);
-        }
+            if (Input.is('left') || Input.is('right'))
+            {
+                FlxG.sound.play(Paths.sound('scroll'));
+                updateSocial(Input.is('left') ? -1 : 1);
+            }
 
-        if (Input.is('accept') && Reflect.field(credData.users[curSelected].urlData, mediaAnimsArray[curSocial]) != null)
-            CoolUtil.browserLoad(Reflect.field(credData.users[curSelected].urlData, mediaAnimsArray[curSocial]));
+            if (Input.is('accept') && Reflect.field(credData.users[curSelected].urlData, mediaAnimsArray[curSocial]) != null)
+                CoolUtil.browserLoad(Reflect.field(credData.users[curSelected].urlData, mediaAnimsArray[curSocial]));
 
-        if (Input.is('exit'))
-        {
-            FlxG.sound.play(Paths.sound('cancel'));
-            FlxG.switchState(new states.options.MiscState());
+            if (Input.is('exit'))
+            {
+                FlxG.sound.play(Paths.sound('cancel'));
+                FlxG.switchState(new states.options.MiscState());
+            }
         }
     }
 
@@ -185,6 +190,8 @@ class CreditsState extends FlxState
             curSelected = credData.users.length - 1;
         if (curSelected >= credData.users.length)
             curSelected = 0;
+        
+        allowInputs = false;
 
         var pastColor = ((credData.users[curSelected - 1] != null) ? FlxColor.fromRGB(credData.users[curSelected - 1].colors[0],
 			credData.users[curSelected - 1].colors[1], credData.users[curSelected - 1].colors[2]) : 0xFFffffff);
@@ -196,7 +203,9 @@ class CreditsState extends FlxState
         iconSprite.loadGraphic(Paths.image('menu/credits/' + credData.users[curSelected].icon));
         iconSprite.y = iconHolder.y + 2;
         iconSprite.x = iconHolder.x + iconHolder.width / 2 - iconSprite.width / 2;
-        FlxTween.tween(iconSprite, {y: iconHolder.y + iconHolder.height - iconSprite.height}, 0.2, {type: BACKWARD, ease: FlxEase.elasticOut});
+        FlxTween.tween(iconSprite, {y: iconHolder.y + iconHolder.height - iconSprite.height}, 0.2, {type: BACKWARD, ease: FlxEase.elasticOut, onComplete: (twn:FlxTween) -> {
+            allowInputs = true;
+        }});
 
         userText.text = credData.users[curSelected].name;
         if (userText.width > iconHolder.width - 2)
