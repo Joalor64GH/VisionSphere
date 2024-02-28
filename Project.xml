@@ -35,6 +35,8 @@
 	<haxelib name="flixel-ui" />
 	<haxelib name="hscript" />
 	<haxelib name="djFlixel" />
+	<haxelib name="away3d" />
+	
 	<haxelib name="hxcpp-debug-server" if="desktop debug" />
 
 	<!-- [ Defines ] -->

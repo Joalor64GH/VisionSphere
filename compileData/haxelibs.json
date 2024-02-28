@@ -39,6 +39,10 @@
         "dir": null,
         "ref": "master",
         "url": "https://github.com/john32b/djFlixel"
+      },
+      {
+        "name": "away3d",
+        "type": "haxelib"
       }
     ]
   }
