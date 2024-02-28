@@ -7,7 +7,7 @@ class Info extends openfl.text.TextField
 	private var memPeak:Float = 0;
 	private var times:Array<Float> = [];
 
-	public function new(x:Float, y:Float, color:Int)
+	public function new(x:Float, y:Float, color:Int, ?font:String)
 	{
 		super();
 
@@ -18,7 +18,7 @@ class Info extends openfl.text.TextField
 		width = 1280;
 		height = 720;
 		selectable = false;
-		defaultTextFormat = new openfl.text.TextFormat(Paths.font('vcr.ttf'), 16, 0xFFFFFF);
+		defaultTextFormat = new openfl.text.TextFormat(font != null ? font : Paths.font('vcr.ttf'), 16, 0xFFFFFF);
 		addEventListener(openfl.events.Event.ENTER_FRAME, (_) ->
 		{
 			final now:Float = stamp();
