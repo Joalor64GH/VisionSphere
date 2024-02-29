@@ -10,7 +10,7 @@ class PlayState extends FlxState
     {
         super.create();
 
-        cude = new Cube();
+        cube = new Cube();
         add(cube);
     }
 
@@ -22,6 +22,6 @@ class PlayState extends FlxState
     override function destroy()
     {
         super.destroy();
-        cude.destroy();
+        cube.destroy();
     }
 }

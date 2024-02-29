@@ -1,6 +1,7 @@
 package states.games.test;
 
 import flx3D.FlxView3D;
+
 import away3d.entities.Mesh;
 import away3d.materials.ColorMaterial;
 import away3d.materials.lightpickers.StaticLightPicker;
@@ -46,7 +47,6 @@ class Cube extends FlxView3D
 
     override function destroy()
     {
-        super.destroy;
-        mesh = dispose(mesh);
+        super.destroy();
     }
 }
