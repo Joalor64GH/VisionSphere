@@ -54,7 +54,7 @@ class KeybindsState extends FlxState
         if (Input.is('exit'))
         {
             FlxG.sound.play(Paths.sound('cancel'));
-            FlxG.switchState(new states.MenuState());
+            FlxG.switchState(MenuState.new);
         }
 
         for (num => item in grpControls.members)

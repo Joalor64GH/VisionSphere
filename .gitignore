@@ -2,11 +2,11 @@
 export/
 .vscode/*
 .haxelib/
-.github/
 *.code-workspace
 vs_Community.exe
 
 ### Misc
 .DS_Store
 desktop.ini
+!mods/introMod/
 dump/

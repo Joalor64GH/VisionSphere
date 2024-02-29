@@ -9,6 +9,8 @@ import flixel.util.FlxSpriteUtil;
 import openfl.display.BitmapData;
 import openfl.display.BlendMode;
 
+import states.options.*;
+
 using StringTools;
 
 typedef CreditsPrefDef = {
@@ -175,7 +177,7 @@ class CreditsState extends FlxState
             if (Input.is('exit'))
             {
                 FlxG.sound.play(Paths.sound('cancel'));
-                FlxG.switchState(new states.options.MiscState());
+                FlxG.switchState(MiscState.new);
             }
         }
     }

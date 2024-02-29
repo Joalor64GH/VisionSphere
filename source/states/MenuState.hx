@@ -1,5 +1,7 @@
 package states;
 
+import states.options.*;
+
 class MenuState extends FlxState
 {
     var dateText:FlxText;
@@ -65,7 +67,8 @@ class MenuState extends FlxState
 
         if (isTweening)
             timer = 0;
-        else {
+        else 
+        {
             timer += elapsed;
             if (timer >= 3)
                 changeText();
@@ -73,39 +76,39 @@ class MenuState extends FlxState
 
         if (FlxG.mouse.overlaps(btnPlay) && FlxG.mouse.pressed)
         {
-            FlxG.switchState(new states.PlayState());
+            FlxG.switchState(PlayState.new);
             FlxG.sound.play(Paths.sound('confirm'));
         }
         
         #if MODS_ALLOWED
         if (FlxG.mouse.overlaps(btnMods) && FlxG.mouse.pressed)
         {
-            FlxG.switchState(new states.ModsState());
+            FlxG.switchState(ModsState.new);
             FlxG.sound.play(Paths.sound('confirm'));
         }
         #end
 
         if (FlxG.mouse.overlaps(btnProfile) && FlxG.mouse.pressed)
         {
-            FlxG.switchState(new states.AccountState());
+            FlxG.switchState(AccountState.new);
             FlxG.sound.play(Paths.sound('confirm'));
         }
 
         if (FlxG.mouse.overlaps(btnMusic) && FlxG.mouse.pressed)
         {
-            FlxG.switchState(new states.MusicState());
+            FlxG.switchState(MusicState.new);
             FlxG.sound.play(Paths.sound('confirm'));
         }
         
         if (FlxG.mouse.overlaps(btnSettings) && FlxG.mouse.pressed)
         {
-            FlxG.switchState(new states.options.OptionsState());
+            FlxG.switchState(OptionsState.new);
             FlxG.sound.play(Paths.sound('confirm'));
         }
 
         #if debug
         if (Input.is('e'))
-            FlxG.switchState(new states.TestState());
+            FlxG.switchState(TestState.new);
         #end
 
         dateText.text = DateTools.format(Date.now(), "%F") + ' / ' + DateTools.format(Date.now(), SaveData.timeFormat);

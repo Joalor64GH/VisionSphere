@@ -100,7 +100,7 @@ class PlayState extends FlxState
 
         if (Input.is('exit')) 
         {
-            FlxG.switchState(new states.MenuState());
+            FlxG.switchState(MenuState.new);
             FlxG.sound.play(Paths.sound('cancel'));
         }
 

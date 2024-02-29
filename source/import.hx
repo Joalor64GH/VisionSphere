@@ -16,6 +16,7 @@ import flixel.util.FlxTimer;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.group.FlxGroup.FlxTypedGroup;
+
 import lime.app.Application;
 
 import base.Menu;
@@ -27,6 +28,9 @@ import util.Localization;
 import util.SaveData;
 import objects.Alphabet;
 import objects.AttachedSprite;
+
+import states.*;
+import states.substates.*;
 
 using util.CoolUtil;
 #end

@@ -72,7 +72,8 @@ class ModsState extends FlxState
 			}
 		}
 
-		if (FileSystem.exists("modsList.txt")) {
+		if (FileSystem.exists("modsList.txt")) 
+		{
 			for (folder in Paths.getModDirectories())
 				if (!Paths.ignoreModFolders.contains(folder))
 					addToModsList([folder, true]);
@@ -348,7 +349,7 @@ class ModsState extends FlxState
 			FlxG.sound.play(Paths.sound('cancel'));
 
 			(needaReset) ? FlxG.camera.fade(FlxColor.BLACK, 0.5, false, FlxG.resetGame, false) 
-				: FlxG.switchState(new states.MenuState());
+				: FlxG.switchState(MenuState.new);
 		}
 
 		if (Input.is('up') || Input.is('down'))

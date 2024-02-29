@@ -20,9 +20,6 @@ class PreferencesState extends FlxState
         "Theme"
     ];
 
-    var fpsMin:Int = 60;
-    var fpsMax:Int = 240;
-
     var group:FlxTypedGroup<Alphabet>;
     var curSelected:Int = 0;
     var daText:FlxText;
@@ -88,7 +85,7 @@ class PreferencesState extends FlxState
 
         if (Input.is('exit') || Input.is('backspace')) 
         {
-            FlxG.switchState(new states.options.OptionsState());
+            FlxG.switchState(OptionsState.new);
             FlxG.sound.play(Paths.sound('cancel'));
             if (!Input.is('backspace'))
             {
@@ -122,9 +119,9 @@ class PreferencesState extends FlxState
                 FlxG.updateFramerate = (SaveData.framerate > FlxG.updateFramerate) ? SaveData.framerate : SaveData.framerate;
                 FlxG.drawFramerate = (SaveData.framerate > FlxG.drawFramerate) ? SaveData.framerate : SaveData.framerate;
                 if (!Input.is('left'))
-                    SaveData.framerate += (SaveData.framerate == fpsMax) ? 0 : 10;
+                    SaveData.framerate += (SaveData.framerate == 240) ? 0 : 10;
                 else
-                    SaveData.framerate -= (SaveData.framerate == fpsMin) ? 0 : 10;
+                    SaveData.framerate -= (SaveData.framerate == 60) ? 0 : 10;
             }
         }
 
@@ -135,7 +132,8 @@ class PreferencesState extends FlxState
         }
     }
 
-    override function closeSubState() {
+    override function closeSubState() 
+    {
         super.closeSubState();
     }
 

@@ -1,7 +1,5 @@
 package states;
 
-import flixel.FlxCamera;
-
 using StringTools;
 
 typedef Song = 
@@ -93,13 +91,13 @@ class MusicState extends states.MusicState.BeatState
 
         if (Input.is('exit'))
         {
-            FlxG.switchState(new states.MenuState());
+            FlxG.switchState(MenuState.new);
             FlxG.sound.music.volume = 0;
         }
 
         if (Input.is('left') || Input.is('right'))
         {
-            new FlxTimer().start(0.01, (tmr:FlxTimer) -> {
+            new FlxTimer().start(0.01, (timer) -> {
                 FlxG.sound.play(Paths.sound('scroll'));
             });
             changeSong(Input.is('left') ? -1 : 1);
@@ -153,6 +151,7 @@ class MusicState extends states.MusicState.BeatState
         lengthTxt.text = 'Loading song...';
 
         curSelected += change;
+
         if (curSelected >= songs.length)
             curSelected = 0;
         else if (curSelected < 0)

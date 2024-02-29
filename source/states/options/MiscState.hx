@@ -2,9 +2,8 @@ package states.options;
 
 class MiscState extends FlxState
 {
-    private var curSelected:Int = 0;
-    private var grpOptions:FlxTypedGroup<Alphabet>;
-
+    var curSelected:Int = 0;
+    var grpOptions:FlxTypedGroup<Alphabet>;
     var options:Array<String> = [
         "Credits",
         "System Information",
@@ -37,7 +36,8 @@ class MiscState extends FlxState
         changeSelection();
     }
 
-    override function closeSubState() {
+    override function closeSubState() 
+    {
         super.closeSubState();
     }
 
@@ -57,7 +57,7 @@ class MiscState extends FlxState
             switch (options[curSelected])
             {
                 case "Credits":
-                    FlxG.switchState(new states.CreditsState());
+                    FlxG.switchState(CreditsState.new);
                 case "System Information":
                     openSubState(new states.substates.SystemInfoSubState());
                 case "Restart":
@@ -80,13 +80,13 @@ class MiscState extends FlxState
                         closeSubState();
                     }));
                 case "Back":
-                    FlxG.switchState(new states.options.OptionsState());
+                    FlxG.switchState(OptionsState.new);
             }
         }
 
         if (Input.is('exit')) 
         {
-            FlxG.switchState(new states.options.OptionsState());
+            FlxG.switchState(OptionsState.new);
             FlxG.sound.play(Paths.sound('cancel'));
         }
     }

@@ -308,11 +308,10 @@ class Paths
 				return mods('$currentModDirectory/$key');
 		}
 
-		for (mod in getGlobalMods()) {
+		for (mod in getGlobalMods())
 			if (FileSystem.exists(mods('$mod/$key')))
 				return mods('$mod/$key');
-
-		}
+		
 		return 'mods/$key';
 	}
 

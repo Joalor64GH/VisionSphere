@@ -12,11 +12,12 @@ class TestState extends FlxState
     {
         super.create();
 
+        // say hi to the event
         event = new Event<String->String>();
 
         // setup event
         event.createEvent("EVENT_PARSE");
-        event.addEventCallback(function(str:String) {
+        event.addEventCallback((str:String) -> {
             var tmp:String = str;
             tmp = tmp.substr(2, 3);
             return tmp;
@@ -26,9 +27,7 @@ class TestState extends FlxState
         something = event.trigger("EVENT_PARSE", [text]);
         trace(something);
 
-        var text2 = new FlxText(0, 0, 0, "Hello World", 64);
-        text2.screenCenter();
-        add(text2);
+        add(new FlxText("Hello World", 64).screenCenter());
     }
 
     override function update(elapsed:Float)
@@ -36,6 +35,6 @@ class TestState extends FlxState
         super.update(elapsed);
 
         if (Input.is('exit'))
-            FlxG.switchState(new states.MenuState());
+            FlxG.switchState(MenuState.new);
     }
 }

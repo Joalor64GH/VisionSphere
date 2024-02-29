@@ -71,7 +71,7 @@ class SplashState extends FlxState
         {
             FlxG.camera.fade(FlxColor.BLACK, 0.33, false, () ->
             {
-                FlxG.switchState(new states.MenuState());
+                FlxG.switchState(MenuState.new);
             });
         });
 
@@ -79,7 +79,7 @@ class SplashState extends FlxState
         {
             FlxG.camera.fade(FlxColor.BLACK, 0.33, false, () ->
             {
-                FlxG.switchState(new states.MenuState());
+                FlxG.switchState(MenuState.new);
             });
         }
     }

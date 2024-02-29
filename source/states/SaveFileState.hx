@@ -3,10 +3,10 @@ package states;
 import flixel.FlxCamera;
 import flixel.FlxObject;
 
-class SaveFileState extends FlxState // this doesn't actually do anything atm
+// this doesn't actually do anything atm
+class SaveFileState extends FlxState
 {
     var bg:FlxSprite;
-
     var curSelected:Int = 0;
     var saveGrp:FlxTypedGroup<Alphabet>;
     var saves:Array<String> = [
@@ -98,10 +98,10 @@ class SaveFileState extends FlxState // this doesn't actually do anything atm
                 {
                     #if desktop
                     states.UpdateState.updateCheck();
-                    FlxG.switchState((states.UpdateState.mustUpdate) ? new states.UpdateState() : new states.SplashState());
+                    FlxG.switchState((states.UpdateState.mustUpdate) ? UpdateState.new : SplashState.new);
                     #else
                     trace('Sorry! No update support on: ' + util.PlatformUtil.getPlatform() + '!')
-                    FlxG.switchState(new states.SplashState());
+                    FlxG.switchState(SplashState.new);
                     #end
                 });
             }

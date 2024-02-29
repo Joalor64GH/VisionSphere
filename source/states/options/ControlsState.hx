@@ -43,7 +43,7 @@ class ControlsState extends FlxState
 
         if ((Input.is('exit') || Input.is('backspace')) && !inChange)
         {
-            FlxG.switchState(new states.options.OptionsState());
+            FlxG.switchState(OptionsState.new);
             FlxG.sound.play(Paths.sound('cancel'));
             if (!Input.is('backspace'))
             {
@@ -63,19 +63,13 @@ class ControlsState extends FlxState
         if (Input.is('left') && !inChange)
         {
             FlxG.sound.play(Paths.sound('scroll'));
-            if (init == 0)
-                init = 5;
-            else
-                init--;
+            (init == 0) ? init = 5 : init--;
         }
 
         if (Input.is('right') && !inChange)
         {
             FlxG.sound.play(Paths.sound('scroll'));
-            if (init == 5)
-                init = 0;
-            else
-                init++;
+            (init == 5) ? init = 0 : init++;
         }
 
         switch (init)

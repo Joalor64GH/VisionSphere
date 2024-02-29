@@ -2,9 +2,8 @@ package states.options;
 
 class OptionsState extends FlxState
 {
-    private var curSelected:Int = 0;
-    private var grpOptions:FlxTypedGroup<Alphabet>;
-    
+    var curSelected:Int = 0;
+    var grpOptions:FlxTypedGroup<Alphabet>;
     var options:Array<String> = [
         "Preferences",
         "Controls",
@@ -49,22 +48,23 @@ class OptionsState extends FlxState
         if (Input.is('accept'))
         {
             FlxG.sound.play(Paths.sound('confirm'));
+            
             switch (options[curSelected])
             {
                 case "Preferences":
-                    FlxG.switchState(new states.options.PreferencesState());
+                    FlxG.switchState(PreferencesState.new);
                 case "Controls":
-                    FlxG.switchState(new states.options.ControlsState());
+                    FlxG.switchState(ControlsState.new);
                 case "Miscellaneous":
-                    FlxG.switchState(new states.options.MiscState());
+                    FlxG.switchState(MiscState.new);
                 case "Exit":
-                    FlxG.switchState(new states.MenuState());
+                    FlxG.switchState(MenuState.new);
             }
         }
 
         if (Input.is('exit')) 
         {
-            FlxG.switchState(new states.MenuState());
+            FlxG.switchState(MenuState.new);
             FlxG.sound.play(Paths.sound('cancel'));
         }
     }

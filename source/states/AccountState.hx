@@ -3,6 +3,7 @@ package states;
 class AccountState extends FlxState
 {
     var usernameTxt:FlxText;
+
     var profileSpr:FlxSprite;
     var icons:Array<FlxSprite> = [];
     var profiles:Array<String> = ['red', 'orange', 'yellow', 'green', 'blue', 'purple', 'pink'];
@@ -85,7 +86,7 @@ class AccountState extends FlxState
 
         if (Input.is('exit')) 
         {
-            FlxG.switchState(new states.MenuState());
+            FlxG.switchState(MenuState.new);
             FlxG.sound.play(Paths.sound('cancel'));
         }
     }

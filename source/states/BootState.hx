@@ -73,7 +73,7 @@ class BootState extends FlxState
         {
             FlxG.camera.fade(FlxColor.BLACK, 0.33, false, () ->
             {
-                FlxG.switchState(new states.SaveFileState());
+                FlxG.switchState(SaveFileState.new);
             });
         }
     }
