@@ -1,7 +1,5 @@
 package states;
 
-using StringTools;
-
 typedef Song = 
 {
     var name:String;
@@ -164,6 +162,8 @@ class MusicState extends states.MusicState.BeatState
         states.MusicState.Conductor.bpm = songs[curSelected].bpm;
 
         var songName:String = songs[curSelected].song == null ? songs[curSelected].name.toLowerCase() : songs[curSelected].song;
+
+        trace("NEXT SONG: $songName");
 
         if (!loadedSongs.contains(songName))
         {

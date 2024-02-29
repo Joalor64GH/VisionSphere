@@ -161,11 +161,9 @@ class PlayState extends FlxState
         descTxt.text = descs[currentIndex];
         titleTxt.text = titles[currentIndex];
 
-        var change:Int = 0;
-
-        for (item in itemGrp)
+        for (num => item in itemGrp)
         {
-            item.posX = change++ - currentIndex;
+            item.posX = num++ - currentIndex;
             item.alpha = (item.ID == currentIndex) ? 1 : 0.6;
         }
     }
