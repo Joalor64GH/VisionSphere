@@ -4,6 +4,9 @@ export/
 .haxelib/
 *.code-workspace
 vs_Community.exe
+vscode-project.hxml
+.history
+.ionide
 
 ### Misc
 .DS_Store

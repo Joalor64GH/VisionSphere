@@ -10,7 +10,6 @@ import haxe.io.Path;
 
 import display.ToastCore;
 import display.Info;
-
 import util.MacroUtil;
 import util.VersionUtil;
 
@@ -32,6 +31,9 @@ class Main extends openfl.display.Sprite
 
 	public static var toast:ToastCore;
 	public static var fpsDisplay:Info;
+
+	public static function main():Void
+		Lib.current.addChild(new Main());
 
 	public function new()
 	{
