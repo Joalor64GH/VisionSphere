@@ -138,7 +138,6 @@ class MusicState extends states.MusicState.BeatState
     }
 
     static var loadedSongs:Array<String> = [];
-
     private function changeSong(change:Int = 0)
     {
         loaded = false;
@@ -158,11 +157,9 @@ class MusicState extends states.MusicState.BeatState
         disc.loadGraphic(Paths.image('music/discs/${songs[curSelected].disc}'));
 
         songTxt.text = '< ${songs[curSelected].name} >';
-
         states.MusicState.Conductor.bpm = songs[curSelected].bpm;
 
         var songName:String = songs[curSelected].song == null ? songs[curSelected].name.toLowerCase() : songs[curSelected].song;
-
         trace("NEXT SONG: $songName");
 
         if (!loadedSongs.contains(songName))
