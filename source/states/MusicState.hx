@@ -160,7 +160,7 @@ class MusicState extends states.MusicState.BeatState
         states.MusicState.Conductor.bpm = songs[curSelected].bpm;
 
         var songName:String = songs[curSelected].song == null ? songs[curSelected].name.toLowerCase() : songs[curSelected].song;
-        trace("NEXT SONG: $songName");
+        trace("NEXT SONG: " + songName);
 
         if (!loadedSongs.contains(songName))
         {
