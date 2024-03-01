@@ -35,7 +35,6 @@
 	<haxelib name="flixel-ui" />
 	<haxelib name="hscript" />
 	<haxelib name="djFlixel" />
-	<haxelib name="away3d" />
 	<haxelib name="hxcpp-debug-server" if="desktop debug" />
 
 	<!-- [ Defines ] -->
@@ -48,7 +47,6 @@
 	<haxedef name="NAPE_RELEASE_BUILD" unless="debug" />
 	<haxedef name="HXCPP_CHECK_POINTER" if="CRASH_HANDLER" />
 	<haxedef name="HXCPP_STACK_LINE" if="CRASH_HANDLER" />
-	<haxedef name="HXCPP_STACK_TRACE" if="CRASH_HANDLER" />
 	<haxedef name="no-deprecation-warnings" />
 
 	<!-- [ Flags ] -->
