@@ -59,7 +59,7 @@ class CreditsState extends FlxState
 
     var gradBG:GradSprite;
 
-    var mediaAnimsArray:Array<String> = ['NG', 'Twitter', 'Twitch', 'YT', 'GitHub'];
+    var mediaAnimsArray:Array<String> = ['NG', 'Twitter', 'Discord', 'YT', 'GitHub'];
 
     override public function create()
     {
