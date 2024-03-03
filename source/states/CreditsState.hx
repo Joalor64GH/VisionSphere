@@ -66,6 +66,8 @@ class CreditsState extends FlxState
         Paths.clearStoredMemory();
         Paths.clearUnusedMemory();
 
+        openfl.system.System.gc();
+
         // now this is swaggy
         credData = Json.parse(Paths.getTextFromFile('data/credits.json'));
 
@@ -180,6 +182,11 @@ class CreditsState extends FlxState
                 FlxG.switchState(MiscState.new);
             }
         }
+    }
+
+    override public function destroy()
+    {
+        super.destroy();
     }
 
     var mainColor:FlxColor = FlxColor.WHITE;

@@ -41,7 +41,7 @@ jobs:
           name: windowsBuild
           path: export/release/windows/bin
       - name: Uploading new cache
-        uses: actions/cache@v3
+        uses: actions/cache@main
         with:
           key: cache-build-windows
           path: |
