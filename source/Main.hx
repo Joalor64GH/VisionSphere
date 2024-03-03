@@ -129,18 +129,18 @@ class CustomGame extends flixel.FlxGame
 			onCrash(e);
 	}
 
-	override function update(_):Void {
+	override function update():Void {
 		#if debug // crash testing
 		if (Input.is('f9') && !(FlxG.state is CrashState))
 			(cast(null, FlxSprite)).draw();
 		#end
-		try super.update(_)
+		try super.update()
 		catch (e:Exception)
 			onCrash(e);
 	}
 
-	override function draw(_):Void {
-		try super.draw(_)
+	override function draw():Void {
+		try super.draw()
 		catch (e:Exception)
 			onCrash(e);
 	}

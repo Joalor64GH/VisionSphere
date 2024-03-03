@@ -54,7 +54,7 @@ class CrashState extends FlxState
 
         emsg += "\n\nPlease report this error to the GitHub page: https://github.com/Joalor64GH/VisionSphere\n\nPress Q to quit the game.\nOtherwise, press R to restart.";
 
-        var msg:FlxText = new FlxText(25, topTitle.members[0].height + 50, FlxG.width - 50, emsg).setFormat(Paths.font('vcr.ttf'), 24, 0xffffffff, LEFT, OUTLINE, 0xff000000);
+        var msg:FlxText = new FlxText(25, title.members[0].height + 50, FlxG.width - 50, emsg).setFormat(Paths.font('vcr.ttf'), 24, 0xffffffff, LEFT, OUTLINE, 0xff000000);
         msg.borderSize = 2;
         add(msg);
 
