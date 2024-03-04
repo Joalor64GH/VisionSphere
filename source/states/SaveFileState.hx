@@ -96,13 +96,7 @@ class SaveFileState extends FlxState
                 accepted = true;
                 FlxG.camera.fade(FlxColor.BLACK, 0.33, false, () ->
                 {
-                    #if desktop
-                    states.UpdateState.updateCheck();
-                    FlxG.switchState((states.UpdateState.mustUpdate) ? UpdateState.new : SplashState.new);
-                    #else
-                    trace('Sorry! No update support on: ' + util.PlatformUtil.getPlatform() + '!')
                     FlxG.switchState(SplashState.new);
-                    #end
                 });
             }
         }

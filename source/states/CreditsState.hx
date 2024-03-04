@@ -14,6 +14,7 @@ import states.options.*;
 using StringTools;
 
 typedef CreditsPrefDef = {
+    var bgSprite:String;
     var users:Array<CreditsUserDef>;
 }
 
@@ -33,19 +34,14 @@ typedef CreditsUserDef = {
 
 class CreditsState extends FlxState
 {
-    var allowInputs:Bool = false; // to prevent low fps crash
-
-    var userData:CreditsUserDef;
     var credData:CreditsPrefDef;
 
     var curSelected:Int;
     var curSocial:Int;
 
     var descTxt:FlxText;
-    var descBG:FlxSprite;
 
     var menuBck:FlxSprite;
-    var bckTween:FlxTween;
     var bDrop:FlxBackdrop;
 
     var socialsHolder:FlxSprite;
@@ -71,7 +67,21 @@ class CreditsState extends FlxState
         // now this is swaggy
         credData = Json.parse(Paths.getTextFromFile('data/credits.json'));
 
-        generateBackground();
+        gradBG = new GradSprite(FlxG.width, FlxG.height, [0xFF000000, 0xFFffffff]);
+        add(gradBG);
+
+        if (credData.bgSprite != null || credData.bgSprite.length > 0)
+            menuBck = new FlxSprite().loadGraphic(Paths.image(credData.bgSprite));
+        else
+            menuBck = new FlxSprite().loadGraphic(Paths.image('desatBG'));
+        menuBck.blend = MULTIPLY;
+        add(menuBck);
+
+        bDrop = new FlxBackdrop(FlxGridOverlay.createGrid(80, 80, 160, 160, true, 0x33FFFFFF, 0x0));
+        bDrop.velocity.x = 30;
+        bDrop.velocity.y = 30;
+        bDrop.screenCenter();
+        add(bDrop);
 
         iconHolder = new FlxSprite(100, 170).makeGraphic(300, 400, 0x00000000);
         FlxSpriteUtil.drawRoundRect(iconHolder, 0, 0, 300, 400, 10, 10, 0x88000000);
@@ -129,22 +139,6 @@ class CreditsState extends FlxState
         super.create();
     }
 
-    function generateBackground()
-    {
-        gradBG = new GradSprite(FlxG.width, FlxG.height, [0xFF000000, 0xFFffffff]);
-        add(gradBG);
-        
-        menuBck = new FlxSprite().loadGraphic(Paths.image('desatBG'));
-        menuBck.blend = MULTIPLY;
-        add(menuBck);
-
-        bDrop = new FlxBackdrop(FlxGridOverlay.createGrid(80, 80, 160, 160, true, 0x33FFFFFF, 0x0));
-        bDrop.velocity.x = 30;
-        bDrop.velocity.y = 30;
-        bDrop.screenCenter();
-        add(bDrop);
-    }
-
     function generateUserText(text:Dynamic, size:Int)
     {
         userText = new FlxText(0, 0, 0, text, size);
@@ -159,28 +153,25 @@ class CreditsState extends FlxState
 
         bDrop.alpha = 0.7;
 
-        if (allowInputs) 
+        if (Input.is('up') || Input.is('down'))
         {
-            if (Input.is('up') || Input.is('down'))
-            {
-                FlxG.sound.play(Paths.sound('scroll'));
-                changeSelection(Input.is('up') ? -1 : 1);
-            }
+            FlxG.sound.play(Paths.sound('scroll'));
+            changeSelection(Input.is('up') ? -1 : 1);
+        }
 
-            if (Input.is('left') || Input.is('right'))
-            {
-                FlxG.sound.play(Paths.sound('scroll'));
-                updateSocial(Input.is('left') ? -1 : 1);
-            }
+        if (Input.is('left') || Input.is('right'))
+        {
+            FlxG.sound.play(Paths.sound('scroll'));
+            updateSocial(Input.is('left') ? -1 : 1);
+        }
 
-            if (Input.is('accept') && Reflect.field(credData.users[curSelected].urlData, mediaAnimsArray[curSocial]) != null)
-                CoolUtil.browserLoad(Reflect.field(credData.users[curSelected].urlData, mediaAnimsArray[curSocial]));
+        if (Input.is('accept') && Reflect.field(credData.users[curSelected].urlData, mediaAnimsArray[curSocial]) != null)
+            CoolUtil.browserLoad(Reflect.field(credData.users[curSelected].urlData, mediaAnimsArray[curSocial]));
 
-            if (Input.is('exit'))
-            {
-                FlxG.sound.play(Paths.sound('cancel'));
-                FlxG.switchState(MiscState.new);
-            }
+        if (Input.is('exit'))
+        {
+            FlxG.sound.play(Paths.sound('cancel'));
+            FlxG.switchState(MiscState.new);
         }
     }
 
@@ -199,8 +190,6 @@ class CreditsState extends FlxState
             curSelected = credData.users.length - 1;
         if (curSelected >= credData.users.length)
             curSelected = 0;
-        
-        allowInputs = false;
 
         var pastColor = ((credData.users[curSelected - 1] != null) ? FlxColor.fromRGB(credData.users[curSelected - 1].colors[0],
 			credData.users[curSelected - 1].colors[1], credData.users[curSelected - 1].colors[2]) : 0xFFffffff);
@@ -212,9 +201,7 @@ class CreditsState extends FlxState
         iconSprite.loadGraphic(Paths.image('menu/credits/' + credData.users[curSelected].icon));
         iconSprite.y = iconHolder.y + 2;
         iconSprite.x = iconHolder.x + iconHolder.width / 2 - iconSprite.width / 2;
-        FlxTween.tween(iconSprite, {y: iconHolder.y + iconHolder.height - iconSprite.height}, 0.2, {type: BACKWARD, ease: FlxEase.elasticOut, onComplete: (twn:FlxTween) -> {
-            allowInputs = true;
-        }});
+        FlxTween.tween(iconSprite, {y: iconHolder.y + iconHolder.height - iconSprite.height}, 0.2, {type: BACKWARD, ease: FlxEase.elasticOut});
 
         userText.text = credData.users[curSelected].name;
         if (userText.width > iconHolder.width - 2)

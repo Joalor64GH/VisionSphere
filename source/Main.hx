@@ -47,7 +47,7 @@ class Main extends openfl.display.Sprite
 			#end
 			FlxG.bitmap.dumpCache();
 			FlxG.bitmap.clearUnused();
-
+			Paths.clearStoredMemory();
 			openfl.system.System.gc();
 		});
 
@@ -56,7 +56,7 @@ class Main extends openfl.display.Sprite
 			cpp.NativeGc.run(false);
 			cpp.NativeGc.enable(false);
 			#end
-
+			Paths.clearUnusedMemory();
 			openfl.system.System.gc();
 		});
 

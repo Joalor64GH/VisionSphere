@@ -61,7 +61,7 @@ class CrashState extends FlxState
         FlxG.sound.play(Paths.sound('crash'));
     }
 
-    override public function update(elapsed:Float)
+    override function update(elapsed:Float)
     {
         super.update(elapsed);
 
