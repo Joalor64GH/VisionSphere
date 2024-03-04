@@ -6,7 +6,7 @@ class PreferencesState extends FlxState
 {
     var bg:FlxSprite;
     var times:Array<String> = ['%r', '%T'];
-    var filters:Array<String> = ['None', 'Deuteranopia', 'Protanopia', 'Tritanopia'];
+    var filters:Array<String> = ['None', 'Deuteranopia', 'Protanopia', 'Tritanopia', 'Gameboy', 'Virtual Boy', 'BW', 'Inverted', 'Random'];
     var themes:Array<String> = ['daylight', 'night', 'dreamcast', 'ps3', 'xp'];
     var options:Array<String> = [
         #if desktop
@@ -55,8 +55,6 @@ class PreferencesState extends FlxState
     override public function update(elapsed:Float)
     {
         super.update(elapsed);
-
-        updateText();
 
         if (Input.is('up') || Input.is('down'))
         {
