@@ -56,6 +56,8 @@ class PreferencesState extends FlxState
     {
         super.update(elapsed);
 
+        updateText();
+
         if (Input.is('up') || Input.is('down'))
         {
             FlxG.sound.play(Paths.sound('scroll'));

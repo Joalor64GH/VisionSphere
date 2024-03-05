@@ -1,51 +1,41 @@
 package states;
 
-import flixel.FlxCamera;
-import flixel.FlxObject;
+import flixel.util.FlxSave;
 
 // this doesn't actually do anything atm
 class SaveFileState extends FlxState
 {
-    var bg:FlxSprite;
     var curSelected:Int = 0;
+
     var saveGrp:FlxTypedGroup<Alphabet>;
-    var saves:Array<String> = [
-        "Save Data 1", "Save Data 2",
-        "Save Data 3", "Save Data 4",
-        "Save Data 5", "Save Data 6",
-        "Reset Save Data"
-    ];
+    var saves:Array<String> = [];
+    var savesCanDelete:Array<String> = [];
 
     var selectorLeft:Alphabet;
     var selectorRight:Alphabet;
 
-    var camFollow:FlxObject;
-    var camFollowPos:FlxObject;
-    var camMain:FlxCamera;
+    var accepted:Bool = false;
+    var deleteMode:Bool = false;
+    var emptySave:Array<Bool> = [true, true, true, true, true, true];
 
-    var accepted:Bool;
-    var allowInputs:Bool = true;
+    public static var saveFile:FlxSave;
     
     override public function create()
     {
         super.create();
 
-        camMain = new FlxCamera();
-        FlxG.cameras.reset(camMain);
-        FlxG.cameras.setDefaultDrawTarget(camMain, true);
-
-        camFollow = new FlxObject(0, 0, 1, 1);
-        camFollowPos = new FlxObject(0, 0, 1, 1);
-        add(camFollow);
-        add(camFollowPos);
-        FlxG.camera.follow(camFollowPos, null, 1);
-
-        var yScroll:Float = Math.max(0.25 - (0.05 * (saves.length - 4)), 0.1);
-        bg = new FlxSprite().loadGraphic(Paths.image('saveBG'));
-        bg.updateHitbox();
-        bg.screenCenter();
-        bg.scrollFactor.set(0, yScroll / 3);
+        var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('saveBG'));
         add(bg);
+
+        for (i in 0...6)
+        {
+            SaveData.getSaveData(Std.string(i));
+            trace("added save file" + Std.string(i + 1));
+            emptySave[i] = (!SaveData.save.data.init || SaveData.save.data.init == null);
+            saves.push("Save File " + Std.string(i + 1) + (!emptySave[i] ? "" : " Empty"))
+        }
+
+        saves.push("Erase Save");
 
         saveGrp = new FlxTypedGroup<Alphabet>();
         add(saveGrp);
@@ -55,7 +45,6 @@ class SaveFileState extends FlxState
             var saveTxt:Alphabet = new Alphabet(0, 0, saves[i], true);
             saveTxt.screenCenter();
             saveTxt.y += (100 * (i - (saves.length / 2))) + 50;
-            saveTxt.scrollFactor.set(0, Math.max(0.25 - (0.05 * (saves.length - 4)), 0.1));
             saveGrp.add(saveTxt);
         }
 
@@ -67,39 +56,76 @@ class SaveFileState extends FlxState
         add(selectorRight);
 
         changeSelection();
-
-        allowInputs = true;
     }
 
     override public function update(elapsed:Float)
     {
         super.update(elapsed);
 
-        var lerpVal:Float = CoolUtil.boundTo(elapsed * 7.5, 0, 1);
-        camFollowPos.setPosition(FlxMath.lerp(camFollowPos.x, camFollow.x, lerpVal), FlxMath.lerp(camFollowPos.y, camFollow.y, lerpVal));
-
-        var mult:Float = FlxMath.lerp(1.07, bg.scale.x, CoolUtil.boundTo(1 - (elapsed * 9), 0, 1));
-        bg.scale.set(mult, mult);
-        bg.updateHitbox();
-        bg.offset.set();
-
-        if (allowInputs)
+        if (!accepted)
         {
-            if ((Input.is('up') || Input.is('down')) && !accepted)
+            if ((Input.is('up') || Input.is('down')))
             {
                 changeSelection(Input.is('up') ? -1 : 1);
                 FlxG.sound.play(Paths.sound('scroll'));
             }
 
-            if (Input.is('accept') && !accepted)
+            if (Input.is('accept'))
             {
-                accepted = true;
-                FlxG.camera.fade(FlxColor.BLACK, 0.33, false, () ->
+                if (curSelected != (saveGrp.length - 1))
                 {
-                    FlxG.switchState(SplashState.new);
-                });
+                    if (!deleteMode)
+                    {
+                        accepted = true;
+
+                        FlxG.camera.fade(FlxColor.BLACK, 0.33, false, () ->
+                        {
+                            SaveData.save.init = true;
+                            SaveData.changeSaveData(curSelected);
+                            SaveData.getSaveData(curSelected);
+                            FlxG.switchState(SplashState.new);
+                        });
+                    }
+                }
             }
         }
+    }
+
+    function eraseSave(id:Int)
+    {
+        trace("erased save " + (id + 1));
+        SaveData.resetSaveData(id);
+        emptySave[id] = true;
+        idkLol();
+    }
+
+    function idkLol()
+    {
+        savesCanDelete = [];
+
+        for (i in 0...saveGrp.length)
+            if (i != 6)
+                if (!emptySave[i])
+                    savesCanDelete.push(i);
+        
+        saveGrp.clear();
+
+        var savesAvailable:Array<String> = [];
+
+        for (i in 0...savesCanDelete.length)
+            savesAvailable.push("Save File " + Std.string(i + 1));
+        
+        savesAvailable.push("Cancel");
+
+        for (i in 0...savesAvailable.length)
+        {
+            var saveTxt:Alphabet = new Alphabet(0, 0, savesAvailable[i], true);
+            saveTxt.screenCenter();
+            saveTxt.y += (100 * (i - (savesAvailable.length / 2))) + 50;
+            saveGrp.add(saveTxt);
+        }
+
+        changeSelection();
     }
 
     private function changeSelection(change:Int = 0)
@@ -118,8 +144,6 @@ class SaveFileState extends FlxState
                 selectorLeft.y = item.y;
                 selectorRight.x = item.x + item.width + 15;
                 selectorRight.y = item.y;
-                var add:Float = (saveGrp.members.length > 4 ? saveGrp.members.length * 8 : 0);
-                camFollow.setPosition(item.getGraphicMidpoint().x, item.getGraphicMidpoint().y - add);
             }
         }
     }

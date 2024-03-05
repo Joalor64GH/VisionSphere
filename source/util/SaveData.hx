@@ -91,13 +91,15 @@ class SaveData
         FlxG.save.bind('VisionSphere', 'Joalor64');
     }
 
+    public static var save:FlxSave;
     static var currentSaveSlot:Int = 0;
+    
     public static function getSaveData(saveToReturn:Int)
     {
         if (saveToReturn == -1 || saveToReturn == 0)
             return FlxG.save;
 
-        var save:FlxSave = new FlxSave();
+        save = new FlxSave();
         save.bind('saveSlot_${saveToReturn}', 'Joalor64');
         save.flush();
         return save;
