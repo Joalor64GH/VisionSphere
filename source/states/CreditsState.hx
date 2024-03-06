@@ -14,7 +14,7 @@ typedef CreditsPrefDef = {
 
 typedef CreditsUserDef = {
     var name:String;
-    var icon:Array<Dynamic>;
+    var iconData:Array<Dynamic>;
     var textData:Array<String>;
     var colors:Array<Int>;
     var urlData:Array<Array<String>>;
@@ -38,7 +38,7 @@ class CreditsState extends FlxState
     var menuBG:FlxSprite;
     var menuColorTween:FlxTween;
 
-    var iconArray:Array<AttachedSprite> = [];
+    var iconArray:Array<AbsoluteSprite> = [];
 
     var topBar:FlxSprite;
     var topMarker:FlxText;
@@ -56,7 +56,7 @@ class CreditsState extends FlxState
             menuBG = new FlxSprite().loadGraphic(Paths.image(credData.menuBG));
         else
             menuBG = new FlxSprite().loadGraphic(Paths.image('desatBG'));
-        add(menuBck);
+        add(menuBG);
 
         var finalColor:FlxColor = FlxColor.fromRGB(credData.menuBGColor[0], credData.menuBGColor[1], credData.menuBGColor[2]);
         if (!credData.tweenColor)
