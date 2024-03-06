@@ -19,6 +19,8 @@ class MiscState extends FlxState
         Paths.clearStoredMemory();
         Paths.clearUnusedMemory();
 
+        persistentUpdate = persistentDraw = true;
+
         var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('theme/' + SaveData.theme));
         add(bg);
 
@@ -59,15 +61,15 @@ class MiscState extends FlxState
                 case "Credits":
                     FlxG.switchState(CreditsState.new);
                 case "System Information":
-                    openSubState(new states.substates.SystemInfoSubState());
+                    openSubState(new SystemInfoSubState());
                 case "Restart":
-                    openSubState(new states.substates.PromptSubState("Are you sure?", () -> {
+                    openSubState(new PromptSubState("Are you sure?", () -> {
                         FlxG.camera.fade(FlxColor.BLACK, 0.5, false, FlxG.resetGame, false);
                     }, () -> {
                         closeSubState();
                     }));
                 case "Shut Down":
-                    openSubState(new states.substates.PromptSubState("Are you sure?", () -> {
+                    openSubState(new PromptSubState("Are you sure?", () -> {
                         FlxG.camera.fade(FlxColor.BLACK, 0.5, false, () ->
                         {
                             #if (sys || cpp)

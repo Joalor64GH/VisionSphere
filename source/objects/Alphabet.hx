@@ -22,12 +22,14 @@ class Alphabet extends FlxSpriteGroup
 	public var targetY:Int = 0;
 	public var changeX:Bool = true;
 	public var changeY:Bool = true;
+	public var disableX:Bool = false;
 	public var alignment(default, set):Alignment = LEFT;
 	public var scaleX(default, set):Float = 1;
 	public var scaleY(default, set):Float = 1;
 	public var rows:Int = 0;
 	public var distancePerItem:FlxPoint = new FlxPoint(20, 120);
 	public var startPosition:FlxPoint = new FlxPoint(0, 0);
+	public var xTo:Int = 100;
 
 	public function new(x:Float, y:Float, text:String = "", ?bold:Bool = true)
 	{
@@ -154,6 +156,8 @@ class Alphabet extends FlxSpriteGroup
 				x = FlxMath.lerp(x, (targetY * distancePerItem.x) + startPosition.x, lerpVal);
 			if (changeY)
 				y = FlxMath.lerp(y, (targetY * 1.3 * distancePerItem.y) + startPosition.y, lerpVal);
+
+			x = (!disableX) ? FlxMath.lerp(x, (targetY * 20) + 90, elapsed * 6) : FlxMath.lerp(x, xTo, elapsed * 6);
 		}
 		super.update(elapsed);
 	}

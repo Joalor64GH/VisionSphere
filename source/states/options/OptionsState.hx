@@ -18,6 +18,8 @@ class OptionsState extends FlxState
         Paths.clearStoredMemory();
         Paths.clearUnusedMemory();
 
+        persistentUpdate = persistentDraw = true;
+
         var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('theme/' + SaveData.theme));
         add(bg);
 

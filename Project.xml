@@ -19,6 +19,7 @@
 	<set name="BUILD_DIR" value="export/release" unless="debug" />
 
 	<define name="MODS_ALLOWED" if="desktop" /> <!-- DO NOT MOVE THIS! IF YOU DO, THE MODS FOLDER WONT EXIST AND IDK WHY -->
+	<define name="CRASH_HANDLER" if="desktop release" />
 
 	<source path="source" />
 	<assets path="assets" />
@@ -44,8 +45,8 @@
 	<haxedef name="FLX_NO_TOUCH" if="desktop" />
 	<haxedef name="FLX_NO_DEBUG" unless="debug" />
 	<haxedef name="NAPE_RELEASE_BUILD" unless="debug" />
-	<haxedef name="HXCPP_CHECK_POINTER" if="release" />
-	<haxedef name="HXCPP_STACK_LINE" if="release" />
+	<haxedef name="HXCPP_CHECK_POINTER" if="CRASH_HANDLER" />
+	<haxedef name="HXCPP_STACK_LINE" if="CRASH_HANDLER" />
 
 	<haxedef name="no-deprecation-warnings" />
 
@@ -70,5 +71,4 @@
 	<target id="haxe" tool="linker" if="macos">
 		<lib name="/lib64/libX11.a" if="HXCPP_M64" /> <!-- mac support -->
 	</target>
-
 </project>

@@ -12,10 +12,8 @@ class TestState extends FlxState
     {
         super.create();
 
-        // say hi to the event
-        event = new Event<String->String>();
-
         // setup event
+        event = new Event<String->String>();
         event.createEvent("EVENT_PARSE");
         event.addEventCallback((str:String) -> {
             var tmp:String = str;

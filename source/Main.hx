@@ -2,10 +2,15 @@ package;
 
 import openfl.Lib;
 
-import haxe.Exception;
+#if CRASH_HANDLER
+import openfl.events.UncaughtErrorEvent;
+import haxe.CallStack;
+import haxe.io.Path;
+#end
 
 import display.ToastCore;
 import display.Info;
+
 import util.MacroUtil;
 
 #if linux
@@ -26,8 +31,6 @@ class Main extends openfl.display.Sprite
 
 	public static var toast:ToastCore;
 	public static var fpsDisplay:Info;
-
-	public static var game:CustomGame;
 
 	public static function main():Void
 		Lib.current.addChild(new Main());
@@ -60,11 +63,54 @@ class Main extends openfl.display.Sprite
 			openfl.system.System.gc();
 		});
 
-		game = new CustomGame(1280, 720, BootState, #if (flixel < "5.0.0") -1, #end 60, 60, true, false);
-		addChild(game);
+		addChild(new flixel.FlxGame(1280, 720, BootState, #if (flixel < "5.0.0") -1, #end 60, 60, true, false););
 
 		fpsDisplay = new Info(10, 10, 0xFFFFFF);
 		addChild(fpsDisplay);
+
+		#if CRASH_HANDLER
+		Lib.current.loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, (e) ->
+		{
+			var errMsg:String = "";
+			var path:String;
+			var callStack:Array<StackItem> = CallStack.exceptionStack(true);
+			var dateNow:String = Date.now().toString();
+
+			dateNow = dateNow.replace(" ", "_");
+			dateNow = dateNow.replace(":", "'");
+
+			path = "./crash/" + "VisionSphere_" + dateNow + ".txt";
+
+			for (stackItem in callStack)
+			{
+				switch (stackItem)
+				{
+					case FilePos(s, file, line, column):
+						errMsg += file + " (line " + line + ")\n";
+					default:
+						Sys.println(stackItem);
+				}
+			}
+
+			errMsg += "\nUncaught Error: " + e.error + "\nPlease report this error to the GitHub page: https://github.com/Joalor64GH/VisionSphere\n\n> Crash Handler written by: sqirra-rng";
+
+			if (!FileSystem.exists("./crash/"))
+				FileSystem.createDirectory("./crash/");
+
+			File.saveContent(path, errMsg + "\n");
+
+			Sys.println(errMsg);
+			Sys.println("Crash dump saved in " + Path.normalize(path));
+
+			#if windows
+			util.Windows.messageBox("Error!", errMsg, MSG_ERROR);
+			#else
+			Application.current.window.alert(errMsg, "Error!");
+			#end
+
+			Sys.exit(0);
+		});
+		#end
 
 		#if windows
 		Lib.current.stage.addEventListener(openfl.events.KeyboardEvent.KEY_DOWN, (evt:openfl.events.KeyboardEvent) ->
@@ -100,53 +146,5 @@ class Main extends openfl.display.Sprite
 
 		toast = new ToastCore();
 		addChild(toast);
-	}
-}
-
-class CustomGame extends flixel.FlxGame
-{
-	override function create(_):Void {
-		try super.create(_)
-		catch (e:Exception)
-			onCrash(e);
-	}
-
-	override function onFocus(_):Void {
-		try super.onFocus(_)
-		catch (e:Exception)
-			onCrash(e);
-	}
-
-	override function onFocusLost(_):Void {
-		try super.onFocusLost(_)
-		catch (e:Exception)
-			onCrash(e);
-	}
-
-	override function onEnterFrame(_):Void {
-		try super.onEnterFrame(_)
-		catch (e:Exception)
-			onCrash(e);
-	}
-
-	override function update():Void {
-		#if debug // crash testing
-		if (Input.is('f9') && !(FlxG.state is CrashState))
-			(cast(null, FlxSprite)).draw();
-		#end
-		try super.update()
-		catch (e:Exception)
-			onCrash(e);
-	}
-
-	override function draw():Void {
-		try super.draw()
-		catch (e:Exception)
-			onCrash(e);
-	}
-
-	private static function onCrash(e:Exception) {
-		FlxG.sound.music.stop();
-		FlxG.switchState(() -> new CrashState(e));
 	}
 }
