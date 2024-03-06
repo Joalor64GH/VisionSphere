@@ -3,7 +3,6 @@ export/
 .vscode/*
 .haxelib/
 *.code-workspace
-vs_Community.exe
 vscode-project.hxml
 .history
 .ionide
@@ -13,4 +12,3 @@ vscode-project.hxml
 desktop.ini
 !mods/introMod/
 dump/
-docs/

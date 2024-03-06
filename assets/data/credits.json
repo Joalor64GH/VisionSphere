@@ -52,14 +52,14 @@
             "name": "khuonghoanghuy",
             "iconData": ["face", 210, -5],
             "textData": ["Some things", "I like haxe."],
-            "urlData": ["GitHub", "https://github.com/khuonghoanghuy/"],
+            "urlData": [["GitHub", "https://github.com/khuonghoanghuy/"]],
             "colors": [26, 184, 28]
         },
         {
             "name": "Github Contributors",
             "iconData": ["github", 290, 0],
             "textData": ["Thanks!", ""],
-            "urlData": ["GitHub", "https://github.com/Joalor64GH/VisionSphere/"],
+            "urlData": [["GitHub", "https://github.com/Joalor64GH/VisionSphere/"]],
             "colors": [102, 0, 255]
         }
     ]
