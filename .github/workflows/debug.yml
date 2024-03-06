@@ -17,7 +17,7 @@ jobs:
 
       - uses: krdlab/setup-haxe@master
         with:
-          haxe-version: 4.3.4
+          haxe-version: 4.3.3
       - name: Restore Cache
         uses: actions/cache@main
         with:

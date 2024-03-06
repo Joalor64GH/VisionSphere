@@ -26,7 +26,7 @@ A gaming console made in HaxeFlixel. Mostly based on Sega Dreamcast.
 ## Wanna build?
 1. Install/Download the following:
     * [Git](https://git-scm.com/download)
-    * [Haxe](https://haxe.org/download/)
+    * [Haxe (4.3.3 or higher)](https://haxe.org/download/version/4.3.3/)
     * VS Community 2019 (Windows Only)
     * VS Code (Optional)
 

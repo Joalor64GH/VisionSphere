@@ -1,4 +1,4 @@
-package states;
+package;
 
 import djFlixel.gfx.BoxScroller;
 import djFlixel.gfx.pal.Pal_DB32;
@@ -6,7 +6,7 @@ import djFlixel.gfx.pal.Pal_DB32;
 import flixel.effects.particles.FlxEmitter;
 import flixel.effects.particles.FlxParticle;
 
-class BootState extends FlxState
+class Init extends FlxState
 {
     override function create()
     {
