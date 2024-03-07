@@ -1,4 +1,4 @@
-# VisionSphere
+# VisionSphere [![Build](https://github.com/Joalor64GH/VisionSphere/actions/workflows/main.yml/badge.svg)](https://github.com/Joalor64GH/VisionSphere/actions/workflows/main.yml)
 ![](https://img.shields.io/github/repo-size/Joalor64GH/VisionSphere)
 ![](https://img.shields.io/github/issues/Joalor64GH/VisionSphere)
 ![](https://img.shields.io/badge/balls-in_your_jaws-green)
@@ -19,6 +19,7 @@ A gaming console made in HaxeFlixel. Mostly based on Sega Dreamcast.
 * [ ] Add 10 Games (6/10) **[!!]**
 * [ ] Save Slots **[!!]**
 * [ ] Controller Support **[!!]**
+* [ ] Better In-Game Crash Handler
 * [X] Rewrite Credits Again
 * [X] Account settings
 * [X] Credits with JSON

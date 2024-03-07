@@ -14,14 +14,14 @@ class UpdateState extends FlxState
 
         FlxG.camera.fade(FlxColor.BLACK, 0.33, true);
 
-        var text:FlxText = new FlxText(0, 200, FlxG.width, 
-            "Hey! You're running an outdated version of VisionSphere!" + "\n
-            The version you're currently running is v" + Main.gameVersion + "!\n
-            Press ENTER to update to v" + updateVersion + "! Otherwise, press ESCAPE." + "\n
-            Thanks for playing!",
+        var text:FlxText = new FlxText(0, 0, 0, 
+            "Hey! You're running an outdated version of VisionSphere!"
+            + "\nThe version you're currently running is v" + Main.gameVersion + "!"
+            + "\nPress ENTER to update to v" + updateVersion + "! Otherwise, press ESCAPE."
+            + "\nThanks for playing!",
             32);
         text.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER);
-        text.screenCenter(X);
+        text.screenCenter(XY);
         add(text);
     }
 

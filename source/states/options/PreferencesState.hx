@@ -5,8 +5,8 @@ import display.Colorblind;
 class PreferencesState extends FlxState
 {
     var bg:FlxSprite;
+    
     var times:Array<String> = ['%r', '%T'];
-    var filters:Array<String> = ['None', 'Deuteranopia', 'Protanopia', 'Tritanopia', 'Gameboy', 'Virtual Boy', 'BW', 'Inverted', 'Random'];
     var themes:Array<String> = ['daylight', 'night', 'dreamcast', 'ps3', 'xp'];
     var options:Array<String> = [
         #if desktop
@@ -81,7 +81,9 @@ class PreferencesState extends FlxState
                     if (Main.fpsDisplay != null)
                         Main.fpsDisplay.visible = SaveData.fpsCounter;
                 case "Language":
-                    openSubState(new states.substates.LanguageSubState());
+                    openSubState(new LanguageSubState());
+                case "Colorblind Filter":
+                    openSubState(new FilterSubState());
             }
         }
 
@@ -107,8 +109,6 @@ class PreferencesState extends FlxState
                     switchTheme(Input.is('right') ? 1 : -1);
                 case "Time Format":
                     switchTime(Input.is('right') ? 1 : -1);
-                case "Colorblind Filter":
-                    switchFilter(Input.is('right') ? 1 : -1);
             }
         }
         
@@ -167,18 +167,6 @@ class PreferencesState extends FlxState
         SaveData.timeFormat = times[newTimeIndex];
     }
 
-    private function switchFilter(direction:Int = 0)
-    {
-        var currentFilterIndex:Int = filters.indexOf(SaveData.colorBlindFilter);
-        var newFilterIndex:Int = (currentFilterIndex + direction) % filters.length;
-        if (newFilterIndex < 0)
-            newFilterIndex += filters.length;
-
-        SaveData.colorBlindFilter = filters[newFilterIndex];
-
-        Colorblind.updateFilter();
-    }
-
     function updateText()
     {
         switch (options[curSelected])
@@ -190,7 +178,7 @@ class PreferencesState extends FlxState
             case "FPS Counter":
                 daText.text = "Toggles FPS counter.";
             case "Colorblind Filter":
-                daText.text = "In case you're colorblind. Current Filter: " + SaveData.colorBlindFilter;
+                daText.text = "In case you're colorblind.";
             case "Time Format":
                 daText.text = "Use LEFT/RIGHT to change the time format. Current Format: " + SaveData.timeFormat;
             case "Language":

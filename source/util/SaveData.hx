@@ -17,7 +17,7 @@ class SaveData
     public static var lang:String = 'en';
     public static var fpsCounter:Bool = true;
     public static var fullscreen:Bool = false;
-    public static var colorBlindFilter:String = "None";
+    public static var colorBlindFilter:Int = -1;
     public static var framerate:Int = 60;
     public static var username:String = "user";
     public static var profile:String = "blue";
