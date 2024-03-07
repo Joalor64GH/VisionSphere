@@ -6,9 +6,9 @@ import objects.AbsoluteSprite;
 using StringTools;
 
 typedef CreditsPrefDef = {
-    var ?menuBG:Null<String>;
-    var ?menuBGColor:Null<Array<Int>>;
-    var ?tweenColor:Null<Bool>;
+    var menuBG:String;
+    var menuBGColor:Array<Int>;
+    var tweenColor:Bool;
     var users:Array<CreditsUserDef>;
 }
 
@@ -119,7 +119,11 @@ class CreditsState extends FlxState
         FlxTween.tween(centerMarker, {alpha: 1}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.6});
         FlxTween.tween(rightMarker, {alpha: 1}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.6});
 
+        curSelected = 0;
+        curSocial = 0;
+
         changeSelection();
+        updateSocial(0);
     }
 
     override public function update(elapsed:Float)
@@ -191,9 +195,6 @@ class CreditsState extends FlxState
                 }});
             }
         }
-
-        curSocial = 0;
-        updateSocial(0);
     }
 
     function updateSocial(huh:Int = 0)

@@ -29,8 +29,6 @@ class PreferencesState extends FlxState
         Paths.clearStoredMemory();
         Paths.clearUnusedMemory();
 
-        persistentUpdate = persistentDraw = true;
-
         bg = new FlxSprite().loadGraphic(Paths.image('theme/' + SaveData.theme));
         add(bg);
 
