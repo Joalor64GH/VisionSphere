@@ -6,9 +6,9 @@ import objects.AbsoluteSprite;
 using StringTools;
 
 typedef CreditsPrefDef = {
-    var menuBG:String;
-    var menuBGColor:Array<Int>;
-    var tweenColor:Bool;
+    var ?menuBG:String;
+    var ?menuBGColor:Array<Int>;
+    var ?tweenColor:Bool;
     var users:Array<CreditsUserDef>;
 }
 
@@ -29,11 +29,10 @@ typedef CreditsUserDef = {
 class CreditsState extends FlxState
 {
     var credData:CreditsPrefDef;
+    var credsGrp:FlxTypedGroup<Alphabet>;
 
     var curSelected:Int;
     var curSocial:Int;
-
-    var credsGrp:FlxTypedGroup<Alphabet>;
 
     var menuBG:FlxSprite;
     var menuColorTween:FlxTween;
@@ -119,9 +118,6 @@ class CreditsState extends FlxState
         FlxTween.tween(centerMarker, {alpha: 1}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.6});
         FlxTween.tween(rightMarker, {alpha: 1}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.6});
 
-        curSelected = 0;
-        curSocial = 0;
-
         changeSelection();
         updateSocial(0);
     }
@@ -139,10 +135,35 @@ class CreditsState extends FlxState
 
         bottomMarker.screenCenter(X);
 
-        if (Input.is('up') || Input.is('down'))
+        var controlArray:Array<Bool> = [
+            Input.is('up'),
+            Input.is('down'),
+            Input.is('up', PRESSED),
+            Input.is('down', PRESSED),
+            FlxG.mouse.wheel == 1,
+            FlxG.mouse.wheel == -1
+        ];
+        if (controlArray.contains(true))
         {
-            FlxG.sound.play(Paths.sound('scroll'));
-            changeSelection(Input.is('up') ? -1 : 1);
+            for (i in 0...controlArray.length)
+            {
+                if (controlArray[i] == true)
+                {
+                    if (i > 1)
+                    {
+                        if (i == 2 || i == 4)
+                            curSelected--;
+                        else if (i == 3 || i == 5)
+                            curSelected++;
+                        FlxG.sound.play(Paths.sound('scroll'));
+                    }
+                    if (curSelected < 0)
+                        curSelected = credData.users.length - 1;
+                    else if (curSelected >= credData.users.length)
+                        curSelected = 0;
+                    changeSelection();
+                }
+            }
         }
 
         if (Input.is('left') || Input.is('right'))
@@ -203,7 +224,7 @@ class CreditsState extends FlxState
             return;
         
         curSocial += huh;
-        if (curSocial > 0)
+        if (curSocial < 0)
             curSocial = credData.users[curSelected].urlData[0].length - 1;
         if (curSocial >= credData.users[curSelected].urlData.length)
             curSocial = 0;

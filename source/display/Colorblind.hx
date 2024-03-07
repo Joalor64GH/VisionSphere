@@ -99,7 +99,7 @@ class Colorblind {
         }
 
         var filter = new ColorMatrixFilter(matrixThing);
-        if (filter != null) return;
+        if (filter == null) return;
 
         FlxG.game.setFilters([filter]);
     }
