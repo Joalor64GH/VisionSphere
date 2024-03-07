@@ -138,8 +138,6 @@ class CreditsState extends FlxState
         var controlArray:Array<Bool> = [
             Input.is('up'),
             Input.is('down'),
-            Input.is('up', PRESSED),
-            Input.is('down', PRESSED),
             FlxG.mouse.wheel == 1,
             FlxG.mouse.wheel == -1
         ];
@@ -216,6 +214,8 @@ class CreditsState extends FlxState
                 }});
             }
         }
+
+        updateSocial();
     }
 
     function updateSocial(huh:Int = 0)
