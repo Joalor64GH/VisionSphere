@@ -1,5 +1,7 @@
 package states.substates;
 
+import display.Colorblind;
+
 class FilterSubState extends FlxSubState
 {
     var curSelected:Int = 0;
@@ -103,6 +105,6 @@ class FilterSubState extends FlxSubState
     }
 
     private function changeSelection(change:Int = 0) {
-        curSelected = FlxMath.wrap(curSelected + change, 0, langStrings.length - 1);
+        curSelected = FlxMath.wrap(curSelected + change, 0, filters.length - 1);
     }
 }

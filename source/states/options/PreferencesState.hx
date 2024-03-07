@@ -1,7 +1,5 @@
 package states.options;
 
-import display.Colorblind;
-
 class PreferencesState extends FlxState
 {
     var bg:FlxSprite;
