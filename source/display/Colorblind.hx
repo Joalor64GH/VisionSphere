@@ -51,7 +51,7 @@ class Colorblind {
                 matrixThing = [
                     0.34, 0.33, 0.33, 0, 0,
                     0, 0, 0, 0, 0,
-                    0, 0, 0, 0, 0
+                    0, 0, 0, 0, 0,
                     0, 0, 0, 1, 0
                 ];
             case 5: // black and white
@@ -92,10 +92,10 @@ class Colorblind {
             if (i > 14) break;
             if (matrixThing[i] == 0) matrixThing[i] = 0.00001;
             if ((i % 5 == 0 && checkRange(i, 0, 4)) || (i % 5 == 1 && checkRange(i, 5, 9)) || (i % 5 == 2 && checkRange(i, 10, 14))) {
-                matrixThing[i] = = FlxMath.lerp(matrixThing[i], 1, CoolUtil.boundTo(1 - intensity, 0, 1));
+                matrixThing[i] = FlxMath.lerp(matrixThing[i], 1, CoolUtil.boundTo(1 - intensity, 0, 1));
                 continue;
             }
-            matrixThing[i] = = FlxMath.lerp(matrixThing[i], 0, CoolUtil.boundTo(1 - intensity, 0, 1));
+            matrixThing[i] = FlxMath.lerp(matrixThing[i], 0, CoolUtil.boundTo(1 - intensity, 0, 1));
         }
 
         var filter = new ColorMatrixFilter(matrixThing);

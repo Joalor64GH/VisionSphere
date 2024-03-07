@@ -30,7 +30,7 @@ class FilterSubState extends FlxSubState
 
         for (i in 0...filters.length)
         {
-            var label:Alphabet = new Alphabet(190, 320, filters[i], true);
+            var label:Alphabet = new Alphabet(90, 320, filters[i], true);
             label.isMenuItem = true;
             label.targetY = i;
             coolGrp.add(label);
