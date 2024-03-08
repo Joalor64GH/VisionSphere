@@ -4,10 +4,16 @@ class Character extends FlxSprite
 {
     public var animOffsets:Map<String, Array<Dynamic>>;
 
-    public function new(x:Float, y:Float)
+    public var isPlayer:Bool = false;
+    public var curCharacter:String = 'dude';
+
+    public function new(x:Float, y:Float, ?character:String = 'dude', ?isPlayer:Bool = false)
     {
         animOffsets = new Map<String, Array<Dynamic>>();
         super(x, y);
+
+        curCharacter = character;
+        this.isPlayer = isPlayer;
     }
 
     public function playAnim(animName:String, force:Bool = false, reversed:Bool = false, frame:Int = 0):Void
