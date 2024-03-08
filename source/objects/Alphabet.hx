@@ -274,6 +274,15 @@ class Alphabet extends FlxSpriteGroup
 
 		if (letters.length > 0) rows++;
 	}
+
+	inline function set_menuType(value:String)
+	{
+		if (value == 'Centered')
+			screenCenter(X);
+
+		menuType = value;
+		return value;
+	}
 }
 
 typedef Letter = {
@@ -440,7 +449,6 @@ class AlphaCharacter extends FlxSprite
 	public function updateLetterOffset()
 	{
 		if (animation.curAnim == null) return;
-
 		offset.y += (!animation.curAnim.name.endsWith('bold')) ? -(110 - height) : -(70 - height);
 	}
 }
