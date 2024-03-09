@@ -81,10 +81,9 @@ class CreditsState extends FlxState
             
             iconArray.push(icon);
             add(icon);
-
-            curSelected = i;
         }
 
+        curSelected = 0;
         curSocial = 0;
 
         topBar = new FlxSprite().makeGraphic(1, 1, FlxColor.BLACK);
@@ -98,7 +97,7 @@ class CreditsState extends FlxState
         topMarker.alpha = 0;
         add(topMarker);
 
-        centerMarker = new FlxText(8, 8, 0, "<PLATFORM>").setFormat(Paths.font('vcr.ttf'), 32, FlxColor.WHITE);
+        centerMarker = new FlxText(8, 8, 0, "< PLATFORM >").setFormat(Paths.font('vcr.ttf'), 32, FlxColor.WHITE);
         centerMarker.screenCenter(X);
         centerMarker.alpha = 0;
         add(centerMarker);
@@ -119,7 +118,7 @@ class CreditsState extends FlxState
         FlxTween.tween(rightMarker, {alpha: 1}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.6});
 
         changeSelection();
-        updateSocial(0);
+        updateSocial();
     }
 
     override public function update(elapsed:Float)
@@ -135,33 +134,10 @@ class CreditsState extends FlxState
 
         bottomMarker.screenCenter(X);
 
-        var controlArray:Array<Bool> = [
-            Input.is('up'),
-            Input.is('down'),
-            FlxG.mouse.wheel == 1,
-            FlxG.mouse.wheel == -1
-        ];
-        if (controlArray.contains(true))
+        if (Input.is('up') || Input.is('down'))
         {
-            for (i in 0...controlArray.length)
-            {
-                if (controlArray[i] == true)
-                {
-                    if (i > 1)
-                    {
-                        if (i == 2 || i == 4)
-                            curSelected--;
-                        else if (i == 3 || i == 5)
-                            curSelected++;
-                        FlxG.sound.play(Paths.sound('scroll'));
-                    }
-                    if (curSelected < 0)
-                        curSelected = credData.users.length - 1;
-                    else if (curSelected >= credData.users.length)
-                        curSelected = 0;
-                    changeSelection();
-                }
-            }
+            FlxG.sound.play(Paths.sound('scroll'));
+            changeSelection(Input.is('up') ? -1 : 1);
         }
 
         if (Input.is('left') || Input.is('right'))
@@ -190,6 +166,13 @@ class CreditsState extends FlxState
             item.targetY = num - curSelected;
             item.alpha = (item.targetY == 0) ? 1 : 0.6;
         }
+
+        curSelected += change;
+
+        if (curSelected < 0)
+            curSelected = credData.users.length - 1;
+        else if (curSelected >= credData.users.length)
+            curSelected = 0;
 
         if (credData.users[curSelected].sectionName.length > 1)
         {
@@ -224,6 +207,7 @@ class CreditsState extends FlxState
             return;
         
         curSocial += huh;
+
         if (curSocial < 0)
             curSocial = credData.users[curSelected].urlData[0].length - 1;
         if (curSocial >= credData.users[curSelected].urlData.length)
