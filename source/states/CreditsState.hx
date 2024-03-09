@@ -81,9 +81,10 @@ class CreditsState extends FlxState
             
             iconArray.push(icon);
             add(icon);
+
+            curSelected = i;
         }
 
-        curSelected = 0;
         curSocial = 0;
 
         topBar = new FlxSprite().makeGraphic(1, 1, FlxColor.BLACK);
@@ -118,7 +119,7 @@ class CreditsState extends FlxState
         FlxTween.tween(rightMarker, {alpha: 1}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.6});
 
         changeSelection();
-        updateSocial();
+        updateSocial(0);
     }
 
     override public function update(elapsed:Float)
@@ -134,10 +135,29 @@ class CreditsState extends FlxState
 
         bottomMarker.screenCenter(X);
 
-        if (Input.is('up') || Input.is('down'))
+        var controlArray:Array<Bool> = [
+            FlxG.keys.justPressed.UP,
+            FlxG.keys.justPressed.DOWN,
+            FlxG.mouse.wheel == 1,
+            FlxG.mouse.wheel == -1
+        ];
+        if (controlArray.contains(true))
         {
-            FlxG.sound.play(Paths.sound('scroll'));
-            changeSelection(Input.is('up') ? -1 : 1);
+            for (i in 0...controlArray.length)
+            {
+                if (controlArray[i] == true)
+                {
+                    if (i > 1)
+                    {
+                        if (i == 2 || i == 4)
+                            curSelected--;
+                        else if (i == 3 || i == 5)
+                            curSelected++;
+                        FlxG.sound.play(Paths.sound('scroll'));
+                    }
+                    changeSelection();
+                }
+            }
         }
 
         if (Input.is('left') || Input.is('right'))

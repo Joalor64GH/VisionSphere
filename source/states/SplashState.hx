@@ -58,12 +58,6 @@ class SplashState extends FlxState
             FlxTween.tween(text, {x: -1500, angle: 10, alpha: 0}, 0.1, {ease: FlxEase.expoInOut});
             FlxTween.tween(text, {alpha: 0}, 0.1, {ease: FlxEase.expoInOut});
 
-            if ((haxeflixel.x > -FlxG.width) || (text.x > -FlxG.width))
-            {
-                remove(text);
-                remove(haxeflixel);
-            }
-
             FlxTween.tween(logo, {alpha: 1}, 1, {ease: FlxEase.quadOut});
         });
 
