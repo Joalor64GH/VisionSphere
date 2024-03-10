@@ -33,6 +33,6 @@ import backend.data.SaveData;
 import states.*;
 import states.substates.*;
 
-using util.CoolUtil;
+using backend.CoolUtil;
 using StringTools;
 #end
