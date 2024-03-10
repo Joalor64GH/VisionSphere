@@ -37,13 +37,13 @@ class AttachedSprite extends FlxSprite
 			setPosition(sprTracker.x + xAdd, sprTracker.y + yAdd);
 			scrollFactor.set(sprTracker.scrollFactor.x, sprTracker.scrollFactor.y);
 
-			if(copyAngle)
+			if (copyAngle)
 				angle = sprTracker.angle + angleAdd;
 
-			if(copyAlpha)
+			if (copyAlpha)
 				alpha = sprTracker.alpha * alphaMult;
 
-			if(copyVisible) 
+			if (copyVisible) 
 				visible = sprTracker.visible;
 		}
 	}
