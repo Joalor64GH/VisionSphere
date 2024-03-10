@@ -1,10 +1,5 @@
 package util;
 
-import hscript.Parser;
-import hscript.Interp;
-
-import flixel.util.FlxSave;
-
 /**
  * A simple save data class based on psych engine lol
  * @see https://github.com/ShadowMario/FNF-PsychEngine/
@@ -89,52 +84,5 @@ class SaveData
             exitKey = FlxG.save.data.exitKey;
 
         FlxG.save.bind('VisionSphere', 'Joalor64');
-    }
-
-    public static var save:FlxSave;
-    static var currentSaveSlot:Int = 0;
-    
-    public static function getSaveData(saveToReturn:Int)
-    {
-        if (saveToReturn == -1 || saveToReturn == 0)
-            return FlxG.save;
-
-        save = new FlxSave();
-        save.bind('saveSlot_${saveToReturn}', 'Joalor64');
-        save.flush();
-        return save;
-    }
-
-    public static function changeSaveData(saveToLoad:Int)
-    {
-        currentSaveSlot = saveToLoad;
-    }
-
-    public static function resetSaveData(saveToReset:Int)
-    {
-        var save:FlxSave = getSaveData(saveToReset);
-        save.data.loaded = false;
-        save.flush();
-        save.erase();
-    }
-
-    private static var haxeInterp:Interp = new Interp();
-    private static var haxeParser:Parser = new Parser();
-
-    public static function saveToSlot(variableNameInSave:String, variable:Any)
-    {
-        var save:FlxSave = getSaveData(currentSaveSlot);
-        haxeInterp.variables.set('save', save);
-        haxeInterp.variables.set('variable', variable);
-        var toParse = haxeParser.parseString('save.data.$variableNameInSave = variable;\nsave.flush();');
-        haxeInterp.execute(toParse);
-    }
-
-    public static function loadDataFromSaveSlot(variableNameInSave:String):Any
-    {
-        var save:FlxSave = getSaveData(currentSaveSlot);
-        haxeInterp.variables.set('save', save);
-        var toParse = haxeParser.parseString('return save.data.$variableNameInSave;');
-        return haxeInterp.execute(toParse);
     }
 }

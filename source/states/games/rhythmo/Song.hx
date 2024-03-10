@@ -5,7 +5,7 @@ import states.games.rhythmo.Section.SectionArray;
 
 using StringTools;
 
-typedef Cantando = {
+typedef SongData = {
     var song:String;
     var notes:Array<SectionArray>;
     var bpm:Int;

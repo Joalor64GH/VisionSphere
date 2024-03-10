@@ -138,6 +138,8 @@ class CreditsState extends FlxState
         var controlArray:Array<Bool> = [
             FlxG.keys.justPressed.UP,
             FlxG.keys.justPressed.DOWN,
+            Input.is('up'),
+            Input.is('down'),
             FlxG.mouse.wheel == 1,
             FlxG.mouse.wheel == -1
         ];
@@ -155,6 +157,10 @@ class CreditsState extends FlxState
                             curSelected++;
                         FlxG.sound.play(Paths.sound('scroll'));
                     }
+                    if (curSelected < 0)
+                        curSelected = credData.users.length - 1;
+                    else if (curSelected >= credData.users.length)
+                        curSelected = 0;
                     changeSelection();
                 }
             }
@@ -186,13 +192,6 @@ class CreditsState extends FlxState
             item.targetY = num - curSelected;
             item.alpha = (item.targetY == 0) ? 1 : 0.6;
         }
-
-        curSelected += change;
-
-        if (curSelected < 0)
-            curSelected = credData.users.length - 1;
-        else if (curSelected >= credData.users.length)
-            curSelected = 0;
 
         if (credData.users[curSelected].sectionName.length > 1)
         {
@@ -227,7 +226,6 @@ class CreditsState extends FlxState
             return;
         
         curSocial += huh;
-
         if (curSocial < 0)
             curSocial = credData.users[curSelected].urlData[0].length - 1;
         if (curSocial >= credData.users[curSelected].urlData.length)
