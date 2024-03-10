@@ -136,6 +136,7 @@ class PlayState extends FlxState
         {
             FlxG.camera.fade(FlxColor.BLACK, 0.33, false, () ->
             {
+                FlxG.resetState();
                 FlxG.switchState(new states.games.tetris.MainMenuState());
             });
             FlxG.sound.play(Paths.sound('cancel'));
@@ -145,10 +146,8 @@ class PlayState extends FlxState
     static function doesFit() 
     {
         for (i in curPiece.getTilePoints()) 
-        {
             if (!GameGrid.isEmpty(i.row, i.column))
                 return false;
-        }
 
         return true;
     }
@@ -182,7 +181,8 @@ class PlayState extends FlxState
         return drop;
     }
 
-    public static function getGhostPiece() {
+    public static function getGhostPiece() 
+    {
         return curPiece.getTilePoints().map(x -> new Point(x.row + getDropDistance(), x.column));
     }
 

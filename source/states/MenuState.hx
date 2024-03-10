@@ -33,6 +33,14 @@ class MenuState extends FlxState
         var logo:FlxSprite = new FlxSprite(10, bar.y + 5).loadGraphic(Paths.image('menu/icon'));
         add(logo);
 
+        if (FlxG.random.bool(35)) 
+        {
+            var banana:FlxSprite = new FlxSprite(5, FlxG.height - 44).loadGraphic(Paths.image('banan'), true, 102, 103);
+            banana.animation.add('rotate', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14], 14);
+            banana.animation.play('rotate');
+            add(banana);
+        }
+
         btnPlay = new FlxSprite(150, 150).loadGraphic(Paths.image('menu/play'));
         add(btnPlay);
 

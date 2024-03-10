@@ -1,26 +1,21 @@
 package util;
 
-import openfl.utils.Assets as OpenFlAssets;
-import lime.utils.Assets as LimeAssets;
+import openfl.utils.Assets;
 
 using StringTools;
 
 class CoolUtil
 {
     inline public static function getText(path:String):Array<String> {
-        return OpenFlAssets.exists(path) ? [for (i in OpenFlAssets.getText(path).trim().split('\n')) i.trim()] : [];
+        return Assets.exists(path) ? [for (i in Assets.getText(path).trim().split('\n')) i.trim()] : [];
     }
 
     inline static public function textSplit(path:String) {
-        return [for (i in LimeAssets.getText(path).trim().split('\n')) i.trim()];
+        return [for (i in Assets.getText(path).trim().split('\n')) i.trim()];
     }
 
     inline public static function boundTo(value:Float, min:Float, max:Float):Float {
         return Math.max(min, Math.min(max, value));
-    }
-
-    inline public static function numberArray(max:Int, ?min:Int = 0):Array<Int> {
-        return [for (i in min...max) i];
     }
 
     inline public static function browserLoad(site:String) {
@@ -29,6 +24,16 @@ class CoolUtil
         #else
         FlxG.openURL(site);
         #end
+    }
+
+    inline public static function colorFromString(color:String):FlxColor {
+        var hideChars = ~/[\t\n\r]/;
+        var color:String = hideChars.split(color).join('').trim();
+        if (color.startsWith('0x')) color = color.substr(4);
+
+        var colorNum:Null<FlxColor> = FlxColor.fromString(color);
+        if (colorNum == null) colorNum = FlxColor.fromString('#$color');
+        return colorNum != null ? colorNum : FlxColor.WHITE;
     }
 
     /**
@@ -49,8 +54,7 @@ class CoolUtil
      * @see https://github.com/MAJigsaw77/UTF
      */
 
-    public static function getWeather():Int
-    {
+    public static function getWeather():Int {
         final curDate:Date = Date.now();
 
         switch(curDate.getMonth() + 1)

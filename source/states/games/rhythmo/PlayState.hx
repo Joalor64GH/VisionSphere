@@ -31,8 +31,6 @@ class PlayState extends FlxState
 
     private var generatedMusic:Bool = false;
     private var startingSong:Bool = false;
-
-    
     
     override public function create()
     {

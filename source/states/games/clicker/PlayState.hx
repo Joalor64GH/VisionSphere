@@ -11,7 +11,7 @@ class PlayState extends FlxState
     var coolText:FlxText;
     var winTxt:FlxText;
 
-    public var win:Bool = false;
+    var win:Bool = false;
 
     override public function create()
     {
@@ -56,6 +56,8 @@ class PlayState extends FlxState
     {
         super.update(elapsed);
 
+        number.screenCenter();
+
         clicksTxt.text = 'Clicks: $clicks';
 
         if (clicks == 38 || clicks >= 38)
@@ -89,8 +91,6 @@ class PlayState extends FlxState
     {
         new FlxTimer().start(0.01, (timer) ->
         {
-            number.screenCenter();
-
             switch(clicks)
             {
                 case 1:

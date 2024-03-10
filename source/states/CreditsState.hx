@@ -31,8 +31,8 @@ class CreditsState extends FlxState
     var credData:CreditsPrefDef;
     var credsGrp:FlxTypedGroup<Alphabet>;
 
-    var curSelected:Int;
-    var curSocial:Int;
+    var curSelected:Int = -1;
+    var curSocial:Int = -1;
 
     var menuBG:FlxSprite;
     var menuColorTween:FlxTween;
@@ -82,10 +82,12 @@ class CreditsState extends FlxState
             iconArray.push(icon);
             add(icon);
 
-            curSelected = i;
+            if (curSelected == -1)
+                curSelected = i;
         }
 
-        curSocial = 0;
+        if (curSocial == -1)
+            curSocial = 0;
 
         topBar = new FlxSprite().makeGraphic(1, 1, FlxColor.BLACK);
         topBar.setGraphicSize(FlxG.width, 48);
@@ -119,7 +121,7 @@ class CreditsState extends FlxState
         FlxTween.tween(rightMarker, {alpha: 1}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.6});
 
         changeSelection();
-        updateSocial(0);
+        updateSocial();
     }
 
     override public function update(elapsed:Float)
@@ -159,7 +161,7 @@ class CreditsState extends FlxState
                     }
                     if (curSelected < 0)
                         curSelected = credData.users.length - 1;
-                    else if (curSelected >= credData.users.length)
+                    if (curSelected >= credData.users.length)
                         curSelected = 0;
                     changeSelection();
                 }
@@ -217,6 +219,8 @@ class CreditsState extends FlxState
             }
         }
 
+        // resets social because dumb
+        curSocial = 0;
         updateSocial();
     }
 
