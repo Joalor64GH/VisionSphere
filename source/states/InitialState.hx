@@ -1,4 +1,4 @@
-package;
+package states;
 
 import djFlixel.gfx.BoxScroller;
 import djFlixel.gfx.pal.Pal_DB32;

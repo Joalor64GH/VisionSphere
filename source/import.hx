@@ -14,7 +14,6 @@ import flixel.util.FlxTimer;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.group.FlxGroup.FlxTypedGroup;
-
 import lime.app.Application;
 
 import frontend.Menu;
@@ -23,7 +22,6 @@ import frontend.objects.Alphabet;
 import frontend.objects.AttachedSprite;
 import frontend.objects.AbsoluteSprite;
 
-import backend.Main;
 import backend.Paths;
 import backend.CoolUtil;
 import backend.Localization;
