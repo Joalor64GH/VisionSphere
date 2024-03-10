@@ -1,4 +1,4 @@
-package display;
+package frontend.debug;
 
 class Info extends openfl.text.TextField
 {

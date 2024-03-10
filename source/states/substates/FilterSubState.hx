@@ -1,6 +1,6 @@
 package states.substates;
 
-import display.Colorblind;
+import frontend.Colorblind;
 
 class FilterSubState extends FlxSubState
 {

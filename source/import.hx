@@ -7,7 +7,6 @@ import sys.FileSystem;
 import haxe.Json;
 
 import flixel.*;
-
 import flixel.math.FlxMath;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
@@ -18,15 +17,18 @@ import flixel.group.FlxGroup.FlxTypedGroup;
 
 import lime.app.Application;
 
-import base.Menu;
-import base.Paths;
-import base.Input;
-import base.Event;
-import util.CoolUtil;
-import util.Localization;
-import util.SaveData;
-import objects.Alphabet;
-import objects.AttachedSprite;
+import frontend.Menu;
+import frontend.Event;
+import frontend.objects.Alphabet;
+import frontend.objects.AttachedSprite;
+import frontend.objects.AbsoluteSprite;
+
+import backend.Main;
+import backend.Paths;
+import backend.CoolUtil;
+import backend.Localization;
+import backend.data.Input;
+import backend.data.SaveData;
 
 import states.*;
 import states.substates.*;

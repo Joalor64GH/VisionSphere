@@ -1,4 +1,4 @@
-package;
+package backend;
 
 import openfl.Lib;
 
@@ -8,10 +8,10 @@ import haxe.CallStack;
 import haxe.io.Path;
 #end
 
-import display.ToastCore;
-import display.Info;
+import frontend.objects.ToastCore;
+import frontend.debug.Info;
 
-import util.MacroUtil;
+import backend.MacroUtil;
 
 #if linux
 @:cppInclude('./external/gamemode_client.h')
@@ -40,7 +40,7 @@ class Main extends openfl.display.Sprite
 		super();
 
 		#if windows
-		util.Windows.darkMode(true);
+		backend.system.Windows.darkMode(true);
 		#end
 
 		FlxG.signals.preStateSwitch.add(() -> {
@@ -63,7 +63,7 @@ class Main extends openfl.display.Sprite
 			openfl.system.System.gc();
 		});
 
-		addChild(new flixel.FlxGame(1280, 720, Init, #if (flixel < "5.0.0") -1, #end 60, 60, true, false));
+		addChild(new flixel.FlxGame(1280, 720, InitialState, #if (flixel < "5.0.0") -1, #end 60, 60, true, false));
 
 		fpsDisplay = new Info(10, 10, 0xFFFFFF);
 		addChild(fpsDisplay);
@@ -103,7 +103,7 @@ class Main extends openfl.display.Sprite
 			Sys.println("Crash dump saved in " + Path.normalize(path));
 
 			#if windows
-			util.Windows.messageBox("Error!", errMsg, MSG_ERROR);
+			backend.system.Windows.messageBox("Error!", errMsg, MSG_ERROR);
 			#else
 			Application.current.window.alert(errMsg, "Error!");
 			#end

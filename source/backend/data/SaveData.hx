@@ -1,4 +1,4 @@
-package util;
+package backend.data;
 
 /**
  * A simple save data class based on psych engine lol

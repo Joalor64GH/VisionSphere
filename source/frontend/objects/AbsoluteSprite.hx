@@ -1,4 +1,4 @@
-package objects;
+package frontend.objects;
 
 import flixel.FlxObject;
 

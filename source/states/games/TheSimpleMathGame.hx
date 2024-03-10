@@ -86,7 +86,7 @@ class MainMenuState extends FlxState
         {
             FlxG.camera.fade(FlxColor.BLACK, 0.5, false, () ->
             {
-                FlxG.switchState(new states.MenuState());
+                FlxG.switchState(MenuState.new);
             });
             FlxG.sound.play(Paths.sound('cancel'));
         }

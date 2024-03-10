@@ -3,7 +3,7 @@
 
 	<!-- [ Application Settings ] -->
 
-	<app title="VisionSphere" file="VisionSphere" main="Main" />
+	<app title="VisionSphere" file="VisionSphere" main="backend.Main" />
 	<app version="0.6.5" company="Joalor64GH" package="com.joalor64.visionsphere"/>
 
 	<!-- [ Window Settings ] -->

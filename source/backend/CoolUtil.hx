@@ -1,4 +1,4 @@
-package util;
+package backend;
 
 import openfl.utils.Assets;
 

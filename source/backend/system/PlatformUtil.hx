@@ -1,4 +1,4 @@
-package util;
+package backend.system;
 
 class PlatformUtil
 {

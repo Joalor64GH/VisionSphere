@@ -1,9 +1,6 @@
 package states;
 
 import states.options.*;
-import objects.AbsoluteSprite;
-
-using StringTools;
 
 typedef CreditsPrefDef = {
     var ?menuBG:String;
@@ -145,6 +142,7 @@ class CreditsState extends FlxState
             FlxG.mouse.wheel == 1,
             FlxG.mouse.wheel == -1
         ];
+        
         if (controlArray.contains(true))
         {
             for (i in 0...controlArray.length)

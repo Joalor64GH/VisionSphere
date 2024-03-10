@@ -1,4 +1,4 @@
-package display;
+package frontend;
 
 import openfl.filters.ColorMatrixFilter;
 

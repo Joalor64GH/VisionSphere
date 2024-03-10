@@ -6,7 +6,7 @@ import djFlixel.gfx.pal.Pal_DB32;
 import flixel.effects.particles.FlxEmitter;
 import flixel.effects.particles.FlxParticle;
 
-class Init extends FlxState
+class InitialState extends FlxState
 {
     override function create()
     {
