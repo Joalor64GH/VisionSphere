@@ -20,7 +20,7 @@ class AttachedText extends Alphabet
     }
 
     override function update(elapsed:Float)
-	{
+    {
         if (sprTracker != null) {
             setPosition(sprTracker.x + offsetX, sprTracker.y + offsetY);
 
@@ -32,5 +32,5 @@ class AttachedText extends Alphabet
         }
 
         super.update(elapsed);
-	}
+    }
 }

@@ -3,7 +3,6 @@ package backend.data;
 class Option
 {
     private var child:Alphabet;
-    
     public var text(get, set):String;
     public var onChange:Void->Void = null;
     public var type(get, default):String = 'bool';
@@ -50,6 +49,21 @@ class Option
 
         if (getValue() == null)
             setValue(defaultValue);
+
+        switch (type)
+        {
+            case 'string':
+                var num:Int = options.indexOf(getValue());
+                if (num > -1)
+                    curOption = num;
+            case 'percent':
+                displayFormat = '%v%';
+                changeValue = 0.01;
+                minValue = 0;
+                maxValue = 1;
+                scrollSpeed = 0.5;
+                decimals = 2;
+        }
     }
 
     public function change()
@@ -58,23 +72,47 @@ class Option
             onChange();
     }
 
-    public function getValue():Dynamic
-    {
+    public function getValue():Dynamic {
         return Reflect.getProperty(SaveData, variable);
     }
 
-    public function setValue(value:Dynamic)
-    {
+    public function setValue(value:Dynamic) {
         Reflect.setProperty(SaveData, variable, value);
     }
 
-    public function getVariable()
-    {
+    public function getVariable() {
         return variable;
     }
 
-    public function setChild(child:Alphabet)
-    {
+    public function setChild(child:Alphabet) {
         this.child = child;
+    }
+
+    private function get_text()
+    {
+        if (child != null)
+            return child.text;
+        return null;
+    }
+
+    private function set_text(newValue:String = '')
+    {
+        if (child != null)
+            child.text = newValue;
+        return null;
+    }
+
+    private function get_type()
+    {
+        var newValue:String = 'bool';
+        switch (type.toLowercase().trim())
+        {
+            case 'int' | 'float' | 'percent' | 'string': newValue = type;
+            case 'integer': newValue = 'int';
+            case 'str': newValue = 'string';
+            case 'fl': newValue = 'float';
+        }
+        type = newValue;
+        return type;
     }
 }

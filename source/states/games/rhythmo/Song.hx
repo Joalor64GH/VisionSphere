@@ -28,8 +28,8 @@ class Song
     public var needsVoices:Bool = true;
     public var speed:Float = 1;
 
-    public var player1:String = 'dude';
-    public var player2:String = 'guy';
+    public var player1:String = 'player';
+    public var player2:String = 'opponent';
 
     public function new(song, notes, bpm, sections)
     {
@@ -42,14 +42,14 @@ class Song
             this.sectionLengths.push(notes[i]);
     }
 
-    public static function loadFromJSON(file:String, ?folder:String):Cantando
+    public static function loadFromJSON(file:String, ?folder:String):SongData
     {
-        var rawJson = Assets.getText(Paths.json(folder.toLowerCase() + '/' + file.toLowerCase())).trim();
+        var rawJson = Assets.getText(Paths.json('rhythmo/' + folder.toLowerCase() + '/' + file.toLowerCase())).trim();
 
         while (!rawJson.endsWith("}"))
             rawJson = rawJson.substr(0, rawJson.length - 1);
 
-        var swagger:Cantando = cast Json.parse(rawJson).song;
+        var swagger:SongData = cast Json.parse(rawJson).song;
         return swagger;
     }
 }

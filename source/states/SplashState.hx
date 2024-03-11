@@ -69,7 +69,7 @@ class SplashState extends FlxState
             });
         });
 
-        if (Input.is('accept') || Input.is('space'))
+        if (Input.is('enter') || Input.is('space'))
         {
             FlxG.camera.fade(FlxColor.BLACK, 0.33, false, () ->
             {

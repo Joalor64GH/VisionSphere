@@ -4,13 +4,13 @@ import states.games.rhythmo.Character;
 
 using StringTools;
 
-class Player extends Character
+class Opponent extends Character
 {
     public function new(x:Float, y:Float)
     {
         super(x, y);
 
-        frames = Paths.getSparrowAtlas('game/rhythmo/player');
+        frames = Paths.getSparrowAtlas('game/rhythmo/opponent');
         animation.addByPrefix('idle', 'Idle', 24);
         animation.addByPrefix('singUP', 'Up', 24);
         animation.addByPrefix('singDOWN', 'Down', 24);
@@ -19,12 +19,10 @@ class Player extends Character
 
         playAnim('idle');
 
-        addOffset('idle', 0, -10);
-        addOffset('singUP', -45, 11);
-        addOffset('singDOWN', -48, -31);
-        addOffset('singLEFT', 33, -6);
-        addOffset('singRIGHT', -61, -14);
-
-        flipX = true;
+        addOffset('idle', 0, -350);
+        addOffset('singUP', 8, -334);
+        addOffset('singDOWN', -17, -375);
+        addOffset('singLEFT', 22, -353);
+        addOffset('singRIGHT', 50, -348);
     }
 }
