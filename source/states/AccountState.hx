@@ -79,7 +79,7 @@ class AccountState extends FlxState
         }
 
         if (FlxG.mouse.overlaps(usernameTxt) && FlxG.mouse.pressed)
-            openSubState(new states.substates.AccountNameSubState());
+            openSubState(new AccountNameSubState());
 
         if (Input.is('right') || Input.is('left'))
             switchProfile(Input.is('right') ? 1 : -1);

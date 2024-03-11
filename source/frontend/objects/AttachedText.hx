@@ -21,15 +21,15 @@ class AttachedText extends Alphabet
 
     override function update(elapsed:Float)
 	{
-		if (sprTracker != null) {
-			setPosition(sprTracker.x + offsetX, sprTracker.y + offsetY);
+        if (sprTracker != null) {
+            setPosition(sprTracker.x + offsetX, sprTracker.y + offsetY);
 
-			if (copyVisible) 
-				visible = sprTracker.visible;
+            if (copyVisible)
+                visible = sprTracker.visible;
 
             if (copyAlpha)
-				alpha = sprTracker.alpha;
-		}
+                alpha = sprTracker.alpha;
+        }
 
         super.update(elapsed);
 	}
