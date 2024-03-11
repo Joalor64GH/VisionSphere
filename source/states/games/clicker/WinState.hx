@@ -17,6 +17,7 @@ class WinState extends FlxState
         add(text);
 
         FlxG.camera.fade(FlxColor.BLACK, 0.33, true);
+        
         FlxG.sound.play(Paths.sound('2048/win'));
 
         super.create();
@@ -26,7 +27,7 @@ class WinState extends FlxState
     {
         super.update(elapsed);
 
-        if (Input.is('any'))
+        if (Input.is('any') || FlxG.mouse.justPressed)
         {
             FlxG.camera.fade(FlxColor.BLACK, 0.33, false, () ->
             {
