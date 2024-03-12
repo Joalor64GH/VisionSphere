@@ -48,7 +48,7 @@ class CreditsState extends FlxState
 
         credData = Json.parse(Paths.getTextFromFile('data/credits.json'));
 
-        if (credData.menuBG != null || credData.menuBG.length > 0)
+        if (credData.menuBG != null && credData.menuBG.length > 0)
             menuBG = new FlxSprite().loadGraphic(Paths.image(credData.menuBG));
         else
             menuBG = new FlxSprite().loadGraphic(Paths.image('desatBG'));
