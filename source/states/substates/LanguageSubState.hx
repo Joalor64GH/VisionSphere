@@ -1,5 +1,7 @@
 package states.substates;
 
+import openfl.Assets;
+
 class LanguageSubState extends FlxSubState
 {
     var curSelected:Int = 0;
@@ -13,9 +15,9 @@ class LanguageSubState extends FlxSubState
 
         var initLangString = CoolUtil.getText(Paths.txt('languagesData'));
 
-        if (FileSystem.exists(Paths.txt('languagesData')))
+        if (Assets.exists(Paths.txt('languagesData')))
         {
-            initLangString = CoolUtil.getText(Paths.txt('languagesData')).trim().split('\n');
+            initLangString = Assets.getText(Paths.txt('languagesData')).trim().split('\n');
 
             for (i in 0...initLangString.length)
                 initLangString[i] = initLangString[i].trim();
@@ -23,7 +25,7 @@ class LanguageSubState extends FlxSubState
 
         for (i in 0...initLangString.length)
         {
-            var data:Array<String> = initLangString.split(':');
+            var data:Array<String> = initLangString[i].split(':');
             langStrings.push(new Locale(data[0], data[1]));
         }
 
