@@ -5,7 +5,7 @@ class LanguageSubState extends FlxSubState
     var curSelected:Int = 0;
     var iconArray:Array<AttachedSprite> = [];
     var coolGrp:FlxTypedGroup<Alphabet>;
-    var langStrings:Array<Locale> = [
+    var langStrings:Array<Locale> = [ // might replace with Array<String> because cooler!!
         new Locale('Deutsch', 'de'),
         new Locale('English', 'en'),
         new Locale('Español', 'es'),
@@ -14,9 +14,13 @@ class LanguageSubState extends FlxSubState
         new Locale('Português', 'pt')
     ];
 
+    // var langStrings:Array<String> = [];
+
     public function new()
     {
         super();
+
+        // langStrings = CoolUtil.getText(Paths.txt('languages'));
 
         var bg:FlxSprite = new FlxSprite().makeGraphic(1280, 720, 0xFF000000);
         bg.alpha = 0.65;

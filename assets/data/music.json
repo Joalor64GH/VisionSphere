@@ -1,0 +1,28 @@
+{
+    "bg": null,
+    "songs": [
+        {"name":"Arcadia Mania", "song":"arcadia-mania", "disc":"arcadia", "bpm":125},
+        {"name":"Ascension", "song":"ascension", "disc":"ascension", "bpm":110},
+        {"name":"Christmas Wishes",  "song":"christmas-wishes", "disc":"christmas", "bpm":130},
+        {"name":"Creepy Ol Forest", "song":"creepy-ol-forest", "disc":"creepy", "bpm":100},
+        {"name":"Dreamy Lo-fi Beats", "song":"dreamy-lo-fi-beats", "disc":"dreamy", "bpm":120},
+        {"name":"Forever Confusing", "song":"forever-confusing", "disc":"forever", "bpm":110},
+        {"name":"Game Development", "song":"game-development", "disc":"game", "bpm":130},
+        {"name":"GBA Cliche", "song":"gba-cliche", "disc":"gba", "bpm":100},
+        {"name":"Gem City", "song":"gem-city", "disc":"gem", "bpm":120},
+        {"name":"Harmony of No Tomorrow", "song":"harmony-of-no-tomorrow", "disc":"harmony", "bpm":110},
+        {"name":"Hexes and Frostbite", "song":"hexes-and-frostbite", "disc":"hexes", "bpm":120},
+        {"name":"Mystical Desert", "song":"mystical-desert", "disc":"mystical", "bpm":100},
+        {"name":"New Era", "song":"new-era", "disc":"new", "bpm":125},
+        {"name":"Oceanic Utopia", "song":"oceanic-utopia", "disc":"oceanic", "bpm":140},
+        {"name":"Nighttime Gaming", "song":"nighttime-gaming", "disc":"nighttime", "bpm":120},
+        {"name":"Nighttime Gaming REMIX", "song":"nighttime-gaming-remix", "disc":"nighttimere", "bpm":130},
+        {"name":"Pixel Birthday Bash", "song":"pixel-birthday-bash", "disc":"pixel", "bpm":100},
+        {"name":"Pure Indian Vibes", "song":"pure-indian-vibes", "disc":"pure", "bpm":100},
+        {"name":"Pyramid's Core", "song":"pyramids-core", "disc":"pyramid", "bpm":120},
+        {"name":"Relaxing Evening Lo-fi", "song":"relaxing-evening-lo-fi", "disc":"relaxing", "bpm":120},
+        {"name":"Silver Candy", "song":"silver-candy", "disc":"silver", "bpm":135},
+        {"name":"Universal Questioning", "song":"universal-questioning", "disc":"universal", "bpm":125},
+        {"name":"Untitled Lo-fi Song", "song":"untitled-lo-fi-song", "disc":"untitled", "bpm":130}
+    ]
+}

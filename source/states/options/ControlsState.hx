@@ -8,9 +8,14 @@ package states.options;
 class ControlsState extends FlxState
 {
     var init:Int = 0;
+
     var inChange:Bool = false;
+    var keyboardMode:Bool = true;
+
     var text1:FlxText;
     var text2:FlxText;
+
+    var controllerSpr:FlxSprite;
 
     override public function create()
     {
@@ -21,6 +26,11 @@ class ControlsState extends FlxState
 
         var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('theme/' + SaveData.theme));
         add(bg);
+
+        controllerSpr = new FlxSprite(50, 40).loadGraphic(Paths.image('controllertype'), true, 82, 60);
+        controllerSpr.animation.add('keyboard', [0], 1, false);
+        controllerSpr.animation.add('gamepad', [1], 1, false);
+        add(controllerSpr);
 
         var instructionsTxt:FlxText = new FlxText(5, FlxG.height - 24, 0, "Press LEFT/RIGHT to scroll through keys.", 12);
         instructionsTxt.setFormat(Paths.font('vcr.ttf'), 26, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
@@ -40,6 +50,8 @@ class ControlsState extends FlxState
     override public function update(elapsed:Float)
     {
         super.update(elapsed);
+
+        controllerSpr.animation.play(keyboardMode ? 'keyboard' : 'gamepad');
 
         if ((Input.is('exit') || Input.is('backspace')) && !inChange)
         {

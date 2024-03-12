@@ -1,5 +1,10 @@
 package states;
 
+typedef BasicData = {
+    var ?bg:String;
+    var songs:Array<Song>;
+}
+
 typedef Song = {
     var name:String;
     var song:String;
@@ -29,7 +34,7 @@ class MusicState extends states.MusicState.BeatState
         {name:"GBA Cliche", song:"gba-cliche", disc:"gba", bpm:100},
         {name:"Gem City", song:"gem-city", disc:"gem", bpm:120},
         {name:"Harmony of No Tomorrow", song:"harmony-of-no-tomorrow", disc:"harmony", bpm:110},
-        {name:"Hexes and Frostbite", song:"hexes-and-frostbite", disc:"hexes", bpm:120}, // tomorrow probably
+        {name:"Hexes and Frostbite", song:"hexes-and-frostbite", disc:"hexes", bpm:120},
         {name:"Mystical Desert", song:"mystical-desert", disc:"mystical", bpm:100},
         {name:"New Era", song:"new-era", disc:"new", bpm:125},
         {name:"Oceanic Utopia", song:"oceanic-utopia", disc:"oceanic", bpm:140},

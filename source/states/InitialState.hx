@@ -18,8 +18,11 @@ class InitialState extends FlxState
 
         Paths.clearStoredMemory();
         Paths.clearUnusedMemory();
-        
-        Localization.loadLanguages(['de', 'en', 'es', 'fr', 'it', 'pt']);
+
+        var langList:Array<String> = CoolUtil.getText(Paths.txt('languages'));
+
+        for (i in 0...langList.length) // i have no idea if this will work
+            Localization.loadLanguages(langList[i]);
 
         FlxG.sound.muteKeys = [NUMPADZERO];
         FlxG.sound.volumeDownKeys = [NUMPADMINUS];
@@ -61,6 +64,7 @@ class InitialState extends FlxState
         add(spinner);
 
         trace("Installed Mods: " + getInstalledMods());
+        trace("Current Platform: " + backend.system.PlatformUtil.getPlatform());
 
         super.create();
     }
