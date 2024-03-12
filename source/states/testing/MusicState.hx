@@ -38,9 +38,9 @@ class MusicState extends states.MusicState.BeatState
 
         var bg:FlxSprite = new FlxSprite();
         if (musicData.bg != null && musicData.bg.length > 0)
-            loadGraphic(Paths.image(musicData.bg));
+            bg.loadGraphic(Paths.image(musicData.bg));
         else
-            loadGraphic(Paths.image('theme/' + SaveData.theme));
+            bg.loadGraphic(Paths.image('theme/' + SaveData.theme));
         add(bg);
 
         var musplayer:FlxSprite = new FlxSprite(0, 0).loadGraphic(Paths.image('music/musplayer'));
@@ -137,10 +137,10 @@ class MusicState extends states.MusicState.BeatState
 
         curSelected += change;
 
-        if (curSelected >= songs.length)
+        if (curSelected >= musicData.songs.length)
             curSelected = 0;
         else if (curSelected < 0)
-            curSelected = songs.length - 1;
+            curSelected = musicData.songs.length - 1;
 
         disc.loadGraphic(Paths.image('music/discs/${musicData.songs[curSelected].disc}'));
 
