@@ -8,6 +8,8 @@ import flixel.effects.particles.FlxParticle;
 
 class InitialState extends FlxState
 {
+    var langList:Array<String> = [];
+
     override function create()
     {
         SaveData.init();
@@ -19,7 +21,7 @@ class InitialState extends FlxState
         Paths.clearStoredMemory();
         Paths.clearUnusedMemory();
 
-        var langList:Array<String> = CoolUtil.getText(Paths.txt('languages'));
+        langList = CoolUtil.getText(Paths.txt('locales'));
 
         for (i in 0...langList.length) // i have no idea if this will work
             Localization.loadLanguages(langList[i]);
