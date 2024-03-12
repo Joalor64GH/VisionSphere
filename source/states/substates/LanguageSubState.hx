@@ -5,22 +5,27 @@ class LanguageSubState extends FlxSubState
     var curSelected:Int = 0;
     var iconArray:Array<AttachedSprite> = [];
     var coolGrp:FlxTypedGroup<Alphabet>;
-    var langStrings:Array<Locale> = [ // might replace with Array<String> because cooler!!
-        new Locale('Deutsch', 'de'),
-        new Locale('English', 'en'),
-        new Locale('Español', 'es'),
-        new Locale('Français', 'fr'),
-        new Locale('Italiano', 'it'),
-        new Locale('Português', 'pt')
-    ];
-
-    // var langStrings:Array<String> = [];
+    var langStrings:Array<Locale> = [];
 
     public function new()
     {
         super();
 
-        // langStrings = CoolUtil.getText(Paths.txt('languages'));
+        var initLangString = CoolUtil.getText(Paths.txt('languagesData'));
+
+        if (FileSystem.exists(Paths.txt('languagesData')))
+        {
+            initLangString = CoolUtil.getText(Paths.txt('languagesData')).trim().split('\n');
+
+            for (i in 0...initLangString.length)
+                initLangString[i] = initLangString[i].trim();
+        }
+
+        for (i in 0...initLangString.length)
+        {
+            var data:Array<String> = initLangString.split(':');
+            langStrings.push(new Locale(data[0], data[1]));
+        }
 
         var bg:FlxSprite = new FlxSprite().makeGraphic(1280, 720, 0xFF000000);
         bg.alpha = 0.65;
@@ -31,7 +36,7 @@ class LanguageSubState extends FlxSubState
 
         for (i in 0...langStrings.length)
         {
-            var label:Alphabet = new Alphabet(190, 320, langStrings[i].lang, true);
+            var label:Alphabet = new Alphabet(200, 320, langStrings[i].lang, true);
             label.isMenuItem = true;
             label.targetY = i;
             coolGrp.add(label);
@@ -63,24 +68,9 @@ class LanguageSubState extends FlxSubState
         if (Input.is('accept'))
         {
             SaveData.saveSettings();
-            FlxG.sound.play(Paths.sound('confirm'));
-            switch(curSelected)
-            {
-                case 0:
-                    SaveData.lang = 'de';
-                case 1:
-                    SaveData.lang = 'en';
-                case 2:
-                    SaveData.lang = 'es';
-                case 3:
-                    SaveData.lang = 'fr';
-                case 4:
-                    SaveData.lang = 'it';
-                case 5:
-                    SaveData.lang = 'pt';
-            }
-
+            SaveData.lang = langStrings[curSelected].code;
             Localization.switchLanguage(SaveData.lang);
+            FlxG.sound.play(Paths.sound('confirm'));
             close();
         }
         else if (Input.is('exit'))
