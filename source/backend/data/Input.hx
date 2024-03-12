@@ -50,12 +50,12 @@ class Input
     }
 
     public var controllerMap:Map<String, FlxGamepadInputID> = [
-        "gamepad_left" => DPAD_LEFT,
-        "gamepad_right" => DPAD_RIGHT,
-        "gamepad_down" => DPAD_DOWN,
-        "gamepad_up" => DPAD_UP,
-        "gamepad_accept" => A,
-        "gamepad_exit" => B
+        "gamepad_left" => SaveData.gamepadLeftKey,
+        "gamepad_right" => SaveData.gamepadRightKey,
+        "gamepad_down" => SaveData.gamepadDownKey,
+        "gamepad_up" => SaveData.gamepadUpKey,
+        "gamepad_accept" => SaveData.gamepadAcceptKey,
+        "gamepad_exit" => SaveData.gamepadExitKey
     ];
 
     public function gamepadIs(key:String, ?state:FlxInputState = JUST_PRESSED):Bool

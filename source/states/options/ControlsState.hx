@@ -16,6 +16,7 @@ class ControlsState extends FlxState
     var text2:FlxText;
 
     var controllerSpr:FlxSprite;
+    var shakeTween:FlxTween;
 
     override public function create()
     {
@@ -52,6 +53,7 @@ class ControlsState extends FlxState
         super.update(elapsed);
 
         controllerSpr.animation.play(keyboardMode ? 'keyboard' : 'gamepad');
+        shakeTween = (FlxG.mouse.overlaps(controllerSpr)) ? FlxTween.shake(controllerSpr, 0.01, 0.1, flixel.util.FlxAxes.XY, {type: LOOPING}) : null;
 
         if ((Input.is('exit') || Input.is('backspace')) && !inChange)
         {
