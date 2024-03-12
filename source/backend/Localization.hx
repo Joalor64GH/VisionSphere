@@ -12,14 +12,25 @@ class Localization
     private static var currentLanguage:String;
     private static var DEFAULT_LANGUAGE:String = "en";
 
-    public static function loadLanguages(languages:Array<String>):Bool
+    public static function loadLanguages():Bool
     {
         var allLoaded:Bool = true;
 
         data = new Map<String, Dynamic>();
 
+        var listPath:String = Paths.txt('languagesList');
+        var languages:Array<String> = [];
+
+        if (FileSystem.exists(listPath)) {
+            var listContent:String = File.getContent(listPath);
+            languages = listContent.split("\n");
+        } else {
+            trace("uh oh! Couldn't find languagesList.txt!");
+            return false;
+        }
+
         for (language in languages) {
-            var languageData:Dynamic = loadLanguageData(language);
+            var languageData:Dynamic = loadLanguageData(language.trim());
             if (languageData != null) {
                 trace("successfully loaded language: " + language + "!");
                 data.set(language, languageData);
