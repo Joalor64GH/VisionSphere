@@ -35,6 +35,8 @@
 	<haxelib name="flixel-ui" />
 	<haxelib name="hscript" />
 	<haxelib name="djFlixel" />
+
+	<haxelib name="flixel-studio" if="debug" />
 	<haxelib name="hxcpp-debug-server" if="desktop debug" />
 
 	<!-- [ Defines ] -->

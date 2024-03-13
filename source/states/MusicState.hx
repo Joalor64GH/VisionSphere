@@ -124,10 +124,8 @@ class MusicState extends states.MusicState.BeatState
             }
         }
 
-        #if debug
         if (Input.is('d'))
             FlxG.switchState(new states.testing.MusicState());
-        #end
     }
 
     override function stepHit()

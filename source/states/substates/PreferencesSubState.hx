@@ -43,7 +43,7 @@ class PreferencesSubState extends BaseOptionsMenu
                 'Tritanopia', 
                 'Gameboy', 
                 'Vitrual Boy', 
-                'Black and White'
+                'Black and White',
                 'Inverted',
                 'What Even'
             ]);
