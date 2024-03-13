@@ -58,7 +58,7 @@ class OptionsState extends FlxState
             {
                 case "Preferences":
                     openSubState(new PreferencesSubState());
-                case "Language"
+                case "Language":
                     openSubState(new LanguageSubState());
                 case "Controls":
                     openSubState(new ControlsSubState());
