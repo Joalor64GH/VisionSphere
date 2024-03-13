@@ -1,11 +1,13 @@
-package states.options;
+package states.substates;
+
+import flixel.input.gamepad.FlxGamepadInputID;
 
 /**
  * @author khuonghoanghuy
  * @see https://github.com/khuonghoanghuy/FNF-Pop-Engine-Rewrite/
  */
 
-class ControlsState extends FlxState
+class ControlsSubState extends FlxSubState
 {
     var init:Int = 0;
 
@@ -18,14 +20,12 @@ class ControlsState extends FlxState
     var controllerSpr:FlxSprite;
     var shakeTween:FlxTween;
 
-    override public function create()
+    public function new()
     {
-        super.create();
+        super();
 
-        Paths.clearStoredMemory();
-        Paths.clearUnusedMemory();
-
-        var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('theme/' + SaveData.theme));
+        var bg:FlxSprite = new FlxSprite().makeGraphic(1280, 720, FlxColor.BLACK);
+        bg.alpha = 0.65;
         add(bg);
 
         controllerSpr = new FlxSprite(50, 40).loadGraphic(Paths.image('controllertype'), true, 82, 60);
@@ -56,17 +56,7 @@ class ControlsState extends FlxState
         shakeTween = (FlxG.mouse.overlaps(controllerSpr)) ? FlxTween.shake(controllerSpr, 0.01, 0.1, flixel.util.FlxAxes.XY, {type: LOOPING}) : null;
 
         if ((Input.is('exit') || Input.is('backspace')) && !inChange)
-        {
-            FlxG.switchState(OptionsState.new);
-            FlxG.sound.play(Paths.sound('cancel'));
-            if (!Input.is('backspace'))
-            {
-                SaveData.saveSettings();
-                trace('settings saved!');
-            }
-            else
-                trace('settings not saved!');
-        }
+            close();
 
         if (Input.is('accept'))
         {

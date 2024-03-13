@@ -1,7 +1,5 @@
 package states;
 
-import states.options.*;
-
 typedef CreditsPrefDef = {
     var ?menuBG:String;
     var ?menuBGColor:Array<Int>;
@@ -178,7 +176,7 @@ class CreditsState extends FlxState
         if (Input.is('exit'))
         {
             FlxG.sound.play(Paths.sound('cancel'));
-            FlxG.switchState(MiscState.new);
+            FlxG.switchState(OptionsState.new);
             Paths.clearUnusedMemory();
         }
 

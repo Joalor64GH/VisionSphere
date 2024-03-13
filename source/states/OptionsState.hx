@@ -1,4 +1,4 @@
-package states.options;
+package states;
 
 class OptionsState extends FlxState
 {
@@ -6,8 +6,12 @@ class OptionsState extends FlxState
     var grpOptions:FlxTypedGroup<Alphabet>;
     var options:Array<String> = [
         "Preferences",
+        "Language",
         "Controls",
-        "Miscellaneous",
+        "Credits",
+        "System Information",
+        "Restart",
+        "Shut Down",
         "Exit"
     ];
 
@@ -18,8 +22,6 @@ class OptionsState extends FlxState
         Paths.clearStoredMemory();
         Paths.clearUnusedMemory();
 
-        persistentUpdate = persistentDraw = true;
-
         var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('theme/' + SaveData.theme));
         add(bg);
 
@@ -29,6 +31,7 @@ class OptionsState extends FlxState
         for (i in 0...options.length)
         {
             var optionTxt:Alphabet = new Alphabet(0, 0, options[i], true);
+            optionTxt.scale.set(0.8, 0.8);
             optionTxt.screenCenter();
             optionTxt.y += (100 * (i - (options.length / 2))) + 50;
             grpOptions.add(optionTxt);
@@ -54,11 +57,34 @@ class OptionsState extends FlxState
             switch (options[curSelected])
             {
                 case "Preferences":
-                    FlxG.switchState(PreferencesState.new);
+                    openSubState(new PreferencesSubState());
+                case "Language"
+                    openSubState(new LanguageSubState());
                 case "Controls":
-                    FlxG.switchState(ControlsState.new);
-                case "Miscellaneous":
-                    FlxG.switchState(MiscState.new);
+                    openSubState(new ControlsSubState());
+                case "Credits":
+                    FlxG.switchState(CreditsState.new);
+                case "System Information":
+                    openSubState(new SystemInfoSubState());
+                case "Restart":
+                    openSubState(new PromptSubState("Are you sure?", () -> {
+                        FlxG.camera.fade(FlxColor.BLACK, 0.5, false, FlxG.resetGame, false);
+                    }, () -> {
+                        closeSubState();
+                    }));
+                case "Shut Down":
+                    openSubState(new PromptSubState("Are you sure?", () -> {
+                        FlxG.camera.fade(FlxColor.BLACK, 0.5, false, () ->
+                        {
+                            #if (sys || cpp)
+                            Sys.exit(0);
+                            #else
+                            openfl.system.System.exit(0);
+                            #end
+                        });
+                    }, () -> {
+                        closeSubState();
+                    }));
                 case "Exit":
                     FlxG.switchState(MenuState.new);
             }
@@ -69,6 +95,12 @@ class OptionsState extends FlxState
             FlxG.switchState(MenuState.new);
             FlxG.sound.play(Paths.sound('cancel'));
         }
+    }
+
+    override function closeSubState() 
+    {
+        SaveData.saveSettings();
+        super.closeSubState();
     }
 
     private function changeSelection(change:Int = 0)
