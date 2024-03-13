@@ -209,7 +209,7 @@ class BaseOptionsMenu extends FlxSubState {
         descText.y += 270;
 
         for (num => item in grpOptions.members) {
-            item.targetY = num - curSelected
+            item.targetY = num - curSelected;
             item.alpha = (item.targetY == 0) ? 1 : 0.6;
         }
 
