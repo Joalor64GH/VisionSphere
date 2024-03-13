@@ -105,7 +105,7 @@ class Option
     private function get_type()
     {
         var newValue:String = 'bool';
-        switch (type.toLowercase().trim())
+        switch (type.toLowerCase().trim())
         {
             case 'int' | 'float' | 'percent' | 'string': newValue = type;
             case 'integer': newValue = 'int';

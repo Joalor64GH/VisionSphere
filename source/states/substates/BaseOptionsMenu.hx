@@ -42,7 +42,7 @@ class BaseOptionsMenu extends FlxSubState {
         add(descText);
 
         for (i in 0...optionsArray.length) {
-            var optionText:Alphabet = new Alphabet(90, 320, optionsArray[i], true);
+            var optionText:Alphabet = new Alphabet(90, 320, optionsArray[i].name, true);
             optionText.isMenuItem = true;
             optionText.targetY = i;
             grpOptions.add(optionText);

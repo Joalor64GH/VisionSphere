@@ -21,7 +21,7 @@ class PreferencesSubState extends BaseOptionsMenu
             'bool',
             false);
         addOption(option);
-        option.onChange = optionOnChange;
+        option.onChange = () -> optionOnChange;
         #end
 
         var option:Option = new Option('FPS Counter',
@@ -48,7 +48,7 @@ class PreferencesSubState extends BaseOptionsMenu
                 'What Even'
             ]);
         addOption(option);
-        option.onChange = optionOnChange;
+        option.onChange = () -> optionOnChange;
 
         var option:Option = new Option('Colorblind Intensity:',
             'How intense should the colorblind filters be?',
@@ -56,7 +56,7 @@ class PreferencesSubState extends BaseOptionsMenu
             'percent',
             0);
         addOption(option);
-        option.onChange = optionOnChange;
+        option.onChange = () -> optionOnChange;
         option.scrollSpeed = 1.6;
         option.minValue = 0.1;
         option.maxValue = 1.0;
@@ -77,7 +77,7 @@ class PreferencesSubState extends BaseOptionsMenu
             'int',
             60);
         addOption(option);
-        option.onChange = optionOnChange;
+        option.onChange = () -> optionOnChange;
         option.minValue = 60;
         option.maxValue = 240;
         option.displayFormat = '%v FPS';
@@ -90,7 +90,7 @@ class PreferencesSubState extends BaseOptionsMenu
             'daylight',
             ['daylight', 'night', 'dreamcast', 'ps3', 'xp']);
         addOption(option);
-        option.onChange = optionOnChange;
+        option.onChange = () -> optionOnChange;
     }
 
     function optionOnChange(name:String)
@@ -106,10 +106,10 @@ class PreferencesSubState extends BaseOptionsMenu
 			        Main.fpsDisplay.visible = SaveData.fpsCounter;
             case 'Colorblind Mode:' | 'Colorblind Intensity:':
                 var index = ['None', 'Deuteranopia', 'Protanopia', 'Tritanopia', 'Gameboy', 
-                    'Vitrual Boy', 'Black and White', 'Inverted', 'What Even'];
+                    'Vitrual Boy', 'Black and White', 'Inverted', 'What Even'].indexOf(SaveData.colorBlindMode);
                 Colorblind.updateColorBlindFilter(index, SaveData.colorBlindIntensity);
             case 'Theme:':
-                var index = ['daylight', 'night', 'dreamcast', 'ps3', 'xp'];
+                var index = ['daylight', 'night', 'dreamcast', 'ps3', 'xp'].indexOf(SaveData.theme);
                 bg.loadGraphic(Paths.image('theme/' + index));
             case 'Framerate:':
                 FlxG.updateFramerate = (SaveData.framerate > FlxG.drawFramerate) ? SaveData.framerate : SaveData.framerate;
