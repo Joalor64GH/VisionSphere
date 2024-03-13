@@ -66,7 +66,7 @@ class Checkbox extends FlxSprite
                 offset.set(3, 12);
             case 'unchecking':
                 animation.play('unchecked', true);
-                offset.set(0, 2)
+                offset.set(0, 2);
         }
     }
 }
