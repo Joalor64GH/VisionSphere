@@ -54,6 +54,7 @@ class PlayState extends FlxState
             {img: "painter", desc: "Let out your inner Picasso!", title: "Painter"},
             {img: "math", desc: "An endless math problem game!", title: "The Simple Math Game"},
             {img: "teturisu", desc: "It's tetris in Haxeflixel lol.", title: "Teturisu"}
+            {img: "blank", desc: "Can you react in less than 10 seconds?", title: "The Reaction Game"}
         ];
 
         for (data in games)
@@ -143,6 +144,11 @@ class PlayState extends FlxState
                     FlxG.camera.fade(FlxColor.BLACK, 0.5, false, () ->
                     {
                         FlxG.switchState(new states.games.tetris.MainMenuState());
+                    });
+                case 6:
+                    FlxG.camera.fade(FlxColor.BLACK, 0.5, false, () ->
+                    {
+                        FlxG.switchState(new states.games.ReactionGame());
                     });
             }
         }

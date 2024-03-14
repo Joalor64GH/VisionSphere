@@ -25,6 +25,8 @@ class MusicState extends states.MusicState.BeatState
     var curSelected:Int = 0;
     var musicData:BasicData;
 
+    var bg:FlxSprite;
+
     override public function create()
     {
         Paths.clearStoredMemory();
@@ -36,11 +38,10 @@ class MusicState extends states.MusicState.BeatState
 
         musicData = Json.parse(Paths.getTextFromFile('music'));
 
-        var bg:FlxSprite = new FlxSprite();
         if (musicData.bg != null && musicData.bg.length > 0)
-            bg.loadGraphic(Paths.image(musicData.bg));
+            bg = new FlxSprite().loadGraphic(Paths.image(musicData.bg));
         else
-            bg.loadGraphic(Paths.image('theme/' + SaveData.theme));
+            bg = new FlxSprite().loadGraphic(Paths.image('theme/' + SaveData.theme));
         add(bg);
 
         var musplayer:FlxSprite = new FlxSprite(0, 0).loadGraphic(Paths.image('music/musplayer'));
@@ -165,8 +166,7 @@ class MusicState extends states.MusicState.BeatState
         loaded = true;
 
         var seconds:String = '' + Std.int(FlxG.sound.music.length / 1000) % 60;
-        if (seconds.length == 1)
-            seconds = '0' + seconds;
+        if (seconds.length == 1) seconds = '0' + seconds;
 
         lengthTxt.text = 'Song Length: ${Std.int(FlxG.sound.music.length / 1000 / 60)}:$seconds';
     }

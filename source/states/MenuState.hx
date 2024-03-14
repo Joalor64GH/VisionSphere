@@ -1,7 +1,5 @@
 package states;
 
-import states.options.*;
-
 class MenuState extends FlxState
 {
     var dateText:FlxText;
@@ -33,7 +31,7 @@ class MenuState extends FlxState
         var logo:FlxSprite = new FlxSprite(10, bar.y + 5).loadGraphic(Paths.image('menu/icon'));
         add(logo);
 
-        if (FlxG.random.bool(30)) 
+        if (FlxG.random.bool(30)) // oooh banana
         {
             var banana:FlxSprite = new FlxSprite(5, FlxG.height - 120).loadGraphic(Paths.image('banan'), true, 102, 103);
             banana.animation.add('rotate', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14], 14);

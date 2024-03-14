@@ -31,7 +31,7 @@ class OptionsState extends FlxState
         for (i in 0...options.length)
         {
             var optionTxt:Alphabet = new Alphabet(0, 0, options[i], true);
-            optionTxt.scale.set(0.8, 0.8);
+            optionTxt.scale.set(0.75, 0.75);
             optionTxt.screenCenter();
             optionTxt.y += (100 * (i - (options.length / 2))) + 50;
             grpOptions.add(optionTxt);

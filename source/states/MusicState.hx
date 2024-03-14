@@ -1,10 +1,5 @@
 package states;
 
-typedef BasicData = {
-    var ?bg:String;
-    var songs:Array<Song>;
-}
-
 typedef Song = {
     var name:String;
     var song:String;
