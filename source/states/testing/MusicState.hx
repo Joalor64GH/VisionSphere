@@ -36,7 +36,7 @@ class MusicState extends states.MusicState.BeatState
 
         super.create();
 
-        musicData = Json.parse(Paths.getTextFromFile('music'));
+        musicData = Json.parse(Paths.getTextFromFile('data/music.json'));
 
         if (musicData.bg != null && musicData.bg.length > 0)
             bg = new FlxSprite().loadGraphic(Paths.image(musicData.bg));

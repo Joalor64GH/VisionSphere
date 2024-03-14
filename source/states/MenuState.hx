@@ -1,5 +1,7 @@
 package states;
 
+import frontend.shaders.ColorSwapShader;
+
 class MenuState extends FlxState
 {
     var dateText:FlxText;
@@ -8,12 +10,16 @@ class MenuState extends FlxState
     var isTweening:Bool = false;
     var lastString:String = '';
     var timer:Float = 0;
+
+    var logo:FlxSprite;
     
     var btnPlay:FlxSprite;
     var btnMods:FlxSprite;
     var btnProfile:FlxSprite;
     var btnMusic:FlxSprite;
     var btnSettings:FlxSprite;
+
+    var swapShader:ColorSwap;
 
     override public function create()
     {
@@ -22,13 +28,16 @@ class MenuState extends FlxState
         Paths.clearStoredMemory();
         Paths.clearUnusedMemory();
 
+        swapShader = new ColorSwap();
+
         var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('theme/' + SaveData.theme));
         add(bg);
 
         var bar:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menu/bar'));
         add(bar);
 
-        var logo:FlxSprite = new FlxSprite(10, bar.y + 5).loadGraphic(Paths.image('menu/icon'));
+        logo = new FlxSprite(10, bar.y + 5).loadGraphic(Paths.image('menu/icon'));
+        logo.shader = swapShader;
         add(logo);
 
         if (FlxG.random.bool(30)) // oooh banana
@@ -79,6 +88,9 @@ class MenuState extends FlxState
             if (timer >= 3)
                 changeText();
         }
+
+        if (Input.is('left') || Input.is('right'))
+            swapShader.update(Input.is('left') ? elapsed * 0.1 : -elapsed * 0.1);
 
         if (FlxG.mouse.overlaps(btnPlay) && FlxG.mouse.pressed)
         {

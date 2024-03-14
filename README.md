@@ -6,14 +6,12 @@
 A gaming console made in HaxeFlixel. Mostly based on Sega Dreamcast.
 
 > [!WARNING]
-> This project is currently in development, and stuff may be unstable or not work at the moment.
->
+> This project is currently in development, and stuff may be unstable or not work at the moment. <br>
 > So if you want to help, issue reports and pull requests would be nice!
 
 ## To-Dos
 > [!NOTE]
-> !! - High Priority
->
+> !! - High Priority <br>
 > ?? - Low Priority
 
 * [ ] Add 10 Games (6/10) **[!!]**
@@ -21,9 +19,6 @@ A gaming console made in HaxeFlixel. Mostly based on Sega Dreamcast.
 * [ ] Better In-Game Crash Handler
 * [ ] Custom Music Loading (With JSON) **[??]**
 * [X] Custom Language Loading (with TXT) (Might add mod support soon)
-* [X] Rewrite Credits Again
-* [X] Account settings
-* [X] Credits with JSON
 
 ## Wanna build?
 1. Install/Download the following:
