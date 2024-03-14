@@ -53,7 +53,7 @@ class PlayState extends FlxState
             {img: "jta", desc: "The journey ever!", title: "Journey Through Aubekhia"},
             {img: "painter", desc: "Let out your inner Picasso!", title: "Painter"},
             {img: "math", desc: "An endless math problem game!", title: "The Simple Math Game"},
-            {img: "teturisu", desc: "It's tetris in Haxeflixel lol.", title: "Teturisu"}
+            {img: "teturisu", desc: "It's tetris in Haxeflixel lol.", title: "Teturisu"},
             {img: "blank", desc: "Can you react in less than 10 seconds?", title: "The Reaction Game"}
         ];
 
