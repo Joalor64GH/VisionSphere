@@ -49,7 +49,7 @@ class Input
         return RELEASED;
     }
 
-    public var controllerMap:Map<String, FlxGamepadInputID> = [
+    public static var controllerMap:Map<String, FlxGamepadInputID> = [
         "gamepad_left" => SaveData.gamepadLeftKey,
         "gamepad_right" => SaveData.gamepadRightKey,
         "gamepad_down" => SaveData.gamepadDownKey,
@@ -58,7 +58,7 @@ class Input
         "gamepad_exit" => SaveData.gamepadExitKey
     ];
 
-    public function gamepadIs(key:String, ?state:FlxInputState = JUST_PRESSED):Bool
+    public static function gamepadIs(key:String, ?state:FlxInputState = JUST_PRESSED):Bool
     {
         var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
         if (gamepad != null)
