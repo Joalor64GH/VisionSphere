@@ -49,6 +49,8 @@ class PlayState extends BeatState
 
     private var camHUD:FlxCamera;
     private var camGame:FlxCamera;
+
+    public var scoreTxt:FlxText;
     
     override public function create()
     {
@@ -104,19 +106,50 @@ class PlayState extends BeatState
         FlxG.worldBounds.set(0, 0, FlxG.width, FlxG.height);
         FlxG.fixedTimestep = false;
 
-        // startCountdown();
+        scoreTxt = new FlxText(0, (FlxG.height * 0.89) + 36, FlxG.height, "", 20);
+        scoreTxt.setFormat(Paths.font('vcr.ttf'), 64, FlxColor.WHITE, FlxTextAlign.CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+        scoreTxt.screenCenter(X);
+        scoreTxt.scrollFactor.set();
+        add(scoreTxt);
+
+        startCountdown();
 
         strumLineNotes.cameras = [camHUD];
         notes.cameras = [camHUD];
+        scoreTxt.cameras = [camHUD];
 
         super.create();
     }
 
     var startTimer:FlxTimer;
+    var startedCountdown:Bool = false;
+
+    function startCountdown():Void
+    {
+        // generateStaticArrows(0);
+        // generateStaticArrows(1);
+
+        startedCountdown = true; 
+        Conductor.songPosition = 0;
+        Conductor.songPosition -= Conductor.crochet * 5;
+
+        var swagCounter:Int = 0;
+
+        startTimer = new FlxTimer().start(Conductor.crochet / 1000, (timer) -> 
+        {
+            opponent.playAnim('idle');
+            player.playAnim('idle');
+
+            swagCounter += 1;
+        });
+    }
 
     override function update(elapsed:Float)
     {
         super.update(elapsed);
+
+        var divider:String = " // ";
+        scoreTxt.text = "Score: " + songScore + divider + "Misses: " + songMisses;
 
         if (Input.is('exit'))
             FlxG.switchState(MenuState.new);
