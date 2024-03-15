@@ -26,6 +26,11 @@ class BaseOptionsMenu extends FlxSubState
 	{
 		super();
 
+		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('desatBG'));
+		bg.color = 0xFF2596BE;
+		bg.alpha = 0.65;
+		add(bg);
+
 		grpOptions = new FlxTypedGroup<Alphabet>();
 		add(grpOptions);
 

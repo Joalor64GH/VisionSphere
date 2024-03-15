@@ -5,13 +5,8 @@ import frontend.Colorblind;
 
 class PreferencesSubState extends BaseOptionsMenu
 {
-    var bg:FlxSprite;
-
     public function new()
     {
-        bg = new FlxSprite().loadGraphic(Paths.image('theme/' + SaveData.theme));
-        add(bg);
-
         #if desktop
         var option:Option = new Option('Fullscreen',
             'Simply enables or disables fullscreen. (Desktop Only)',
@@ -108,9 +103,6 @@ class PreferencesSubState extends BaseOptionsMenu
                 var index = ['None', 'Deuteranopia', 'Protanopia', 'Tritanopia', 'Gameboy', 
                     'Vitrual Boy', 'Black and White', 'Inverted', 'What Even'].indexOf(SaveData.colorBlindFilter);
                 Colorblind.updateColorBlindFilter(index, SaveData.colorBlindIntensity);
-            case 'Theme:':
-                var index = ['daylight', 'night', 'dreamcast', 'ps3', 'xp'].indexOf(SaveData.theme);
-                bg.loadGraphic(Paths.image('theme/' + index));
             case 'Framerate:':
                 FlxG.updateFramerate = (SaveData.framerate > FlxG.drawFramerate) ? SaveData.framerate : SaveData.framerate;
                 FlxG.drawFramerate = (SaveData.framerate > FlxG.drawFramerate) ? SaveData.framerate : SaveData.framerate;

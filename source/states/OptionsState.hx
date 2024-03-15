@@ -2,6 +2,7 @@ package states;
 
 class OptionsState extends FlxState
 {
+    var bg:FlxSprite;
     var curSelected:Int = 0;
     var grpOptions:FlxTypedGroup<Alphabet>;
     var options:Array<String> = [
@@ -22,7 +23,7 @@ class OptionsState extends FlxState
         Paths.clearStoredMemory();
         Paths.clearUnusedMemory();
 
-        var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('theme/' + SaveData.theme));
+        bg = new FlxSprite().loadGraphic(Paths.image('theme/' + SaveData.theme));
         add(bg);
 
         grpOptions = new FlxTypedGroup<Alphabet>();
@@ -42,6 +43,8 @@ class OptionsState extends FlxState
     override public function update(elapsed:Float)
     {
         super.update(elapsed);
+
+        bg.loadGraphic(Paths.image('theme/' + SaveData.theme));
 
         if (Input.is('up') || Input.is('down'))
         {
