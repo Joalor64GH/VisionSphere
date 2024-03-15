@@ -117,10 +117,10 @@ class GameOverState extends FlxState
 
         var menuBtn:FlxButton = new FlxButton(0, FlxG.height / 2 + 50, "Menu", () ->
         {
-            FlxG.camera.fade(FlxColor.BLACK, 0.33, false, () -> 
-	        {
-	            FlxG.switchState(new states.games.TheSimpleMathGame.MainMenuState());
-	        });
+            FlxG.camera.fade(FlxColor.BLACK, 0.33, false, () ->
+            {
+                FlxG.switchState(new states.games.TheSimpleMathGame.MainMenuState());
+            });
         });
         menuBtn.scale.set(2, 2);
         menuBtn.label.setFormat(Paths.font('vcr.ttf'), 16, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);

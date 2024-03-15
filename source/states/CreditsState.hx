@@ -201,8 +201,8 @@ class CreditsState extends FlxState
 
         if (credData.tweenColor)
         {
-            var color:FlxColor = FlxColor.fromRGB(credData.users[curSelected].colors[0], credData.users[curSelected].colors[1],
-				credData.users[curSelected].colors[2]);
+            var color:FlxColor - FlxColor.fromRGB(credData.users[curSelected].colors[0], credData.users[curSelected].colors[1], 
+                credData.users[curSelected].colors[2]);
 
             if (menuColorTween != null)
                 menuColorTween.cancel();

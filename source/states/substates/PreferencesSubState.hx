@@ -103,7 +103,7 @@ class PreferencesSubState extends BaseOptionsMenu
             #end
             case 'FPS Counter':
                 if (Main.fpsDisplay != null)
-			        Main.fpsDisplay.visible = SaveData.fpsCounter;
+                    Main.fpsDisplay.visible = SaveData.fpsCounter;
             case 'Colorblind Mode:' | 'Colorblind Intensity:':
                 var index = ['None', 'Deuteranopia', 'Protanopia', 'Tritanopia', 'Gameboy', 
                     'Vitrual Boy', 'Black and White', 'Inverted', 'What Even'].indexOf(SaveData.colorBlindFilter);
