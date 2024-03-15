@@ -1,5 +1,10 @@
 package states;
 
+typedef BasicData = {
+    var ?bg:String;
+    var songs:Array<Song>;
+}
+
 typedef Song = {
     var name:String;
     var song:String;
@@ -18,31 +23,9 @@ class MusicState extends states.MusicState.BeatState
     var camZooming:Bool = false;
 
     var curSelected:Int = 0;
-    var songs:Array<Song> = [
-        {name:"Arcadia Mania", song:"arcadia-mania", disc:"arcadia", bpm:125},
-        {name:"Ascension", song:"ascension", disc:"ascension", bpm:110},
-        {name:"Christmas Wishes",  song:"christmas-wishes", disc:"christmas", bpm:130},
-        {name:"Creepy Ol Forest", song:"creepy-ol-forest", disc:"creepy", bpm:100},
-        {name:"Dreamy Lo-fi Beats", song:"dreamy-lo-fi-beats", disc:"dreamy", bpm:120},
-        {name:"Forever Confusing", song:"forever-confusing", disc:"forever", bpm:110},
-        {name:"Game Development", song:"game-development", disc:"game", bpm:130},
-        {name:"GBA Cliche", song:"gba-cliche", disc:"gba", bpm:100},
-        {name:"Gem City", song:"gem-city", disc:"gem", bpm:120},
-        {name:"Harmony of No Tomorrow", song:"harmony-of-no-tomorrow", disc:"harmony", bpm:110},
-        {name:"Hexes and Frostbite", song:"hexes-and-frostbite", disc:"hexes", bpm:120},
-        {name:"Mystical Desert", song:"mystical-desert", disc:"mystical", bpm:100},
-        {name:"New Era", song:"new-era", disc:"new", bpm:125},
-        {name:"Oceanic Utopia", song:"oceanic-utopia", disc:"oceanic", bpm:140},
-        {name:"Nighttime Gaming", song:"nighttime-gaming", disc:"nighttime", bpm:120},
-        {name:"Nighttime Gaming REMIX", song:"nighttime-gaming-remix", disc:"nighttimere", bpm:130},
-        {name:"Pixel Birthday Bash", song:"pixel-birthday-bash", disc:"pixel", bpm:100},
-        {name:"Pure Indian Vibes", song:"pure-indian-vibes", disc:"pure", bpm:100},
-        {name:"Pyramid's Core", song:"pyramids-core", disc:"pyramid", bpm:120},
-        {name:"Relaxing Evening Lo-fi", song:"relaxing-evening-lo-fi", disc:"relaxing", bpm:120},
-        {name:"Silver Candy", song:"silver-candy", disc:"silver", bpm:135},
-        {name:"Universal Questioning", song:"universal-questioning", disc:"universal", bpm:125},
-        {name:"Untitled Lo-fi Song", song:"untitled-lo-fi-song", disc:"untitled", bpm:130}
-    ];
+    var musicData:BasicData;
+
+    var bg:FlxSprite;
 
     override public function create()
     {
@@ -53,7 +36,12 @@ class MusicState extends states.MusicState.BeatState
 
         super.create();
 
-        var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('theme/' + SaveData.theme));
+        musicData = Json.parse(Paths.getTextFromFile('data/music.json'));
+
+        if (musicData.bg != null && musicData.bg.length > 0)
+            bg = new FlxSprite().loadGraphic(Paths.image(musicData.bg));
+        else
+            bg = new FlxSprite().loadGraphic(Paths.image('theme/' + SaveData.theme));
         add(bg);
 
         var musplayer:FlxSprite = new FlxSprite(0, 0).loadGraphic(Paths.image('music/musplayer'));
@@ -68,7 +56,7 @@ class MusicState extends states.MusicState.BeatState
         playerneedle.screenCenter();
         add(playerneedle);
 
-        songTxt = new Alphabet(0, 0, songs[curSelected].name, true);
+        songTxt = new Alphabet(0, 0, musicData.songs[curSelected].name, true);
         songTxt.setPosition(80, musplayer.y - 120);
         add(songTxt);
 
@@ -118,9 +106,6 @@ class MusicState extends states.MusicState.BeatState
                 }
             }
         }
-
-        if (Input.is('d'))
-            FlxG.switchState(new states.testing.MusicState());
     }
 
     override function stepHit()
@@ -135,7 +120,8 @@ class MusicState extends states.MusicState.BeatState
         if (camZooming)
         {
             // did this because ascension and harmony of no tomorrow have a time signature of 3/4
-            if (curBeat % 2 == 0 || ((songs[curSelected].name == 'Ascension' || songs[curSelected].name == 'Harmony of No Tomorrow') && curBeat % 3 == 0))
+            if (curBeat % 2 == 0 || ((musicData.songs[curSelected].name == 'Ascension' 
+                || musicData.songs[curSelected].name == 'Harmony of No Tomorrow') && curBeat % 3 == 0))
                 FlxTween.tween(FlxG.camera, {zoom:1.03}, 0.3, {ease: FlxEase.quadOut, type: BACKWARD});
         }
     }
@@ -152,17 +138,17 @@ class MusicState extends states.MusicState.BeatState
 
         curSelected += change;
 
-        if (curSelected >= songs.length)
+        if (curSelected >= musicData.songs.length)
             curSelected = 0;
         else if (curSelected < 0)
-            curSelected = songs.length - 1;
+            curSelected = musicData.songs.length - 1;
 
-        disc.loadGraphic(Paths.image('music/discs/${songs[curSelected].disc}'));
+        disc.loadGraphic(Paths.image('music/discs/${musicData.songs[curSelected].disc}'));
 
-        songTxt.text = '< ${songs[curSelected].name} >';
-        states.MusicState.Conductor.bpm = songs[curSelected].bpm;
+        songTxt.text = '< ${musicData.songs[curSelected].name} >';
+        states.MusicState.Conductor.bpm = musicData.songs[curSelected].bpm;
 
-        var songName:String = songs[curSelected].song == null ? songs[curSelected].name.toLowerCase() : songs[curSelected].song;
+        var songName:String = musicData.songs[curSelected].song == null ? musicData.songs[curSelected].name.toLowerCase() : musicData.songs[curSelected].song;
         trace("NEXT SONG: " + songName);
 
         if (!loadedSongs.contains(songName))
@@ -180,8 +166,7 @@ class MusicState extends states.MusicState.BeatState
         loaded = true;
 
         var seconds:String = '' + Std.int(FlxG.sound.music.length / 1000) % 60;
-        if (seconds.length == 1)
-            seconds = '0' + seconds;
+        if (seconds.length == 1) seconds = '0' + seconds;
 
         lengthTxt.text = 'Song Length: ${Std.int(FlxG.sound.music.length / 1000 / 60)}:$seconds';
     }

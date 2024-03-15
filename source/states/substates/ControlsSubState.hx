@@ -55,7 +55,7 @@ class ControlsSubState extends FlxSubState
         if (FlxG.mouse.overlaps(controllerSpr))
         {
             shakeTween = FlxTween.shake(controllerSpr, 0.01, 0.1, flixel.util.FlxAxes.XY, {type: LOOPING});
-            if (FlxG.mouse.pressed) 
+            if (FlxG.mouse.justPressed) 
             {
                 keyboardMode = !keyboardMode;
                 if (keyboardMode == false && gamepad != null)
@@ -73,8 +73,11 @@ class ControlsSubState extends FlxSubState
 
         if (keyboardMode) 
         {
-            if ((Input.is('exit') || Input.is('backspace')) && !inChange)
+            if ((Input.is('exit') || Input.is('backspace')) && !inChange) 
+            {
+                shakeTween = null;
                 close();
+            }
 
             if (Input.is('accept'))
             {
@@ -145,8 +148,11 @@ class ControlsSubState extends FlxSubState
         {
             if (gamepad != null)
             {
-                if (Input.gamepadIs('gamepad_exit') && !inChange)
+                if (Input.gamepadIs('gamepad_exit') && !inChange) 
+                {
+                    shakeTween = null;
                     close();
+                }
 
                 if (Input.gamepadIs('gamepad_accept'))
                 {
