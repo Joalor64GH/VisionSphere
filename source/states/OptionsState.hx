@@ -2,7 +2,6 @@ package states;
 
 class OptionsState extends FlxState
 {
-    var bg:FlxSprite;
     var curSelected:Int = 0;
     var grpOptions:FlxTypedGroup<Alphabet>;
     var options:Array<String> = [
@@ -23,7 +22,7 @@ class OptionsState extends FlxState
         Paths.clearStoredMemory();
         Paths.clearUnusedMemory();
 
-        bg = new FlxSprite().loadGraphic(Paths.image('theme/' + SaveData.theme));
+        var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('theme/' + SaveData.theme));
         add(bg);
 
         grpOptions = new FlxTypedGroup<Alphabet>();
@@ -44,8 +43,6 @@ class OptionsState extends FlxState
     {
         super.update(elapsed);
 
-        bg.loadGraphic(Paths.image('theme/' + SaveData.theme));
-
         if (Input.is('up') || Input.is('down'))
         {
             FlxG.sound.play(Paths.sound('scroll'));
@@ -59,7 +56,7 @@ class OptionsState extends FlxState
             switch (options[curSelected])
             {
                 case "Preferences":
-                    openSubState(new PreferencesSubState());
+                    FlxG.switchState(PreferencesSubState.new);
                 case "Language":
                     openSubState(new LanguageSubState());
                 case "Controls":
@@ -101,7 +98,6 @@ class OptionsState extends FlxState
 
     override function closeSubState() 
     {
-        SaveData.saveSettings();
         super.closeSubState();
     }
 
