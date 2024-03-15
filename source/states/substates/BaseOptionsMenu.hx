@@ -9,7 +9,7 @@ import backend.data.Option;
  * @author ShadowMario
  */
 
-class OptionsMenu extends FlxSubState
+class BaseOptionsMenu extends FlxSubState
 {
 	private var curOption:Option = null;
 	private var curSelected:Int = 0;
@@ -39,9 +39,8 @@ class OptionsMenu extends FlxSubState
 		descBox.alpha = 0.6;
 		add(descBox);
 
-		descText = new FlxText(descBox.x, descBox.y + 4, FlxG.width, "", size);
-		descText.setFormat(Paths.font("vcr.ttf"), size, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		descText.scrollFactor.set();
+		descText = new FlxText(descBox.x, descBox.y + 4, FlxG.width, "", 16);
+		descText.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(descText);
 
 		for (i in 0...optionsArray.length)
@@ -97,7 +96,7 @@ class OptionsMenu extends FlxSubState
 			if (curOption.type != 'bool')
 				usesCheckbox = false;
 
-			if(usesCheckbox)
+			if (usesCheckbox)
 			{
 				if (Input.is('accept'))
 				{
@@ -109,7 +108,7 @@ class OptionsMenu extends FlxSubState
 				if (Input.is('left') || Input.is('right')) {
 					var pressed = (Input.is('left') || Input.is('right'));
 					if (holdTime > 0.5 || pressed) {
-						if(pressed) {
+						if (pressed) {
 							var add:Dynamic = null;
 							if (curOption.type != 'string')
 								add = Input.is('left') ? -curOption.changeValue : curOption.changeValue;
@@ -118,7 +117,7 @@ class OptionsMenu extends FlxSubState
 							{
 								case 'int' | 'float' | 'percent':
 									holdValue = curOption.getValue() + add;
-									if(holdValue < curOption.minValue) holdValue = curOption.minValue;
+									if (holdValue < curOption.minValue) holdValue = curOption.minValue;
 									else if (holdValue > curOption.maxValue) holdValue = curOption.maxValue;
 
 									switch(curOption.type)
@@ -180,7 +179,7 @@ class OptionsMenu extends FlxSubState
 					leOption.setValue(leOption.defaultValue);
 					if (leOption.type != 'bool')
 					{
-						if(leOption.type == 'string')
+						if (leOption.type == 'string')
 							leOption.curOption = leOption.options.indexOf(leOption.getValue());
 						updateTextFrom(leOption);
 					}
@@ -190,7 +189,7 @@ class OptionsMenu extends FlxSubState
 			}
 		}
 
-		if(nextAccept > 0)
+		if (nextAccept > 0)
 			nextAccept -= 1;
         
 		super.update(elapsed);
