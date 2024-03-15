@@ -15,6 +15,11 @@ class MenuState extends FlxState
     var btnMusic:FlxSprite;
     var btnSettings:FlxSprite;
 
+    var sideBox:FlxSprite;
+    var randomBox:FlxSprite;
+    var leftArrow:FlxSprite;
+    var rightArrow:FlxSprite;
+
     override public function create()
     {
         super.create();

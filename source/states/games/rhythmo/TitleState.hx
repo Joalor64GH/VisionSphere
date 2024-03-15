@@ -1,8 +1,9 @@
 package states.games.rhythmo;
 
 import flixel.addons.display.FlxGridOverlay;
+import states.games.rhythmo.BeatState;
 
-class TitleState extends FlxState
+class TitleState extends BeatState
 {
     override public function create()
     {

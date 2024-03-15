@@ -1,6 +1,8 @@
 package states.games.rhythmo;
 
-class SongSelectState extends FlxState
+import states.games.rhythmo.BeatState;
+
+class SongSelectState extends BeatState
 {
     override public function create()
     {
