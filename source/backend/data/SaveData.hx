@@ -12,8 +12,7 @@ class SaveData
     public static var lang:String = 'en';
     public static var fpsCounter:Bool = true;
     public static var fullscreen:Bool = false;
-    public static var colorBlindFilter:String = 'None';
-    public static var colorBlindIntensity:Float = 1;
+    public static var colorBlindFilter:Int = -1;
     public static var framerate:Int = 60;
     public static var username:String = "user";
     public static var profile:String = "blue";
@@ -38,7 +37,6 @@ class SaveData
         FlxG.save.data.fpsCounter = fpsCounter;
         FlxG.save.data.fullscreen = fullscreen;
         FlxG.save.data.colorBlindFilter = colorBlindFilter;
-        FlxG.save.data.colorBlindIntensity = colorBlindIntensity;
         FlxG.save.data.framerate = framerate;
         FlxG.save.data.username = username;
         FlxG.save.data.profile = profile;
@@ -74,8 +72,6 @@ class SaveData
         #end
         if (FlxG.save.data.colorBlindFilter != null)
             colorBlindFilter = FlxG.save.data.colorBlindFilter;
-        if (FlxG.save.data.colorBlindIntensity != null)
-            colorBlindIntensity = FlxG.save.data.colorBlindIntensity;
         if (FlxG.save.data.framerate != null) 
         {
             framerate = FlxG.save.data.framerate;
