@@ -56,7 +56,7 @@ class OptionsState extends FlxState
             switch (options[curSelected])
             {
                 case "Preferences":
-                    FlxG.switchState(PreferencesSubState.new);
+                    FlxG.switchState(PreferencesState.new);
                 case "Language":
                     openSubState(new LanguageSubState());
                 case "Controls":
