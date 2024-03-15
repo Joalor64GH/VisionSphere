@@ -17,12 +17,12 @@ class ReactionGame extends FlxState
     {
         super.create();
 
-        text = new FlxText(0, 0, 0, "The Reaction Game\nClick to start!", 64);
+        text = new FlxText(0, 0, 0, "The Reaction Game\nPress any button to start!", 64);
         text.screenCenter(X);
         add(text);
 
-        red = new FlxSprite().makeGraphic(150, 150, FlxColor.RED);
-        green = new FlxSprite().makeGraphic(150, 150, FlxColor.GREEN);
+        red = new FlxSprite().makeGraphic(250, 250, FlxColor.RED);
+        green = new FlxSprite().makeGraphic(250, 250, FlxColor.GREEN);
 
         allowInputs = true;
 
@@ -48,7 +48,7 @@ class ReactionGame extends FlxState
             {
                 anyPressed = true;
                 text.text = "Get ready...";
-                new FlxTimer().start(FlxG.random.float(1, 10), (timer) ->
+                new FlxTimer().start(FlxG.random.int(1, 10), (timer) ->
                 {
                     reactionTime += (gameEnded) ? 0 : elapsed;
                     thinkFast();
@@ -80,13 +80,15 @@ class ReactionGame extends FlxState
     {
         text.text = "Think fast!";
 
-        red.setPosition(FlxG.random.int(-1280, 1280), FlxG.random.int(-720, 720));
-        green.setPosition(FlxG.random.int(-1280, 1280), FlxG.random.int(-720, 720));
+        red.setPosition(FlxG.random.int(0, 900), FlxG.random.int(0, 720));
+        green.setPosition(FlxG.random.int(0, 900), FlxG.random.int(0, 720));
+
+        red.visible = green.visible = true;
 
         add(red);
         add(green);
 
-        new FlxTimer().start(FlxG.random.float(1, 10), (timer) ->
+        new FlxTimer().start(FlxG.random.int(1, 10), (timer) ->
         {
             didntClick();
         });

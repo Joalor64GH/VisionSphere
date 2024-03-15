@@ -141,6 +141,12 @@ class ControlsSubState extends FlxSubState
         {
             if (gamepad != null)
             {
+                if (Input.gamepadIs('x')) 
+                {
+                    FlxG.sound.play(Paths.sound('confirm'));
+                    keyboardMode = !keyboardMode;
+                }
+                
                 if (Input.gamepadIs('gamepad_exit') && !inChange) 
                     close();
 
