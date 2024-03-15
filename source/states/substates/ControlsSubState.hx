@@ -13,7 +13,6 @@ class ControlsSubState extends FlxSubState
     var inChange:Bool = false;
     var keyboardMode:Bool = true;
     var controllerSpr:FlxSprite;
-    var shakeTween:FlxTween;
     var text1:FlxText;
     var text2:FlxText;
 
@@ -54,7 +53,6 @@ class ControlsSubState extends FlxSubState
         controllerSpr.animation.play(keyboardMode ? 'keyboard' : 'gamepad');
         if (FlxG.mouse.overlaps(controllerSpr))
         {
-            shakeTween = FlxTween.shake(controllerSpr, 0.01, 0.1, flixel.util.FlxAxes.XY, {type: LOOPING});
             if (FlxG.mouse.justPressed) 
             {
                 keyboardMode = !keyboardMode;
@@ -68,16 +66,11 @@ class ControlsSubState extends FlxSubState
                 }
             }
         }
-        else
-            shakeTween = null;
 
         if (keyboardMode) 
         {
             if ((Input.is('exit') || Input.is('backspace')) && !inChange) 
-            {
-                shakeTween = null;
                 close();
-            }
 
             if (Input.is('accept'))
             {
@@ -149,10 +142,7 @@ class ControlsSubState extends FlxSubState
             if (gamepad != null)
             {
                 if (Input.gamepadIs('gamepad_exit') && !inChange) 
-                {
-                    shakeTween = null;
                     close();
-                }
 
                 if (Input.gamepadIs('gamepad_accept'))
                 {

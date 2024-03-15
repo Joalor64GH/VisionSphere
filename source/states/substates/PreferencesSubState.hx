@@ -9,8 +9,6 @@ class PreferencesSubState extends BaseOptionsMenu
 
     public function new()
     {
-        super();
-
         bg = new FlxSprite().loadGraphic(Paths.image('theme/' + SaveData.theme));
         add(bg);
 
@@ -91,6 +89,8 @@ class PreferencesSubState extends BaseOptionsMenu
             ['daylight', 'night', 'dreamcast', 'ps3', 'xp']);
         addOption(option);
         option.onChange = () -> optionOnChange;
+
+        super();
     }
 
     function optionOnChange(name:String)

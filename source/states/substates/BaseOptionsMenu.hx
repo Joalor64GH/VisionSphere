@@ -113,14 +113,14 @@ class BaseOptionsMenu extends FlxSubState
 							if (curOption.type != 'string')
 								add = Input.is('left') ? -curOption.changeValue : curOption.changeValue;
 
-							switch(curOption.type)
+							switch (curOption.type)
 							{
 								case 'int' | 'float' | 'percent':
 									holdValue = curOption.getValue() + add;
 									if (holdValue < curOption.minValue) holdValue = curOption.minValue;
 									else if (holdValue > curOption.maxValue) holdValue = curOption.maxValue;
 
-									switch(curOption.type)
+									switch (curOption.type)
 									{
 										case 'int':
 											holdValue = Math.round(holdValue);
