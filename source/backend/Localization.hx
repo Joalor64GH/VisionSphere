@@ -33,7 +33,7 @@ class Localization
         #end
 
         for (folder in foldersToCheck) {
-            var path:String = folder + "languagesData.txt";
+            var path:String = folder + "languagesList.txt";
             if (FileSystem.exists(path)) {
                 var listContent:String = File.getContent(path);
                 var languages:Array<String> = listContent.split('\n');
