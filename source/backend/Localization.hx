@@ -18,25 +18,41 @@ class Localization
 
         data = new Map<String, Dynamic>();
 
-        var listPath:String = Paths.txt('languagesList');
-        var languages:Array<String> = [];
+        var baseFilesPushed:Array<String> = [];
+        var modFilesPushed:Array<String> = [];
 
-        if (FileSystem.exists(listPath)) {
-            var listContent:String = File.getContent(listPath);
-            languages = listContent.split("\n");
-        } else {
-            trace("uh oh! Couldn't find languagesList.txt!");
-            return false;
-        }
+        var foldersToCheck:Array<String> = [Paths.getPath('data/'), Paths.mods('data/')];
 
-        for (language in languages) {
-            var languageData:Dynamic = loadLanguageData(language.trim());
-            if (languageData != null) {
-                trace("successfully loaded language: " + language + "!");
-                data.set(language, languageData);
-            } else {
-                trace("oh no! failed to load language: " + language + "!");
-                allLoaded = false;
+        #if MODS_ALLOWED
+        foldersToCheck.insert(0, Paths.mods("data/"));
+        if (Paths.currentModDirectory != null && Paths.currentModDirectory.length > 0)
+            foldersToCheck.insert(0, Paths.mods(Paths.currentModDirectory + "/data/"));
+        
+        for (mod in Paths.getGlobalMods())
+            foldersToCheck.insert(0, Paths.mods(mod + "/data/"));
+        #end
+
+        for (folder in foldersToCheck) {
+            var path:String = folder + "languagesData.txt";
+            if (FileSystem.exists(path)) {
+                var listContent:String = File.getContent(path);
+                var languages:Array<String> = listContent.split('\n');
+
+                for (language in languages) {
+                    var languageData:Dynamic = loadLanguageData(language.trim());
+                    if (languageData != null) {
+                        trace("successfully loaded language: " + language + "!");
+                        data.set(language, languageData);
+                    } else {
+                        trace("oh no! failed to load language: " + language + "!");
+                        allLoaded = false;
+                    }
+                }
+
+                if (folder.contains('mods/'))
+                    modFilesPushed.push(path);
+                else
+                    baseFilesPushed.push(path);
             }
         }
 

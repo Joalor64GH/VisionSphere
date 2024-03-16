@@ -6,7 +6,6 @@ class OptionsState extends FlxState
     var grpOptions:FlxTypedGroup<Alphabet>;
     var options:Array<String> = [
         "Preferences",
-        "Language",
         "Controls",
         "Credits",
         "System Information",
@@ -52,13 +51,10 @@ class OptionsState extends FlxState
         if (Input.is('accept'))
         {
             FlxG.sound.play(Paths.sound('confirm'));
-            
             switch (options[curSelected])
             {
                 case "Preferences":
                     FlxG.switchState(PreferencesState.new);
-                case "Language":
-                    openSubState(new LanguageSubState());
                 case "Controls":
                     openSubState(new ControlsSubState());
                 case "Credits":

@@ -13,21 +13,7 @@ class LanguageSubState extends FlxSubState
     {
         super();
 
-        var initLangString = CoolUtil.getText(Paths.txt('languagesData'));
-
-        if (Assets.exists(Paths.txt('languagesData')))
-        {
-            initLangString = Assets.getText(Paths.txt('languagesData')).trim().split('\n');
-
-            for (i in 0...initLangString.length)
-                initLangString[i] = initLangString[i].trim();
-        }
-
-        for (i in 0...initLangString.length)
-        {
-            var data:Array<String> = initLangString[i].split(':');
-            langStrings.push(new Locale(data[0], data[1]));
-        }
+        pushLanguages();
 
         var bg:FlxSprite = new FlxSprite().makeGraphic(1280, 720, 0xFF000000);
         bg.alpha = 0.65;
@@ -90,6 +76,52 @@ class LanguageSubState extends FlxSubState
 
     private function changeSelection(change:Int = 0) {
         curSelected = FlxMath.wrap(curSelected + change, 0, langStrings.length - 1);
+    }
+
+    private function pushLanguages()
+    {
+        var initLangString = CoolUtil.getText(Paths.txt('languagesData'));
+
+        if (Assets.exists(Paths.txt('languagesData')))
+        {
+            initLangString = Assets.getText(Paths.txt('languagesData')).trim().split('\n');
+
+            for (i in 0...initLangString.length)
+                initLangString[i] = initLangString[i].trim();
+        }
+
+        for (i in 0...initLangString.length)
+        {
+            var data:Array<String> = initLangString[i].split(':');
+            langStrings.push(new Locale(data[0], data[1]));
+        }
+        
+        // load and push mod languages
+        #if MODS_ALLOWED
+        var filesPushed:Array<String> = [];
+        var foldersToCheck:Array<String> = [Paths.mods('data/')];
+
+        if (Paths.currentModDirectory != null && Paths.currentModDirectory.length > 0)
+            foldersToCheck.insert(0, Paths.mods(Paths.currentModDirectory + '/data/'));
+
+        for (mod in Paths.getGlobalMods())
+            foldersToCheck.insert(0, Paths.mods(mod + '/data/'));
+        
+        for (folder in foldersToCheck) {
+            if (FileSystem.exists(folder) && FileSystem.isDirectory(folder)) {
+                var path:String = folder + "/languagesData.txt";
+                if (FileSystem.exists(path)) {
+                    var modLangData:String = File.getContent(path).trim();
+                    var modLangDataSplit:Array<String> = modLangData.split(':');
+
+                    if (modLangDataSplit.length == 2)
+                        langStrings.push(new Locale(modLangDataSplit[0], modLangDataSplit[1]));
+
+                    filesPushed.push(path);
+                }
+            }
+        }
+        #end
     }
 }
 
