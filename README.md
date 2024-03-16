@@ -15,11 +15,11 @@ A gaming console made in HaxeFlixel. Mostly based on Sega Dreamcast.
 > **??** - Low Priority
 
 * [ ] Add 10 Games (7/10) **[!!]**
-* [ ] Controller Support **[!!]**
+* [ ] Controller Support (Only controls menu for now) **[!!]**
 * [ ] Better In-Game Crash Handler
 * [ ] Better Main Menu
 * [X] Custom Music Loading (With JSON)
-* [X] Custom Language Loading (with TXT) (Might add mod support soon)
+* [X] Custom Language Loading (with TXT)
 
 ## Wanna build?
 1. Install/Download the following:

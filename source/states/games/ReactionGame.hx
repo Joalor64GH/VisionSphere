@@ -17,7 +17,7 @@ class ReactionGame extends FlxState
     {
         super.create();
 
-        text = new FlxText(0, 0, 0, "The Reaction Game\nPress any button to start!", 64);
+        text = new FlxText(0, 0, 0, "The Reaction Game\nPress any button to start!", 32);
         text.screenCenter(X);
         add(text);
 
@@ -64,15 +64,18 @@ class ReactionGame extends FlxState
             });
         }
 
-        if (FlxG.mouse.overlaps(green) && FlxG.mouse.pressed)
+        if (!gameEnded) 
         {
-            text.text = "Good job! Your reaction time is " + reactionTime + "\nPress R to play again.";
-            gameEnded = true;
-        }
-        else if (FlxG.mouse.overlaps(red) && FlxG.mouse.pressed)
-        {
-            text.text = "Oops! You clicked the wrong one!\nPress R to play again.";
-            gameEnded = true;
+            if (FlxG.mouse.overlaps(green) && FlxG.mouse.pressed)
+            {
+                text.text = "Good job! Your reaction time is " + reactionTime + "\nPress R to play again.";
+                gameEnded = true;
+            }
+            else if (FlxG.mouse.overlaps(red) && FlxG.mouse.pressed)
+            {
+                text.text = "Oops! You clicked the wrong one!\nPress R to play again.";
+                gameEnded = true;
+            }
         }
     }
 
@@ -87,16 +90,5 @@ class ReactionGame extends FlxState
 
         add(red);
         add(green);
-
-        new FlxTimer().start(FlxG.random.int(1, 10), (timer) ->
-        {
-            didntClick();
-        });
-    }
-
-    function didntClick()
-    {
-        text.text = "Oops! You didn't click in time!\nPress R to play again.";
-        gameEnded = true;
     }
 }
