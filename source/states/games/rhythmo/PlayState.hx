@@ -140,8 +140,106 @@ class PlayState extends BeatState
             opponent.playAnim('idle');
             player.playAnim('idle');
 
+            switch (swagCounter)
+            {
+                case 0:
+                    var three:FlxSprite = new FlxSprite().loadGraphic(Paths.image('game/rhythmo/three'));
+                    three.scrollFactor.set();
+                    three.screenCenter();
+                    add(three);
+                    FlxTween.tween(three, {y: three.y += 100, alpha: 0}, Conductor.crochet / 1000, {
+                        ease: FlxEase.cubeInOut,
+                        onComplete: (twn:FlxTween) -> {
+                            three.destroy();
+                        }
+                    });
+                case 1:
+                    var two:FlxSprite = new FlxSprite().loadGraphic(Paths.image('game/rhythmo/two'));
+                    two.scrollFactor.set();
+                    two.screenCenter();
+                    add(two);
+                    FlxTween.tween(two, {y: two.y += 100, alpha: 0}, Conductor.crochet / 1000, {
+                        ease: FlxEase.cubeInOut,
+                        onComplete: (twn:FlxTween) -> {
+                            two.destroy();
+                        }
+                    });
+                case 2:
+                    var one:FlxSprite = new FlxSprite().loadGraphic(Paths.image('game/rhythmo/one'));
+                    one.scrollFactor.set();
+                    one.screenCenter();
+                    add(one);
+                    FlxTween.tween(one, {y: one.y += 100, alpha: 0}, Conductor.crochet / 1000, {
+                        ease: FlxEase.cubeInOut,
+                        onComplete: (twn:FlxTween) -> {
+                            one.destroy();
+                        }
+                    });
+                case 3:
+                    var go:FlxSprite = new FlxSprite().loadGraphic(Paths.image('game/rhythmo/go'));
+                    go.scrollFactor.set();
+                    go.screenCenter();
+                    add(go);
+                    FlxTween.tween(go, {y: go.y += 100, alpha: 0}, Conductor.crochet / 1000, {
+                        ease: FlxEase.cubeInOut,
+                        onComplete: (twn:FlxTween) -> {
+                            go.destroy();
+                        }
+                    });
+            }
+
             swagCounter += 1;
-        });
+        }, 5);
+    }
+
+    var previousFrameTime:Int = 0;
+    var lastReportedPlayheadPosition:Int = 0;
+    var songTime:Float = 0;
+
+    function startSong():Void
+    {
+        previousFrameTime = FlxG.game.ticks;
+        lastReportedPlayheadPosition = 0;
+
+        startingSong = false;
+        FlxG.sound.playMusic(Paths.music("rhythmo/" + SONG.song + "_Inst"), 1, false);
+        FlxG.sound.music.onComplete = () -> endSong;
+        vocals.play();
+    }
+
+    private function generateSong(data:String):Void
+    {
+        var songData = SONG;
+        Conductor.bpm = songData.bpm;
+
+        curSong = songData.song;
+
+        vocals = (SONG.needsVoices) ? new FlxSound().loadEmbedded(Paths.music("rhythmo/" + curSong + "_Voices")) : new FlxSound();
+
+        FlxG.sound.list.add(vocals);
+
+        notes = new FlxTypedGroup<Note>();
+        add(notes);
+
+        var noteData:Array<SectionArray>;
+        noteData = songData.notes;
+
+        var daBeats:Int = 0;
+        for (section in noteData)
+        {
+            var coolSection:Int = Std.int(section.lengthInSteps / 4);
+            for (songNotes in section.sectionNotes)
+            {
+                var daStrumTime:Float = songNotes[0];
+                var daNoteData:Int = Std.int(songNotes[1] % 4);
+                var gottaHitNote:Bool = section.mustHitSection;
+
+                if (songNotes[1] > 3)
+                    gottaHitNote = !section.mustHitSection;
+
+                
+            }
+        }
     }
 
     override function update(elapsed:Float)

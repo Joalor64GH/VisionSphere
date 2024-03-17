@@ -52,7 +52,7 @@ class MenuState extends FlxState
 
         curOption = new FlxSprite(sideBox.x, sideBox.y).loadGraphic(Paths.image('menu/play'));
         curOption.screenCenter(Y);
-        curOption.scale.set(3, 3);
+        curOption.scale.set(1.5, 1.5);
         add(curOption);
 
         leftArrow = new FlxSprite(curOption.width - 19, curOption.y);
@@ -69,7 +69,7 @@ class MenuState extends FlxState
         rightArrow.animation.play('idle');
         add(rightArrow);
 
-        randomBox = new FlxSprite(780, 0).loadGraphic(Paths.image('menu/randombox/template'));
+        randomBox = new FlxSprite(815, 0).loadGraphic(Paths.image('menu/randombox/template'));
         randomBox.screenCenter(Y);
         add(randomBox);
 
