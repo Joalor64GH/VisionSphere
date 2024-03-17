@@ -3,10 +3,10 @@ package states.games;
 class ReactionGame extends FlxState
 {
     var reactionTime:Float = 0;
+    var timer:FlxTimer;
 
     var red:FlxSprite;
     var green:FlxSprite;
-
     var text:FlxText;
 
     var gameEnded:Bool = false;
@@ -33,8 +33,6 @@ class ReactionGame extends FlxState
     override public function update(elapsed:Float)
     {
         super.update(elapsed);
-
-        var timer:FlxTimer;
 
         if (Input.is('exit'))
         {
