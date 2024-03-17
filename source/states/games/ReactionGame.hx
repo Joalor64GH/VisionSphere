@@ -17,6 +17,7 @@ class ReactionGame extends FlxState
         super.create();
 
         text = new FlxText(0, 0, 0, "The Reaction Game\nPress any button to start!", 32);
+        text.setFormat(Paths.font('vcr.ttf'), 32, FlxColor.WHITE, FlxTextAlign.CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
         text.screenCenter(X);
         add(text);
 
@@ -41,21 +42,17 @@ class ReactionGame extends FlxState
             });
         }
 
-        if (allowInputs && !gameEnded)
+        var daTimer:FlxTimer;
+
+        if (Input.is('any') && !anyPressed && allowInputs && !gameEnded)
         {
-            if (Input.is('any') && !anyPressed)
+            anyPressed = true;
+            text.text = "Get ready...";
+            daTimer = new FlxTimer().start(FlxG.random.int(1, 10) * 0.1, (timer) ->
             {
-                anyPressed = true;
-                text.text = "Get ready...";
-                new FlxTimer().start(FlxG.random.int(1, 10), (timer) ->
-                {
-                    if (!gameEnded)
-                        reactionTime += elapsed;
-                    else
-                        reactionTime += 0;
-                    thinkFast();
-                });
-            }
+                reactionTime += timer.timeLeft;
+                thinkFast();
+            });
         }
 
         if (Input.is('r') && gameEnded)
@@ -68,13 +65,15 @@ class ReactionGame extends FlxState
 
         if (!gameEnded) 
         {
-            if (FlxG.mouse.overlaps(green) && FlxG.mouse.pressed)
+            if (FlxG.mouse.overlaps(green) && FlxG.mouse.justPressed)
             {
-                text.text = "Good job! Your reaction time is " + reactionTime + "\nPress R to play again.";
+                daTimer.stop();
+                text.text = "Good job! Your reaction time is " + reactionTime.toFixed(2) + ".\nPress R to play again.";
                 gameEnded = true;
             }
-            else if (FlxG.mouse.overlaps(red) && FlxG.mouse.pressed)
+            else if (FlxG.mouse.overlaps(red) && FlxG.mouse.justPressed)
             {
+                daTimer.stop();
                 text.text = "Oops! You clicked the wrong one!\nPress R to play again.";
                 gameEnded = true;
             }

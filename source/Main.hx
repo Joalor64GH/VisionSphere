@@ -32,12 +32,16 @@ class Main extends openfl.display.Sprite
 	public static var toast:ToastCore;
 	public static var fpsDisplay:Info;
 
+	public static var instance:Main; // will be used later
+
 	public static function main():Void
 		Lib.current.addChild(new Main());
 
 	public function new()
 	{
 		super();
+
+		instance = this;
 
 		#if windows
 		backend.system.Windows.darkMode(true);

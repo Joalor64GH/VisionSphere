@@ -95,7 +95,7 @@ class PlayState extends BeatState
 
         startingSong = true;
 
-        // generateSong(SONG.song);
+        generateSong(SONG.song);
 
         camFollow = new FlxObject(0, 0, 1, 1);
         camFollow.setPosition(camPos.x, camPos.y);
@@ -237,8 +237,53 @@ class PlayState extends BeatState
                 if (songNotes[1] > 3)
                     gottaHitNote = !section.mustHitSection;
 
-                
+                var oldNote:Note;
+                oldNote = (unspawnNotes.length > 0) ? unspawnNotes[Std.int(unspawnNotes.length - 1)] : null;
+
+                var swagNote:Note = new Note(daStrumTime, daNoteData, oldNote);
+                swagNote.sustainLength = songNotes[2];
+                swagNote.scrollFactor.set(0, 0);
+
+                var susLength:Float = swagNote.sustainLength;
+
+                susLength = susLength / Conductor.stepCrochet;
+                unspawnNotes.push(swagNote);
+
+                for (susNote in 0...Math.floor(susLength))
+                {
+                    oldNote = unspawnNotes[Std.int(unspawnNotes.length - 1)];
+
+                    var sustainNote:Note = new Note(daStrumTime + (Conductor.stepCrochet * susNote) + Conductor.stepCrochet, daNoteData, oldNote, true);
+                    sustainNote.scrollFactor.set();
+                    unspawnNotes.push(sustainNote);
+
+                    sustainNote.mustPress = gottaHitNote;
+
+                    if (sustainNote.mustPress)
+                        sustainNote.x += FlxG.width / 2;
+                }
+
+                swagNote.mustPress = gottaHitNote;
+
+                if (swagNote.mustPress)
+                    swagNote.x += FlxG.width / 2;
             }
+
+            daBeats += 1;
+        }
+
+        unspawnNotes.sort(sortByShit);
+        generatedMusic = true;
+    }
+
+    function sortByShit(Obj1:Note, Obj2:Note):Int
+        return FlxSort.byValues(FlxSort.ASCENDING, Obj1.strumTime, Obj2.strumTime);
+
+    private function generateStaticArrows(player:Int):Void
+    {
+        for (in in 0...4)
+        {
+            var babyArrow:FlxSprite = new FlxSprite(0, strumLine.y);
         }
     }
 

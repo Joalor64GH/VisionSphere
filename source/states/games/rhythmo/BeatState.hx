@@ -12,18 +12,23 @@ class BeatState extends FlxState
     {
         super.create();
 
-        if (!FlxTransitionableState.skipNextTransOut)
-        {
-            var cam:FlxCamera = new FlxCamera();
-            cam.bgColor.alpha = 0;
-            FlxG.cameras.add(cam, false);
-            cam.fade(FlxColor.BLACK, 0.7, true, () -> 
-            {
-                FlxTransitionableState.skipNextTransOut = false;
-            });
-        }
+        if (FlxTransitionableState.skipNextTransIn)
+            FlxTransitionableState.skipNextTransIn = false;
         else
+            openSubState(new states.games.rhythmo.Transition(() -> {}, 0.875, true));
+    }
+
+    override function startOutro(onOutroComplete:() -> Void)
+    {
+        if (FlxTransitionableState.skipNextTransOut)
             FlxTransitionableState.skipNextTransOut = false;
+        else
+        {
+            openSubState(new states.games.rhythmo.Transition(() -> {}, 0.875, true));
+            return;
+        }
+
+        onOutroComplete();
     }
 
     override function update(elapsed:Float)
