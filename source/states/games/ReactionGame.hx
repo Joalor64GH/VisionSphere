@@ -6,6 +6,7 @@ class ReactionGame extends FlxState
 
     var red:FlxSprite;
     var green:FlxSprite;
+    
     var text:FlxText;
 
     var gameEnded:Bool = false;
@@ -68,7 +69,7 @@ class ReactionGame extends FlxState
             if (FlxG.mouse.overlaps(green) && FlxG.mouse.justPressed)
             {
                 daTimer.cancel();
-                text.text = "Good job! Your reaction time is " + reactionTime.toFixed(2) + ".\nPress R to play again.";
+                text.text = "Good job! Your reaction time is " + formatReactionTime(reactionTime) + ".\nPress R to play again.";
                 gameEnded = true;
             }
             else if (FlxG.mouse.overlaps(red) && FlxG.mouse.justPressed)
@@ -91,5 +92,17 @@ class ReactionGame extends FlxState
 
         add(red);
         add(green);
+    }
+
+    function formatReactionTime(time:Float):String
+    {
+        var reactionTimeString:String = Std.string(time);
+        var decimalIndex:Int = reactionTimeString.indexOf(".");
+        if (decimalIndex != -1)
+            reactionTimeString = reactionTimeString.substring(0, decimalIndex + 3);
+        else 
+            reactionTimeString += ".00";
+
+        return reactionTimeString;
     }
 }
