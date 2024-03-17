@@ -22,12 +22,6 @@ class SaveData
     public static var upKey:String = "UP";
     public static var acceptKey:String = "ENTER";
     public static var exitKey:String = "ESCAPE";
-    public static var gamepadLeftKey:String = "DPAD_LEFT";
-    public static var gamepadRightKey:String = "DPAD_RIGHT";
-    public static var gamepadDownKey:String = "DPAD_DOWN";
-    public static var gamepadUpKey:String = "DPAD_UP";
-    public static var gamepadAcceptKey:String = "A";
-    public static var gamepadExitKey:String = "B";
 
     public static function saveSettings()
     {
@@ -46,12 +40,6 @@ class SaveData
         FlxG.save.data.upKey = upKey;
         FlxG.save.data.acceptKey = acceptKey;
         FlxG.save.data.exitKey = exitKey;
-        FlxG.save.data.gamepadLeftKey = gamepadLeftKey;
-        FlxG.save.data.gamepadRightKey = gamepadRightKey;
-        FlxG.save.data.gamepadDownKey = gamepadDownKey;
-        FlxG.save.data.gamepadUpKey = gamepadUpKey;
-        FlxG.save.data.gamepadAcceptKey = gamepadAcceptKey;
-        FlxG.save.data.gamepadExitKey = gamepadExitKey;
         
         FlxG.save.flush();
     }
@@ -94,18 +82,6 @@ class SaveData
             acceptKey = FlxG.save.data.acceptKey;
         if (FlxG.save.data.exitKey != null)
             exitKey = FlxG.save.data.exitKey;
-        if (FlxG.save.data.gamepadLeftKey != null)
-            gamepadLeftKey = FlxG.save.data.gamepadLeftKey;
-        if (FlxG.save.data.gamepadRightKey != null)
-            gamepadRightKey = FlxG.save.data.gamepadRightKey;
-        if (FlxG.save.data.gamepadDownKey != null)
-            gamepadDownKey = FlxG.save.data.gamepadDownKey;
-        if (FlxG.save.data.gamepadUpKey != null)
-            gamepadUpKey = FlxG.save.data.gamepadUpKey;
-        if (FlxG.save.data.gamepadAcceptKey != null)
-            gamepadAcceptKey = FlxG.save.data.gamepadAcceptKey;
-        if (FlxG.save.data.gamepadExitKey != null)
-            gamepadExitKey = FlxG.save.data.gamepadExitKey;
 
         FlxG.save.bind('VisionSphere', 'Joalor64');
     }

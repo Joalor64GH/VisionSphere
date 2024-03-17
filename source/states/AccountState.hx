@@ -86,7 +86,7 @@ class AccountState extends FlxState
 
         if (Input.is('exit')) 
         {
-            FlxG.switchState(MenuState.new);
+            FlxG.switchState(OptionsState.new);
             FlxG.sound.play(Paths.sound('cancel'));
         }
     }

@@ -9,16 +9,14 @@ class MenuState extends FlxState
     var lastString:String = '';
     var timer:Float = 0;
     
-    var btnPlay:FlxSprite;
-    var btnMods:FlxSprite;
-    var btnProfile:FlxSprite;
-    var btnMusic:FlxSprite;
-    var btnSettings:FlxSprite;
+    var options:Array<String> = ['play', #if MODS_ALLOWED 'mods', #end 'music', 'settings'];
 
-    var sideBox:FlxSprite;
     var randomBox:FlxSprite;
     var leftArrow:FlxSprite;
     var rightArrow:FlxSprite;
+    var curOption:FlxSprite;
+    
+    var curSelected:Int = 0;
 
     override public function create()
     {
@@ -27,8 +25,16 @@ class MenuState extends FlxState
         Paths.clearStoredMemory();
         Paths.clearUnusedMemory();
 
+        var ui_tex:String = 'menu/ui_arrows';
+
         var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('theme/' + SaveData.theme));
         add(bg);
+
+        var sideBox:FlxSprite = new FlxSprite();
+        sideBox.frames = Paths.getSparrowAtlas('menu/thisidk');
+        sideBox.animation.addByPrefix('idle', 'thingidk', 24, false);
+        sideBox.animation.play('idle');
+        add(sideBox);
 
         var bar:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menu/bar'));
         add(bar);
@@ -44,23 +50,25 @@ class MenuState extends FlxState
             add(banana);
         }
 
-        btnPlay = new FlxSprite(150, 150).loadGraphic(Paths.image('menu/play'));
-        add(btnPlay);
+        curOption = new FlxSprite(sideBox.x, sideBox.y).loadGraphic(Paths.image('menu/play'));
+        add(curOption);
 
-        #if MODS_ALLOWED
-        btnMods = new FlxSprite(875, 150).loadGraphic(Paths.image('menu/mods'));
-        add(btnMods);
-        #end
+        leftArrow = new FlxSprite(curOption.x - 275, curOption.y);
+        leftArrow.frames = Paths.getSparrowAtlas(ui_tex);
+        leftArrow.animation.addByPrefix('idle', "arrow left");
+        leftArrow.animation.addByPrefix('press', "arrow push left");
+        leftArrow.animation.play('idle');
+        add(leftArrow);
 
-        btnProfile = new FlxSprite().loadGraphic(Paths.image('menu/profile/' + SaveData.profile));
-        btnProfile.screenCenter(XY);
-        add(btnProfile);
+        rightArrow = new FlxSprite(curOption.x + 275, curOption.y);
+        rightArrow.frames = Paths.getSparrowAtlas(ui_tex);
+        rightArrow.animation.addByPrefix('idle', "arrow right");
+        rightArrow.animation.addByPrefix('press', "arrow push right", 24, false);
+        rightArrow.animation.play('idle');
+        add(rightArrow);
 
-        btnMusic = new FlxSprite(150, FlxG.height - 300).loadGraphic(Paths.image('menu/music'));
-        add(btnMusic);
-
-        btnSettings = new FlxSprite(875, FlxG.height - 300).loadGraphic(Paths.image('menu/settings'));
-        add(btnSettings);
+        randomBox = new FlxSprite(780, 0).loadGraphic(Paths.image('menu/randombox/template'));
+        add(randomBox);
 
         dateText = new FlxText(900, 50);
         dateText.setFormat(Paths.font('vcr.ttf'), 30, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
@@ -85,36 +93,45 @@ class MenuState extends FlxState
                 changeText();
         }
 
-        if (FlxG.mouse.overlaps(btnPlay) && FlxG.mouse.pressed)
+        if (Input.is('left'))
         {
-            FlxG.switchState(PlayState.new);
-            FlxG.sound.play(Paths.sound('confirm'));
+            curSelected--;
+            if (curSelected < 0)
+                curSelected = options.length - 1;
+            curOption.loadGraphic(Paths.image('menu/' + options[curSelected]));
+            FlxG.sound.play(Paths.sound('scroll'));
+            leftArrow.animation.play('press');
         }
-        
-        #if MODS_ALLOWED
-        if (FlxG.mouse.overlaps(btnMods) && FlxG.mouse.pressed)
-        {
-            FlxG.switchState(ModsState.new);
-            FlxG.sound.play(Paths.sound('confirm'));
-        }
-        #end
+        else
+            leftArrow.animation.play('idle');
 
-        if (FlxG.mouse.overlaps(btnProfile) && FlxG.mouse.pressed)
+        if (Input.is('right'))
         {
-            FlxG.switchState(AccountState.new);
-            FlxG.sound.play(Paths.sound('confirm'));
+            curSelected++;
+            if (curSelected >= options.length)
+                curSelected = 0;
+            curOption.loadGraphic(Paths.image('menu/' + options[curSelected]));
+            FlxG.sound.play(Paths.sound('scroll'));
+            rightArrow.animation.play('press');
         }
+        else
+            rightArrow.animation.play('idle');
 
-        if (FlxG.mouse.overlaps(btnMusic) && FlxG.mouse.pressed)
+        if (Input.is('accept'))
         {
-            FlxG.switchState(MusicState.new);
-            FlxG.sound.play(Paths.sound('confirm'));
-        }
-        
-        if (FlxG.mouse.overlaps(btnSettings) && FlxG.mouse.pressed)
-        {
-            FlxG.switchState(OptionsState.new);
-            FlxG.sound.play(Paths.sound('confirm'));
+            switch (curSelected)
+            {
+                case 0:
+                    FlxG.switchState(PlayState.new);
+                case 1:
+                    #if MODS_ALLOWED
+                    FlxG.switchState(ModsState.new);
+                    #end
+                case 2:
+                    FlxG.switchState(MusicState.new);
+                case 3:
+                    FlxG.switchState(OptionsState.new);
+            }
         }
 
         #if debug

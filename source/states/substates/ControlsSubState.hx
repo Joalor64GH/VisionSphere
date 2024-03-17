@@ -9,8 +9,6 @@ class ControlsSubState extends FlxSubState
 {
     var init:Int = 0;
     var inChange:Bool = false;
-    var controllerSpr:FlxSprite;
-    
     var text1:FlxText;
     var text2:FlxText;
 
@@ -21,12 +19,6 @@ class ControlsSubState extends FlxSubState
         var bg:FlxSprite = new FlxSprite().makeGraphic(1280, 720, FlxColor.BLACK);
         bg.alpha = 0.65;
         add(bg);
-
-        controllerSpr = new FlxSprite(50, 40).loadGraphic(Paths.image('controllertype'), true, 82, 60);
-        controllerSpr.animation.add('keyboard', [0], 1, false);
-        controllerSpr.animation.add('gamepad', [1], 1, false);
-        controllerSpr.animation.play('keyboard');
-        add(controllerSpr);
 
         var instructionsTxt:FlxText = new FlxText(5, FlxG.height - 24, 0, "Press LEFT/RIGHT to scroll through keys.", 12);
         instructionsTxt.setFormat(Paths.font('vcr.ttf'), 26, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
@@ -46,26 +38,6 @@ class ControlsSubState extends FlxSubState
     override public function update(elapsed:Float)
     {
         super.update(elapsed);
-
-        var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
-
-        if (FlxG.mouse.overlaps(controllerSpr))
-        {
-            if (FlxG.mouse.justPressed) 
-            {
-                if (gamepad != null) 
-                {
-                    close();
-                    openSubState(new GamepadSubState());
-                    FlxG.sound.play(Paths.sound('confirm'));
-                }
-                else
-                {
-                    FlxG.sound.play(Paths.sound('cancel'));
-                    Main.toast.create("Can't do that.", 0xFFFFFF00, "Connect a controller to edit your gamepad controls.");
-                }
-            }
-        }
 
         if ((Input.is('exit') || Input.is('backspace')) && !inChange) 
             close();

@@ -65,6 +65,10 @@ class Main extends openfl.display.Sprite
 
 		addChild(new flixel.FlxGame(1280, 720, InitialState, #if (flixel < "5.0.0") -1, #end 60, 60, true, false));
 
+		#if debug
+		flixel.addons.studio.FlxStudio.create();
+		#end
+
 		fpsDisplay = new Info(10, 10, 0xFFFFFF);
 		addChild(fpsDisplay);
 

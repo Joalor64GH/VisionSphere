@@ -20,7 +20,6 @@ class Localization
 
         var baseFilesPushed:Array<String> = [];
         var modFilesPushed:Array<String> = [];
-
         var foldersToCheck:Array<String> = [Paths.getPath('data/'), Paths.mods('data/')];
 
         #if MODS_ALLOWED
@@ -49,10 +48,8 @@ class Localization
                     }
                 }
 
-                if (folder.contains('mods/'))
-                    modFilesPushed.push(path);
-                else
-                    baseFilesPushed.push(path);
+                modFilesPushed.push(path);
+                baseFilesPushed.push(path);
             }
         }
 

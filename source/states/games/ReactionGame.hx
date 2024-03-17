@@ -6,7 +6,6 @@ class ReactionGame extends FlxState
 
     var red:FlxSprite;
     var green:FlxSprite;
-
     var text:FlxText;
 
     var gameEnded:Bool = false;
@@ -50,7 +49,10 @@ class ReactionGame extends FlxState
                 text.text = "Get ready...";
                 new FlxTimer().start(FlxG.random.int(1, 10), (timer) ->
                 {
-                    reactionTime += (gameEnded) ? 0 : elapsed;
+                    if (!gameEnded)
+                        reactionTime += elapsed;
+                    else
+                        reactionTime += 0;
                     thinkFast();
                 });
             }
