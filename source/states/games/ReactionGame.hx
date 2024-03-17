@@ -67,13 +67,13 @@ class ReactionGame extends FlxState
         {
             if (FlxG.mouse.overlaps(green) && FlxG.mouse.justPressed)
             {
-                daTimer.stop();
+                daTimer.cancel();
                 text.text = "Good job! Your reaction time is " + reactionTime.toFixed(2) + ".\nPress R to play again.";
                 gameEnded = true;
             }
             else if (FlxG.mouse.overlaps(red) && FlxG.mouse.justPressed)
             {
-                daTimer.stop();
+                daTimer.cancel();
                 text.text = "Oops! You clicked the wrong one!\nPress R to play again.";
                 gameEnded = true;
             }
