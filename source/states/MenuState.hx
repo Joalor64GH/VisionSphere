@@ -51,16 +51,18 @@ class MenuState extends FlxState
         }
 
         curOption = new FlxSprite(sideBox.x, sideBox.y).loadGraphic(Paths.image('menu/play'));
+        curOption.screenCenter(Y);
+        curOption.scale.set(3, 3);
         add(curOption);
 
-        leftArrow = new FlxSprite(curOption.x - 275, curOption.y);
+        leftArrow = new FlxSprite(curOption.width - 19, curOption.y);
         leftArrow.frames = Paths.getSparrowAtlas(ui_tex);
         leftArrow.animation.addByPrefix('idle', "arrow left");
         leftArrow.animation.addByPrefix('press', "arrow push left");
         leftArrow.animation.play('idle');
         add(leftArrow);
 
-        rightArrow = new FlxSprite(curOption.x + 275, curOption.y);
+        rightArrow = new FlxSprite(curOption.width + 19, curOption.y);
         rightArrow.frames = Paths.getSparrowAtlas(ui_tex);
         rightArrow.animation.addByPrefix('idle', "arrow right");
         rightArrow.animation.addByPrefix('press', "arrow push right", 24, false);
@@ -68,6 +70,7 @@ class MenuState extends FlxState
         add(rightArrow);
 
         randomBox = new FlxSprite(780, 0).loadGraphic(Paths.image('menu/randombox/template'));
+        randomBox.screenCenter(Y);
         add(randomBox);
 
         dateText = new FlxText(900, 50);
