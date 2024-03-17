@@ -51,7 +51,7 @@ class ReactionGame extends FlxState
             text.text = "Get ready...";
             timer = new FlxTimer().start(FlxG.random.int(1, 10) * 0.1, (tmr:FlxTimer) ->
             {
-                reactionTime += timer.timeLeft;
+                reactionTime += tmr.timeLeft;
                 thinkFast();
             });
         }
