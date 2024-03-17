@@ -6,7 +6,7 @@ class ReactionGame extends FlxState
 
     var red:FlxSprite;
     var green:FlxSprite;
-    
+
     var text:FlxText;
 
     var gameEnded:Bool = false;
@@ -34,6 +34,8 @@ class ReactionGame extends FlxState
     {
         super.update(elapsed);
 
+        var timer:FlxTimer;
+
         if (Input.is('exit'))
         {
             FlxG.sound.play(Paths.sound('cancel'));
@@ -43,13 +45,11 @@ class ReactionGame extends FlxState
             });
         }
 
-        var daTimer:FlxTimer;
-
         if (Input.is('any') && !anyPressed && allowInputs && !gameEnded)
         {
             anyPressed = true;
             text.text = "Get ready...";
-            daTimer = new FlxTimer().start(FlxG.random.int(1, 10) * 0.1, (timer) ->
+            timer = new FlxTimer().start(FlxG.random.int(1, 10) * 0.1, (timer) ->
             {
                 reactionTime += timer.timeLeft;
                 thinkFast();
