@@ -396,10 +396,7 @@ class ChartingState extends BeatState
 			&& FlxG.mouse.y < gridBG.y + (GRID_SIZE * _song.notes[curSection].lengthInSteps))
 		{
 			dummyArrow.x = Math.floor(FlxG.mouse.x / GRID_SIZE) * GRID_SIZE;
-			if (Input.is('shift'))
-				dummyArrow.y = FlxG.mouse.y;
-			else
-				dummyArrow.y = Math.floor(FlxG.mouse.y / GRID_SIZE) * GRID_SIZE;
+			dummyArrow.y = (Input.is('shift')) ? FlxG.mouse.y : Math.floor(FlxG.mouse.y / GRID_SIZE) * GRID_SIZE;
 		}
 
 		if (Input.is('enter'))
@@ -533,10 +530,7 @@ class ChartingState extends BeatState
 
 		var sectionInfo:Array<Dynamic> = _song.notes[curSection].sectionNotes;
 
-		if (_song.notes[curSection].bpm > 0)
-			Conductor.bpm = _song.notes[curSection].bpm;
-		else
-			Conductor.bpm = tempBpm;
+		Conductor.bpm = (_song.notes[curSection].bpm > 0) ? _song.notes[curSection].bpm : tempBpm;
 
 		for (i in sectionInfo)
 		{

@@ -378,6 +378,8 @@ class PlayState extends BeatState
     {
         super.update(elapsed);
 
+        scoreTxt.text = "Score: " + songScore + " // " + "Misses: " + songMisses;
+
         if (Input.is('enter') && startedCountdown)
         {
             persistentUpdate = false;
@@ -390,16 +392,387 @@ class PlayState extends BeatState
         if (Input.is('seven'))
             FlxG.switchState(new states.games.rhythmo.ChartingState());
 
-        var divider:String = " // ";
-        scoreTxt.text = "Score: " + songScore + divider + "Misses: " + songMisses;
+        if (startingSong)
+        {
+            if (startedCountdown)
+            {
+                Conductor.songPosition += FlxG.elapsed * 1000;
+                if (Conductor.songPosition >= 0)
+                    startSong();
+            }
+        }
+        else
+        {
+            Conductor.songPosition = FlxG.sound.music.time;
+            if (!paused)
+            {
+                songTime += FlxG.game.ticks - previousFrameTime;
+                previousFrameTime = FlxG.game.ticks;
+
+                if (Conductor.lastSongPos != Conductor.songPosition)
+                {
+                    songTime = (songTime + Conductor.songPosition) / 2;
+                    Conductor.lastSongPos = Conductor.songPosition;
+                }
+            }
+        }
+
+        if (generatedMusic && PlayState.SONG.notes[Std.int(curStep / 16)] != null)
+        {
+            if (camFollow.x != opponent.getMidpoint().x + 150 && !PlayState.SONG.notes[Std.int(curStep / 16)].mustHitSection)
+            {
+                camFollow.setPosition(opponent.getMidpoint().x + 150, opponent.getMidpoint().y - 100);
+                vocals.volume = 1;
+            }
+
+            if (PlayState.SONG.notes[Std.int(curStep / 16)].mustHitSection && camFollow.x != player.getMidpoint().x - 100)
+                camFollow.setPosition(player.getMidpoint().x - 100, player.getMidpoint().y - 100);
+        }
+
+        if (camZooming)
+        {
+            FlxG.camera.zoom = FlxMath.lerp(1.05, FlxG.camera.zoom, 0.95);
+            camHUD.zoom = FlxMath.lerp(1, camHUD.zoom, 0.95);
+        }
+
+        if (unspawnNotes[0] != null)
+        {
+            if (unspawnNotes[0].strumTime - Conductor.songPosition < 1500)
+            {
+                var dunceNote:Note = unspawnNotes[0];
+                notes.add(dunceNote);
+
+                var index:Int = unspawnNotes.indexOf(dunceNote);
+                unspawnNotes.splice(index, 1);
+            }
+        }
+
+        if (generatedMusic)
+        {
+            notes.forEachAlive((daNote:Note) -> 
+            {
+                daNote.visible = (daNote.y > FlxG.height) ? false : true;
+                daNote.active = (daNote.y > FlxG.height) ? false : true;
+
+                if (!daNote.mustPress && daNote.wasGoodHit)
+                {
+                    switch (Math.abs(daNote.noteData))
+                    {
+                        case 0:
+                            opponent.playAnim('singLEFT');
+                        case 1:
+                            opponent.playAnim('singDOWN');
+                        case 2:
+                            opponent.playAnim('singUP');
+                        case 3:
+                            opponent.playAnim('sinGRIGHT');
+                    }
+
+                    if (SONG.needsVoices)
+                        vocals.volume = 1;
+
+                    daNote.kill();
+                    notes.remove(daNote, true);
+                    daNote.destroy();
+                }
+
+                daNote.y = (strumLine.y - (Conductor.songPosition - daNote.strumTime) * (0.45 * PlayState.SONG.speed));
+
+                if (daNote.y < -daNote.height)
+                {
+                    daNote.active = false;
+                    daNote.visible = false;
+
+                    daNote.kill();
+                    notes.remove(daNote, true);
+                    daNote.destroy();
+                }
+            });
+        }
 
         if (Input.is('exit'))
             FlxG.switchState(MenuState.new);
+        
+        // keyShit();
     }
 
     function endSong():Void
     {
         Highscore.saveScore(SONG.song, songScore);
         FlxG.switchState(new SongSelectState());
+    }
+
+    private function popUpScore(strumtime:Float):Void
+    {
+        var noteDiff:Float = Math.abs(strumtime - Conductor.songPosition);
+        vocals.volume = 1;
+
+        var placement:String = Std.string(combo);
+
+        var coolText:FlxText = new FlxText(0, 0, 0, placement, 32);
+        coolText.screenCenter();
+        coolText.x = FlxG.width * 0.55;
+
+        var rating:FlxSprite = new FlxSprite();
+        var score:Int = 350;
+
+        var daRating:String = "perfect";
+
+        if (noteDiff > Conductor.safeZoneOffset * 0.9)
+        {
+            daRating = 'no';
+            score = 50;
+        }
+        else if (noteDiff > Conductor.safeZoneOffset * 0.75)
+        {
+            daRating = 'okay';
+            score = 100;
+        }
+        else if (noteDiff > Conductor.safeZoneOffset * 0.2)
+        {
+            daRating = 'nice';
+            score = 200;
+        }
+
+        songScore += score;
+
+        rating.loadGraphic(Paths.image('game/rhythmo/' + daRating));
+        rating.screenCenter();
+        rating.x = coolText.x - 40;
+        rating.y -= 60;
+        rating.acceleration.y = 550;
+        rating.velocity.y -= FlxG.random.int(140, 175);
+        rating.setGraphicSize(Std.int(rating.width * 0.7));
+        rating.updateHitbox();
+        rating.velocity.x -= FlxG.random.int(0, 10);
+
+        var comboSpr:FlxSprite = new FlxSprite().loadGraphic(Paths.image('game/rhythmo/combo'));
+        comboSpr.screenCenter();
+        comboSpr.x = coolText.x;
+        comboSpr.acceleration.y = 600;
+        comboSpr.velocity.y -= 150;
+        comboSpr.setGraphicSize(Std.int(comboSpr.width * 0.7));
+        comboSpr.updateHitbox();
+        comboSpr.velocity.x += FlxG.random.int(1, 10);
+
+        add(rating);
+
+        var seperatedScore:Array<Int> = [];
+
+        seperatedScore.push(Math.floor(combo / 100));
+        seperatedScore.push(Math.floor((combo - (seperatedScore[0] * 100)) / 10));
+        seperatedScore.push(combo % 10);
+
+        var daLoop:Int = 0;
+        while (seperatedScore[0] == 0) seperatedScore.remove(seperatedScore[0]);
+        for (i in seperatedScore)
+        {
+            var numScore:FlxSprite = new FlxSprite().loadGraphic(Paths.image('game/rhythmo/num' + Std.int(i)));
+            numScore.screenCenter();
+            numScore.x = coolText.x + (43 * daLoop) - 90;
+            numScore.y += 80;
+            numScore.setGraphicSize(Std.int(numScore.width * 0.5));
+            numScore.updateHitbox();
+            numScore.acceleration.y = FlxG.random.int(200, 300);
+            numScore.velocity.y -= FlxG.random.int(140, 160);
+            numScore.velocity.x = FlxG.random.float(-5, 5);
+
+            if (combo >= 0)
+                add(numScore);
+            if (combo >= 10)
+                add(comboSpr);
+            
+            FlxTween.tween(numScore, {alpha: 0}, 0.2, {onComplete: (tween:FlxTween) -> 
+            {
+                numScore.destroy();
+            }, startDelay: Conductor.crochet * 0.002});
+
+            daLoop++;
+        }
+
+        FlxTween.tween(rating, {alpha: 0}, 0.2, {startDelay: Conductor.crochet * 0.001});
+        FlxTween.tween(comboSpr, {alpha: 0}, 0.2, {onComplete: (tween:FlxTween) -> 
+        {
+            coolText.destroy();
+            comboSpr.destroy();
+            rating.destroy();
+        }, startDelay: Conductor.crochet * 0.001});
+
+        curSection += 1;
+    }
+
+    private function keyShit():Void
+    {
+        var up = Input.is('up');
+        var down = Input.is('down');
+        var left = Input.is('left');
+        var right = Input.is('right');
+
+        var upP = Input.is('up', PRESSED);
+        var downP = Input.is('down', PRESSED);
+        var leftP = Input.is('left', PRESSED);
+        var rightP = Input.is('right', PRESSED);
+
+        var upR = Input.is('up', RELEASED);
+        var downR = Input.is('down', RELEASED);
+        var leftR = Input.is('left', RELEASED);
+        var rightR = Input.is('right', RELEASED);
+
+        if ((upP || rightP || downP || leftP) && generatedMusic)
+        {
+            var possibleNotes:Array<Note> = [];
+
+            notes.forEachAlive((daNote:Note) -> 
+            {
+                if (daNote.canBeHit && daNote.mustPress && !daNote.tooLate)
+                    possibleNotes.push(daNote);
+            });
+
+            if (possibleNotes.length > 0)
+            {
+                for (daNote in possibleNotes)
+                {
+                    switch (daNote.noteData)
+                    {
+                        case 0:
+                            if (upP || rightP || downP || leftP)
+                                noteCheck(leftP, daNote);
+                        case 1:
+                            if (upP || rightP || downP || leftP)
+                                noteCheck(downP, daNote);
+                        case 2:
+                            if (upP || rightP || downP || leftP)
+                                noteCheck(upP, daNote);
+                        case 3:
+                            if (upP || rightP || downP || leftP)
+                                noteCheck(rightP, daNote);
+                    }
+
+                    if (daNote.wasGoodHit)
+                    {
+                        daNote.kill();
+                        notes.remove(daNote, true);
+                        daNote.destroy();
+                    }
+                }
+            }
+            else
+                badNoteCheck();
+        }
+
+        if ((up || right || down || left) && generatedMusic)
+        {
+            notes.forEachAlive((daNote:Note) ->
+            {
+                if (daNote.canBeHit && daNote.mustPress && daNote.isSustainNote)
+                {
+                    switch (daNote.noteData)
+                    {
+                        case 0:
+                            if (left && daNote.prevNote.wasGoodHit)
+                                goodNoteHit(daNote);
+                        case 1:
+                            if (down && daNote.prevNote.wasGoodHit)
+                                goodNoteHit(daNote);
+                        case 2:
+                            if (up && daNote.prevNote.wasGoodHit)
+                                goodNoteHit(daNote);
+                        case 3:
+                            if (right && daNote.prevNote.wasGoodHit)
+                                goodNoteHit(daNote);
+                    }
+                }
+            });
+        }
+
+        if (upR || leftR || rightR || downR)
+        {
+            if (player.animation.curAnim.name.startsWith('sing'))
+                player.playAnim('idle');
+        }
+
+        playerStrums.forEach((spr:FlxSprite) -> 
+        {
+            switch (spr.ID)
+            {
+                case 0:
+                    if (leftP && spr.animation.curAnim.name != 'confirm')
+                        spr.animation.play('pressed');
+                    if (leftR)
+                        spr.animation.play('static');
+                case 1:
+                    if (downP && spr.animation.curAnim.name != 'confirm')
+                        spr.animation.play('pressed');
+                    if (downR)
+                        spr.animation.play('static');
+                case 2:
+                    if (upP && spr.animation.curAnim.name != 'confirm')
+                        spr.animation.play('pressed');
+                    if (upR)
+                        spr.animation.play('static');
+                case 3:
+                    if (rightP && spr.animation.curAnim.name != 'confirm')
+                        spr.animation.play('pressed');
+                    if (rightR)
+                        spr.animation.play('static');
+            }
+
+            if (spr.animation.curAnim.name == 'confirm')
+            {
+                spr.centerOffsets();
+                spr.offset.x -= 13;
+                spr.offset.y -= 13;
+            }
+            else
+                spr.centerOffsets();
+        });
+    }
+
+    function noteMiss(direction:Int = 1):Void
+    {
+        combo = 0;
+        songScore -= 10;
+        songMisses += 1;
+        switch (direction)
+        {
+            case 0:
+                trace('missed left');
+            case 1:
+                trace('missed down');
+            case 2:
+                trace('missed up');
+            case 3:
+                trace('missed right');
+        }
+    }
+
+    function badNoteCheck()
+    {
+        var upP = Input.is('up', PRESSED);
+        var downP = Input.is('down', PRESSED);
+        var leftP = Input.is('left', PRESSED);
+        var rightP = Input.is('right', PRESSED);
+
+        if (leftP)
+            noteMiss(0);
+        if (downP)
+            noteMiss(1);
+        if (upP)
+            noteMiss(2);
+        if (rightP)
+            noteMiss(3);
+    }
+
+    function noteCheck(keyP:Bool, note:Note):Void
+    {
+        if (keyP)
+            goodNoteHit(note);
+        else
+            badNoteCheck();
+    }
+
+    function goodNoteHit(note:Note):Void
+    {
+        //
     }
 }
