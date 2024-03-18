@@ -1,6 +1,5 @@
 package states.games.rhythmo;
 
-import flixel.addons.display.FlxGridOverlay;
 import states.games.rhythmo.BeatState;
 
 class TitleState extends BeatState
@@ -9,7 +8,7 @@ class TitleState extends BeatState
     {
         super.create();
 
-        var bg:FlxSprite = FlxGridOverlay.create(20, 20);
+        var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('game/rhythmo/menuBG'));
         add(bg);
 
         var logoBck:FlxSprite = new FlxSprite().loadGraphic(Paths.image('game/rhythmo/logo'));
@@ -32,5 +31,22 @@ class TitleState extends BeatState
             FlxTween.angle(logo, logo.angle, 4, 4, {ease: FlxEase.quartInOut});
         if (logo.angle == 4)
             FlxTween.angle(logo, logo.angle, -4, 4, {ease: FlxEase.quartInOut});
+    }
+
+    override function update(elapsed:Float)
+    {
+        if (Input.is('enter'))
+            FlxG.switchState(new states.games.rhythmo.SongSelectState());
+
+        if (Input.is('exit')) 
+        {
+            FlxG.camera.fade(FlxColor.BLACK, 0.5, false, () ->
+            {
+                FlxG.switchState(MenuState.new);
+            });
+            FlxG.sound.play(Paths.sound('cancel'));
+        }
+
+        super.update(elapsed);
     }
 }

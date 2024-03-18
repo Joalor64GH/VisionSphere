@@ -489,17 +489,14 @@ class PlayState extends BeatState
                 }
             });
         }
-
-        if (Input.is('exit'))
-            FlxG.switchState(MenuState.new);
         
-        // keyShit();
+        keyShit();
     }
 
     function endSong():Void
     {
         Highscore.saveScore(SONG.song, songScore);
-        FlxG.switchState(new SongSelectState());
+        FlxG.switchState(new states.games.rhythmo.SongSelectState());
     }
 
     private function popUpScore(strumtime:Float):Void
@@ -773,6 +770,80 @@ class PlayState extends BeatState
 
     function goodNoteHit(note:Note):Void
     {
-        //
+        if (!note.wasGoodHit)
+        {
+            if (!note.isSustainNote)
+            {
+                popUpScore(note.strumTime);
+                combo += 1;
+            }
+
+            switch (note.noteData)
+            {
+                case 0:
+                    player.playAnim('singLEFT');
+                case 1:
+                    player.playAnim('singDOWN');
+                case 2:
+                    player.playAnim('singUP');
+                case 3:
+                    player.playAnim('singRIGHT');
+            }
+
+            playerStrums.forEach((spr:FlxSprite) -> 
+            {
+                if (Math.abs(note.noteData) == spr.ID)
+                    spr.animation.play('confirm', true);
+            });
+
+            note.wasGoodHit = true;
+            vocals.volume = 1;
+
+            note.kill();
+            notes.remove(note, true);
+            note.destroy();
+        }
+    }
+
+    override function stepHit()
+    {
+        if (SONG.needsVoices)
+        {
+            if (vocals.time > Conductor.songPosition + Conductor.stepCrochet
+                || vocals.time < Conductor.songPosition - Conductor.stepCrochet)
+            {
+                vocals.pause();
+                vocals.time = Conductor.songPosition;
+                vocals.play();
+            }
+        }
+
+        super.stepHit();
+    }
+
+    override function beatHit()
+    {
+        super.beatHit();
+
+        if (generatedMusic)
+            notes.sort(FlxSort.byY, FlxSort.DESCENDING);
+        
+        if (SONG.notes[Math.floor(curStep / 16)] != null)
+        {
+            Conductor.bpm = (SONG.notes[Math.floor(curStep / 16)]) ? 
+                SONG.notes[Math.floor(curStep / 16)].bpm : SONG.bpm;
+
+            if (SONG.notes[Math.floor(curStep / 16)].mustHitSection)
+                opponent.playAnim('idle');
+        }
+
+        if (camZooming && FlxG.camera.zoom < 1.35 && totalBeats % 4 == 0)
+        {
+            FlxG.camera.zoom += 0.015;
+            camHUD.zoom += 0.03;
+        }
+
+        if (!player.animation.curAnim.name.startsWith("sing"))
+            player.playAnim('idle');
     }
 }
