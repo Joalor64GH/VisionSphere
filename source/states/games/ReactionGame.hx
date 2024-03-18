@@ -2,9 +2,6 @@ package states.games;
 
 class ReactionGame extends FlxState
 {
-    var reactionTime:Float = 0;
-    var timer:FlxTimer;
-
     var red:FlxSprite;
     var green:FlxSprite;
     var text:FlxText;
@@ -47,9 +44,8 @@ class ReactionGame extends FlxState
         {
             anyPressed = true;
             text.text = "Get ready...";
-            timer = new FlxTimer().start(FlxG.random.int(1, 10) * 0.1, (tmr:FlxTimer) ->
+            new FlxTimer().start(FlxG.random.int(1, 10), (timer) ->
             {
-                reactionTime += tmr.timeLeft;
                 thinkFast();
             });
         }
@@ -66,13 +62,11 @@ class ReactionGame extends FlxState
         {
             if (FlxG.mouse.overlaps(green) && FlxG.mouse.justPressed)
             {
-                timer.cancel();
-                text.text = "Good job! Your reaction time is " + formatReactionTime(reactionTime) + ".\nPress R to play again.";
+                text.text = "Good job! You clicked the right one!\nPress R to play again.";
                 gameEnded = true;
             }
             else if (FlxG.mouse.overlaps(red) && FlxG.mouse.justPressed)
             {
-                timer.cancel();
                 text.text = "Oops! You clicked the wrong one!\nPress R to play again.";
                 gameEnded = true;
             }
@@ -90,17 +84,5 @@ class ReactionGame extends FlxState
 
         add(red);
         add(green);
-    }
-
-    function formatReactionTime(time:Float):String
-    {
-        var reactionTimeString:String = Std.string(time);
-        var decimalIndex:Int = reactionTimeString.indexOf(".");
-        if (decimalIndex != -1)
-            reactionTimeString = reactionTimeString.substring(0, decimalIndex + 3);
-        else 
-            reactionTimeString += ".00";
-
-        return reactionTimeString;
     }
 }

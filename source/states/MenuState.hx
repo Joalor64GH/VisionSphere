@@ -50,9 +50,8 @@ class MenuState extends FlxState
             add(banana);
         }
 
-        curOption = new FlxSprite(sideBox.x + sideBox.width / 2, sideBox.y + sideBox.height / 2).loadGraphic(Paths.image('menu/play'));
+        curOption = new FlxSprite(sideBox.x + (sideBox.width - 256) / 2, sideBox.y + (sideBox.height - 256) / 2).loadGraphic(Paths.image('menu/play'));
         curOption.origin.set(curOption.width / 2, curOption.height / 2);
-        curOption.scale.set(1.5, 1.5);
         add(curOption);
 
         leftArrow = new FlxSprite(curOption.x - curOption.width / 2 - 19, curOption.y);
@@ -138,7 +137,8 @@ class MenuState extends FlxState
         }
 
         #if debug
-        if (Input.is('e')) FlxG.switchState(TestState.new);
+        if (Input.is('e')) 
+            FlxG.switchState(TestState.new);
         #end
 
         dateText.text = DateTools.format(Date.now(), "%F") + ' / ' + DateTools.format(Date.now(), SaveData.timeFormat);

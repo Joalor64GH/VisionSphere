@@ -126,8 +126,8 @@ class PlayState extends BeatState
 
     function startCountdown():Void
     {
-        // generateStaticArrows(0);
-        // generateStaticArrows(1);
+        generateStaticArrows(0);
+        generateStaticArrows(1);
 
         startedCountdown = true; 
         Conductor.songPosition = 0;
@@ -281,20 +281,125 @@ class PlayState extends BeatState
 
     private function generateStaticArrows(player:Int):Void
     {
-        for (in in 0...4)
+        for (i in 0...4)
         {
             var babyArrow:FlxSprite = new FlxSprite(0, strumLine.y);
+            babyArrow.frames = Paths.getSparrowAtlas('game/rhythmo/NOTE_assets');
+            babyArrow.animation.addByPrefix('green', 'arrowUP');
+            babyArrow.animation.addByPrefix('blue', 'arrowDOWN');
+            babyArrow.animation.addByPrefix('purple', 'arrowLEFT');
+            babyArrow.animation.addByPrefix('red', 'arrowRIGHT');
+            babyArrow.scrollFactor.set();
+            babyArrow.setGraphicSize(Std.int(babyArrow.width * 0.7));
+            babyArrow.updateHitbox();
+            babyArrow.y -= 10;
+            babyArrow.alpha = 0;
+
+            FlxTween.tween(babyArrow, {y: babyArrow.y + 10, alpha: 1}, 1, {ease: FlxEase.circOut, startDelay: 0.5 + (0.2 * i)});
+
+            babyArrow.ID = i;
+
+            if (player == 1)
+                playerStrums.add(babyArrow);
+            
+            switch (Math.abs(i))
+            {
+                case 0:
+                    babyArrow.x += Note.swagWidth * 0;
+                    babyArrow.animation.addByPrefix('static', 'arrowLEFT');
+                    babyArrow.animation.addByPrefix('pressed', 'left press', 24, false);
+                    babyArrow.animation.addByPrefix('confirm', 'left confirm', 24, false);
+                case 1:
+                    babyArrow.x += Note.swagWidth * 1;
+                    babyArrow.animation.addByPrefix('static', 'arrowDOWN');
+                    babyArrow.animation.addByPrefix('pressed', 'down press', 24, false);
+                    babyArrow.animation.addByPrefix('confirm', 'down confirm', 24, false);
+                case 2:
+                    babyArrow.x += Note.swagWidth * 2;
+                    babyArrow.animation.addByPrefix('static', 'arrowUP');
+                    babyArrow.animation.addByPrefix('pressed', 'up press', 24, false);
+                    babyArrow.animation.addByPrefix('confirm', 'up confirm', 24, false);
+                case 3:
+                    babyArrow.x += Note.swagWidth * 3;
+                    babyArrow.animation.addByPrefix('static', 'arrowRIGHT');
+                    babyArrow.animation.addByPrefix('pressed', 'right press', 24, false);
+                    babyArrow.animation.addByPrefix('confirm', 'right confirm', 24, false);
+            }
+
+            babyArrow.animation.play('static');
+            babyArrow.x += 50;
+            babyArrow.x += ((FlxG.width / 2) * player);
+
+            strumLineNotes.add(babyArrow);
         }
     }
 
-    override function update(elapsed:Float)
+    private var paused:Bool = false;
+
+    override function openSubState(SubState:FlxSubState)
+    {
+        if (paused)
+        {
+            if (FlxG.sound.music != null)
+            {
+                FlxG.sound.music.pause();
+                vocals.pause();
+            }
+
+            if (!startTimer.finished)
+                startTimer.active = false;
+        }
+
+        super.openSubState(SubState);
+    }
+
+    override function closeSubState()
+    {
+        if (paused)
+        {
+            if (FlxG.sound.music != null)
+            {
+                vocals.time = Conductor.songPosition;
+
+                FlxG.sound.music.play();
+                vocals.play();
+            }
+
+            if (!startTimer.finished)
+                startTimer.active = true;
+            
+            paused = false;
+        }
+
+        super.closeSubState();
+    }
+
+    override public function update(elapsed:Float)
     {
         super.update(elapsed);
+
+        if (Input.is('enter') && startedCountdown)
+        {
+            persistentUpdate = false;
+            persistentDraw = true;
+            paused = true;
+
+            openSubState(new states.games.rhythmo.PauseSubState(player.getScreenPosition().x, player.getScreenPosition().y));
+        }
+
+        if (Input.is('seven'))
+            FlxG.switchState(new states.games.rhythmo.ChartingState());
 
         var divider:String = " // ";
         scoreTxt.text = "Score: " + songScore + divider + "Misses: " + songMisses;
 
         if (Input.is('exit'))
             FlxG.switchState(MenuState.new);
+    }
+
+    function endSong():Void
+    {
+        Highscore.saveScore(SONG.song, songScore);
+        FlxG.switchState(new SongSelectState());
     }
 }

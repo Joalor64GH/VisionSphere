@@ -46,6 +46,10 @@
         "dir": null,
         "ref": "master",
         "url": "https://github.com/Dovyski/flixel-studio"
+      },
+      {
+        "name": "hxvlc",
+        "type": "haxelib"
       }
     ]
   }

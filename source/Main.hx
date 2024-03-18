@@ -2,6 +2,8 @@ package;
 
 import openfl.Lib;
 
+import haxe.Exception;
+
 #if CRASH_HANDLER
 import openfl.events.UncaughtErrorEvent;
 import haxe.CallStack;
@@ -20,6 +22,8 @@ import backend.MacroUtil;
 ')
 #end
 
+// typedef CoolGame = #if CRASH_HANDLER VSGame #else flixel.FlxGame #end;
+
 using StringTools;
 
 class Main extends openfl.display.Sprite
@@ -32,7 +36,7 @@ class Main extends openfl.display.Sprite
 	public static var toast:ToastCore;
 	public static var fpsDisplay:Info;
 
-	public static var instance:Main; // will be used later
+	public static var instance:Main;
 
 	public static function main():Void
 		Lib.current.addChild(new Main());
@@ -156,3 +160,123 @@ class Main extends openfl.display.Sprite
 		addChild(toast);
 	}
 }
+
+/* // will use once I get the menu done
+class VSGame extends flixel.FlxGame
+{
+	var _viewingCrash:Bool = false;
+
+	override function create(_):Void {
+		try
+			super.create(_)
+		catch (e:Exception)
+			return exceptionCaught(e, 'create');
+	}
+
+	override function onFocus(_):Void {
+		try
+			super.onFocus(_)
+		catch (e:Exception)
+			return exceptionCaught(e, 'onFocus');
+	}
+
+	override function onFocusLost(_):Void {
+		try
+			super.onFocusLost(_)
+		catch (e:Exception)
+			return exceptionCaught(e, 'onFocusLost');
+	}
+
+	override function onEnterFrame(_):Void {
+		try
+			super.onEnterFrame(_)
+		catch (e:Exception)
+			return exceptionCaught(e, 'onEnterFrame');
+	}
+
+	override function update():Void {
+		if (_viewingCrash)
+			return;
+		try
+			super.update()
+		catch (e:Exception)
+			return exceptionCaught(e, 'update');
+	}
+
+	override function draw():Void {
+		try
+			super.draw(_)
+		catch (e:Exception)
+			return exceptionCaught(e, 'draw');
+	}
+
+	@:allow(flixel.FlxG)
+	override function onResize(_):Void {
+		if (_viewingCrash)
+			return;
+		super.onResize(_)
+	}
+
+	private function exceptionCaught(e:Exception, func:String = null)
+	{
+		if (_viewingCrash)
+			return;
+
+		var path:String;
+		var callStack:Array<StackItem> = CallStack.exceptionStack(true);
+		var fileStack:Array<String> = [];
+		var dateNow:String = Date.now().toString();
+		var println = #if sys Sys.println #else trace #end;
+
+		dateNow = StringTools.replace(dateNow, " ", "_");
+		dateNow = StringTools.replace(dateNow, ":", "'");
+
+		path = 'crash/VisionSphere_${dateNow}.txt';
+
+		for (stackItem in callStack) {
+			switch (stackItem) {
+				case CFunction:
+					fileStack.push('Non-Haxe (C) Function');
+				case Module(moduleName):
+					fileStack.push('Module (${moduleName})');
+				case FilePos(parent, file, line, col):
+					switch (parent) {
+						case Method(cla, func):
+							fileStack.push('${file} ${cla.split(".").last()}.$func() - (line ${line})');
+						case _:
+							fileStack.push('${file} - (line ${line})');
+					}
+				case Method(className, method):
+					fileStack.push('${className} (method ${method})');
+				case LocalFunction(name):
+					fileStack.push('Local Function (${name})');
+				default:
+					println(stackItem)
+			}
+		}
+
+		fileStack.insert(0, "Exception: " + e.message);
+
+		final msg:String = fileStack.join('\n');
+
+		if (!FileSystem.exists("crash/"))
+			FileSystem.createDirectory("crash/");
+		File.saveContent(path, '${msg}\n');
+
+		final funcThrew:String = '${func != null ? ' thrown at "${func}" function' : ""}';
+
+		println(msg + funcThrew);
+		println(e.message);
+		println('Crash dump saved in ${Path.normalize(path)}');
+
+		FlxG.bitmap.dumpCache();
+		FlxG.bitmap.clearCache();
+
+		if (FlxG.sound.music != null)
+			FlxG.sound.music.stop();
+
+		Main.instance.add(new bakcend.CrashHandler(e.details()));
+		_viewingCrash = true;
+	}
+}
+*/
