@@ -9,7 +9,7 @@ class SongSelectState extends BeatState
     var songs:Array<String> = ["Bopeebo", "Bopeebo", "Bopeebo"]; // only testing for now
 
     var curSelected:Int = 0;
-    
+
     var scoreText:FlxText;
     var lerpScore:Int = 0;
     var intendedScore:Int = 0;
@@ -59,7 +59,7 @@ class SongSelectState extends BeatState
         scoreText.text = "PERSONAL BEST:" + lerpScore;
 
         if (Input.is('up') || Input.is('down'))
-            changeSection(Input.is('up') ? -1 : 1);
+            changeSelection(Input.is('up') ? -1 : 1);
 
         if (Input.is('accept'))
         {

@@ -13,7 +13,7 @@ class TitleState extends BeatState
 
         var logoBck:FlxSprite = new FlxSprite().loadGraphic(Paths.image('game/rhythmo/logo'));
         logoBck.screenCenter();
-        logoBck.color = FlxColor.BlogoBckACK;
+        logoBck.color = FlxColor.BLACK;
         add(logoBck);
 
         var logo:FlxSprite = new FlxSprite().loadGraphic(Paths.image('game/rhythmo/logo'));
@@ -40,7 +40,7 @@ class TitleState extends BeatState
 
         if (Input.is('exit')) 
         {
-            FlxG.camera.fade(FlxColor.BlogoBckACK, 0.5, false, () ->
+            FlxG.camera.fade(FlxColor.BLACK, 0.5, false, () ->
             {
                 FlxG.switchState(MenuState.new);
             });

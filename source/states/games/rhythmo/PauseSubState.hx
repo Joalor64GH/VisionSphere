@@ -30,7 +30,7 @@ class PauseSubState extends FlxSubState
         else if (Input.is('escape'))
         {
             close();
-            BeatState.switchState(new states.games.rhythmo.SongSelectState());
+            FlxG.switchState(new states.games.rhythmo.SongSelectState());
         }
         else if (Input.is('enter'))
             close();

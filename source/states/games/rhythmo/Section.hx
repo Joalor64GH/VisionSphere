@@ -6,6 +6,7 @@ typedef SectionArray = {
     var typeOfSection:Int;
     var mustHitSection:Bool;
     var bpm:Int;
+    var changeBPM:Bool;
 }
 
 class Section

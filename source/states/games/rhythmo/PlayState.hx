@@ -68,7 +68,7 @@ class PlayState extends BeatState
         if (SONG == null)
             SONG = SONG.loadFromJSON(curLevel);
         
-        Conductor.bpm = SONG.bpm;
+        Conductor.changeBPM(SONG.bpm);
 
         var bg:FlxSprite = FlxGridOverlay.create(50, 50);
         bg.scrollFactor.set(0.5, 0.5);
@@ -210,7 +210,7 @@ class PlayState extends BeatState
     private function generateSong(songData:String):Void
     {
         var songData = SONG;
-        Conductor.bpm = songData.bpm;
+        Conductor.changeBPM(songData.bpm);
 
         curSong = songData.song;
 
@@ -555,7 +555,6 @@ class PlayState extends BeatState
         add(rating);
 
         var seperatedScore:Array<Int> = [];
-
         seperatedScore.push(Math.floor(combo / 100));
         seperatedScore.push(Math.floor((combo - (seperatedScore[0] * 100)) / 10));
         seperatedScore.push(combo % 10);
@@ -821,6 +820,8 @@ class PlayState extends BeatState
         super.stepHit();
     }
 
+    private var totalBeats:Int = 0;
+
     override function beatHit()
     {
         super.beatHit();
@@ -830,8 +831,8 @@ class PlayState extends BeatState
         
         if (SONG.notes[Math.floor(curStep / 16)] != null)
         {
-            Conductor.bpm = (SONG.notes[Math.floor(curStep / 16)]) ? 
-                SONG.notes[Math.floor(curStep / 16)].bpm : SONG.bpm;
+            Conductor.changeBPM((SONG.notes[Math.floor(curStep / 16)].changeBPM) ? 
+                SONG.notes[Math.floor(curStep / 16)].bpm : SONG.bpm);
 
             if (SONG.notes[Math.floor(curStep / 16)].mustHitSection)
                 opponent.playAnim('idle');

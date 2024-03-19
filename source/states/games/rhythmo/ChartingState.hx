@@ -42,7 +42,7 @@ class ChartingState extends BeatState
 	var bpmTxt:FlxText;
 
 	var strumLine:FlxSprite;
-	var curSong:String = 'Dadbattle';
+	var curSong:String = 'Bopeebo';
 	var amountSteps:Int = 0;
 	var bullshitUI:FlxGroup;
 
@@ -57,7 +57,7 @@ class ChartingState extends BeatState
 
 	var gridBG:FlxSprite;
 
-	var _song:SwagSong;
+	var _song:SongData;
 
 	var typingShit:FlxInputText;
 	var curSelectedNote:Array<Dynamic>;
@@ -98,7 +98,7 @@ class ChartingState extends BeatState
 		updateGrid();
 
 		loadSong(_song.song);
-		Conductor.bpm = _song.bpm;
+		Conductor.changeBPM(_song.bpm);
 
 		bpmTxt = new FlxText(1000, 50, 0, "", 16);
 		bpmTxt.scrollFactor.set();
@@ -206,6 +206,7 @@ class ChartingState extends BeatState
 
 	var stepperLength:FlxUINumericStepper;
 	var check_mustHitSection:FlxUICheckBox;
+	var check_changeBPM:FlxUICheckBox;
 	var stepperSectionBPM:FlxUINumericStepper;
 
 	function addSectionUI():Void
@@ -231,6 +232,9 @@ class ChartingState extends BeatState
 		check_mustHitSection = new FlxUICheckBox(10, 30, null, null, "Must hit section", 100);
 		check_mustHitSection.name = 'check_mustHit';
 		check_mustHitSection.checked = true;
+
+		check_changeBPM = new FlxUICheckBox(10, 60, null, null, 'Change BPM', 100);
+		check_changeBPM.name = 'check_changeBPM';
 
 		tab_group_section.add(stepperLength);
 		tab_group_section.add(stepperSectionBPM);
@@ -301,6 +305,9 @@ class ChartingState extends BeatState
 			{
 				case 'Must hit section':
 					_song.notes[curSection].mustHitSection = check.checked;
+				case 'Change BPM':
+					_song.notes[curSection].changeBPM = check.checked;
+					FlxG.log.add('changed bpm shit');
 			}
 		}
 		else if (id == FlxUINumericStepper.CHANGE_EVENT && (sender is FlxUINumericStepper))
@@ -320,7 +327,7 @@ class ChartingState extends BeatState
 			else if (wname == 'song_bpm')
 			{
 				tempBpm = Std.int(nums.value);
-				Conductor.bpm = Std.int(nums.value);
+				Conductor.changeBPM(Std.int(nums.value));
 			}
 			else if (wname == 'note_susLength')
 			{
@@ -512,6 +519,7 @@ class ChartingState extends BeatState
 
 		stepperLength.value = sec.lengthInSteps;
 		check_mustHitSection.checked = sec.mustHitSection;
+		check_changeBPM.checked = sec.changeBPM;
 		stepperSectionBPM.value = sec.bpm;
 	}
 
@@ -530,7 +538,7 @@ class ChartingState extends BeatState
 
 		var sectionInfo:Array<Dynamic> = _song.notes[curSection].sectionNotes;
 
-		Conductor.bpm = (_song.notes[curSection].bpm > 0) ? _song.notes[curSection].bpm : tempBpm;
+		Conductor.changeBpm((_song.notes[curSection].bpm > 0) ? _song.notes[curSection].bpm : tempBpm);
 
 		for (i in sectionInfo)
 		{
@@ -561,6 +569,7 @@ class ChartingState extends BeatState
 		var sec:SectionArray = {
 			lengthInSteps: lengthInSteps,
 			bpm: _song.bpm,
+			changeBPM: false,
 			mustHitSection: true,
 			sectionNotes: [],
 			typeOfSection: 0

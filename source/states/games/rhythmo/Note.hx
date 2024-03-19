@@ -111,7 +111,7 @@ class Note extends FlxSprite
 				}
 
 				prevNote.offset.y = -19;
-				prevNote.scale.y *= (2.25 * PlayState.SONG.speed);
+				prevNote.scale.y *= (2.25 * states.games.rhythmo.PlayState.SONG.speed);
 			}
 		}
 	}
