@@ -132,15 +132,7 @@ class CrashHandler extends openfl.display.Sprite
 			case Keyboard.G:
 				CoolUtil.browserLoad("https://github.com/Joalor64GH/VisionSphere/issues/");
 			case Keyboard.Q:
-				FlxG.camera.fade(FlxColor.BLACK, 0.5, false, () -> 
-                { 
-                    Sys.exit(0); 
-                    _active = false;
-                    _stage.removeEventListener(KeyboardEvent.KEY_DOWN, keyActions);
-				    @:privateAccess Main.instance.coolGame._viewingCrash = false;
-				    if (Main.instance != null && Main.instance.contains(this))
-					    Main.instance.removeChild(this);
-                }, false);
+				FlxG.camera.fade(FlxColor.BLACK, 0.5, false, () -> { Sys.exit(0); }, false);
 		}
 	}
 
