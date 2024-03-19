@@ -32,6 +32,8 @@ class Main extends openfl.display.Sprite
 
 	public static var instance:Main;
 
+	private var coolGame:CoolGame;
+
 	public static function main():Void
 		Lib.current.addChild(new Main());
 
@@ -65,7 +67,7 @@ class Main extends openfl.display.Sprite
 			openfl.system.System.gc();
 		});
 
-		addChild(new flixel.FlxGame(1280, 720, InitialState, #if (flixel < "5.0.0") -1, #end 60, 60, true, false));
+		addChild(coolGame = new CoolGame(1280, 720, InitialState, #if (flixel < "5.0.0") -1, #end 60, 60, true, false));
 
 		#if debug
 		flixel.addons.studio.FlxStudio.create();
@@ -224,7 +226,7 @@ class VSGame extends flixel.FlxGame
 		if (FlxG.sound.music != null)
 			FlxG.sound.music.stop();
 
-		Main.instance.add(new backend.CrashHandler(e.details()));
+		Main.instance.addChild(new backend.CrashHandler(e.details()));
 		_viewingCrash = true;
 	}
 }
