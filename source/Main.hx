@@ -165,7 +165,7 @@ class VSGame extends flixel.FlxGame
 	override function onResize(_):Void {
 		if (_viewingCrash)
 			return;
-		super.onResize(_)
+		super.onResize(_);
 	}
 
 	private function exceptionCaught(e:Exception, func:String = null)
