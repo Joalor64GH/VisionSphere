@@ -9,6 +9,7 @@ class SongSelectState extends BeatState
     var songs:Array<String> = ["Bopeebo", "Bopeebo", "Bopeebo"]; // only testing for now
 
     var curSelected:Int = 0;
+    
     var scoreText:FlxText;
     var lerpScore:Int = 0;
     var intendedScore:Int = 0;
@@ -63,8 +64,8 @@ class SongSelectState extends BeatState
         if (Input.is('accept'))
         {
             var poop:String = Highscore.formatSong(songs[curSelected].toLowerCase());
-            PlayState.SONG = Song.loadFromJson(poop, songs[curSelected].toLowerCase());
-            FlxG.switchState(new PlayState());
+            PlayState.SONG = Song.loadFromJSON(poop, songs[curSelected].toLowerCase());
+            FlxG.switchState(new states.games.rhythmo.PlayState());
         }
         
         if (Input.is('exit'))
@@ -77,7 +78,7 @@ class SongSelectState extends BeatState
         }
     }
 
-    function changeSection(change:Int = 0)
+    function changeSelection(change:Int = 0)
     {
         curSelected = FlxMath.wrap(curSelected + change, 0, songs.length - 1);
         intendedScore = Highscore.getScore(songs[curSelected]);

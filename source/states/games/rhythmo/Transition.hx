@@ -8,7 +8,7 @@ class Transition extends FlxSubState
     var transition:FlxBackdrop;
 
     var finishCallback(default, null):() -> Void;
-    var duration(defualt, null):Float;
+    var duration(default, null):Float;
     var transitionIn(default, null):Bool;
 
     public function new(?finishCallback:() -> Void, duration:Float, transitionIn:Bool):Void
