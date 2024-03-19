@@ -65,7 +65,7 @@ class PlayState extends BeatState
         
         persistentUpdate = persistentDraw = true;
 
-        if (SONG != null)
+        if (SONG == null)
             SONG = SONG.loadFromJSON(curLevel);
         
         Conductor.bpm = SONG.bpm;
@@ -207,7 +207,7 @@ class PlayState extends BeatState
         vocals.play();
     }
 
-    private function generateSong(data:String):Void
+    private function generateSong(songData:String):Void
     {
         var songData = SONG;
         Conductor.bpm = songData.bpm;
