@@ -1,6 +1,5 @@
 package states.games.rhythmo;
 
-import flixel.addons.transition.FlxTransitionableState;
 import states.games.rhythmo.Conductor;
 
 class BeatState extends FlxState
@@ -11,24 +10,6 @@ class BeatState extends FlxState
     override function create()
     {
         super.create();
-
-        if (FlxTransitionableState.skipNextTransIn)
-            FlxTransitionableState.skipNextTransIn = false;
-        else
-            openSubState(new states.games.rhythmo.Transition(() -> {}, 0.875, true));
-    }
-
-    override function startOutro(onOutroComplete:() -> Void)
-    {
-        if (FlxTransitionableState.skipNextTransOut)
-            FlxTransitionableState.skipNextTransOut = false;
-        else
-        {
-            openSubState(new states.games.rhythmo.Transition(() -> {}, 0.875, true));
-            return;
-        }
-
-        onOutroComplete();
     }
 
     override function update(elapsed:Float)

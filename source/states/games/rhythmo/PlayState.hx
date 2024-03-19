@@ -19,7 +19,7 @@ import flixel.FlxObject;
 
 class PlayState extends BeatState
 {
-    public static var curLevel:String = 'lol';
+    public static var curLevel:String = 'Bopeebo';
     public static var SONG:SongData;
 
     private var vocals:FlxSound;
@@ -64,6 +64,9 @@ class PlayState extends BeatState
         FlxCamera.defaultCameras = [camGame];
         
         persistentUpdate = persistentDraw = true;
+
+        if (SONG == null)
+            SONG = Song.loadFromJSON(curLevel);
         
         Conductor.changeBPM(SONG.bpm);
 

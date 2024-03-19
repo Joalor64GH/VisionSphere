@@ -54,14 +54,14 @@ class MenuState extends FlxState
         curOption.origin.set(curOption.width / 2, curOption.height / 2);
         add(curOption);
 
-        leftArrow = new FlxSprite(curOption.x - curOption.width / 2 - 19, curOption.y);
+        leftArrow = new FlxSprite(curOption.x - 280, curOption.y);
         leftArrow.frames = Paths.getSparrowAtlas(ui_tex);
         leftArrow.animation.addByPrefix('idle', "arrow left");
         leftArrow.animation.addByPrefix('press', "arrow push left");
         leftArrow.animation.play('idle');
         add(leftArrow);
 
-        rightArrow = new FlxSprite(curOption.x + curOption.width / 2 + 19, curOption.y);
+        rightArrow = new FlxSprite(curOption.x + 280, curOption.y);
         rightArrow.frames = Paths.getSparrowAtlas(ui_tex);
         rightArrow.animation.addByPrefix('idle', "arrow right");
         rightArrow.animation.addByPrefix('press', "arrow push right", 24, false);

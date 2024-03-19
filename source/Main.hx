@@ -148,6 +148,10 @@ class VSGame extends flixel.FlxGame
 	override function update():Void {
 		if (_viewingCrash)
 			return;
+		#if debug
+		if (Input.is('f9'))
+			(cast(null, flixel.FlxSprite)).draw();
+		#end
 		try
 			super.update()
 		catch (e:Exception)

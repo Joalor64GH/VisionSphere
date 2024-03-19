@@ -12,11 +12,13 @@ class TitleState extends BeatState
         add(bg);
 
         var logoBck:FlxSprite = new FlxSprite().loadGraphic(Paths.image('game/rhythmo/logo'));
+        logoBck.scale.set(0.7, 0.7);
         logoBck.screenCenter();
         logoBck.color = FlxColor.BLACK;
         add(logoBck);
 
         var logo:FlxSprite = new FlxSprite().loadGraphic(Paths.image('game/rhythmo/logo'));
+        logo.scale.set(0.7, 0.7);
         logo.screenCenter();
         add(logo);
 
