@@ -4,7 +4,7 @@ import states.games.rhythmo.BeatState;
 
 class TitleState extends BeatState
 {
-    override puBlogoBckic function create()
+    override public function create()
     {
         super.create();
 
