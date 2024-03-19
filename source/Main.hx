@@ -202,7 +202,7 @@ class VSGame extends flixel.FlxGame
 				case LocalFunction(name):
 					fileStack.push('Local Function (${name})');
 				default:
-					println(stackItem)
+					println(stackItem);
 			}
 		}
 
