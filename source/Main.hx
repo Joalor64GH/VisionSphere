@@ -3,12 +3,8 @@ package;
 import openfl.Lib;
 
 import haxe.Exception;
-
-#if CRASH_HANDLER
-import openfl.events.UncaughtErrorEvent;
 import haxe.CallStack;
 import haxe.io.Path;
-#end
 
 import frontend.objects.ToastCore;
 import frontend.debug.Info;
@@ -22,7 +18,7 @@ import backend.MacroUtil;
 ')
 #end
 
-// typedef CoolGame = #if CRASH_HANDLER VSGame #else flixel.FlxGame #end;
+typedef CoolGame = #if CRASH_HANDLER VSGame #else flixel.FlxGame #end;
 
 using StringTools;
 
@@ -80,50 +76,6 @@ class Main extends openfl.display.Sprite
 		fpsDisplay = new Info(10, 10, 0xFFFFFF);
 		addChild(fpsDisplay);
 
-		#if CRASH_HANDLER
-		Lib.current.loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, (e) ->
-		{
-			var errMsg:String = "";
-			var path:String;
-			var callStack:Array<StackItem> = CallStack.exceptionStack(true);
-			var dateNow:String = Date.now().toString();
-
-			dateNow = dateNow.replace(" ", "_");
-			dateNow = dateNow.replace(":", "'");
-
-			path = "./crash/" + "VisionSphere_" + dateNow + ".txt";
-
-			for (stackItem in callStack)
-			{
-				switch (stackItem)
-				{
-					case FilePos(s, file, line, column):
-						errMsg += file + " (line " + line + ")\n";
-					default:
-						Sys.println(stackItem);
-				}
-			}
-
-			errMsg += "\nUncaught Error: " + e.error + "\nPlease report this error to the GitHub page: https://github.com/Joalor64GH/VisionSphere\n\n> Crash Handler written by: sqirra-rng";
-
-			if (!FileSystem.exists("./crash/"))
-				FileSystem.createDirectory("./crash/");
-
-			File.saveContent(path, errMsg + "\n");
-
-			Sys.println(errMsg);
-			Sys.println("Crash dump saved in " + Path.normalize(path));
-
-			#if windows
-			backend.system.Windows.messageBox("Error!", errMsg, MSG_ERROR);
-			#else
-			Application.current.window.alert(errMsg, "Error!");
-			#end
-
-			Sys.exit(0);
-		});
-		#end
-
 		#if windows
 		Lib.current.stage.addEventListener(openfl.events.KeyboardEvent.KEY_DOWN, (evt:openfl.events.KeyboardEvent) ->
 		{
@@ -161,7 +113,6 @@ class Main extends openfl.display.Sprite
 	}
 }
 
-/* // will use once I get the menu done
 class VSGame extends flixel.FlxGame
 {
 	var _viewingCrash:Bool = false;
@@ -205,7 +156,7 @@ class VSGame extends flixel.FlxGame
 
 	override function draw():Void {
 		try
-			super.draw(_)
+			super.draw()
 		catch (e:Exception)
 			return exceptionCaught(e, 'draw');
 	}
@@ -275,8 +226,7 @@ class VSGame extends flixel.FlxGame
 		if (FlxG.sound.music != null)
 			FlxG.sound.music.stop();
 
-		Main.instance.add(new bakcend.CrashHandler(e.details()));
+		Main.instance.add(new backend.CrashHandler(e.details()));
 		_viewingCrash = true;
 	}
 }
-*/
