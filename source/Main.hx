@@ -20,8 +20,6 @@ import backend.MacroUtil;
 
 typedef CoolGame = #if CRASH_HANDLER VSGame #else flixel.FlxGame #end;
 
-using StringTools;
-
 class Main extends openfl.display.Sprite
 {
 	public static final gameVersion:String = '0.6.5';
