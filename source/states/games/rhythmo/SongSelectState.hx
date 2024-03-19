@@ -64,7 +64,7 @@ class SongSelectState extends BeatState
         if (Input.is('accept'))
         {
             var poop:String = Highscore.formatSong(songs[curSelected].toLowerCase());
-            PlayState.SONG = Song.loadFromJSON(poop, songs[curSelected].toLowerCase());
+            states.games.rhythmo.PlayState.SONG = Song.loadFromJSON(poop, songs[curSelected].toLowerCase());
             FlxG.switchState(new states.games.rhythmo.PlayState());
         }
         

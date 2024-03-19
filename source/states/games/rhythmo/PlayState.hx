@@ -64,9 +64,6 @@ class PlayState extends BeatState
         FlxCamera.defaultCameras = [camGame];
         
         persistentUpdate = persistentDraw = true;
-
-        if (SONG == null)
-            SONG = SONG.loadFromJSON(curLevel);
         
         Conductor.changeBPM(SONG.bpm);
 
@@ -78,7 +75,7 @@ class PlayState extends BeatState
         add(opponent);
 
         var camPos:FlxPoint = new FlxPoint(opponent.getGraphicMidpoint().x, opponent.getGraphicMidpoint().y);
-        camPos += 400;
+        camPos.x += 400;
 
         player = new Player(770, 450);
         add(player);

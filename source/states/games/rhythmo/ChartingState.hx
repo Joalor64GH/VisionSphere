@@ -74,8 +74,8 @@ class ChartingState extends BeatState
 		curRenderedNotes = new FlxTypedGroup<Note>();
 		curRenderedSustains = new FlxTypedGroup<FlxSprite>();
 
-		if (PlayState.SONG != null)
-			_song = PlayState.SONG;
+		if (states.games.rhythmo.PlayState.SONG != null)
+			_song = states.games.rhythmo.PlayState.SONG;
 		else
 		{
 			_song = {
@@ -295,7 +295,7 @@ class ChartingState extends BeatState
 		bullshitUI.add(title);
 	}
 
-	override function getEvent(id:String, sender:Dynamic, data:Dynamic, ?params:Array<Dynamic>)
+	function getEvent(id:String, sender:Dynamic, data:Dynamic, ?params:Array<Dynamic>)
 	{
 		if (id == FlxUICheckBox.CLICK_EVENT)
 		{
@@ -408,10 +408,10 @@ class ChartingState extends BeatState
 
 		if (Input.is('enter'))
 		{
-			PlayState.SONG = _song;
+			states.games.rhythmo.PlayState.SONG = _song;
 			FlxG.sound.music.stop();
 			vocals.stop();
-			FlxG.switchState(new PlayState());
+			FlxG.switchState(new states.games.rhythmo.PlayState());
 		}
 
 		if (!typingShit.hasFocus)
@@ -538,7 +538,7 @@ class ChartingState extends BeatState
 
 		var sectionInfo:Array<Dynamic> = _song.notes[curSection].sectionNotes;
 
-		Conductor.changeBpm((_song.notes[curSection].bpm > 0) ? _song.notes[curSection].bpm : tempBpm);
+		Conductor.changeBPM((_song.notes[curSection].bpm > 0) ? _song.notes[curSection].bpm : tempBpm);
 
 		for (i in sectionInfo)
 		{
@@ -678,7 +678,7 @@ class ChartingState extends BeatState
 
 	function loadJson(song:String):Void
 	{
-		PlayState.SONG = Song.loadFromJSON(song.toLowerCase(), song.toLowerCase());
+		states.games.rhythmo.PlayState.SONG = Song.loadFromJSON(song.toLowerCase(), song.toLowerCase());
 		FlxG.resetState();
 	}
 

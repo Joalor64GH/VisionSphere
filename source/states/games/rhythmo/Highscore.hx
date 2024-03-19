@@ -31,7 +31,7 @@ class Highscore
     public static function getScore(song:String):Int
     {
         if (!songScores.exists(formatSong(song)))
-            setScore(formatSong(song));
+            setScore(formatSong(song), 0);
 
         return songScores.get(formatSong(song));
     }
