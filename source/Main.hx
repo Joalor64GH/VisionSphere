@@ -174,7 +174,6 @@ class VSGame extends flixel.FlxGame
 			return;
 
 		var path:String;
-		var callStack:Array<StackItem> = CallStack.exceptionStack(true);
 		var fileStack:Array<String> = [];
 		var dateNow:String = Date.now().toString();
 		var println = #if sys Sys.println #else trace #end;
@@ -184,26 +183,21 @@ class VSGame extends flixel.FlxGame
 
 		path = 'crash/VisionSphere_${dateNow}.txt';
 
-		for (stackItem in callStack) {
+		for (stackItem in CallStack.exceptionStack(true)) {
 			switch (stackItem) {
 				case CFunction:
 					fileStack.push('Non-Haxe (C) Function');
 				case Module(moduleName):
 					fileStack.push('Module (${moduleName})');
-				case FilePos(parent, file, line, col):
-					switch (parent) {
-						case Method(cla, func):
-							fileStack.push('${file} ${cla.split(".").last()}.$func() - (line ${line})');
-						case _:
-							fileStack.push('${file} - (line ${line})');
-					}
+				case FilePos(s, file, line, col):
+					fileStack.push('${file} (line ${line})');
 				case Method(className, method):
 					fileStack.push('${className} (method ${method})');
 				case LocalFunction(name):
 					fileStack.push('Local Function (${name})');
-				default:
-					println(stackItem);
 			}
+
+			println(stackItem);
 		}
 
 		fileStack.insert(0, "Exception: " + e.message);

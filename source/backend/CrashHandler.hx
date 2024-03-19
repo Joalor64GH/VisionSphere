@@ -137,7 +137,7 @@ class CrashHandler extends openfl.display.Sprite
                     Sys.exit(0); 
                     _active = false;
                     _stage.removeEventListener(KeyboardEvent.KEY_DOWN, keyActions);
-				    @:privateAccess Main.instance.CoolGame._viewingCrash = false;
+				    @:privateAccess Main.instance.coolGame._viewingCrash = false;
 				    if (Main.instance != null && Main.instance.contains(this))
 					    Main.instance.removeChild(this);
                 }, false);
