@@ -64,8 +64,6 @@ class PlayState extends BeatState
         'okay' => 100,
         'nice' => 200
     ];
-
-    var ratingOffsetArray:Array<Float> = [0.9, 0.75, 0.2];
     var ratingOffsetMap:Map<String, Float> = [
         'no' => 0.9,
         'okay' => 0.75,
@@ -123,7 +121,9 @@ class PlayState extends BeatState
 
         FlxG.camera.follow(camFollow, LOCKON, 0.04);
         FlxG.camera.zoom = 1.05;
+
         FlxG.worldBounds.set(0, 0, FlxG.width, FlxG.height);
+        
         FlxG.fixedTimestep = false;
 
         scoreTxt = new FlxText(0, (FlxG.height * 0.89) + 36, FlxG.height, "", 20);
@@ -133,10 +133,10 @@ class PlayState extends BeatState
         add(scoreTxt);
 
         timeText = new FlxText(0, 10, FlxG.width, "", 20);
-        scoreTxt.setFormat(Paths.font('vcr.ttf'), 48, FlxColor.WHITE, FlxTextAlign.CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-        scoreTxt.screenCenter(X);
-        scoreTxt.scrollFactor.set();
-        add(scoreTxt);
+        timeText.setFormat(Paths.font('vcr.ttf'), 48, FlxColor.WHITE, FlxTextAlign.CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+        timeText.screenCenter(X);
+        timeText.scrollFactor.set();
+        add(timeText);
 
         startCountdown();
 
@@ -721,7 +721,7 @@ class PlayState extends BeatState
                 badNoteCheck();
         }
 
-        if (player.holdTimer > Conductor.stepCrochet * 4 * && !holdingArray.contains(true) 
+        if (player.holdTimer > Conductor.stepCrochet * 4 && !holdingArray.contains(true) 
             && player.animation.curAnim.name.startsWith('sing'))
             player.playAnim('idle');
 
