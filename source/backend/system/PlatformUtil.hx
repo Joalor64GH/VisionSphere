@@ -16,6 +16,8 @@ class PlatformUtil
         return 'browser';
         #elseif android
         return 'android';
+        #elseif hl
+        return 'hl';
         #elseif ios
         return 'ios';
         #elseif flash

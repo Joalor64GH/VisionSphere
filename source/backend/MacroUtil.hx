@@ -25,4 +25,30 @@ class MacroUtil
         } catch(e) {}
         return macro $v{0};
     }
+
+    static macro function getDefine(key:String):haxe.macro.Expr
+    {
+        return macro $v{haxe.macro.Context.definedValue(key)};
+    }
+
+    static macro function setDefine(key:String, value:String):haxe.macro.Expr
+    {
+        haxe.macro.Compiler.define(key, value);
+        return macro null;
+    }
+
+    static macro function isDefined(key:String):haxe.macro.Expr
+    {
+        return macro $v{haxe.macro.Context.defined(key)};
+    }
+
+    static macro function getDefines():haxe.macro.Expr
+    {
+        var defines:Map<String, String> = haxe.macro.Context.getDefines();
+        var map:Array<haxe.macro.Expr> = [];
+        for (key in defines.keys())
+            map.push(macro $v{key} => $v{Std.string(defines.get(key))});
+
+        return macro $a{map};
+    }
 }

@@ -32,5 +32,5 @@ class Info extends openfl.text.TextField
 	}
 
 	inline function get_memoryMegas():Float
-		return cast(openfl.system.System.totalMemory, UInt);
+		return cast(cast(openfl.system.System.totalMemory, UInt), Float);
 }

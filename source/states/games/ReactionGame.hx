@@ -31,6 +31,8 @@ class ReactionGame extends FlxState
     {
         super.update(elapsed);
 
+        text.screenCenter(X);
+
         if (Input.is('exit'))
         {
             FlxG.sound.play(Paths.sound('cancel'));

@@ -22,7 +22,7 @@ typedef CoolGame = #if CRASH_HANDLER VSGame #else flixel.FlxGame #end;
 
 class Main extends openfl.display.Sprite
 {
-	public static final gameVersion:String = '0.6.5';
+	public static final gameVersion:String = '0.7.0';
 
 	public static var buildNum(default, never):Int = MacroUtil.get_build_num();
 	public static var commitId(default, never):String = MacroUtil.get_commit_id();

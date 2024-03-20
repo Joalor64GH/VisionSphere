@@ -4,7 +4,6 @@ import flixel.graphics.FlxGraphic;
 import flixel.graphics.frames.FlxAtlasFrames;
 
 import openfl.media.Sound;
-import openfl.system.System;
 import openfl.utils.Assets;
 import openfl.display.BitmapData;
 
@@ -19,6 +18,7 @@ class Paths
 {
 	#if MODS_ALLOWED
 	public static var ignoreModFolders:Array<String> = [
+		'_append',
 		'data',
 		'music',
 		'sounds',
@@ -55,7 +55,7 @@ class Paths
 				}
 			}
 		}
-		System.gc();
+		openfl.system.System.gc();
 	}
 
 	public static function clearStoredMemory() 
