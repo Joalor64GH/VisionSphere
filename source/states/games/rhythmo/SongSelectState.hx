@@ -19,6 +19,10 @@ class SongSelectState extends BeatState
         var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('game/rhythmo/menuBG'));
         add(bg);
 
+        var slash:FlxSprite = new FlxSprite().loadGraphic(Paths.image('game/rhythmo/slash'));
+        slash.screenCenter();
+        add(slash);
+
         grpSongs = new FlxTypedGroup<Alphabet>();
         add(grpSongs);
 

@@ -12,6 +12,7 @@ import states.games.rhythmo.Highscore;
 
 import flixel.addons.display.FlxGridOverlay;
 import flixel.math.FlxPoint;
+import flixel.math.FlxRect;
 import flixel.util.FlxSort;
 import flixel.sound.FlxSound;
 
@@ -20,6 +21,8 @@ import flixel.FlxObject;
 class PlayState extends BeatState
 {
     public static var SONG:SongData;
+
+    private final animArray:Array<String> = ['singLEFT', 'singDOWN', 'singUP', 'singRIGHT'];
 
     private var vocals:FlxSound;
 
@@ -54,6 +57,20 @@ class PlayState extends BeatState
 
     var songLength:Float = 0;
     var songPercent:Float = 0;
+
+    var ratingArray:Array<String> = ['no', 'okay', 'nice'];
+    var ratingMap:Map<String, Int> = [
+        'no' => 50,
+        'okay' => 100,
+        'nice' => 200
+    ];
+
+    var ratingOffsetArray:Array<Float> = [0.9, 0.75, 0.2];
+    var ratingOffsetMap:Map<String, Float> = [
+        'no' => 0.9,
+        'okay' => 0.75,
+        'nice' => 0.2
+    ];
     
     override public function create()
     {
@@ -479,20 +496,22 @@ class PlayState extends BeatState
                 daNote.visible = (daNote.y > FlxG.height) ? false : true;
                 daNote.active = (daNote.y > FlxG.height) ? false : true;
 
+                daNote.y = (strumLine.y - (Conductor.songPosition - daNote.strumTime) * (-0.45 * FlxMath.roundDecimal(SONG.speed, 2)));
+
+                if (daNote.isSustainNote 
+                    && daNote.y + daNote.offset.y <= strumLine.y + Note.swagWidth / 2 
+                    && (!daNote.mustPress || (daNote.wasGoodHit || (daNote.prevNote.wasGoodHit && !daNote.canBeHit))))
+                {
+                    var swagRect = new FlxRect(0, strumLine.y + Note.swagWidth / 2 - daNote.y, daNote.width * 2, daNote.height * 2);
+                    swagRect.y /= daNote.scale.y;
+                    swagRect.height -= swagRect.y;
+
+                    daNote.clipRect = swagRect;
+                }
+
                 if (!daNote.mustPress && daNote.wasGoodHit)
                 {
-                    switch (Math.abs(daNote.noteData))
-                    {
-                        case 0:
-                            opponent.playAnim('singLEFT');
-                        case 1:
-                            opponent.playAnim('singDOWN');
-                        case 2:
-                            opponent.playAnim('singUP');
-                        case 3:
-                            opponent.playAnim('sinGRIGHT');
-                    }
-
+                    opponent.playAnim(animArray[daNote.noteData % 4] + altAnim, true);
                     opponent.holdTimer = 0;
 
                     if (SONG.needsVoices)
@@ -502,8 +521,6 @@ class PlayState extends BeatState
                     notes.remove(daNote, true);
                     daNote.destroy();
                 }
-
-                daNote.y = (strumLine.y - (Conductor.songPosition - daNote.strumTime) * (-0.45 * FlxMath.roundDecimal(SONG.speed, 2)));
 
                 if (daNote.y < -daNote.height)
                 {
@@ -531,6 +548,7 @@ class PlayState extends BeatState
 
     function endSong():Void
     {
+        trace("song finished!");
         Highscore.saveScore(SONG.song, songScore);
         FlxG.switchState(new states.games.rhythmo.SongSelectState());
     }
@@ -551,20 +569,12 @@ class PlayState extends BeatState
 
         var daRating:String = "perfect";
 
-        if (noteDiff > Conductor.safeZoneOffset * 0.9)
-        {
-            daRating = 'no';
-            score = 50;
-        }
-        else if (noteDiff > Conductor.safeZoneOffset * 0.75)
-        {
-            daRating = 'okay';
-            score = 100;
-        }
-        else if (noteDiff > Conductor.safeZoneOffset * 0.2)
-        {
-            daRating = 'nice';
-            score = 200;
+        for (ratingString in ratingArray) {
+            final offset = ratingOffsetMap.get(ratingString);
+            if (noteDiff > Conductor.safeZoneOffset * offset) {
+                daRating = ratingString;
+                score = ratingMap.get(daRating);
+            }
         }
 
         songScore += score;
@@ -633,46 +643,63 @@ class PlayState extends BeatState
         curSection++;
     }
 
-    var upHold:Bool = false;
-    var downHold:Bool = false;
-    var leftHold:Bool = false;
-    var rightHold:Bool = false;
-
     private function keyShit():Void
     {
-        var up = Input.is('up');
-        var down = Input.is('down');
-        var left = Input.is('left');
-        var right = Input.is('right');
+        var controlArray:Array<Bool> = [Input.is('left', PRESSED),  Input.is('down', PRESSED), Input.is('up', PRESSED), Input.is('right', PRESSED)];
+        var holdArray:Array<Bool> = [Input.is('left'), Input.is('down'), Input.is('up'), Input.is('right')];
 
-        var upP = Input.is('up', PRESSED);
-        var downP = Input.is('down', PRESSED);
-        var leftP = Input.is('left', PRESSED);
-        var rightP = Input.is('right', PRESSED);
+        if (holdingArray.contains(true) && generatedMusic)
+        {
+            notes.forEachAlive((daNote:Note) -> 
+            {
+                if (daNote.isSustainNote && daNote.canBeHit && daNote.mustPress && holdingArray[daNote.noteData])
+                    goodNoteHit(daNote);
+            });
+        }
 
-        var upR = Input.is('up', RELEASED);
-        var downR = Input.is('down', RELEASED);
-        var leftR = Input.is('left', RELEASED);
-        var rightR = Input.is('right', RELEASED);
-
-        var controlArray:Array<Bool> = [leftP, downP, upP, rightP];
-
-        if ((upP || rightP || downP || leftP) && generatedMusic)
+        if (controlArray.contains(true) && generatedMusic)
         {
             player.holdTimer = 0;
 
             var possibleNotes:Array<Note> = [];
+            var removeList:Array<Note> = [];
             var ignoreList:Array<Int> = [];
 
             notes.forEachAlive((daNote:Note) -> 
             {
-                if (daNote.canBeHit && daNote.mustPress && !daNote.tooLate) 
+                if (daNote.canBeHit && daNote.mustPress && !daNote.tooLate && !daNote.wasGoodHit) 
                 {
-                    possibleNotes.push(daNote);
-                    possibleNotes.sort((a, b) -> Std.int(a.strumTime - b.strumTime));
-
-                    ignoreList.push(daNote.noteData);
+                    if (ignoreList.contains(daNote.noteData))
+                    {
+                        for (possibleNote in possibleNotes)
+                        {
+                            if (possibleNote.noteData == daNote.noteData && Math.abs(daNote.strumTime - possibleNote.strumTime) < 10)
+                                removeList.push(daNote);
+                            else if (possibleNote.noteData == daNote.noteData && daNote.strumTime < possibleNote.strumTime)
+                            {
+                                possibleNotes.remove(possibleNote);
+                                possibleNotes.push(daNote);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        possibleNotes.push(daNote);
+                        ignoreList.push(daNote.noteData);
+                    }
                 }
+            });
+
+            for (badNote in removeList)
+            {
+                badNote.kill();
+                notes.remove(badNote, true);
+                badNote.destroy();
+            }
+
+            possibleNotes.sort((note1:Note, note2:Note) -> 
+            {
+                return Std.int(note1.strumTime - note2.strumTime);
             });
 
             if (possibleNotes.length > 0)
@@ -681,114 +708,38 @@ class PlayState extends BeatState
 
                 if (possibleNotes.length >= 2)
                 {
-                    if (possibleNotes[0].strumTime == possibleNotes[1].strumTime)
-                    {
-                        for (coolNote in possibleNotes)
-                        {
-                            if (controlArray[coolNote.noteData])
-                                goodNoteHit(coolNote);
-                            else
-                            {
-                                var inIgnoreList:Bool = false;
-                                for (frick in 0...ignoreList.length)
-                                    if (controlArray[ignoreList[frick]])
-                                        inIgnoreList = true;
-                                if (!inIgnoreList)
-                                    badNoteCheck();
-                            }
-                        }
-                    }
-                    else if (possibleNotes[0].noteData == possibleNotes[1].noteData)
-                    {
-                        noteCheck(controlArray[daNote.noteData], daNote);
-                    }
-                    else
-                    {
-                        for (coolNote in possibleNotes)
-                            noteCheck(controlArray[coolNote.noteData], coolNote);
-                    }
-                }
-                else
-                {
-                    noteCheck(controlArray[daNote.noteData], daNote);
-                }
+                    for (i in 0...controlArray.length)
+                        if (controlArray[i] && !ignoreList.contains(i))
+                            badNoteCheck();
 
-                if (daNote.wasGoodHit)
-                {
-                    daNote.kill();
-                    notes.remove(daNote, true);
-                    daNote.destroy();
+                    for (possibleNote in possibleNotes)
+                        if (controlArray[possibleNote.noteData])
+                            goodNoteHit(possibleNote);
                 }
             }
             else
                 badNoteCheck();
         }
 
-        if ((up || right || down || left) && generatedMusic || (upHold || downHold || leftHold || rightHold) && generatedMusic)
-        {
-            notes.forEachAlive((daNote:Note) ->
-            {
-                if (daNote.canBeHit && daNote.mustPress && daNote.isSustainNote)
-                {
-                    switch (daNote.noteData)
-                    {
-                        case 0:
-                            if (left || leftHold)
-                                goodNoteHit(daNote);
-                        case 1:
-                            if (down || downHold)
-                                goodNoteHit(daNote);
-                        case 2:
-                            if (up || upHold)
-                                goodNoteHit(daNote);
-                        case 3:
-                            if (right || rightHold)
-                                goodNoteHit(daNote);
-                    }
-                }
-            });
-        }
-
-        if (player.holdTimer > Conductor.stepCrochet * 4 * 0.001 && !up && !down && !right && !left)
-        {
-            if (player.animation.curAnim.name.startsWith('sing'))
-                player.playAnim('idle');
-        }
+        if (player.holdTimer > Conductor.stepCrochet * 4 * && !holdingArray.contains(true) 
+            && player.animation.curAnim.name.startsWith('sing'))
+            player.playAnim('idle');
 
         playerStrums.forEach((spr:FlxSprite) -> 
         {
-            switch (spr.ID)
-            {
-                case 0:
-                    if (leftP && spr.animation.curAnim.name != 'confirm')
-                        spr.animation.play('pressed');
-                    if (leftR)
-                        spr.animation.play('static');
-                case 1:
-                    if (downP && spr.animation.curAnim.name != 'confirm')
-                        spr.animation.play('pressed');
-                    if (downR)
-                        spr.animation.play('static');
-                case 2:
-                    if (upP && spr.animation.curAnim.name != 'confirm')
-                        spr.animation.play('pressed');
-                    if (upR)
-                        spr.animation.play('static');
-                case 3:
-                    if (rightP && spr.animation.curAnim.name != 'confirm')
-                        spr.animation.play('pressed');
-                    if (rightR)
-                        spr.animation.play('static');
-            }
+            if (controlArray[spr.ID] && spr.animation.curAnim.name != 'confirm')
+                spr.animation.play('pressed');
+            if (!holdingArray[spr.ID])
+                spr.animation.play('static');
 
-            if (spr.animation.curAnim.name == 'confirm')
+            if ((spr.animation.curAnim == null || spr.animation.curAnim.name != 'confirm'))
+                spr.centerOffsets()
+            else
             {
                 spr.centerOffsets();
                 spr.offset.x -= 13;
                 spr.offset.y -= 13;
             }
-            else
-                spr.centerOffsets();
         });
     }
 
@@ -797,6 +748,7 @@ class PlayState extends BeatState
         combo = 0;
         songScore -= 10;
         songMisses++;
+        
         switch (direction)
         {
             case 0:
@@ -845,17 +797,7 @@ class PlayState extends BeatState
                 combo++;
             }
 
-            switch (note.noteData)
-            {
-                case 0:
-                    player.playAnim('singLEFT');
-                case 1:
-                    player.playAnim('singDOWN');
-                case 2:
-                    player.playAnim('singUP');
-                case 3:
-                    player.playAnim('singRIGHT');
-            }
+            player.playAnim(animArray[note.noteData % 4], true);
 
             playerStrums.forEach((spr:FlxSprite) -> 
             {
