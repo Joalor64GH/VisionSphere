@@ -25,23 +25,23 @@ class CrashHandler extends openfl.display.Sprite
 
 	final imagineBeingFunny:Array<String> = [
 		"Fatal Error!",
-        "Okay, what'd you do this time?",
-        "I told you the human would crash the game.",
-        "The operation completed successfully.",
-        "Task failed successfully.",
-        "Something error'd, but honestly, we're just gonna ignore it!",
+		"Okay, what'd you do this time?",
+		"I told you the human would crash the game.",
+		"The operation completed successfully.",
+		"Task failed successfully.",
+		"Something error'd, but honestly, we're just gonna ignore it!",
 		"We found a bug in your software. It's a freaking butterfly.",
-        "Oops, I did it again.",
-        "Uh oh. You're screwed",
-        "Something bad",
-        "Catastrophic failure",
-        "Something happened",
-        "I caught the error!",
-        "so long gay bowser!!",
-        "im gone fire!!!!!",
-        "fix your grammer",
-        "Can't",
-        "lmfao",
+		"Oops, I did it again.",
+		"Uh oh. You're screwed.",
+		"Something bad",
+		"Catastrophic failure",
+		"Something happened",
+		"I caught the error!",
+		"so long gay bowser!!",
+		"im gone fire!!!!!",
+		"fix your grammer",
+		"Can't",
+		"lmfao",
 		"removeChild(game);",
 		"POW! Haha!",
 		"Invalid Canary",
@@ -73,7 +73,7 @@ class CrashHandler extends openfl.display.Sprite
 		"Error 404 - Brain.exe not found",
 		"Press F",
 		"Error",
-		"C:\\_",
+		"C:\_",
 		"time to destroy",
 		"air detected",
 		"Are you stoopid",
@@ -108,7 +108,7 @@ class CrashHandler extends openfl.display.Sprite
 	];
 
 	public function new(stack:String):Void 
-    {
+	{
 		super();
 
 		this._stage = openfl.Lib.application.window.stage;
@@ -149,7 +149,7 @@ class CrashHandler extends openfl.display.Sprite
 			+ "\nPress R to restart the game."
 			+ "\nIf you feel like this error shouldn't have happened,"
 			+ "\nplease report it to the GitHub Page by pressing G."
-            + "\nOtherwise, Press Q to exit the game.";
+			+ "\nOtherwise, Press Q to exit the game.";
 
 		loggedError.autoSize = errorTitle.autoSize;
 		loggedError.y = errorTitle.y + (errorTitle.height) + 50;
