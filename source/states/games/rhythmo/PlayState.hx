@@ -123,7 +123,7 @@ class PlayState extends BeatState
         FlxG.camera.zoom = 1.05;
 
         FlxG.worldBounds.set(0, 0, FlxG.width, FlxG.height);
-        
+
         FlxG.fixedTimestep = false;
 
         scoreTxt = new FlxText(0, (FlxG.height * 0.89) + 36, FlxG.height, "", 20);
@@ -511,7 +511,7 @@ class PlayState extends BeatState
 
                 if (!daNote.mustPress && daNote.wasGoodHit)
                 {
-                    opponent.playAnim(animArray[daNote.noteData % 4] + altAnim, true);
+                    opponent.playAnim(animArray[daNote.noteData % 4], true);
                     opponent.holdTimer = 0;
 
                     if (SONG.needsVoices)
@@ -646,7 +646,7 @@ class PlayState extends BeatState
     private function keyShit():Void
     {
         var controlArray:Array<Bool> = [Input.is('left', PRESSED),  Input.is('down', PRESSED), Input.is('up', PRESSED), Input.is('right', PRESSED)];
-        var holdArray:Array<Bool> = [Input.is('left'), Input.is('down'), Input.is('up'), Input.is('right')];
+        var holdingArray:Array<Bool> = [Input.is('left'), Input.is('down'), Input.is('up'), Input.is('right')];
 
         if (holdingArray.contains(true) && generatedMusic)
         {
