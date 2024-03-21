@@ -55,7 +55,6 @@ class PlayState extends FlxState
             {img: "math", desc: "An endless math problem game!", title: "The Simple Math Game"},
             {img: "teturisu", desc: "It's tetris in Haxeflixel lol.", title: "Teturisu"},
             {img: "reaction", desc: "Can you click the right square?", title: "The Reaction Game"},
-            {img: "blank", desc: "testing", title: "Rhythmo"},
             {img: "blank", desc: "testing", title: "The Phone"}
         ];
 
@@ -153,11 +152,6 @@ class PlayState extends FlxState
                         FlxG.switchState(new states.games.ReactionGame());
                     });
                 case 7:
-                    FlxG.camera.fade(FlxColor.BLACK, 0.5, false, () ->
-                    {
-                        FlxG.switchState(new states.games.rhythmo.TitleState());
-                    });
-                case 8:
                     FlxG.camera.fade(FlxColor.BLACK, 0.5, false, () ->
                     {
                         FlxG.switchState(new states.games.Phone());
