@@ -106,15 +106,20 @@ class Phone extends FlxState
                     if (FlxG.mouse.justPressed)
                         code.text += selection;
         
-        if (Input.is('accept'))
+        if (Input.is('accept') && code.text != '')
         {
-            switch (code.text)
+            /*
+            if (FlxG.random.bool(30))
             {
-                default:
-                    code.text = '';
-                    if (canSelect)
-                        FlxG.camera.shake(0.015, 0.2);
+                // play random video then crash
+                canSelect = false;
             }
+            else 
+            { */
+                code.text = '';
+                if (canSelect)
+                    FlxG.camera.shake(0.015, 0.2);
+            // }
         }
     }
 }

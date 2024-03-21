@@ -244,7 +244,6 @@ class PlayState extends BeatState
         curSong = songData.song;
 
         vocals = (SONG.needsVoices) ? new FlxSound().loadEmbedded(Paths.music("rhythmo/" + curSong + "_Voices")) : new FlxSound();
-
         FlxG.sound.list.add(vocals);
 
         notes = new FlxTypedGroup<Note>();
@@ -565,9 +564,8 @@ class PlayState extends BeatState
         coolText.x = FlxG.width * 0.55;
 
         var rating:FlxSprite = new FlxSprite();
-        var score:Int = 350;
-
         var daRating:String = "perfect";
+        var score:Int = 350;
 
         for (ratingString in ratingArray) {
             final offset = ratingOffsetMap.get(ratingString);
@@ -777,14 +775,6 @@ class PlayState extends BeatState
             noteMiss(2);
         if (rightP)
             noteMiss(3);
-    }
-
-    function noteCheck(keyP:Bool, note:Note):Void
-    {
-        if (keyP)
-            goodNoteHit(note);
-        else
-            badNoteCheck();
     }
 
     function goodNoteHit(note:Note):Void
