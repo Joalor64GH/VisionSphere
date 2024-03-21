@@ -39,7 +39,7 @@ class SongSelectState extends BeatState
         add(bottomPanel);
 
         scoreText = new FlxText(20, FlxG.height - 80, 1000, "", 22);
-        scoreText.setFormat("VCR OSD Mono", 30, 0xFFffffff, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+        scoreText.setFormat(Paths.font('vcr.ttf'), 30, 0xFFffffff, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
         scoreText.scrollFactor.set();
         scoreText.screenCenter(X);
         add(scoreText);
@@ -47,7 +47,7 @@ class SongSelectState extends BeatState
         var descTxt = new FlxText(scoreText.x, scoreText.y + 36, 1000, "Totally not a copy of FNF! (It is)", 22);
         descTxt.screenCenter(X);
         descTxt.scrollFactor.set();
-        descTxt.setFormat("VCR OSD Mono", 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+        descTxt.setFormat(Paths.font('vcr.ttf'), 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
         add(descTxt);
 
         changeSelection();
@@ -60,7 +60,7 @@ class SongSelectState extends BeatState
         super.update(elapsed);
 
         lerpScore = Math.floor(FlxMath.lerp(lerpScore, intendedScore, 0.4));
-        scoreText.text = "PERSONAL BEST:" + lerpScore;
+        scoreText.text = "PERSONAL BEST: " + lerpScore;
 
         if (Input.is('up') || Input.is('down'))
             changeSelection(Input.is('up') ? -1 : 1);

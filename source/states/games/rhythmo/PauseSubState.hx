@@ -12,7 +12,7 @@ class PauseSubState extends FlxSubState
         bg.alpha = 0.6;
         add(bg);
 
-        var text:FlxText = new FlxText(0, 0, 0, "R - Restart\nENTER - Resume\nESCAPE - Exit", 40);
+        var text:FlxText = new FlxText(0, 0, 0, "R - Restart\nENTER - Resume\nESCAPE - Exit", 54);
         text.scrollFactor.set();
         text.screenCenter();
         add(text);

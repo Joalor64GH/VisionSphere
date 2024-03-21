@@ -34,7 +34,7 @@ class Note extends FlxSprite
 		this.strumTime = strumTime;
 		this.noteData = noteData;
 
-		frames = Paths.getSparrowAtlas('NOTE_assets');
+		frames = Paths.getSparrowAtlas('game/rhythmo/NOTE_assets');
 		animation.addByPrefix('greenScroll', 'green alone');
 		animation.addByPrefix('redScroll', 'red alone');
 		animation.addByPrefix('blueScroll', 'blue alone');
