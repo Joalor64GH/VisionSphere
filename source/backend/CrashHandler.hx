@@ -73,7 +73,7 @@ class CrashHandler extends openfl.display.Sprite
 		"Error 404 - Brain.exe not found",
 		"Press F",
 		"Error",
-		"C:\_",
+		"C:\\_",
 		"time to destroy",
 		"air detected",
 		"Are you stoopid",
