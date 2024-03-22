@@ -149,7 +149,7 @@ class VSGame extends flixel.FlxGame
 		if (_viewingCrash)
 			return;
 		#if debug
-		if (Input.is('f9'))
+		if (FlxG.keys.justPressed.F9)
 			(cast(null, flixel.FlxSprite)).draw();
 		#end
 		try

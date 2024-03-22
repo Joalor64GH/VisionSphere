@@ -18,7 +18,8 @@ class Phone extends FlxState
     var selection:Int;
     var canSelect:Bool = true;
 
-    var video:FlxVideo;
+    var video:FlxVideo = new FlxVideo();
+    var randomVidArray:Array<String> = [];
 
     override function create()
     {
@@ -111,7 +112,13 @@ class Phone extends FlxState
             /*
             if (FlxG.random.bool(30))
             {
-                // play random video then crash
+                if (video.load(Paths.video(randomVidArray[FlxG.random.int(0, (randomVidArray.length - 1))])))
+                    video.play();
+                video.onEndReached.add(() -> {
+                    video.dispose();
+                    Sys.exit(0);
+                    return;
+                }, true);
                 canSelect = false;
             }
             else 
