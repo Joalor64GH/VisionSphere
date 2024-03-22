@@ -66,7 +66,7 @@ class Main extends openfl.display.Sprite
 			openfl.system.System.gc();
 		});
 
-		coolGame = new VSGame(1280, 720, InitialState, #if (flixel < "5.0.0") -1, #end 60, 60, true, false)
+		coolGame = new VSGame(1280, 720, InitialState, #if (flixel < "5.0.0") -1, #end 60, 60, true, false);
 		addChild(coolGame);
 
 		#if debug
