@@ -2,9 +2,11 @@ package;
 
 import openfl.Lib;
 
+#if CRASH_HANDLER
 import haxe.Exception;
 import haxe.CallStack;
 import haxe.io.Path;
+#end
 
 import frontend.objects.ToastCore;
 import frontend.debug.Info;
@@ -18,8 +20,6 @@ import backend.MacroUtil;
 ')
 #end
 
-typedef CoolGame = #if CRASH_HANDLER VSGame #else flixel.FlxGame #end;
-
 class Main extends openfl.display.Sprite
 {
 	public static final gameVersion:String = '0.7.0';
@@ -29,10 +29,9 @@ class Main extends openfl.display.Sprite
 
 	public static var toast:ToastCore;
 	public static var fpsDisplay:Info;
-
 	public static var instance:Main;
 
-	private var coolGame:CoolGame;
+	private var coolGame:VSGame;
 
 	public static function main():Void
 		Lib.current.addChild(new Main());
@@ -67,7 +66,8 @@ class Main extends openfl.display.Sprite
 			openfl.system.System.gc();
 		});
 
-		addChild(coolGame = new CoolGame(1280, 720, InitialState, #if (flixel < "5.0.0") -1, #end 60, 60, true, false));
+		coolGame = new VSGame(1280, 720, InitialState, #if (flixel < "5.0.0") -1, #end 60, 60, true, false)
+		addChild(coolGame);
 
 		#if debug
 		flixel.addons.studio.FlxStudio.create();
@@ -168,8 +168,9 @@ class VSGame extends flixel.FlxGame
 		super.onResize(_);
 	}
 
-	private function exceptionCaught(e:Exception, func:String = null)
+	private function exceptionCaught(e:Exception, ?func:String = null)
 	{
+		#if CRASH_HANDLER
 		if (_viewingCrash)
 			return;
 
@@ -222,5 +223,8 @@ class VSGame extends flixel.FlxGame
 
 		Main.instance.addChild(new backend.CrashHandler(e.details()));
 		_viewingCrash = true;
+		#else
+		throw e;
+		#end
 	}
 }
