@@ -56,9 +56,9 @@ class ControlsSubState extends FlxSubState
             if (FlxG.mouse.justPressed) 
             {
                 keyboardMode = !keyboardMode;
-                if (keyboardMode == false && gamepad != null)
+                if (gamepad != null)
                     FlxG.sound.play(Paths.sound('confirm'));
-                else
+                else if (gamepad == null)
                 {
                     keyboardMode = true;
                     FlxG.sound.play(Paths.sound('cancel'));

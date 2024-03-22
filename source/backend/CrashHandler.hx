@@ -51,7 +51,7 @@ class CrashHandler extends openfl.display.Sprite
 		"Hi, I'm an error!",
 		"e",
 		"failed to display error",
-		"Alt-F4",
+		"Alt+F4",
 		"What is this?",
 		"nya~ - The Boykisser",
 		"Youre Computer HAS BEEN HACKED!!!!",
@@ -153,8 +153,7 @@ class CrashHandler extends openfl.display.Sprite
 		loggedError.defaultTextFormat = tf;
 		loggedError.text = '\n\n${stack}\n'
 			+ "\nPress R to restart the game."
-			+ "\nIf you feel like this error shouldn't have happened,"
-			+ "\nplease report it to the GitHub Page by pressing G."
+			+ "\nIf you feel like this error shouldn't have happened, please report it to the GitHub Page by pressing G."
 			+ "\nOtherwise, Press Q to exit the game.";
 
 		loggedError.autoSize = errorTitle.autoSize;
@@ -198,11 +197,20 @@ class CrashHandler extends openfl.display.Sprite
 	public function keyActions(e:KeyboardEvent):Void {
 		switch e.keyCode {
 			case Keyboard.R:
-				FlxG.camera.fade(FlxColor.BLACK, 0.5, false, FlxG.resetGame, false);
+				_stage.removeEventListener(KeyboardEvent.KEY_DOWN, keyActions);
+				FlxG.switchState(InitialState.new);
+				_active = false;
+				Main.instance.coolGame._viewingCrash = false;
+				if (Main.instance != null && Main.instance.contains(this))
+					Main.instance.removeChild(this);
 			case Keyboard.G:
 				CoolUtil.browserLoad("https://github.com/Joalor64GH/VisionSphere/issues/");
 			case Keyboard.Q:
-				FlxG.camera.fade(FlxColor.BLACK, 0.5, false, () -> { Sys.exit(0); }, false);
+				#if (sys || cpp)
+				Sys.exit(0);
+				#else
+				openfl.system.System.exit(0);
+				#end
 		}
 	}
 
