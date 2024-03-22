@@ -2,11 +2,9 @@ package;
 
 import openfl.Lib;
 
-#if CRASH_HANDLER
 import haxe.Exception;
 import haxe.CallStack;
 import haxe.io.Path;
-#end
 
 import frontend.objects.ToastCore;
 import frontend.debug.Info;
