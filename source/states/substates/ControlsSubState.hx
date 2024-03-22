@@ -182,7 +182,7 @@ class ControlsSubState extends FlxSubState
                 {
                     var keyPressed:FlxGamepadInputID = gamepad.firstJustPressedID();
                     if (!Input.gamepadIs('gamepad_accept') && !Input.gamepadIs('gamepad_exit') 
-                        && gamepad.anyJustPressed(ANY) && keyPressed.toString() != NONE) 
+                        && gamepad.anyJustPressed([ANY]) && keyPressed.toString() != NONE) 
                     {
                         switch (init)
                         {
