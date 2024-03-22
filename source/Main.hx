@@ -32,7 +32,7 @@ class Main extends openfl.display.Sprite
 
 	public static var instance:Main;
 
-	public static var coolGame:CoolGame;
+	private var coolGame:CoolGame;
 
 	public static function main():Void
 		Lib.current.addChild(new Main());

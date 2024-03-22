@@ -200,7 +200,7 @@ class CrashHandler extends openfl.display.Sprite
 				_stage.removeEventListener(KeyboardEvent.KEY_DOWN, keyActions);
 				FlxG.switchState(InitialState.new);
 				_active = false;
-				Main.instance.coolGame._viewingCrash = false;
+				@:privateAccess Main.instance.coolGame._viewingCrash = false;
 				if (Main.instance != null && Main.instance.contains(this))
 					Main.instance.removeChild(this);
 			case Keyboard.G:
