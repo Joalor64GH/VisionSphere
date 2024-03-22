@@ -37,12 +37,24 @@ class Input
 
     public static function get(action:String):FlxInputState
     {
-        if (is(action, JUST_PRESSED))
-            return JUST_PRESSED;
-        if (is(action, PRESSED))
-            return PRESSED;
-        if (is(action, JUST_RELEASED))
-            return JUST_RELEASED;
+        if (gamepad != null)
+        {
+            if (gamepadIs(action, JUST_PRESSED))
+                return JUST_PRESSED;
+            if (gamepadIs(action, PRESSED))
+                return PRESSED;
+            if (gamepadIs(action, JUST_RELEASED))
+                return JUST_RELEASED;
+        }
+        else
+        {
+            if (is(action, JUST_PRESSED))
+                return JUST_PRESSED;
+            if (is(action, PRESSED))
+                return PRESSED;
+            if (is(action, JUST_RELEASED))
+                return JUST_RELEASED;
+        }
         
         return RELEASED;
     }
@@ -60,21 +72,9 @@ class Input
     public static function gamepadIs(key:String, ?state:FlxInputState = JUST_PRESSED):Bool
     {
         if (gamepad != null)
-            return (controllerMap.exists(key)) ? gamepad.checkStatus(controllerMap.gamepadGet(key), state)
+            return (controllerMap.exists(key)) ? gamepad.checkStatus(controllerMap.get(key), state)
                 : gamepad.checkStatus(FlxGamepadInputID.fromString(key), state);
 
         return false;
-    }
-
-    public static function gamepadGet(action:String):FlxInputState
-    {
-        if (gamepadIs(action, JUST_PRESSED))
-            return JUST_PRESSED;
-        if (gamepadIs(action, PRESSED))
-            return PRESSED;
-        if (gamepadIs(action, JUST_RELEASED))
-            return JUST_RELEASED;
-        
-        return RELEASED;
     }
 }

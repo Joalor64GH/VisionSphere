@@ -20,7 +20,7 @@ class Localization
 
         var baseFilesPushed:Array<String> = [];
         var modFilesPushed:Array<String> = [];
-        var foldersToCheck:Array<String> = [Paths.getPath('data/'), Paths.mods('data/')];
+        var foldersToCheck:Array<String> = [Paths.getPath('data/')];
 
         #if MODS_ALLOWED
         foldersToCheck.insert(0, Paths.mods("data/"));

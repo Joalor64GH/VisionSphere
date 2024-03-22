@@ -104,7 +104,13 @@ class CrashHandler extends openfl.display.Sprite
 		"it is raining on the co mputer.. oh no..",
 		"womp womp",
 		"Get some duct tape or something.",
-		"cry about it"
+		"cry about it",
+		"When YOU have the WILL, don't say NEVER. Just LEAVE those thoughts!",
+		"I think you should leave",
+		"Nothing can be done.",
+		"You are an idiot! :D",
+		"ERROR CODE /WYGIG-TTD/",
+		"Can you?"
 	];
 
 	public function new(stack:String):Void 
