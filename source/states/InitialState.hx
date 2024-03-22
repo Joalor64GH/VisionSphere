@@ -62,9 +62,11 @@ class InitialState extends FlxState
         spinner.angularVelocity = 30;
         add(spinner);
 
+        var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
+
         trace("Installed Mods: " + getInstalledMods());
         trace("Current Platform: " + backend.system.PlatformUtil.getPlatform());
-        trace(Input.gamepad != null ? "Controller detected!" : "Oops! no controller detected!\nProbably because it isn't connected or you don't have one at all.");
+        trace(gamepad != null ? "Controller detected!" : "Oops! no controller detected!\nProbably because it isn't connected or you don't have one at all.");
 
         super.create();
     }
