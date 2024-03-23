@@ -59,7 +59,7 @@ class MenuState extends FlxState
         btnProfile.screenCenter(XY);
         add(btnProfile);
 
-        var tnMusic:ClickableSprite = new ClickableSprite(150, FlxG.height - 300, 'menu/music', () -> 
+        var btnMusic:ClickableSprite = new ClickableSprite(150, FlxG.height - 300, 'menu/music', () -> 
         {
             FlxG.switchState(MusicState.new);
             FlxG.sound.play(Paths.sound('confirm'));
