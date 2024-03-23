@@ -31,8 +31,8 @@ class Input
                 return true;
         }
         
-        return (actionMap.exists(action)) ? FlxG.keys.checkStatus(actionMap.get(action), state) : 
-            FlxG.keys.checkStatus(FlxKey.fromString(action), state);
+        return (actionMap.exists(action)) ? FlxG.keys.checkStatus(actionMap.get(action), state) 
+            : FlxG.keys.checkStatus(FlxKey.fromString(action), state);
     }
 
     public static function get(action:String):FlxInputState
