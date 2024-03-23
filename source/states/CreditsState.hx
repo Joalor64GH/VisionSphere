@@ -9,10 +9,10 @@ typedef CreditsPrefDef = {
 
 typedef CreditsUserDef = {
     var name:String;
-    var iconData:Array<Dynamic>;
-    var textData:Array<String>;
+    var iconData:Array<Dynamic>; // icon name, x offset, y offset
+    var textData:Array<String>; // description, quote
     var colors:Array<Int>;
-    var urlData:Array<Array<String>>;
+    var urlData:Array<Array<String>>; // social name, link
     var ?sectionName:String;
 }
 

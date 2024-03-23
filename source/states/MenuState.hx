@@ -1,5 +1,7 @@
 package states;
 
+import frontend.objects.ClickableSprite;
+
 class MenuState extends FlxState
 {
     var dateText:FlxText;
@@ -8,12 +10,6 @@ class MenuState extends FlxState
     var isTweening:Bool = false;
     var lastString:String = '';
     var timer:Float = 0;
-    
-    var btnPlay:FlxSprite;
-    var btnMods:FlxSprite;
-    var btnProfile:FlxSprite;
-    var btnMusic:FlxSprite;
-    var btnSettings:FlxSprite;
 
     override public function create()
     {
@@ -39,22 +35,42 @@ class MenuState extends FlxState
             add(banana);
         }
 
-        btnPlay = new FlxSprite(150, 150).loadGraphic(Paths.image('menu/play'));
+        var btnPlay:ClickableSprite = new ClickableSprite(150, 150, 'menu/play', () -> 
+        {
+            FlxG.switchState(PlayState.new);
+            FlxG.sound.play(Paths.sound('confirm'));
+        });
         add(btnPlay);
 
         #if MODS_ALLOWED
-        btnMods = new FlxSprite(875, 150).loadGraphic(Paths.image('menu/mods'));
+        var btnMods:ClickableSprite = new ClickableSprite(875, 150, 'menu/mods', () -> 
+        {
+            FlxG.switchState(ModsState.new);
+            FlxG.sound.play(Paths.sound('confirm'));
+        });
         add(btnMods);
         #end
 
-        btnProfile = new FlxSprite().loadGraphic(Paths.image('menu/profile/' + SaveData.profile));
+        var btnProfile:ClickableSprite = new ClickableSprite(0, 0, 'menu/profile/' + SaveData.profile, () -> 
+        {
+            FlxG.switchState(AccountState.new);
+            FlxG.sound.play(Paths.sound('confirm'));
+        });
         btnProfile.screenCenter(XY);
         add(btnProfile);
 
-        btnMusic = new FlxSprite(150, FlxG.height - 300).loadGraphic(Paths.image('menu/music'));
+        var tnMusic:ClickableSprite = new ClickableSprite(150, FlxG.height - 300, 'menu/music', () -> 
+        {
+            FlxG.switchState(MusicState.new);
+            FlxG.sound.play(Paths.sound('confirm'));
+        });
         add(btnMusic);
 
-        btnSettings = new FlxSprite(875, FlxG.height - 300).loadGraphic(Paths.image('menu/settings'));
+        var btnSettings:ClickableSprite = new ClickableSprite(875, FlxG.height - 300, 'menu/settings', () -> 
+        {
+            FlxG.switchState(OptionsState.new);
+            FlxG.sound.play(Paths.sound('confirm'));
+        });
         add(btnSettings);
 
         dateText = new FlxText(900, 50);
@@ -78,38 +94,6 @@ class MenuState extends FlxState
             timer += elapsed;
             if (timer >= 3)
                 changeText();
-        }
-
-        if (FlxG.mouse.overlaps(btnPlay) && FlxG.mouse.pressed)
-        {
-            FlxG.switchState(PlayState.new);
-            FlxG.sound.play(Paths.sound('confirm'));
-        }
-        
-        #if MODS_ALLOWED
-        if (FlxG.mouse.overlaps(btnMods) && FlxG.mouse.pressed)
-        {
-            FlxG.switchState(ModsState.new);
-            FlxG.sound.play(Paths.sound('confirm'));
-        }
-        #end
-
-        if (FlxG.mouse.overlaps(btnProfile) && FlxG.mouse.pressed)
-        {
-            FlxG.switchState(AccountState.new);
-            FlxG.sound.play(Paths.sound('confirm'));
-        }
-
-        if (FlxG.mouse.overlaps(btnMusic) && FlxG.mouse.pressed)
-        {
-            FlxG.switchState(MusicState.new);
-            FlxG.sound.play(Paths.sound('confirm'));
-        }
-        
-        if (FlxG.mouse.overlaps(btnSettings) && FlxG.mouse.pressed)
-        {
-            FlxG.switchState(OptionsState.new);
-            FlxG.sound.play(Paths.sound('confirm'));
         }
 
         #if debug

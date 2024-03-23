@@ -39,7 +39,6 @@
 
 	<haxelib name="hxvlc" if="VIDEOS_ALLOWED" />
 
-	<haxelib name="flixel-studio" if="debug" />
 	<haxelib name="hxcpp-debug-server" if="desktop debug" />
 
 	<!-- [ Defines ] -->
@@ -54,7 +53,6 @@
 	<haxedef name="HXCPP_STACK_LINE" if="CRASH_HANDLER" />
 	<haxedef name="HXCPP_GC_BIG_BLOCKS" />
 	<haxedef name="no-deprecation-warnings" />
-	
 	<section if="VIDEOS_ALLOWED">
 		<haxedef name="HXVLC_VERBOSE" value="2" if="debug" />
 		<haxedef name="HXVLC_LOGGING" if="debug" />

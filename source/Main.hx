@@ -67,10 +67,6 @@ class Main extends openfl.display.Sprite
 		coolGame = new VSGame(1280, 720, InitialState, #if (flixel < "5.0.0") -1, #end 60, 60, true, false);
 		addChild(coolGame);
 
-		#if debug
-		flixel.addons.studio.FlxStudio.create();
-		#end
-
 		fpsDisplay = new Info(10, 10, 0xFFFFFF);
 		addChild(fpsDisplay);
 
