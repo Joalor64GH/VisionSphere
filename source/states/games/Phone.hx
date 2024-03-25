@@ -15,11 +15,12 @@ class Phone extends FlxState
     var numbers:FlxTypedGroup<FlxSprite>;
     
     var code:FlxText;
+    
     var selection:Int;
     var canSelect:Bool = true;
 
     var video:FlxVideo = new FlxVideo();
-    var randomVidArray:Array<String> = [];
+    var randomVidArray:Array<String> = ['albion online', 'amogus', 'asterisk', 'disobedient', 'sonic', 'xbox live'];
 
     override function create()
     {
@@ -109,7 +110,6 @@ class Phone extends FlxState
         
         if (Input.is('accept') && code.text != '')
         {
-            /*
             if (FlxG.random.bool(30))
             {
                 if (video.load(Paths.video(randomVidArray[FlxG.random.int(0, (randomVidArray.length - 1))])))
@@ -122,11 +122,11 @@ class Phone extends FlxState
                 canSelect = false;
             }
             else 
-            { */
+            {
                 code.text = '';
                 if (canSelect)
                     FlxG.camera.shake(0.015, 0.2);
-            // }
+            }
         }
     }
 }

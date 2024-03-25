@@ -27,7 +27,7 @@ class Main extends openfl.display.Sprite
 
 	public static var toast:ToastCore;
 	public static var fpsDisplay:Info;
-	
+
 	public static var instance:Main;
 
 	private var coolGame:VSGame;
@@ -108,9 +108,9 @@ class Main extends openfl.display.Sprite
 	}
 
 	public function setFramerate(value:Float)
-    {
-        Lib.current.stage.frameRate = value;
-    }
+	{
+		Lib.current.stage.frameRate = value;
+	}
 }
 
 class VSGame extends flixel.FlxGame
