@@ -3,6 +3,7 @@ package states;
 class PreferencesState extends FlxState
 {
     var bg:FlxSprite;
+    
     var times:Array<String> = ['%r', '%T'];
     var themes:Array<String> = ['daylight', 'night', 'dreamcast', 'ps3', 'xp'];
     var options:Array<String> = [
@@ -113,7 +114,6 @@ class PreferencesState extends FlxState
             if (Input.is('right') || Input.is('left'))
             {
                 FlxG.sound.play(Paths.sound('scroll'));
-                FlxG.game.focusLostFramerate = Math.ceil(SaveData.framerate / 2);
                 FlxG.updateFramerate = (SaveData.framerate > FlxG.updateFramerate) ? SaveData.framerate : SaveData.framerate;
                 FlxG.drawFramerate = (SaveData.framerate > FlxG.drawFramerate) ? SaveData.framerate : SaveData.framerate;
                 if (!Input.is('left'))
