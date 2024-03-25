@@ -29,7 +29,7 @@ class Info extends openfl.text.TextField
 			currentFrames = times.length < FlxG.updateFramerate ? times.length : FlxG.updateFramerate;
 			textColor = currentFrames < FlxG.drawFramerate * 0.5 ? 0xFFFF0000 : 0xFFFFFFFF;
 			text = (visible) ? 
-				"FPS: " + currentFrames + "\nMemory: ${flixel.util.FlxStringUtil.formatBytes(mem)} / ${flixel.util.FlxStringUtil.formatBytes(memPeak)}"
+				"FPS: " + currentFrames + "\nMemory: " + flixel.util.FlxStringUtil.formatBytes(mem) + " / " + flixel.util.FlxStringUtil.formatBytes(memPeak)"
 				+ "\nVisionSphere v" + Application.current.meta.get('version') : "";
 		});
 	}

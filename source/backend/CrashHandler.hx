@@ -25,6 +25,7 @@ class CrashHandler extends openfl.display.Sprite
 
 	final imagineBeingFunny:Array<String> = [
 		"Fatal Error!",
+		"!rorrE lataF",
 		"Okay, what'd you do this time?",
 		"I told you the human would crash the game.",
 		"The operation completed successfully.",
@@ -110,7 +111,14 @@ class CrashHandler extends openfl.display.Sprite
 		"Nothing can be done.",
 		"You are an idiot! :D",
 		"ERROR CODE /WYGIG-TTD/",
-		"Can you?"
+		"Can you?",
+		"Did you commit tax faud again?",
+		"IP found. All of china knows your location.",
+		"why tho",
+		"You should take a break.",
+		"um",
+		"error",
+		"You can't go back."
 	];
 
 	public function new(stack:String):Void 

@@ -18,8 +18,6 @@ class Localization
 
         data = new Map<String, Dynamic>();
 
-        var baseFilesPushed:Array<String> = [];
-        var modFilesPushed:Array<String> = [];
         var foldersToCheck:Array<String> = [Paths.getPath('data/')];
 
         #if MODS_ALLOWED
@@ -47,9 +45,6 @@ class Localization
                         allLoaded = false;
                     }
                 }
-
-                modFilesPushed.push(path);
-                baseFilesPushed.push(path);
             }
         }
 
@@ -58,13 +53,26 @@ class Localization
 
     private static function loadLanguageData(language:String):Dynamic
     {
-        var jsonContent:String;
+        var jsonContent:String = null;
         var path:String = Paths.getPath("languages/" + language + ".json");
 
+        #if MODS_ALLOWED
+        var modPath:String = Paths.modFolders("languages/" + language + ".json");
+        
+        if (FileSystem.exists(modPath)) {
+            jsonContent = File.getContent(modPath);
+            currentLanguage = language;
+        } else if (FileSystem.exists(path)) {
+            jsonContent = File.getContent(path);
+            currentLanguage = language;
+        }
+        #else
         if (FileSystem.exists(path)) {
             jsonContent = File.getContent(path);
             currentLanguage = language;
-        } else {
+        } 
+        #end
+        else {
             trace("oops! file not found for: " + language + "!");
             jsonContent = File.getContent(Paths.getPath("languages/" + DEFAULT_LANGUAGE + ".json"));
             currentLanguage = DEFAULT_LANGUAGE;

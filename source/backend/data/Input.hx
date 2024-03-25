@@ -6,6 +6,8 @@ import flixel.input.FlxInput.FlxInputState;
 import flixel.input.gamepad.FlxGamepadInputID;
 
 /*
+ * A simple input system.
+ * Modified by me to support game controllers.
  * @author Leather128
  * @see https://github.com/Leather128/FabricEngine
  */
