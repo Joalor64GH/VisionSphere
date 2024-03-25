@@ -1,10 +1,9 @@
 package states;
 
-import openfl.Lib;
-
 class PreferencesState extends FlxState
 {
     var bg:FlxSprite;
+    
     var times:Array<String> = ['%r', '%T'];
     var themes:Array<String> = ['daylight', 'night', 'dreamcast', 'ps3', 'xp'];
     var options:Array<String> = [
@@ -115,27 +114,12 @@ class PreferencesState extends FlxState
             if (Input.is('right') || Input.is('left'))
             {
                 FlxG.sound.play(Paths.sound('scroll'));
+                FlxG.updateFramerate = (SaveData.framerate > FlxG.updateFramerate) ? SaveData.framerate : SaveData.framerate;
+                FlxG.drawFramerate = (SaveData.framerate > FlxG.drawFramerate) ? SaveData.framerate : SaveData.framerate;
                 if (!Input.is('left'))
-                {
-                    if (SaveData.framerate >= 240)
-                    {
-                        SaveData.framerate = 240;
-                        (cast(Lib.current.getChildAt(0), Main)).setFramerate(240);
-                    }
-                    else
-                        SaveData.framerate = SaveData.framerate + 10;
-                    (cast(Lib.current.getChildAt(0), Main)).setFramerate(SaveData.framerate);
-                }
+                    SaveData.framerate += (SaveData.framerate == 240) ? 0 : 10;
                 else
-                {
-                    if (SaveData.framerate > 240)
-                        SaveData.framerate = 240;
-                    else if (SaveData.framerate < 60)
-                        SaveData.framerate = Application.current.window.displayMode.refreshRate;
-                    else
-                        SaveData.framerate = SaveData.framerate - 10;
-                    (cast(Lib.current.getChildAt(0), Main)).setFramerate(SaveData.framerate);
-                }
+                    SaveData.framerate -= (SaveData.framerate == 60) ? 0 : 10;
             }
         }
 

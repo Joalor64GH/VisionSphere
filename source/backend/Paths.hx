@@ -24,7 +24,6 @@ class Paths
 		'sounds',
 		'images',
 		'fonts',
-		'videos',
 		'languages',
 		'libraries',
 		'addons'
@@ -100,14 +99,6 @@ class Paths
 
 	inline static public function json(key:String)
 		return getPath('data/$key.json');
-
-	inline static public function video(key:String)
-	{
-		#if MODS_ALLOWED
-		if (FileSystem.exists(modsVideo(key))) return modsVideo(key);
-		#end
-		return getPath('videos/$key.mp4');
-	}
 
 	static public function sound(key:String):Sound
 		return returnSound('sounds', key);
@@ -310,9 +301,6 @@ class Paths
 
 	inline static public function modsTxt(key:String)
 		return modFolders('images/$key.txt');
-
-	inline static public function modsVideo(key:String)
-		return modFolders('videos/$key.mp4');
 
 	static public function modFolders(key:String) {
 		if (currentModDirectory != null && currentModDirectory.length > 0) {
