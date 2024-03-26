@@ -4,12 +4,11 @@ class ClickableSprite extends FlxSprite
 {
     public var clickCallback:Void->Void;
 
-    public function new(x:Float = 0, y:Float = 0, file:String = null, clickCallback:Void->Void, ?holdCallback:Void->Void)
+    public function new(x:Float = 0, y:Float = 0, file:String = null, clickCallback:Void->Void)
     {
         super(x, y);
 
         this.clickCallback = clickCallback;
-        this.holdCallback = holdCallback;
 
         loadGraphic(Paths.image(file));
         
@@ -20,15 +19,10 @@ class ClickableSprite extends FlxSprite
     {
         super.update(elapsed);
 
-        if (FlxG.mouse.overlaps(this)) 
+        if (FlxG.mouse.overlaps(this) && FlxG.mouse.pressed) 
         {
-            if (holdCallback != null)
-                holdCallback();
-            if (FlxG.mouse.pressed) 
-            {
-                if (clickCallback != null)
-                    clickCallback();
-            }
+            if (clickCallback != null)
+                clickCallback();
         }
     }
 }
