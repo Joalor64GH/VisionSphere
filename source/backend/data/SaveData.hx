@@ -75,8 +75,10 @@ class SaveData
         if (FlxG.save.data.framerate != null) 
         {
             framerate = FlxG.save.data.framerate;
-            FlxG.updateFramerate = (framerate > FlxG.updateFramerate) ? framerate : framerate;
-            FlxG.drawFramerate = (framerate > FlxG.drawFramerate) ? framerate : framerate;
+            FlxG.updateFramerate = framerate;
+            FlxG.drawFramerate = framerate;
+            FlxG.game.focusLostFramerate = framerate;
+            openfl.Lib.current.stage.frameRate = framerate;
         }
         if (FlxG.save.data.username != null)
             username = FlxG.save.data.username;

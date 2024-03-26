@@ -114,8 +114,10 @@ class PreferencesState extends FlxState
             if (Input.is('right') || Input.is('left'))
             {
                 FlxG.sound.play(Paths.sound('scroll'));
-                FlxG.updateFramerate = (SaveData.framerate > FlxG.updateFramerate) ? SaveData.framerate : SaveData.framerate;
-                FlxG.drawFramerate = (SaveData.framerate > FlxG.drawFramerate) ? SaveData.framerate : SaveData.framerate;
+                FlxG.updateFramerate = SaveData.framerate;
+                FlxG.drawFramerate = SaveData.framerate;
+                FlxG.game.focusLostFramerate = SaveData.framerate;
+                openfl.Lib.current.stage.frameRate = framerate;
                 if (!Input.is('left'))
                     SaveData.framerate += (SaveData.framerate == 240) ? 0 : 10;
                 else
