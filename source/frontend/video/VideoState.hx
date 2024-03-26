@@ -1,4 +1,4 @@
-package frontend;
+package frontend.video;
 
 import openfl.display.Sprite;
 import openfl.events.AsyncErrorEvent;
@@ -47,7 +47,7 @@ class VideoState extends FlxState
 		netStream.client = {onMetaData: client_onMetaData};
 		netStream.addEventListener(AsyncErrorEvent.ASYNC_ERROR, netStream_onAsyncError);
 		netConnection.addEventListener(NetStatusEvent.NET_STATUS, netConnection_onNetStatus);
-		netStream.play(Paths.file('videos/' + file + '.mp4'));
+		netStream.play(Paths.getPath('videos/' + file + '.mp4'));
 
 		overlay = new Sprite();
 		overlay.graphics.beginFill(0, 0.5);
