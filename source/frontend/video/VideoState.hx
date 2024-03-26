@@ -17,21 +17,21 @@ import openfl.net.NetStream;
 
 class VideoState extends FlxState
 {
-    var file:String;
-    var callback:Void->Void;
-
 	var video:Video;
 	var netStream:NetStream;
-    
+
 	private var overlay:Sprite;
 
-    public function new(file:String, callback:Void->Void)
-    {
-        super();
+	var file:String;
+	var callback:Void->Void;
 
-        this.file = file;
-        this.callback = callback;
-    }
+	public function new(file:String, callback:Void->Void)
+	{
+		super();
+
+		this.file = file;
+		this.callback = callback;
+	}
 
 	override function create()
 	{
@@ -59,12 +59,12 @@ class VideoState extends FlxState
 	override function update(elapsed:Float)
 	{
 		if (Input.is('accept'))
-        {
-            netStream.dispose();
-		    FlxG.removeChild(video);
-            if (callback != null)
-                callback();
-        }
+		{
+			netStream.dispose();
+			FlxG.removeChild(video);
+			if (callback != null)
+				callback();
+		}
 
 		super.update(elapsed);
 	}
@@ -86,11 +86,11 @@ class VideoState extends FlxState
 	{
 		if (event.info.code == 'NetStream.Play.Complete')
         {
-            netStream.dispose();
-		    FlxG.removeChild(video);
-            if (callback != null)
-                callback();
-        }
+			netStream.dispose();
+			FlxG.removeChild(video);
+			if (callback != null)
+				callback();
+		}
 
 		trace(event.toString());
 	}
