@@ -1,5 +1,7 @@
 package states.games;
 
+import frontend.video.VideoState;
+
 /**
  * @author ROYALEPRO
  * @see https://github.com/ROYALEPRO/soni-main-public
