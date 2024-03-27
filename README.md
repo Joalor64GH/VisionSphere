@@ -20,7 +20,6 @@ A gaming console made in HaxeFlixel. Mostly based on Sega Dreamcast.
 
 * [ ] Add 10 Games (7/10) **[!!]**
 * [ ] Controller Support for Real (controls menu for now) **[!!]**
-* [ ] Russian Support for Localization
 
 ## Wanna build?
 > [!TIP]

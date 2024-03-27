@@ -15,8 +15,6 @@ enum Alignment
 
 class Alphabet extends FlxSpriteGroup
 {
-	public static var alphaType:String = "default";
-
 	public var text(default, set):String;
 	public var menuType(default, set):String;
 	
@@ -247,19 +245,6 @@ class Alphabet extends FlxSpriteGroup
 					}
 					consecutiveSpaces = 0;
 
-					var characterLower:String = character.toLowerCase();
-					var alphaTyp:Int = 0;
-
-					switch (characterLower)
-					{
-						case 'а' | "б" | "в" | "г" | "д" | "е" | "ё" | "ж" | "з" | 'и' | "й" | "к" | "л" | "м" | "о" | "п" | "р" | "н" | "с" | "т" | "у" | "ф" | "х" | "ц" | "ч" | "ш" | "щ" | "ъ" | "ы" | "ь" | "э" | "ю" | "я":
-							alphaTyp = 0;
-						default:
-							alphaTyp = 1;
-					}
-
-					Alphabet.alphaType = (alphaTyp == 0) ? "ru" : "default";
-
 					var letter:AlphaCharacter = new AlphaCharacter(xPos, rows * Y_PER_ROW * scaleY, character, bold, this);
 					letter.x += letter.letterOffset[0] * scaleX;
 					letter.y -= letter.letterOffset[1] * scaleY;
@@ -310,7 +295,6 @@ typedef Letter = {
 class AlphaCharacter extends FlxSprite
 {
 	public var image(default, set):String;
-	public var alphabetType:String = Alphabet.alphaType;
 
 	public static var allLetters:Map<String, Null<Letter>> = [
 		'a'  => null, 'b'  => null, 'c'  => null, 'd'  => null, 'e'  => null, 'f'  => null,
@@ -364,14 +348,7 @@ class AlphaCharacter extends FlxSprite
 		'¿'  => {anim: 'inverted question', offsets: [0, -20], offsetsBold: [0, -20]},
 		'{'  => null,
 		'}'  => null,
-		'•'  => {anim: 'bullet', offsets: [0, 18], offsetsBold: [0, 20]},
-
-		'а' => null, 'б' => null, 'в' => null, 'г' => null, 'д' => null, 'е' => null,
-		'ё' => null, 'ж' => null, 'з' => null, 'и' => null, 'й' => null, 'к' => null,
-		'л' => null, 'м' => null, 'н' => null, 'о' => null, 'п' => null, 'р' => null,
-		'с' => null, 'т' => null, 'у' => null, 'ф' => null, 'х' => null, 'ц' => null,
-		'ч' => null, 'ш' => null, 'щ' => null, 'ъ' => null, 'ы' => null, 'ь' => null,
-		'э' => null, 'ю' => null, 'я' => null
+		'•'  => {anim: 'bullet', offsets: [0, 18], offsetsBold: [0, 20]}
 	];
 
 	var parent:Alphabet;
@@ -386,15 +363,7 @@ class AlphaCharacter extends FlxSprite
 	{
 		super(x, y);
 		this.parent = parent;
-
-		switch (alphabetType)
-		{
-			case 'ru':
-				image = 'alphabet_rus';
-			default:
-				image = 'alphabet';
-		}
-
+		image = 'alphabet';
 		antialiasing = true;
 
 		var curLetter:Letter = allLetters.get('?');
