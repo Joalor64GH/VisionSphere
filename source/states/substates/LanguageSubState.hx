@@ -30,7 +30,7 @@ class LanguageSubState extends FlxSubState
             coolGrp.add(label);
 
             var icon:AttachedSprite = new AttachedSprite();
-            var iconPath:String = Paths.getSparrowAtlas('langs/' + langStrings[i].code)
+            var iconPath:String = Paths.getSparrowAtlas('langs/' + langStrings[i].code);
             if (FileSystem.exists(iconPath)) 
             {
                 icon.frames = Paths.getSparrowAtlas('langs/' + langStrings[i].code);
