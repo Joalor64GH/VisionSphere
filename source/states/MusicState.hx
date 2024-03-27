@@ -83,7 +83,8 @@ class MusicState extends states.MusicState.BeatState
 
         if (Input.is('left') || Input.is('right'))
         {
-            new FlxTimer().start(0.01, (timer) -> {
+            new FlxTimer().start(0.01, (timer) -> 
+            {
                 FlxG.sound.play(Paths.sound('scroll'));
             });
             changeSong(Input.is('left') ? -1 : 1);
@@ -136,12 +137,7 @@ class MusicState extends states.MusicState.BeatState
 
         lengthTxt.text = 'Loading song...';
 
-        curSelected += change;
-
-        if (curSelected >= musicData.songs.length)
-            curSelected = 0;
-        else if (curSelected < 0)
-            curSelected = musicData.songs.length - 1;
+        curSelected = FlxMath.wrap(curSelected + change, 0, musicData.songs.length - 1);
 
         disc.loadGraphic(Paths.image('music/discs/${musicData.songs[curSelected].disc}'));
 
