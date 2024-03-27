@@ -30,17 +30,19 @@ class LanguageSubState extends FlxSubState
             coolGrp.add(label);
 
             var icon:AttachedSprite = new AttachedSprite();
-            if (FileSystem.exists(Paths.getSparrowAtlas('langs/' + langStrings[i].code))) 
+            var iconPath:String = Paths.getSparrowAtlas('langs/' + langStrings[i].code)
+            if (FileSystem.exists(iconPath)) 
             {
                 icon.frames = Paths.getSparrowAtlas('langs/' + langStrings[i].code);
                 icon.animation.addByPrefix('idle', langStrings[i].code, 24);
+                icon.animation.play('idle');
             }
             else
             {
                 icon.frames = Paths.getSparrowAtlas('langs/null');
                 icon.animation.addByPrefix('idle', 'flag_base', 24);
+                icon.animation.play('idle');
             }
-            icon.animation.play('idle');
             icon.xAdd = -icon.width - 10;
             icon.sprTracker = label;
 
