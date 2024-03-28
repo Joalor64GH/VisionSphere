@@ -3,11 +3,19 @@ package states;
 import djFlixel.gfx.BoxScroller;
 import djFlixel.gfx.pal.Pal_DB32;
 
+import frontend.objects.ClickableSprite;
+
 import flixel.effects.particles.FlxEmitter;
 import flixel.effects.particles.FlxParticle;
 
 class InitialState extends FlxState
 {
+    var smallLogo:FlxSprite;
+
+    var playBtn:ClickableSprite;
+    var gitBtn:ClickableSprite;
+    var exitBtn:ClickableSprite;
+
     override function create()
     {
         SaveData.init();
@@ -123,7 +131,7 @@ class Balls extends FlxParticle
             replaceColor(Pal_DB32.COL[8], Pal_DB32.COL[19]);
         }
 
-        scale.set(8, 8);
+        scale.set(12, 12);
     }
 
     override public function onEmit():Void

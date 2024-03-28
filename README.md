@@ -28,7 +28,7 @@ A gaming console made in HaxeFlixel. Mostly based on Sega Dreamcast.
 ### Windows
 1. Install [Haxe (4.3.3 or higher)](https://haxe.org/download/version/4.3.3/) and [HaxeFlixel](https://haxeflixel.com/documentation/install-haxeflixel/).
 2. Download [Visual Studio Build Tools](https://aka.ms/vs/17/release/vs_BuildTools.exe).
-3. On the Visual Studio installation screen, go to "Induvidual Components" and select the following:
+3. On the Visual Studio installation screen, go to "Individual Components" and select the following:
     * MSVC v143 VS 2022 C++ x64/x86 build tools
     * Windows 10/11 SDK
         * You can skip this by running `msvc.bat`

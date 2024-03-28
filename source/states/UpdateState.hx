@@ -1,5 +1,7 @@
 package states;
 
+import openfl.Lib;
+
 class UpdateState extends FlxState
 {
     public static var mustUpdate:Bool = false;
@@ -16,7 +18,7 @@ class UpdateState extends FlxState
 
         var text:FlxText = new FlxText(0, 0, 0, 
             "Hey! You're running an outdated version of VisionSphere!"
-            + "\nThe version you're currently running is v" + Main.gameVersion + "!"
+            + "\nThe version you're currently running is v" + Lib.application.meta.get('version') + "!"
             + "\nPress ENTER to update to v" + updateVersion + "! Otherwise, press ESCAPE."
             + "\nThanks for playing!",
             32);
@@ -51,8 +53,7 @@ class UpdateState extends FlxState
         http.onData = (data:String) ->
         {
             updateVersion = data.split('\n')[0].trim();
-            var curVersion:String = Main.gameVersion.trim();
-            mustUpdate = (updateVersion != curVersion) ? true : false;
+            mustUpdate = (updateVersion != Lib.application.meta.get('version')) ? true : false;
         }
 
         http.onError = (error) ->

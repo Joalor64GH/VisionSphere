@@ -30,7 +30,7 @@ class Info extends openfl.text.TextField
 			textColor = currentFrames < FlxG.drawFramerate * 0.5 ? 0xFFFF0000 : 0xFFFFFFFF;
 			text = (visible) ? 
 				"FPS: " + currentFrames + "\nMemory: " + flixel.util.FlxStringUtil.formatBytes(mem) + " / " + flixel.util.FlxStringUtil.formatBytes(memPeak)
-				+ "\nVisionSphere v" + Application.current.meta.get('version') : "";
+				+ "\nVisionSphere v" + openfl.Lib.application.meta.get('version') : "";
 		});
 	}
 }
