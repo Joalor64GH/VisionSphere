@@ -4,7 +4,6 @@ class Info extends openfl.text.TextField
 {
 	public var memPeak:Float;
 	public var times:Array<Float> = [];
-	public var currentFrames(default, null):Int;
 
 	public function new(x:Float, y:Float, color:Int, ?font:String)
 	{
@@ -26,7 +25,8 @@ class Info extends openfl.text.TextField
 			var mem:Float = openfl.system.System.totalMemory;
 			memPeak = memPeak > mem ? memPeak : mem;
 
-			currentFrames = currentFrames > SaveData.framerate ? SaveData.framerate : times.length;
+			var currentFrames:Int = times.length;
+			if (currentFrames > SaveData.framerate) currentFrames = SaveData.framerate;
 
 			textColor = (currentFrames <= SaveData.framerate / 4) ?
 				0xFFFF0000 : (currentFrames <= SaveData.framerate / 2) ?

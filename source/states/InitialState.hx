@@ -11,7 +11,10 @@ import frontend.objects.ClickableSprite.Button;
 class InitialState extends FlxState
 {
     var smallLogo:FlxSprite;
-    var buttons:FlxTypedGroup<Button>;
+
+    var curSelected:Int = 0;
+    var grpOptions:FlxTypedGroup<Alphabet>;
+    var options:Array<String> = ["Play", "Website", "Exit"];
 
     override function create()
     {
@@ -61,21 +64,20 @@ class InitialState extends FlxState
         smallLogo.alpha = 0;
         add(smallLogo);
 
-        buttons = new FlxTypedGroup<Button>();
-        add(buttons);
+        grpOptions = new FlxTypedGroup<Alphabet>();
+        add(grpOptions);
 
-        var options:Array<String> = ['Play', 'Website', 'Exit'];
-        var optCallbacks:Array<()->Void> = [playCallback, websiteCallback, exitCallback];
-        
         for (i in 0...options.length)
         {
-            var daButton:Button = new Button(640, (150 * i) + 50, options[i], optCallbacks[i]);
-            daButton.alpha = 0;
-            buttons.add(daButton);
+            var optionTxt:Alphabet = new Alphabet(0, 0, options[i], false);
+            optionTxt.screenCenter();
+            optionTxt.y += (80 * (i - (options.length / 2))) + 45;
+            optionTxt.alpha = 0;
+            grpOptions.add(optionTxt);
         }
 
         FlxTween.tween(smallLogo, {alpha: 1}, 1.5, {ease: FlxEase.quadOut});
-        for (i in buttons) FlxTween.tween(i, {alpha: 1}, 1.5, {ease: FlxEase.quadOut});
+        for (i in grpOptions.members) FlxTween.tween(i, {alpha: 1}, 1.5, {ease: FlxEase.quadOut});
 
         var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
 
@@ -83,44 +85,74 @@ class InitialState extends FlxState
         trace("Current Platform: " + backend.system.PlatformUtil.getPlatform());
         trace(gamepad != null ? "Controller detected!" : "Oops! no controller detected!\nProbably because it isn't connected or you don't have one at all.");
 
+        changeSelection();
+
         super.create();
+    }
+
+    override public function update(elapsed:Float)
+    {
+        super.update(elapsed);
+
+        if (Input.is('up') || Input.is('down'))
+        {
+            FlxG.sound.play(Paths.sound('scroll'));
+            changeSelection(Input.is('up') ? -1 : 1);
+        }
+
+        if (Input.is('accept'))
+        {
+            FlxG.sound.play(Paths.sound('confirm'));
+            
+            switch (options[curSelected])
+            {
+                case "Play":
+                    FlxG.camera.fade(FlxColor.BLACK, 0.33, false, () ->
+                    {
+                        #if desktop
+                        UpdateState.updateCheck();
+                        FlxG.switchState((UpdateState.mustUpdate) ? UpdateState.new : SplashState.new);
+                        #else
+                        trace('Sorry! No update support on: ' + backend.system.PlatformUtil.getPlatform() + '!');
+                        FlxG.switchState(SplashState.new);
+                        #end
+                    });
+                case "Website":
+                    CoolUtil.browserLoad('https://github.com/Joalor64GH/VisionSphere');
+                case "Exit":
+                    FlxG.camera.fade(FlxColor.BLACK, 0.5, false, () ->
+                    {
+                        #if (sys || cpp)
+                        Sys.exit(0);
+                        #else
+                        openfl.system.System.exit(0);
+                        #end
+                    });
+            }
+        }
+
+        if (Input.is('exit')) 
+        {
+            FlxG.switchState(MenuState.new);
+            FlxG.sound.play(Paths.sound('cancel'));
+        }
+    }
+
+    private function changeSelection(change:Int = 0)
+    {
+        curSelected = FlxMath.wrap(curSelected + change, 0, options.length - 1);
+
+        for (num => item in grpOptions.members)
+        {
+            item.targetY = num - curSelected;
+            item.alpha = (item.targetY == 0) ? 1 : 0.6;
+        }
     }
 
     private function getInstalledMods():String
     {
         var installedMods:Array<String> = Paths.getModDirectories();
         return (installedMods.length > 0) ? installedMods.join("\n") : "No mods currently installed.";
-    }
-
-    function playCallback()
-    {
-        FlxG.camera.fade(FlxColor.BLACK, 0.33, false, () ->
-        {
-            #if desktop
-            UpdateState.updateCheck();
-            FlxG.switchState((UpdateState.mustUpdate) ? UpdateState.new : SplashState.new);
-            #else
-            trace('Sorry! No update support on: ' + backend.system.PlatformUtil.getPlatform() + '!');
-            FlxG.switchState(SplashState.new);
-            #end
-        });
-    }
-
-    function websiteCallback()
-    {
-        CoolUtil.browserLoad('https://github.com/Joalor64GH/VisionSphere');
-    }
-
-    function exitCallback()
-    {
-        FlxG.camera.fade(FlxColor.BLACK, 0.5, false, () ->
-        {
-            #if (sys || cpp)
-            Sys.exit(0);
-            #else
-            openfl.system.System.exit(0);
-            #end
-        });
     }
 }
 
