@@ -88,10 +88,11 @@ class Paths
 	{
 		if (folder == null)
 			folder = DEFAULT_FOLDER;
+		
 		return '$folder/$file';
 	}
 
-	public static function file(file:String, folder:String = DEFAULT_FOLDER, ?modsAllowed:Bool = false)
+	public static function file(file:String, ?folder:String = DEFAULT_FOLDER, ?modsAllowed:Bool = false)
 	{
 		#if MODS_ALLOWED
 		if (modsAllowed)
@@ -294,7 +295,7 @@ class Paths
 			#else
 				currentTrackedSounds.set(
 					gottenPath, 
-					Assets.getSound(file("$path/$key.ogg"))
+					Assets.getSound(file('$path/$key.ogg'))
 				);
 			#end
 		localTrackedAssets.push(gottenPath);
