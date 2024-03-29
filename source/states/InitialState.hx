@@ -69,16 +69,13 @@ class InitialState extends FlxState
         
         for (i in 0...options.length)
         {
-            var daButton:Button = new Button(0, (150 * i) + 50, options[i], optCallbacks[i]);
-            daButton.screenCenter();
+            var daButton:Button = new Button(640, (150 * i) + 50, options[i], optCallbacks[i]);
             daButton.alpha = 0;
             buttons.add(daButton);
         }
 
         FlxTween.tween(smallLogo, {alpha: 1}, 1.5, {ease: FlxEase.quadOut});
-
-        for (i in buttons)
-            FlxTween.tween(i, {alpha: 1}, 1.5, {ease: FlxEase.quadOut});
+        for (i in buttons) FlxTween.tween(i, {alpha: 1}, 1.5, {ease: FlxEase.quadOut});
 
         var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
 
@@ -145,6 +142,7 @@ class Balls extends FlxParticle
 
         loadGraphic(Paths.image("baller"), true, 16, 16, true);
         animation.add("main", [0, 1, 2, 3, 4, 5, 6], 14);
+
         lifespan = 0;
 
         if (FlxG.random.bool())
