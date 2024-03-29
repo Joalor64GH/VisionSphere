@@ -100,6 +100,14 @@ class Paths
 	inline static public function json(key:String)
 		return getPath('data/$key.json');
 
+	#if yaml
+	inline static public function yaml(key:String)
+		return getPath('data/$key.yaml');
+	#end
+
+	inline static public function video(key:String)
+		return getPath('video/$key.mp4');
+
 	static public function sound(key:String):Sound
 		return returnSound('sounds', key);
 	
