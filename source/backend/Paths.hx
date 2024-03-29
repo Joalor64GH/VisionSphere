@@ -16,8 +16,6 @@ using StringTools;
 
 class Paths
 {
-	inline public static final DEFAULT_FOLDER:String = 'assets';
-
 	#if MODS_ALLOWED
 	public static var ignoreModFolders:Array<String> = [
 		'_append',
@@ -84,43 +82,23 @@ class Paths
 		localTrackedAssets = [];
 	}
 
-	public static function getPath(folder:Null<String>, file:String)
-	{
-		if (folder == null)
-			folder = DEFAULT_FOLDER;
-		
-		return '$folder/$file';
-	}
-
-	public static function file(file:String, ?folder:String = DEFAULT_FOLDER, ?modsAllowed:Bool = false)
+	public static function getPath(file:String, ?modsAllowed:Bool = false):String
 	{
 		#if MODS_ALLOWED
 		if (modsAllowed)
 			if (FileSystem.exists(modFolders(file))) return modFolders(file);
 		#end
-
-		if (#if sys FileSystem.exists(folder) && #end (folder != null && folder != DEFAULT_FOLDER))
-			return getPath(folder, file);
-		
-		return getPath(null, file);
+		return 'assets/$file';
 	}
 
 	inline static public function txt(key:String)
-		return file('data/$key.txt');
+		return getPath('data/$key.txt');
 
 	inline static public function xml(key:String)
-		return file('data/$key.xml');
+		return getPath('data/$key.xml');
 
 	inline static public function json(key:String)
-		return file('data/$key.json');
-
-	#if yaml
-	inline static public function yaml(key:String)
-		return file('data/$key.yaml');
-	#end
-
-	inline static public function video(key:String)
-		return file('video/$key.mp4');
+		return getPath('data/$key.json');
 
 	static public function sound(key:String):Sound
 		return returnSound('sounds', key);
@@ -139,7 +117,7 @@ class Paths
 		#if MODS_ALLOWED
 		if (FileSystem.exists(modsFont(key))) return modsFont(key);
 		#end
-		return file('fonts/$key');
+		return getPath('fonts/$key');
 	}
 
 	inline static public function getSparrowAtlas(key:String):FlxAtlasFrames
@@ -149,10 +127,10 @@ class Paths
 
 		return FlxAtlasFrames.fromSparrow(
 			(imageLoaded != null ? imageLoaded : image(key)),
-			(FileSystem.exists(modsXml(key)) ? File.getContent(modsXml(key)) : file('images/$key.xml'))
+			(FileSystem.exists(modsXml(key)) ? File.getContent(modsXml(key)) : getPath('images/$key.xml'))
 		);
 		#else
-		return FlxAtlasFrames.fromSparrow(image(key), file('images/$key.xml'));
+		return FlxAtlasFrames.fromSparrow(image(key), getPath('images/$key.xml'));
 		#end
 	}
 
@@ -163,9 +141,9 @@ class Paths
 		var txtExists:Bool = FileSystem.exists(modFolders('images/$key.txt'));
 
 		return FlxAtlasFrames.fromSpriteSheetPacker((imageLoaded != null ? imageLoaded : image(key)),
-			(txtExists ? File.getContent(modFolders('images/$key.txt')) : file('images/$key.txt')));
+			(txtExists ? File.getContent(modFolders('images/$key.txt')) : getPath('images/$key.txt')));
 		#else
-		return FlxAtlasFrames.fromSpriteSheetPacker(image(key), file('images/$key.txt'));
+		return FlxAtlasFrames.fromSpriteSheetPacker(image(key), getPath('images/$key.txt'));
 		#end
 	}
 
@@ -186,7 +164,7 @@ class Paths
 		}
 		#end
 
-		if (Assets.exists(file(key, false)))
+		if (Assets.exists(getPath(key, false)))
 			return true;
 		
 		return false;
@@ -222,11 +200,11 @@ class Paths
 			return File.getContent(modFolders(key));
 		#end
 
-		if (FileSystem.exists(file(key)))
-			return File.getContent(file(key));
+		if (FileSystem.exists(getPath(key)))
+			return File.getContent(getPath(key));
 		#end
 		
-		return (Assets.exists(file(key))) ? Assets.getText(file(key)) : null;
+		return (Assets.exists(getPath(key))) ? Assets.getText(getPath(key)) : null;
 	}
 
 	public static function getGraphic(path:String):FlxGraphic
@@ -250,7 +228,7 @@ class Paths
 		}
 		#end
 
-		var path = file('images/$key.png');
+		var path = getPath('images/$key.png');
 		if (Assets.exists(path, IMAGE))
 		{
 			if (!currentTrackedAssets.exists(path))
@@ -271,7 +249,7 @@ class Paths
 		#if MODS_ALLOWED
 		if (FileSystem.exists(modsSounds(path, key))) return modsSounds(path, key);
 		#end
-		return file('$path/$key.ogg');
+		return getPath('$path/$key.ogg');
 	}
 
 	public static function returnSound(path:String, key:String)
@@ -287,7 +265,7 @@ class Paths
 			return currentTrackedSounds.get(file);
 		}
 		#end
-		var gottenPath:String = file('$path/$key.ogg');
+		var gottenPath:String = getPath('$path/$key.ogg');
 		gottenPath = gottenPath.substring(gottenPath.indexOf(':') + 1, gottenPath.length);
 		if (!currentTrackedSounds.exists(gottenPath))
 			#if MODS_ALLOWED
@@ -295,7 +273,7 @@ class Paths
 			#else
 				currentTrackedSounds.set(
 					gottenPath, 
-					Assets.getSound(file('$path/$key.ogg'))
+					Assets.getSound(getPath('$path/$key.ogg'))
 				);
 			#end
 		localTrackedAssets.push(gottenPath);
