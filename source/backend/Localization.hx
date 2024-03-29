@@ -54,7 +54,7 @@ class Localization
     private static function loadLanguageData(language:String):Dynamic
     {
         var jsonContent:String = null;
-        var path:String = Paths.getPath("languages/" + language + ".json");
+        var path:String = Paths.file("languages/" + language + ".json");
 
         #if MODS_ALLOWED
         var modPath:String = Paths.modFolders("languages/" + language + ".json");

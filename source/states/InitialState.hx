@@ -3,18 +3,15 @@ package states;
 import djFlixel.gfx.BoxScroller;
 import djFlixel.gfx.pal.Pal_DB32;
 
-import frontend.objects.ClickableSprite;
-
 import flixel.effects.particles.FlxEmitter;
 import flixel.effects.particles.FlxParticle;
+
+import frontend.objects.ClickableSprite.Button;
 
 class InitialState extends FlxState
 {
     var smallLogo:FlxSprite;
-
-    var playBtn:ClickableSprite;
-    var gitBtn:ClickableSprite;
-    var exitBtn:ClickableSprite;
+    var buttons:FlxTypedGroup<Button>;
 
     override function create()
     {
@@ -59,14 +56,54 @@ class InitialState extends FlxState
         em.lifespan.set(99);
         add(em);
 
-        var text:FlxText = new FlxText(0, 0, 0, "Press ENTER to start!", 12);
-        text.setFormat(Paths.font('vcr.ttf'), 64, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-        text.screenCenter();
-        add(text);
+        smallLogo = new FlxSprite(0, 0).loadGraphic(Paths.image('logo_small'));
+        smallLogo.screenCenter(X);
+        smallLogo.alpha = 0;
+        add(smallLogo);
 
-        var spinner:FlxSprite = new FlxSprite(FlxG.width - 91, FlxG.height - 91).loadGraphic(Paths.image("loader"));
-        spinner.angularVelocity = 30;
-        add(spinner);
+        buttons = new FlxTypedGroup<Button>();
+        add(buttons);
+
+        var options:Array<String> = ['Play', 'Website', 'Exit'];
+        var optCallbacks:Array<Void->Void> = [
+            {
+                FlxG.camera.fade(FlxColor.BLACK, 0.33, false, () ->
+                {
+                    #if desktop
+                    UpdateState.updateCheck();
+                    FlxG.switchState((UpdateState.mustUpdate) ? UpdateState.new : SplashState.new);
+                    #else
+                    trace('Sorry! No update support on: ' + backend.system.PlatformUtil.getPlatform() + '!');
+                    FlxG.switchState(SplashState.new);
+                    #end
+                });
+            },
+            {
+                CoolUtil.browserLoad('https://github.com/Joalor64GH/VisionSphere');
+            },
+            {
+                FlxG.camera.fade(FlxColor.BLACK, 0.5, false, () ->
+                {
+                    #if (sys || cpp)
+                    Sys.exit(0);
+                    #else
+                    openfl.system.System.exit(0);
+                    #end
+                });
+            }
+        ];
+        for (i in 0...options.length)
+        {
+            var daButton:Button = new Button(0, (150 * i) + 50, options[i], optCallbacks[i]);
+            daButton.screenCenter();
+            daButton.alpha = 0;
+            buttons.add(daButton);
+        }
+
+        FlxTween.tween(smallLogo, {alpha: 1}, 1.5, {ease: FlxEase.quadOut});
+
+        for (i in buttons)
+            FlxTween.tween(i, {alpha: 1}, 1.5, {ease: FlxEase.quadOut});
 
         var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
 
@@ -75,25 +112,6 @@ class InitialState extends FlxState
         trace(gamepad != null ? "Controller detected!" : "Oops! no controller detected!\nProbably because it isn't connected or you don't have one at all.");
 
         super.create();
-    }
-
-    override function update(elapsed)
-    {
-        super.update(elapsed);
-
-        if (Input.is('enter'))
-        {
-            FlxG.camera.fade(FlxColor.BLACK, 0.33, false, () ->
-            {
-                #if desktop
-                UpdateState.updateCheck();
-                FlxG.switchState((UpdateState.mustUpdate) ? UpdateState.new : SplashState.new);
-                #else
-                trace('Sorry! No update support on: ' + backend.system.PlatformUtil.getPlatform() + '!');
-                FlxG.switchState(SplashState.new);
-                #end
-            });
-        }
     }
 
     private function getInstalledMods():String

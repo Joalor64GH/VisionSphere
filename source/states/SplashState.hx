@@ -34,6 +34,10 @@ class SplashState extends FlxState
         logo.alpha = 0;
         add(logo);
 
+        var spinner:FlxSprite = new FlxSprite(FlxG.width - 91, FlxG.height - 91).loadGraphic(Paths.image("loader"));
+        spinner.angularVelocity = 30;
+        add(spinner);
+
         var daText:FlxText = new FlxText(5, FlxG.height - 24, 0, "Press ENTER or SPACE to skip.", 12);
         daText.setFormat(Paths.font('vcr.ttf'), 26, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
         add(daText);

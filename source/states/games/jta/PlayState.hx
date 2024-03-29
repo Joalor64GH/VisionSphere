@@ -51,7 +51,7 @@ class PlayState extends FlxState
         bg.scrollFactor.set();
         add(bg);
 
-        map = new FlxOgmo3Loader(Paths.getPath('data/jta/level.ogmo'), Paths.json('jta/lev' + lev));
+        map = new FlxOgmo3Loader(Paths.file('data/jta/level.ogmo'), Paths.json('jta/lev' + lev));
         walls = map.loadTilemap(Paths.image('game/jta/tilemap_1'), 'walls');
         walls.follow();
         walls.setTileProperties(1, NONE);

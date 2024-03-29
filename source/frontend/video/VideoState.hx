@@ -47,7 +47,7 @@ class VideoState extends FlxState
 		netStream.client = {onMetaData: client_onMetaData};
 		netStream.addEventListener(AsyncErrorEvent.ASYNC_ERROR, netStream_onAsyncError);
 		netConnection.addEventListener(NetStatusEvent.NET_STATUS, netConnection_onNetStatus);
-		netStream.play(Paths.getPath('videos/' + file + '.mp4'));
+		netStream.play(Paths.video(file));
 
 		overlay = new Sprite();
 		overlay.graphics.beginFill(0, 0.5);
