@@ -18,7 +18,7 @@ class Localization
 
         data = new Map<String, Dynamic>();
 
-        var foldersToCheck:Array<String> = [Paths.getPath('data/')];
+        var foldersToCheck:Array<String> = [Paths.file('data/')];
 
         #if MODS_ALLOWED
         foldersToCheck.insert(0, Paths.mods("data/"));
@@ -74,7 +74,7 @@ class Localization
         #end
         else {
             trace("oops! file not found for: " + language + "!");
-            jsonContent = File.getContent(Paths.getPath("languages/" + DEFAULT_LANGUAGE + ".json"));
+            jsonContent = File.getContent(Paths.file("languages/" + DEFAULT_LANGUAGE + ".json"));
             currentLanguage = DEFAULT_LANGUAGE;
         }
 

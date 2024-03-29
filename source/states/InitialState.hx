@@ -65,33 +65,8 @@ class InitialState extends FlxState
         add(buttons);
 
         var options:Array<String> = ['Play', 'Website', 'Exit'];
-        var optCallbacks:Array<Void->Void> = [
-            {
-                FlxG.camera.fade(FlxColor.BLACK, 0.33, false, () ->
-                {
-                    #if desktop
-                    UpdateState.updateCheck();
-                    FlxG.switchState((UpdateState.mustUpdate) ? UpdateState.new : SplashState.new);
-                    #else
-                    trace('Sorry! No update support on: ' + backend.system.PlatformUtil.getPlatform() + '!');
-                    FlxG.switchState(SplashState.new);
-                    #end
-                });
-            },
-            {
-                CoolUtil.browserLoad('https://github.com/Joalor64GH/VisionSphere');
-            },
-            {
-                FlxG.camera.fade(FlxColor.BLACK, 0.5, false, () ->
-                {
-                    #if (sys || cpp)
-                    Sys.exit(0);
-                    #else
-                    openfl.system.System.exit(0);
-                    #end
-                });
-            }
-        ];
+        var optCallbacks:Array<()->Void> = [playCallback, websiteCallback, exitCallback];
+        
         for (i in 0...options.length)
         {
             var daButton:Button = new Button(0, (150 * i) + 50, options[i], optCallbacks[i]);
@@ -118,6 +93,37 @@ class InitialState extends FlxState
     {
         var installedMods:Array<String> = Paths.getModDirectories();
         return (installedMods.length > 0) ? installedMods.join("\n") : "No mods currently installed.";
+    }
+
+    function playCallback()
+    {
+        FlxG.camera.fade(FlxColor.BLACK, 0.33, false, () ->
+        {
+            #if desktop
+            UpdateState.updateCheck();
+            FlxG.switchState((UpdateState.mustUpdate) ? UpdateState.new : SplashState.new);
+            #else
+            trace('Sorry! No update support on: ' + backend.system.PlatformUtil.getPlatform() + '!');
+            FlxG.switchState(SplashState.new);
+            #end
+        });
+    }
+
+    function websiteCallback()
+    {
+        CoolUtil.browserLoad('https://github.com/Joalor64GH/VisionSphere');
+    }
+
+    function exitCallback()
+    {
+        FlxG.camera.fade(FlxColor.BLACK, 0.5, false, () ->
+        {
+            #if (sys || cpp)
+            Sys.exit(0);
+            #else
+            openfl.system.System.exit(0);
+            #end
+        });
     }
 }
 

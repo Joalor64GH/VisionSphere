@@ -294,7 +294,7 @@ class Paths
 			#else
 				currentTrackedSounds.set(
 					gottenPath, 
-					Assets.getSound(file('$path/$key.ogg'))
+					Assets.getSound(file("$path/$key.ogg"))
 				);
 			#end
 		localTrackedAssets.push(gottenPath);
