@@ -6,8 +6,6 @@ import djFlixel.gfx.pal.Pal_DB32;
 import flixel.effects.particles.FlxEmitter;
 import flixel.effects.particles.FlxParticle;
 
-import frontend.objects.ClickableSprite.Button;
-
 class InitialState extends FlxState
 {
     var smallLogo:FlxSprite;
