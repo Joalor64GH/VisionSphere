@@ -75,7 +75,7 @@ class InitialState extends FlxState
         }
 
         FlxTween.tween(smallLogo, {alpha: 1}, 1.5, {ease: FlxEase.quadOut});
-        for (i in grpOptions.members) FlxTween.tween(i, {alpha: 1}, 1.5, {ease: FlxEase.quadOut});
+        for (i in grpOptions) FlxTween.tween(i, {alpha: 1}, 1.5, {ease: FlxEase.quadOut});
 
         var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
 

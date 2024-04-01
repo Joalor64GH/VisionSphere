@@ -25,8 +25,8 @@ class Info extends openfl.text.TextField
 			var mem:Float = openfl.system.System.totalMemory;
 			memPeak = memPeak > mem ? memPeak : mem;
 
-			var currentFrames:Int = times.length;
-			if (currentFrames > SaveData.framerate) currentFrames = SaveData.framerate;
+			var currentFrames:Float = times.length;
+			if (currentFrames > FlxG.updateFramerate) currentFrames = FlxG.updateFramerate;
 
 			textColor = (currentFrames <= SaveData.framerate / 4) ?
 				0xFFFF0000 : (currentFrames <= SaveData.framerate / 2) ?

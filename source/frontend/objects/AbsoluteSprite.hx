@@ -1,7 +1,5 @@
 package frontend.objects;
 
-import flixel.FlxObject;
-
 class AbsoluteSprite extends FlxSprite
 {
     public var parent:FlxObject;
