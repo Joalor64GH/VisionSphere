@@ -1,6 +1,7 @@
 package;
 
-import openfl.Lib;
+import openfl.display.Bitmap;
+import openfl.display.BitmapData;
 
 import haxe.Exception;
 import haxe.CallStack;
@@ -109,62 +110,60 @@ class VSGame extends flixel.FlxGame
 {
 	var _viewingCrash:Bool = false;
 
+	public function new(gameWidth:Int = 0, gameHeight:Int = 0, initialState:Class<FlxState>, updateFramerate:Int = 60, drawFramerate:Int = 60, skipSplash:Bool = false, startFullscreen:Bool = false) {
+		super(gameWidth, gameHeight, initialState, updateFramerate, drawFramerate, skipSplash, startFullscreen);
+		_customSoundTray = VSSoundTray;
+	}
+
 	override function create(_):Void {
-		try
-			super.create(_)
+		try 
+		{
+			super.create(_);
+			
+			removeChild(soundTray);
+			addChild(soundTray);
+		}
 		catch (e:Exception)
 			return exceptionCaught(e, 'create');
 	}
 
 	override function onFocus(_):Void {
-		try
-			super.onFocus(_)
-		catch (e:Exception)
+		try super.onFocus(_) catch (e:Exception)
 			return exceptionCaught(e, 'onFocus');
 	}
 
 	override function onFocusLost(_):Void {
-		try
-			super.onFocusLost(_)
+		try super.onFocusLost(_)
 		catch (e:Exception)
 			return exceptionCaught(e, 'onFocusLost');
 	}
 
 	override function onEnterFrame(_):Void {
-		try
-			super.onEnterFrame(_)
-		catch (e:Exception)
+		try super.onEnterFrame(_) catch (e:Exception)
 			return exceptionCaught(e, 'onEnterFrame');
 	}
 
 	override function update():Void {
-		if (_viewingCrash)
-			return;
-		try
-			super.update()
-		catch (e:Exception)
+		if (_viewingCrash) return;
+		try super.update() catch (e:Exception)
 			return exceptionCaught(e, 'update');
 	}
 
 	override function draw():Void {
-		try
-			super.draw()
-		catch (e:Exception)
+		try super.draw() catch (e:Exception)
 			return exceptionCaught(e, 'draw');
 	}
 
 	@:allow(flixel.FlxG)
 	override function onResize(_):Void {
-		if (_viewingCrash)
-			return;
+		if (_viewingCrash) return;
 		super.onResize(_);
 	}
 
 	private function exceptionCaught(e:Exception, ?func:String = null)
 	{
 		#if CRASH_HANDLER
-		if (_viewingCrash)
-			return;
+		if (_viewingCrash) return;
 
 		var path:String;
 		var fileStack:Array<String> = [];
@@ -218,5 +217,60 @@ class VSGame extends flixel.FlxGame
 		#else
 		throw e;
 		#end
+	}
+}
+
+class VSSoundTray extends flixel.system.ui.FlxSoundTray 
+{
+	var _bar:Bitmap;
+
+	public function new()
+	{
+		super();
+		removeChildren();
+
+		final bg = new Bitmap(new BitmapData(80, 25, false, 0xff3f3f3f));
+		addChild(bg);
+
+		_bar = new Bitmap(new BitmapData(75, 25, false, 0xffffffff));
+		_bar.x = 2.5;
+		addChild(_bar);
+
+		final tmp:Bitmap = new Bitmap(openfl.Assets.getBitmapData("assets/images/soundtray.png", false), null, true);
+		addChild(tmp);
+
+		screenCenter();
+
+		tmp.scaleX = 0.5;
+		tmp.scaleY = 0.5;
+		tmp.x -= tmp.width * 0.2;
+		tmp.y -= 5;
+
+		y = -height;
+		visible = false;
+	}
+
+	override function update(elapsed:Float) {
+		super.update(elapsed * 4);
+	}
+
+	override function show(up:Bool = false) 
+	{
+		if (!silent)
+		{
+			final sound = flixel.system.FlxAssets.getSound("assets/sounds/scroll");
+			if (sound != null) FlxG.sound.load(sound).play();
+		}
+
+		_timer = 4;
+		y = 0;
+		visible = active = true;
+		_bar.scaleX = FlxG.sound.muted ? 0 : FlxG.sound.volume;
+	}
+
+	override function screenCenter()
+	{
+		_defaultScale = Math.min(FlxG.stage.stageWidth / FlxG.width, FlxG.stage.stageHeight / FlxG.height) * 2;
+		super.screenCenter();
 	}
 }

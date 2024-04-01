@@ -6,6 +6,8 @@ import sys.FileSystem;
 
 import haxe.Json;
 
+import openfl.Lib;
+
 import flixel.*;
 import flixel.math.FlxMath;
 import flixel.text.FlxText;

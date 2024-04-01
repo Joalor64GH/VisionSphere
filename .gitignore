@@ -2,7 +2,7 @@
 export/
 .vscode/*
 .haxelib/
-*.code-workspace
+!.code-workspace
 vscode-project.hxml
 .history
 .ionide
