@@ -27,6 +27,8 @@ class InitialState extends FlxState
 
         Localization.loadLanguages();
 
+        Main.updateFramerate(SaveData.framerate);
+
         FlxG.sound.muteKeys = [NUMPADZERO];
         FlxG.sound.volumeDownKeys = [NUMPADMINUS];
         FlxG.sound.volumeUpKeys = [NUMPADPLUS];

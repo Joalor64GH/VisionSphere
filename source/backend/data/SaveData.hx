@@ -72,14 +72,8 @@ class SaveData
         #end
         if (FlxG.save.data.colorBlindFilter != null)
             colorBlindFilter = FlxG.save.data.colorBlindFilter;
-        if (FlxG.save.data.framerate != null) 
-        {
+        if (FlxG.save.data.framerate != null)
             framerate = FlxG.save.data.framerate;
-            FlxG.updateFramerate = framerate;
-            FlxG.drawFramerate = framerate;
-            FlxG.game.focusLostFramerate = framerate;
-            Lib.current.stage.frameRate = framerate;
-        }
         if (FlxG.save.data.username != null)
             username = FlxG.save.data.username;
         if (FlxG.save.data.profile != null)

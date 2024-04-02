@@ -104,6 +104,20 @@ class Main extends openfl.display.Sprite
 		toast = new ToastCore();
 		addChild(toast);
 	}
+
+	public static function updateFramerate(newFramerate:Int)
+	{
+		if (newFramerate > FlxG.updateFramerate)
+		{
+			FlxG.updateFramerate = newFramerate;
+			FlxG.drawFramerate = newFramerate;
+		}
+		else
+		{
+			FlxG.drawFramerate = newFramerate;
+			FlxG.updateFramerate = newFramerate;
+		}
+	}
 }
 
 class VSGame extends flixel.FlxGame

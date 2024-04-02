@@ -93,7 +93,7 @@ class ModSetupTabs extends FlxUITabMenu
             final modFolder = modFolderInput.text;
 
             var keys:Array<String> = [];
-            for (i in ModSetupState.modFolderDirs.keys()) keys.push(i);
+            for (i in ModsSetupState.modFolderDirs.keys()) keys.push(i);
             if (keys.contains(modFolder))
             {
                 Main.toast.create('Oops!', 0xFFFF0000, 'You entered an invalid folder name!');
@@ -112,14 +112,14 @@ class ModSetupTabs extends FlxUITabMenu
             }
 
             var createFunc = () -> {
-                ModSetupState.setupModFolder(modFolder);
+                ModsSetupState.setupModFolder(modFolder);
                 
                 var _jsonData = copyJson(DEFAULT_MOD);
                 _jsonData.name = modNameInput.text;
                 _jsonData.description = modDescInput.text;
                 _jsonData.restart = restartCheck.checked;
                 _jsonData.runsGlobally = globalCheck.checked;
-                _jsonData.color = FlxColor.fromRGB(modColorInputR.text, modColorInputG.text, modColorInputB.text);
+                _jsonData.color = FlxColor.fromRGB(Std.parseInt(modColorInputR.text), Std.parseInt(modColorInputG.text), Std.parseInt(modColorInputB.text));
 
                 var _jsonStr = Json.stringify(_jsonData, "\t");
                 File.saveContent('mods/$modFolder/pack.json', _jsonStr);
@@ -127,9 +127,9 @@ class ModSetupTabs extends FlxUITabMenu
             }
 
             if (FileSystem.exists('mods/$modFolder')) {
-                openSubState(new PromptSubState("Mod folder\n$modFolder\nalready exists\n\nAre you sure you want to\noverwrite this folder?", 
+                FlxG.state.openSubState(new PromptSubState("Mod folder\n$modFolder\nalready exists\n\nAre you sure you want to\noverwrite this folder?", 
                     createFunc, () -> {
-                        closeSubState();
+                        FlxG.state.closeSubState();
                     }));
             }
             else
@@ -218,7 +218,7 @@ class ModsSetupState extends FlxState
 
     override function update(elapsed:Float)
     {
-        super.elapsed();
+        super.update(elapsed);
 
         if (modTab.getFocus()) return;
         
@@ -227,10 +227,5 @@ class ModsSetupState extends FlxState
             FlxG.switchState(ModsState.new);
             FlxG.sound.play(Paths.sound('cancel'));
         }
-    }
-
-    override function closeSubState() 
-    {
-        super.closeSubState();
     }
 }

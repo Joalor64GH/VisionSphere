@@ -1,9 +1,11 @@
 package frontend.debug;
 
+typedef MemoryThing = #if cpp cpp.vm.Gc.memInfo64(3) #else openfl.system.System.totalMemory.toFloat() #end;
+
 class Info extends openfl.text.TextField
 {
-	public var memPeak:Float;
-	public var times:Array<Float> = [];
+	var memPeak:Float = 0;
+	var times:Array<Float> = [];
 
 	public function new(x:Float, y:Float, color:Int, ?font:String)
 	{
@@ -14,6 +16,7 @@ class Info extends openfl.text.TextField
 		this.y = y;
 		width = 1280;
 		height = 720;
+		autosize = LEFT;
 		selectable = false;
 		defaultTextFormat = new openfl.text.TextFormat(Paths.font((font != null) ? font : 'vcr.ttf'), 18, 0xFFFFFF);
 		addEventListener(openfl.events.Event.ENTER_FRAME, (_) ->
@@ -22,18 +25,11 @@ class Info extends openfl.text.TextField
 			times.push(now);
 			while (times[0] < now - 1000) times.shift();
 
-			var mem:Float = openfl.system.System.totalMemory;
-			memPeak = memPeak > mem ? memPeak : mem;
-
-			var currentFrames:Float = times.length;
-			if (currentFrames > FlxG.updateFramerate) currentFrames = FlxG.updateFramerate;
-
-			textColor = (currentFrames <= SaveData.framerate / 4) ?
-				0xFFFF0000 : (currentFrames <= SaveData.framerate / 2) ?
-					0xFFFFFF00 : 0xFFFFFFFF;
+			var mem:Float = MemoryThing;
+			if (mem > memPeak) memPeak = mem;
 			
 			text = (visible) ? 
-				"FPS: " + currentFrames + "\nMemory: " + flixel.util.FlxStringUtil.formatBytes(mem) + " / " + flixel.util.FlxStringUtil.formatBytes(memPeak)
+				"FPS: " + times.length + "\nMemory: " + flixel.util.FlxStringUtil.formatBytes(mem) + " / " + flixel.util.FlxStringUtil.formatBytes(memPeak)
 				+ "\nVisionSphere v" + Lib.application.meta.get('version') : "";
 		});
 	}
