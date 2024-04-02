@@ -1,7 +1,5 @@
 package frontend.debug;
 
-typedef MemoryThing = #if cpp cpp.vm.Gc.memInfo64(3) #else openfl.system.System.totalMemory.toFloat() #end;
-
 class Info extends openfl.text.TextField
 {
 	var memPeak:Float = 0;
@@ -25,7 +23,7 @@ class Info extends openfl.text.TextField
 			times.push(now);
 			while (times[0] < now - 1000) times.shift();
 
-			var mem:Float = MemoryThing;
+			var mem:Float = openfl.system.System.totalMemory.toFloat();
 			if (mem > memPeak) memPeak = mem;
 			
 			text = (visible) ? 
