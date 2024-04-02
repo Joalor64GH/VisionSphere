@@ -125,7 +125,7 @@ class CrashHandler extends openfl.display.Sprite
 	{
 		super();
 
-		this._stage = openfl.Lib.application.window.stage;
+		this._stage = Lib.application.window.stage;
 
 		if (!_active)
 			_active = true;
@@ -186,7 +186,7 @@ class CrashHandler extends openfl.display.Sprite
 
 		_stage.addEventListener(KeyboardEvent.KEY_DOWN, keyActions);
 		addEventListener(Event.ENTER_FRAME, (e) -> {
-			var time = openfl.Lib.getTimer() / 1000;
+			var time = Lib.getTimer() / 1000;
 			if (time - lastTime > 1 / 5) {
 				if (!setupOrigin) {
 					errorTitle.originX = errorTitle.width * 0.5;

@@ -1,10 +1,9 @@
 package states;
 
 import flixel.ui.FlxButton;
-import flixel.FlxBasic;
 
 import openfl.display.BitmapData;
-import flash.geom.Rectangle;
+import openfl.geom.Rectangle;
 
 using StringTools;
 
@@ -46,7 +45,7 @@ class ModsState extends FlxState
 		bg = new FlxSprite().loadGraphic(Paths.image('desatBG'));
 		add(bg);
 
-		noModsTxt = new FlxText(0, 0, FlxG.width, "NO MODS INSTALLED\nPRESS BACK TO EXIT AND INSTALL A MOD", 48);
+		noModsTxt = new FlxText(0, 0, FlxG.width, "NO MODS INSTALLED\nPRESS BACK TO EXIT AND INSTALL A MOD\n...OR PRESS 7 TO ACCESS THE MOD SETUP MENU", 48);
 		noModsTxt.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		noModsTxt.scrollFactor.set();
 		noModsTxt.borderSize = 2;
@@ -328,6 +327,8 @@ class ModsState extends FlxState
 
 		var path:String = 'modsList.txt';
 		File.saveContent(path, fileStr);
+
+		Paths.pushGlobalMods();
 	}
 
 	var noModsSine:Float = 0;
@@ -354,6 +355,9 @@ class ModsState extends FlxState
 
 		if (Input.is('up') || Input.is('down'))
 			changeSelection(Input.is('up') ? -1 : 1);
+
+		if (Input.is('seven'))
+			FlxG.switchState(ModsSetupState.new);
 		
 		updatePosition(elapsed);
 		super.update(elapsed);

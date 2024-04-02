@@ -34,7 +34,7 @@ class Info extends openfl.text.TextField
 			
 			text = (visible) ? 
 				"FPS: " + currentFrames + "\nMemory: " + flixel.util.FlxStringUtil.formatBytes(mem) + " / " + flixel.util.FlxStringUtil.formatBytes(memPeak)
-				+ "\nVisionSphere v" + openfl.Lib.application.meta.get('version') : "";
+				+ "\nVisionSphere v" + Lib.application.meta.get('version') : "";
 		});
 	}
 }

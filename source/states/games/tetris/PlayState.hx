@@ -128,7 +128,7 @@ class PlayState extends FlxState
         else
         {
             GameGrid.clear();
-            persistentUpdate = false;
+            persistentUpdate = persistentDraw = false;
             openSubState(new states.games.tetris.GameOverSubState());
         }
 

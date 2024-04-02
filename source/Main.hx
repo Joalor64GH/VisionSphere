@@ -110,7 +110,8 @@ class VSGame extends flixel.FlxGame
 {
 	var _viewingCrash:Bool = false;
 
-	public function new(gameWidth:Int = 0, gameHeight:Int = 0, initialState:Class<FlxState>, updateFramerate:Int = 60, drawFramerate:Int = 60, skipSplash:Bool = false, startFullscreen:Bool = false) {
+	public function new(gameWidth:Int = 0, gameHeight:Int = 0, initialState:Class<FlxState>, updateFramerate:Int = 60, drawFramerate:Int = 60, skipSplash:Bool = false, startFullscreen:Bool = false) 
+	{
 		super(gameWidth, gameHeight, initialState, updateFramerate, drawFramerate, skipSplash, startFullscreen);
 		_customSoundTray = VSSoundTray;
 	}
@@ -133,8 +134,7 @@ class VSGame extends flixel.FlxGame
 	}
 
 	override function onFocusLost(_):Void {
-		try super.onFocusLost(_)
-		catch (e:Exception)
+		try super.onFocusLost(_) catch (e:Exception)
 			return exceptionCaught(e, 'onFocusLost');
 	}
 
