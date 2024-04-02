@@ -119,7 +119,7 @@ class PreferencesState extends FlxState
                 else
                     SaveData.framerate -= (SaveData.framerate == 60) ? 0 : 10;
                 
-                Main.updateFramerate(framerate);
+                Main.updateFramerate(SaveData.framerate);
             }
         }
 

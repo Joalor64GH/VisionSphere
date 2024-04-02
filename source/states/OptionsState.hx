@@ -8,7 +8,6 @@ class OptionsState extends FlxState
         "Preferences",
         "Controls",
         "Credits",
-        "Account",
         "System Information",
         "Restart",
         "Shut Down",
@@ -52,7 +51,6 @@ class OptionsState extends FlxState
         if (Input.is('accept'))
         {
             FlxG.sound.play(Paths.sound('confirm'));
-            
             switch (options[curSelected])
             {
                 case "Preferences":
@@ -61,8 +59,6 @@ class OptionsState extends FlxState
                     openSubState(new ControlsSubState());
                 case "Credits":
                     FlxG.switchState(CreditsState.new);
-                case "Account":
-                    FlxG.switchState(AccountState.new);
                 case "System Information":
                     openSubState(new SystemInfoSubState());
                 case "Restart":

@@ -6,8 +6,6 @@ import flixel.addons.ui.FlxUICheckBox;
 import flixel.addons.ui.FlxUIInputText;
 import flixel.addons.ui.FlxUITabMenu;
 
-import haxe.io.Path;
-
 /**
  * @author MaybeMaru
  * @see https://github.com/MaybeMaru/Maru-Funkin/
@@ -28,10 +26,6 @@ class ModSetupTabs extends FlxUITabMenu
     var modFolderInput:FlxUIInputText;
     var modNameInput:FlxUIInputText;
     var modDescInput:FlxUIInputText;
-
-    var modColorInputR:FlxUIInputText;
-    var modColorInputG:FlxUIInputText;
-    var modColorInputB:FlxUIInputText;
 
     var createButton:FlxUIButton;
 
@@ -80,15 +74,6 @@ class ModSetupTabs extends FlxUITabMenu
         modDescInput.lines = 999;
         addToGroup(modDescInput, "Mod Description:", true);
 
-        modColorInputR = new FlxUIInputText(25, 25 + _sep * 2, 350, "red");
-        addToGroup(modColorInputR, "Mod Color (Red):", true);
-
-        modColorInputG = new FlxUIInputText(25, 25 + _sep * 2, 350, "green");
-        addToGroup(modColorInputG, "Mod Color (Green):", true);
-
-        modColorInputB = new FlxUIInputText(25, 25 + _sep * 2, 350, "blue");
-        addToGroup(modColorInputB, "Mod Color (Blue):", true);
-
         createButton = new FlxUIButton(310, 350, "Create Folder", () -> {
             final modFolder = modFolderInput.text;
 
@@ -101,10 +86,8 @@ class ModSetupTabs extends FlxUITabMenu
                 return;
             }
 
-            for (i in invalidFolderCharacters)
-            {
-                if (modFolder.contains(i) || modFolder.endsWith("."))
-                {
+            for (i in invalidFolderCharacters) {
+                if (modFolder.contains(i) || modFolder.endsWith(".")) {
                     Main.toast.create('Oops!', 0xFFFF0000, 'You entered an invalid folder character!');
                     FlxG.sound.play(Paths.sound('cancel'));
                     return;
@@ -119,7 +102,7 @@ class ModSetupTabs extends FlxUITabMenu
                 _jsonData.description = modDescInput.text;
                 _jsonData.restart = restartCheck.checked;
                 _jsonData.runsGlobally = globalCheck.checked;
-                _jsonData.color = FlxColor.fromRGB(Std.parseInt(modColorInputR.text), Std.parseInt(modColorInputG.text), Std.parseInt(modColorInputB.text));
+                _jsonData.color = [100, 100, 100]; // placeholder until i figure something out
 
                 var _jsonStr = Json.stringify(_jsonData, "\t");
                 File.saveContent('mods/$modFolder/pack.json', _jsonStr);
@@ -159,8 +142,6 @@ class ModSetupTabs extends FlxUITabMenu
 
 class ModsSetupState extends FlxState
 {
-    var modTab:ModSetupTabs;
-
     override function create()
     {
         Paths.clearStoredMemory();
@@ -169,7 +150,7 @@ class ModsSetupState extends FlxState
         var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('theme/' + SaveData.theme));
         add(bg);
 
-        modTab = new ModSetupTabs();
+        var modTab:ModSetupTabs = new ModSetupTabs();
         add(modTab);
 
         super.create();
@@ -208,7 +189,7 @@ class ModsSetupState extends FlxState
         var dirs = path.split("/");
         var lastDir = prefix;
         for (i in dirs) {
-            final _ext = Path.extension(i);
+            final _ext = haxe.io.Path.extension(i);
             if (i == null || (_ext.length != 0 && !_ext.contains(" "))) continue;
             lastDir += '$i/';
             if (!FileSystem.exists(lastDir))

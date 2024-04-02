@@ -2,7 +2,6 @@ package frontend.debug;
 
 class Info extends openfl.text.TextField
 {
-	var memPeak:Float = 0;
 	var times:Array<Float> = [];
 
 	public function new(x:Float, y:Float, color:Int, ?font:String)
@@ -14,7 +13,6 @@ class Info extends openfl.text.TextField
 		this.y = y;
 		width = 1280;
 		height = 720;
-		autosize = LEFT;
 		selectable = false;
 		defaultTextFormat = new openfl.text.TextFormat(Paths.font((font != null) ? font : 'vcr.ttf'), 18, 0xFFFFFF);
 		addEventListener(openfl.events.Event.ENTER_FRAME, (_) ->
@@ -23,7 +21,9 @@ class Info extends openfl.text.TextField
 			times.push(now);
 			while (times[0] < now - 1000) times.shift();
 
-			var mem:Float = openfl.system.System.totalMemory.toFloat();
+			var mem:Float = openfl.system.System.totalMemory;
+			var memPeak:Float = 0;
+
 			if (mem > memPeak) memPeak = mem;
 			
 			text = (visible) ? 
