@@ -142,6 +142,8 @@ class ModSetupTabs extends FlxUITabMenu
 
 class ModsSetupState extends FlxState
 {
+    var modTab:ModSetupTabs;
+
     override function create()
     {
         Paths.clearStoredMemory();
@@ -150,7 +152,7 @@ class ModsSetupState extends FlxState
         var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('theme/' + SaveData.theme));
         add(bg);
 
-        var modTab:ModSetupTabs = new ModSetupTabs();
+        modTab = new ModSetupTabs();
         add(modTab);
 
         super.create();
