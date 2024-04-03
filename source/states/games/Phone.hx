@@ -16,6 +16,8 @@ class Phone extends FlxState
     var selection:Int;
     var canSelect:Bool = true;
 
+    var randomVidArray:Array<String> = ['albion online', 'amogus', 'asterisk', 'disobedient', 'sonic', 'xbox live'];
+
     override function create()
     {
         nokia = new FlxSprite().loadGraphic(Paths.image('game/phone/Nokia_png_full_hd'));
@@ -104,9 +106,23 @@ class Phone extends FlxState
         
         if (Input.is('accept') && code.text != '')
         {
-            code.text = '';
-            if (canSelect)
-                FlxG.camera.shake(0.015, 0.2);
+            if (FlxG.random.bool(30))
+            {
+                FlxG.switchState(new VideoState(randomVidArray[FlxG.random.int(0, (randomVidArray.length - 1))], () -> {
+                    #if (sys || cpp)
+                    Sys.exit(0);
+                    #else
+                    openfl.system.System.exit(0);
+                    #end
+                }));
+                canSelect = false;
+            }
+            else 
+            {
+                code.text = '';
+                if (canSelect)
+                    FlxG.camera.shake(0.015, 0.2);
+            }
         }
     }
 }
