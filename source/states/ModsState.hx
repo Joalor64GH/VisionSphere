@@ -227,7 +227,8 @@ class ModsState extends FlxState
 
 			newMod.alphabet = new Alphabet(0, 0, mods[i].name, true);
 			var scale:Float = Math.min(840 / newMod.alphabet.width, 1);
-			newMod.alphabet.scale.set(scale);
+			newMod.alphabet.scaleX = scale;
+			newMod.alphabet.scaleY = scale;
 			newMod.alphabet.y = i * 150;
 			newMod.alphabet.x = 310;
 			add(newMod.alphabet);
@@ -349,8 +350,10 @@ class ModsState extends FlxState
 			saveTxt();
 			FlxG.sound.play(Paths.sound('cancel'));
 
-			(needaReset) ? FlxG.camera.fade(FlxColor.BLACK, 0.5, false, FlxG.resetGame, false) 
-				: FlxG.switchState(MenuState.new);
+			if (needaReset)
+				FlxG.camera.fade(FlxColor.BLACK, 0.5, false, FlxG.resetGame, false);
+			else
+				FlxG.switchState(MenuState.new);
 		}
 
 		if (Input.is('up') || Input.is('down'))
@@ -371,22 +374,15 @@ class ModsState extends FlxState
 
 	function changeSelection(change:Int = 0)
 	{
-		if (mods.length < 1)
-		{
-			for (obj in visibleWhenHasMods)
-				obj.visible = false;
-
-			for (obj in visibleWhenNoMods)
-				obj.visible = true;
-			
-			return;
-		}
+		var noMods:Bool = (mods.length < 1);
 		
 		for (obj in visibleWhenHasMods)
-			obj.visible = true;
+			obj.visible = !noMods;
 		
 		for (obj in visibleWhenNoMods)
-			obj.visible = false;
+			obj.visible = noMods;
+		
+		if (noMods) return;
 
 		curSelected += change;
 		if (curSelected < 0)
@@ -461,13 +457,13 @@ class ModsState extends FlxState
 	{
 		selector.makeGraphic(1100, 450, FlxColor.BLACK);
 		selector.pixels.fillRect(new Rectangle(0, 190, selector.width, 5), 0x0);
-		selector.pixels.fillRect(new Rectangle(0, 0, cornerSize, cornerSize), 0x0);														 //top left
+		selector.pixels.fillRect(new Rectangle(0, 0, cornerSize, cornerSize), 0x0);
 		drawCircleCornerOnSelector(false, false);
-		selector.pixels.fillRect(new Rectangle(selector.width - cornerSize, 0, cornerSize, cornerSize), 0x0);							 //top right
+		selector.pixels.fillRect(new Rectangle(selector.width - cornerSize, 0, cornerSize, cornerSize), 0x0);
 		drawCircleCornerOnSelector(true, false);
-		selector.pixels.fillRect(new Rectangle(0, selector.height - cornerSize, cornerSize, cornerSize), 0x0);							 //bottom left
+		selector.pixels.fillRect(new Rectangle(0, selector.height - cornerSize, cornerSize, cornerSize), 0x0);
 		drawCircleCornerOnSelector(false, true);
-		selector.pixels.fillRect(new Rectangle(selector.width - cornerSize, selector.height - cornerSize, cornerSize, cornerSize), 0x0); //bottom right
+		selector.pixels.fillRect(new Rectangle(selector.width - cornerSize, selector.height - cornerSize, cornerSize, cornerSize), 0x0);
 		drawCircleCornerOnSelector(true, true);
 	}
 
@@ -521,6 +517,12 @@ class ModMetadata
 				
 				if (description != null && description.length > 0)
 					this.description = description;
+				
+				if (name == 'Name')
+					this.name = folder;
+				
+				if (description == 'Description')
+					this.description = "No description provided.";
 				
 				if (colors != null && colors.length > 2)
 					this.color = FlxColor.fromRGB(colors[0], colors[1], colors[2]);

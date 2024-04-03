@@ -58,7 +58,7 @@ class ModSetupTabs extends FlxUITabMenu
     {
         super(null, [{name: "Setup Mod Folder", label: "Setup Mod Folder"}], true);
 
-        setPosition(300, 250);
+        screenCenter();
         resize(400, 400);
 
         selected_tab = 0;
