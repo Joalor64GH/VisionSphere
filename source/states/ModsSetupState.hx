@@ -27,6 +27,10 @@ class ModSetupTabs extends FlxUITabMenu
     var modNameInput:FlxUIInputText;
     var modDescInput:FlxUIInputText;
 
+    var modColorInputR:FlxUIInputText;
+    var modColorInputG:FlxUIInputText;
+    var modColorInputB:FlxUIInputText;
+
     var createButton:FlxUIButton;
 
     var restartCheck:FlxUICheckBox;
@@ -56,6 +60,7 @@ class ModSetupTabs extends FlxUITabMenu
 
         setPosition(50, 50);
         resize(400, 400);
+
         selected_tab = 0;
 
         tabGroup = new FlxUI(null, this);
@@ -73,6 +78,15 @@ class ModSetupTabs extends FlxUITabMenu
         modDescInput = new FlxUIInputText(25, 25 + _sep * 2, 350, "hello world");
         modDescInput.lines = 999;
         addToGroup(modDescInput, "Mod Description:", true);
+
+        modColorInputR = new FlxUIInputText(25, 25 + _sep * 3, 350, "red");
+        addToGroup(modColorInputR, "Mod Color (Red):", true);
+
+        modColorInputG = new FlxUIInputText(25, 25 + _sep * 4, 350, "green");
+        addToGroup(modColorInputG, "Mod Color (Green):", true);
+
+        modColorInputB = new FlxUIInputText(25, 25 + _sep * 5, 350, "blue");
+        addToGroup(modColorInputB, "Mod Color (Blue):", true);
 
         createButton = new FlxUIButton(310, 350, "Create Folder", () -> {
             final modFolder = modFolderInput.text;
@@ -102,7 +116,7 @@ class ModSetupTabs extends FlxUITabMenu
                 _jsonData.description = modDescInput.text;
                 _jsonData.restart = restartCheck.checked;
                 _jsonData.runsGlobally = globalCheck.checked;
-                _jsonData.color = [100, 100, 100]; // placeholder until i figure something out
+                _jsonData.color = [Std.parseInt(modColorInputR.text), Std.parseInt(modColorInputG.text), Std.parseInt(modColorInputB.text)];
 
                 var _jsonStr = Json.stringify(_jsonData, "\t");
                 File.saveContent('mods/$modFolder/pack.json', _jsonStr);
