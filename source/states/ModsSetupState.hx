@@ -58,13 +58,13 @@ class ModSetupTabs extends FlxUITabMenu
     {
         super(null, [{name: "Setup Mod Folder", label: "Setup Mod Folder"}], true);
 
-        setPosition(50, 50);
+        setPosition(300, 250);
         resize(400, 400);
 
         selected_tab = 0;
 
         tabGroup = new FlxUI(null, this);
-        tabGroup.name = "Mod Folder Setup";
+        tabGroup.name = "Setup Mod Folder";
         addGroup(tabGroup);
 
         final _sep:Int = 35;
