@@ -77,7 +77,7 @@ class Main extends openfl.display.Sprite
 				var sp = Lib.current.stage;
 				var position = new openfl.geom.Rectangle(0, 0, Lib.current.stage.stageWidth, Lib.current.stage.stageHeight);
 
-				var image:flash.display.BitmapData = new flash.display.BitmapData(Std.int(position.width), Std.int(position.height), false, 0xFEFEFE);
+				var image:BitmapData = new BitmapData(Std.int(position.width), Std.int(position.height), false, 0xFEFEFE);
 				image.draw(sp, true);
 
 				if (!FileSystem.exists("./screenshots/"))
