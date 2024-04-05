@@ -5,7 +5,6 @@ import flixel.graphics.frames.FlxAtlasFrames;
 
 import openfl.media.Sound;
 import openfl.utils.Assets;
-import openfl.display.BitmapData;
 
 using StringTools;
 
@@ -90,7 +89,7 @@ class Paths
 		return '$folder/$file';
 	}
 
-	public static function file(file:String, ?folder:String = DEFAULT_FOLDER, ?modsAllowed:Bool = false)
+	public static function file(file:String, ?folder:String = DEFAULT_FOLDER, ?modsAllowed:Bool = false):String
 	{
 		if (#if sys FileSystem.exists(folder) && #end (folder != null && folder != DEFAULT_FOLDER))
 			return getPath(folder, file);
@@ -103,7 +102,6 @@ class Paths
 
 			return getPath(null, file);
 		}
-		return getPath(null, file);
 	}
 
 	inline static public function txt(key:String)
@@ -234,7 +232,7 @@ class Paths
 
 	public static function getGraphic(path:String):FlxGraphic
 	{
-		return FlxGraphic.fromBitmapData(BitmapData.fromFile(path), false, path);
+		return FlxGraphic.fromBitmapData(openfl.display.BitmapData.fromFile(path), false, path);
 	}
 
 	public static function returnGraphic(key:String)
@@ -294,7 +292,7 @@ class Paths
 
 		var gottenPath:String = '$key.ogg';
 		if (path != null) gottenPath = '$path/$gottenPath';
-		gottenPath = getPath(gottenPath);
+		gottenPath = file(gottenPath);
 		gottenPath = gottenPath.substring(gottenPath.indexOf(':') + 1, gottenPath.length);
 		if (!currentTrackedSounds.exists(gottenPath))
 		{
