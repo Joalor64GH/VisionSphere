@@ -242,7 +242,7 @@ class ModsState extends FlxState
 			{
 				newMod.icon.loadGraphic(loadedIcon, true, 150, 150);
 				var totalFrames = Math.floor(loadedIcon.width / 150) * Math.floor(loadedIcon.height / 150);
-				newMod.icon.animation.add("icon", [for (i in 0...totalFrames) i],10);
+				newMod.icon.animation.add("icon", [for (i in 0...totalFrames) i], 10);
 				newMod.icon.animation.play("icon");
 			}
 			else

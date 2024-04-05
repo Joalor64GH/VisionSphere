@@ -177,6 +177,8 @@ class ModsSetupState extends FlxState
     public static var modFolderDirs(default, never):Map<String, Array<String>> = [
         "_append" => ["data"],
         "languages" => [],
+        "libraries" => [],
+        "addons" => [],
         "videos" => [],
         "sounds" => [],
         "images" => [],

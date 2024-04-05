@@ -41,7 +41,7 @@ class LevelSelectState extends FlxState
 
         if (Input.is('enter'))
         {
-            FlxG.sound.play(Paths.sound('confirm'));
+            FlxG.sound.play(Paths.sound('jta/play'));
 
             switch (levels[curSelected])
             {
