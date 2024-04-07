@@ -134,11 +134,8 @@ class PlayState extends FlxState
 
         if (Input.is('exit')) 
         {
-            FlxG.camera.fade(FlxColor.BLACK, 0.33, false, () ->
-            {
-                FlxG.resetState();
-                FlxG.switchState(new states.games.tetris.MainMenuState());
-            });
+            FlxG.resetState();
+            FlxG.switchState(new states.games.tetris.MainMenuState());
             FlxG.sound.play(Paths.sound('cancel'));
         }
     }

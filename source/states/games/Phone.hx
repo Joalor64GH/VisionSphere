@@ -16,8 +16,6 @@ class Phone extends FlxState
     var selection:Int;
     var canSelect:Bool = true;
 
-    var randomVidArray:Array<String> = ['albion online', 'amogus', 'asterisk', 'disobedient', 'sonic', 'xbox live'];
-
     override function create()
     {
         nokia = new FlxSprite().loadGraphic(Paths.image('game/phone/Nokia_png_full_hd'));
@@ -108,7 +106,7 @@ class Phone extends FlxState
         {
             if (FlxG.random.bool(30))
             {
-                FlxG.switchState(new VideoState(randomVidArray[FlxG.random.int(0, (randomVidArray.length - 1))], () -> {
+                FlxG.switchState(new VideoState('asterisk', () -> {
                     #if (sys || cpp)
                     Sys.exit(0);
                     #else
