@@ -1,5 +1,7 @@
 package states;
 
+import frontend.Colorblind;
+
 import djFlixel.gfx.BoxScroller;
 import djFlixel.gfx.pal.Pal_DB32;
 
@@ -29,6 +31,8 @@ class InitialState extends FlxState
         Localization.switchLanguage(SaveData.lang);
 
         Main.updateFramerate(SaveData.framerate);
+
+        Colorblind.updateColorBlindFilter(SaveData.colorBlindFilter);
 
         FlxG.sound.muteKeys = [NUMPADZERO];
         FlxG.sound.volumeDownKeys = [NUMPADMINUS];

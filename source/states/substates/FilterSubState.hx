@@ -9,11 +9,15 @@ class FilterSubState extends FlxSubState
     var filters:Array<String> = [
         'None',
         'Deuteranopia',
+        'Deuteranomaly',
         'Protanopia',
+        'Protanomaly',
         'Tritanopia',
+        'Tritanomaly',
+        'Achromatomaly',
         'Gameboy',
         'Virtual Boy',
-        'Black and White',
+        'Monochrome',
         'Inverted',
         'What Even',
         'Random'
@@ -86,6 +90,18 @@ class FilterSubState extends FlxSubState
                     Colorblind.updateColorBlindFilter(SaveData.colorBlindFilter);
                 case 9:
                     SaveData.colorBlindFilter = 8;
+                    Colorblind.updateColorBlindFilter(SaveData.colorBlindFilter);
+                case 10:
+                    SaveData.colorBlindFilter = 9;
+                    Colorblind.updateColorBlindFilter(SaveData.colorBlindFilter);
+                case 11:
+                    SaveData.colorBlindFilter = 10;
+                    Colorblind.updateColorBlindFilter(SaveData.colorBlindFilter);
+                case 12:
+                    SaveData.colorBlindFilter = 11;
+                    Colorblind.updateColorBlindFilter(SaveData.colorBlindFilter);
+                case 13:
+                    SaveData.colorBlindFilter = 12;
                     Colorblind.updateColorBlindFilter(SaveData.colorBlindFilter, FlxG.random.float(0, 1));
             }
 

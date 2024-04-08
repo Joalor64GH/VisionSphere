@@ -114,7 +114,7 @@ class PlayState extends FlxState
         if (Input.is('accept'))
         {
             FlxG.sound.play(Paths.sound('confirm'));
-            FlxG.camera.fade(FlxColor.BLACK, 0.5, false () -> 
+            FlxG.camera.fade(FlxColor.BLACK, 0.5, false, () -> 
             {
                 switch (currentIndex)
                 {
