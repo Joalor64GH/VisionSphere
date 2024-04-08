@@ -21,8 +21,6 @@ import backend.MacroUtil;
 
 class Main extends openfl.display.Sprite
 {
-	final skipSplash:Bool = #if HAXEFLIXEL_INTRO false #else true #end;
-
 	public static var buildNum(default, never):Int = MacroUtil.get_build_num();
 	public static var commitId(default, never):String = MacroUtil.get_commit_id();
 
@@ -65,7 +63,7 @@ class Main extends openfl.display.Sprite
 			openfl.system.System.gc();
 		});
 
-		coolGame = new VSGame(1280, 720, InitialState, 60, 60, skipSplash, false);
+		coolGame = new VSGame(1280, 720, InitialState, 60, 60, false, false);
 		addChild(coolGame);
 
 		fpsDisplay = new Info(10, 10, 0xFFFFFF);
