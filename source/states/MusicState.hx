@@ -139,7 +139,13 @@ class MusicState extends states.MusicState.BeatState
 
         curSelected = FlxMath.wrap(curSelected + change, 0, musicData.songs.length - 1);
 
-        disc.loadGraphic(Paths.image('music/discs/${musicData.songs[curSelected].disc}'));
+        if (FileSystem.exists(Paths.image('music/discs/${musicData.songs[curSelected].disc}')))
+            disc.loadGraphic(Paths.image('music/discs/${musicData.songs[curSelected].disc}'));
+        else
+        {
+            trace('ohno its dont exist (${musicData.songs[curSelected].disc})');
+            disc.loadGraphic(Paths.image('music/disc'));
+        }
 
         songTxt.text = '< ${musicData.songs[curSelected].name} >';
         states.MusicState.Conductor.bpm = musicData.songs[curSelected].bpm;

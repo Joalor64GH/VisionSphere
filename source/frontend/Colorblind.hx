@@ -89,7 +89,7 @@ class Colorblind {
                     0.33, 0.34, 0.33, 0, 0,
                     0, 0, 0, 1, 0
                 ];
-            case 12: // inverted
+            case 10: // inverted
                 matrixThing = [
                     0, 0.5, 0.5, 0, 0,
                     0.5, 0, 0.5, 0, 0,

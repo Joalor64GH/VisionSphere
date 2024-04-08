@@ -23,6 +23,8 @@ class FlxSplash extends FlxState
 	var _cachedTimestep:Bool;
 	var _cachedAutoPause:Bool;
 
+	var skipTxt:FlxText;
+
 	override public function create():Void
 	{
 		_cachedBgColor = FlxG.cameras.bgColor;
@@ -34,13 +36,9 @@ class FlxSplash extends FlxState
 		_cachedAutoPause = FlxG.autoPause;
 		FlxG.autoPause = false;
 
-		#if FLX_KEYBOARD
-		FlxG.keys.enabled = false;
-		#end
-
 		_times = [0.041, 0.184, 0.334, 0.495, 0.636];
-		_colors = [0x00b922, 0xffc132, 0xf5274e, 0x3641ff, 0x04cdfb];
-		_functions = [drawGreen, drawYellow, drawRed, drawBlue, drawLightBlue];
+		_colors = [0x4fc3f7, 0xe1f5fe, 0xb3e5fc, 0x0288d1, 0x03a9f4];
+		_functions = [drawOne, drawTwo, drawThree, drawFour, drawFive];
 
 		for (time in _times)
 			new FlxTimer().start(time, timerCallback);
@@ -55,7 +53,7 @@ class FlxSplash extends FlxState
 		_text = new TextField();
 		_text.selectable = false;
 		_text.embedFonts = true;
-		var dtf = new TextFormat(FlxAssets.FONT_DEFAULT, 16, 0xffffff);
+		var dtf = new TextFormat(FlxAssets.FONT_DEFAULT, 20, 0xffffff);
 		dtf.align = TextFormatAlign.CENTER;
 		_text.defaultTextFormat = dtf;
 		_text.text = "";
@@ -64,6 +62,24 @@ class FlxSplash extends FlxState
 		onResize(stageWidth, stageHeight);
 
 		FlxG.sound.load(Paths.sound("flixel")).play();
+
+		skipTxt = new FlxText(5, FlxG.height - 24, 0, 'Press ENTER to skip.', 12);
+		skipTxt.setFormat(Paths.font('vcr.ttf'), 18, FlxColor.WHITE, FlxTextAlign.LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		skipTxt.borderSize = 1.5;
+		skipTxt.scrollFactor.set();
+		skipTxt.alpha = 0;
+		skipTxt.y -= skipScreen.textField.textHeight;
+		add(skipTxt);
+
+		FlxTween.tween(skipTxt, {alpha: 1}, 1);
+	}
+
+	override public function update(elapsed:Float)
+	{
+		if (FlxG.keys.justPressed.ENTER)
+			onComplete(null);
+		
+		super.update(elapsed);
 	}
 
 	override public function destroy():Void
@@ -81,16 +97,6 @@ class FlxSplash extends FlxState
 	override public function onResize(Width:Int, Height:Int):Void
 	{
 		super.onResize(Width, Height);
-
-		_sprite.x = (Width / 2);
-		_sprite.y = (Height / 2) - 20 * FlxG.game.scaleY;
-
-		_text.width = Width / FlxG.game.scaleX;
-		_text.x = 0;
-		_text.y = _sprite.y + 80 * FlxG.game.scaleY;
-
-		_sprite.scaleX = _text.scaleX = FlxG.game.scaleX;
-		_sprite.scaleY = _text.scaleY = FlxG.game.scaleY;
 	}
 
 	function timerCallback(Timer:FlxTimer):Void
@@ -106,7 +112,7 @@ class FlxSplash extends FlxState
 		}
 	}
 
-	function drawGreen():Void
+	function drawOne():Void
 	{
 		_gfx.beginFill(0x4fc3f7);
 		_gfx.moveTo(0, -37);
@@ -122,7 +128,7 @@ class FlxSplash extends FlxState
         _text.text = "Made";
 	}
 
-	function drawYellow():Void
+	function drawTwo():Void
 	{
 		_gfx.beginFill(0xe1f5fe);
 		_gfx.moveTo(-50, -50);
@@ -135,9 +141,9 @@ class FlxSplash extends FlxState
         _text.text += " with";
 	}
 
-	function drawRed():Void
+	function drawThree():Void
 	{
-		_gfx.beginFill(0x4fc3f7);
+		_gfx.beginFill(0xb3e5fc);
 		_gfx.moveTo(50, -50);
 		_gfx.lineTo(25, -50);
 		_gfx.lineTo(1, -37);
@@ -148,7 +154,7 @@ class FlxSplash extends FlxState
         _text.text += " Haxe";
 	}
 
-	function drawBlue():Void
+	function drawFour():Void
 	{
 		_gfx.beginFill(0x0288d1);
 		_gfx.moveTo(-50, 50);
@@ -161,7 +167,7 @@ class FlxSplash extends FlxState
         _text.text += "Flix";
 	}
 
-	function drawLightBlue():Void
+	function drawFive():Void
 	{
 		_gfx.beginFill(0x03a9f4);
 		_gfx.moveTo(50, 50);
@@ -185,6 +191,6 @@ class FlxSplash extends FlxState
 		FlxG.stage.removeChild(_sprite);
 		FlxG.stage.removeChild(_text);
 		FlxG.switchState(Type.createInstance(nextState, []));
-		FlxG.game._gameJustStarted = true;
+		@:privateAccess Main.instance.coolGame._gameJustStarted = true;
 	}
 }
