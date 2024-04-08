@@ -26,6 +26,7 @@ class InitialState extends FlxState
         Paths.clearUnusedMemory();
 
         Localization.loadLanguages();
+        Localization.switchLanguage(SaveData.lang);
 
         Main.updateFramerate(SaveData.framerate);
 
@@ -72,12 +73,10 @@ class InitialState extends FlxState
             var optionTxt:Alphabet = new Alphabet(0, 0, options[i], false);
             optionTxt.screenCenter();
             optionTxt.y += (80 * (i - (options.length / 2))) + 45;
-            optionTxt.alpha = 0;
             grpOptions.add(optionTxt);
         }
 
         FlxTween.tween(smallLogo, {alpha: 1}, 1.5, {ease: FlxEase.quadOut});
-        for (i in grpOptions) FlxTween.tween(i, {alpha: 1}, 1.5, {ease: FlxEase.quadOut});
 
         var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
 
@@ -103,7 +102,6 @@ class InitialState extends FlxState
         if (Input.is('accept'))
         {
             FlxG.sound.play(Paths.sound('confirm'));
-            
             switch (options[curSelected])
             {
                 case "Play":

@@ -14,7 +14,7 @@ class DVDScreensaver extends FlxState
         dvdLogo.scale.y = dvdLogo.scale.x;
         dvdLogo.updateHitbox();
         dvdLogo.velocity.set(135, 95);
-        dvdLogo.color = FlxColor.WHITE;
+        dvdLogo.setColorTransform(0, 0, 0, 1, 255, 255, 255);
         add(dvdLogo);
 
         FlxG.camera.fade(FlxColor.BLACK, 0.33, true);
@@ -50,6 +50,6 @@ class DVDScreensaver extends FlxState
 
     private function switchColor()
     {
-        dvdLogo.color = FlxColor.fromRGB(FlxG.random.int(0, 255), FlxG.random.int(0, 255), FlxG.random.int(0, 255));
+        dvdLogo.setColorTransform(0, 0, 0, 1, FlxG.random.int(0, 255), FlxG.random.int(0, 255), FlxG.random.int(0, 255));
     }
 }
