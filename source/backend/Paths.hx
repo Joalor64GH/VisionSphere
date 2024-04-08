@@ -18,14 +18,12 @@ class Paths
 	#if MODS_ALLOWED
 	public static var ignoreModFolders:Array<String> = [
 		'_append',
+		'languages',
 		'data',
 		'music',
 		'sounds',
 		'images',
-		'fonts',
-		'languages',
-		'libraries',
-		'addons'
+		'fonts'
 	];
 	#end
 
@@ -34,8 +32,6 @@ class Paths
 	public static var currentTrackedSounds:Map<String, Sound> = [];
 
 	static public var currentModDirectory:String = '';
-	static public var currentModAddons:Array<String> = [];
-	static public var currentModLibraries:Array<String> = [];
 
 	public static function clearUnusedMemory() 
 	{

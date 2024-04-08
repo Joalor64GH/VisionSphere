@@ -114,49 +114,28 @@ class PlayState extends FlxState
         if (Input.is('accept'))
         {
             FlxG.sound.play(Paths.sound('confirm'));
-            switch(currentIndex)
+            FlxG.camera.fade(FlxColor.BLACK, 0.5, false () -> 
             {
-                case 0:
-                    FlxG.camera.fade(FlxColor.BLACK, 0.5, false, () ->
-                    {
+                switch (currentIndex)
+                {
+                    case 0:
                         FlxG.switchState(new states.games.clicker.MainMenuState());
-                    });
-                case 1:
-                    FlxG.camera.fade(FlxColor.BLACK, 0.5, false, () ->
-                    {
+                    case 1:
                         FlxG.switchState(new states.games.DVDScreensaver());
-                    });
-                case 2:
-                    FlxG.camera.fade(FlxColor.BLACK, 0.5, false, () ->
-                    {
+                    case 2:
                         FlxG.switchState(new states.games.jta.MainMenuState());
-                    });
-                case 3:
-                    FlxG.camera.fade(FlxColor.BLACK, 0.5, false, () ->
-                    {
+                    case 3:
                         FlxG.switchState(new states.games.Painter());
-                    });
-                case 4:
-                    FlxG.camera.fade(FlxColor.BLACK, 0.5, false, () ->
-                    {
+                    case 4:
                         FlxG.switchState(new states.games.TheSimpleMathGame.MainMenuState());
-                    });
-                case 5:
-                    FlxG.camera.fade(FlxColor.BLACK, 0.5, false, () ->
-                    {
+                    case 5:
                         FlxG.switchState(new states.games.tetris.MainMenuState());
-                    });
-                case 6:
-                    FlxG.camera.fade(FlxColor.BLACK, 0.5, false, () ->
-                    {
+                    case 6:
                         FlxG.switchState(new states.games.ReactionGame());
-                    });
-                case 7:
-                    FlxG.camera.fade(FlxColor.BLACK, 0.5, false, () ->
-                    {
+                    case 7:
                         FlxG.switchState(new states.games.Phone());
-                    });
-            }
+                }
+            });
         }
     }
 

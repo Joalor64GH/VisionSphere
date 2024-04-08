@@ -42,25 +42,19 @@ class LevelSelectState extends FlxState
         if (Input.is('enter'))
         {
             FlxG.sound.play(Paths.sound('jta/play'));
-
-            switch (levels[curSelected])
+            
+            FlxG.camera.fade(FlxColor.BLACK, 0.33, false, () -> 
             {
-                case "Level 1":
-                    FlxG.camera.fade(FlxColor.BLACK, 0.33, false, () ->
-                    {
+                switch (levels[curSelected])
+                {
+                    case "Level 1":
                         FlxG.switchState(new states.games.jta.PlayState(1));
-                    });
-                case "Level 2":
-                    FlxG.camera.fade(FlxColor.BLACK, 0.33, false, () ->
-                    {
+                    case "Level 2":
                         FlxG.switchState(new states.games.jta.PlayState(2));
-                    });
-                case "Level 3":
-                    FlxG.camera.fade(FlxColor.BLACK, 0.33, false, () ->
-                    {
+                    case "Level 3":
                         FlxG.switchState(new states.games.jta.PlayState(3));
-                    });
-            }
+                }
+            });
         }
 
         if (Input.is('exit'))

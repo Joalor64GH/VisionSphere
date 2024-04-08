@@ -63,7 +63,7 @@ class Main extends openfl.display.Sprite
 			openfl.system.System.gc();
 		});
 
-		coolGame = new VSGame(1280, 720, InitialState, 60, 60, true, false);
+		coolGame = new VSGame(1280, 720, InitialState, 60, 60, #if HAXEFLIXEL_INTRO false #else true #end, false);
 		addChild(coolGame);
 
 		fpsDisplay = new Info(10, 10, 0xFFFFFF);

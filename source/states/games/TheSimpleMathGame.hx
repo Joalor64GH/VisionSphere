@@ -137,7 +137,7 @@ class GameOverState extends FlxState
 
 class PlayState extends FlxState
 {
-    public var score:Int = 0;
+    var score:Int = 0;
 
     var scoreTxt:FlxText;
 
