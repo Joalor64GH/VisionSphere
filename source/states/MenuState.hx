@@ -1,6 +1,7 @@
 package states;
 
 import frontend.objects.ClickableSprite;
+import flixel.addons.display.FlxBackdrop;
 
 class MenuState extends FlxState
 {
@@ -10,6 +11,8 @@ class MenuState extends FlxState
     var isTweening:Bool = false;
     var lastString:String = '';
     var timer:Float = 0;
+
+    var seasonalBackdrop:FlxBackdrop; // wip
 
     override public function create()
     {

@@ -68,7 +68,6 @@ class FlxSplash extends FlxState
 		skipTxt.borderSize = 1.5;
 		skipTxt.scrollFactor.set();
 		skipTxt.alpha = 0;
-		skipTxt.y -= skipScreen.textField.textHeight;
 		add(skipTxt);
 
 		FlxTween.tween(skipTxt, {alpha: 1}, 1);
