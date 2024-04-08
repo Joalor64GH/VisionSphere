@@ -63,7 +63,7 @@ class Main extends openfl.display.Sprite
 			openfl.system.System.gc();
 		});
 
-		coolGame = new VSGame(1280, 720, InitialState, 60, 60, false, false);
+		coolGame = new VSGame(1280, 720, flixel.system.FlxSplashCustom, 60, 60, true, false);
 		addChild(coolGame);
 
 		fpsDisplay = new Info(10, 10, 0xFFFFFF);

@@ -7,10 +7,8 @@ import openfl.text.TextField;
 import openfl.text.TextFormat;
 import openfl.text.TextFormatAlign;
 
-class FlxSplash extends FlxState
+class FlxSplashCustom extends FlxState
 {
-	public static var nextState:Class<FlxState>;
-
 	var _sprite:Sprite;
 	var _gfx:Graphics;
 	var _text:TextField;
@@ -19,32 +17,17 @@ class FlxSplash extends FlxState
 	var _colors:Array<Int>;
 	var _functions:Array<Void->Void>;
 	var _curPart:Int = 0;
-	var _cachedBgColor:FlxColor;
-	var _cachedTimestep:Bool;
-	var _cachedAutoPause:Bool;
 
 	var skipTxt:FlxText;
 
 	override public function create():Void
 	{
-		_cachedBgColor = FlxG.cameras.bgColor;
-		FlxG.cameras.bgColor = FlxColor.BLACK;
-
-		_cachedTimestep = FlxG.fixedTimestep;
-		FlxG.fixedTimestep = false;
-
-		_cachedAutoPause = FlxG.autoPause;
-		FlxG.autoPause = false;
-
 		_times = [0.041, 0.184, 0.334, 0.495, 0.636];
 		_colors = [0x4fc3f7, 0xe1f5fe, 0xb3e5fc, 0x0288d1, 0x03a9f4];
 		_functions = [drawOne, drawTwo, drawThree, drawFour, drawFive];
 
 		for (time in _times)
 			new FlxTimer().start(time, timerCallback);
-
-		var stageWidth:Int = Lib.current.stage.stageWidth;
-		var stageHeight:Int = Lib.current.stage.stageHeight;
 
 		_sprite = new Sprite();
 		FlxG.stage.addChild(_sprite);
@@ -58,8 +41,6 @@ class FlxSplash extends FlxState
 		_text.defaultTextFormat = dtf;
 		_text.text = "";
 		FlxG.stage.addChild(_text);
-
-		onResize(stageWidth, stageHeight);
 
 		FlxG.sound.load(Paths.sound("flixel")).play();
 
@@ -91,11 +72,6 @@ class FlxSplash extends FlxState
 		_functions = null;
         
 		super.destroy();
-	}
-
-	override public function onResize(Width:Int, Height:Int):Void
-	{
-		super.onResize(Width, Height);
 	}
 
 	function timerCallback(Timer:FlxTimer):Void
@@ -181,15 +157,8 @@ class FlxSplash extends FlxState
 
 	function onComplete(Tween:FlxTween):Void
 	{
-		FlxG.cameras.bgColor = _cachedBgColor;
-		FlxG.fixedTimestep = _cachedTimestep;
-		FlxG.autoPause = _cachedAutoPause;
-		#if FLX_KEYBOARD
-		FlxG.keys.enabled = true;
-		#end
 		FlxG.stage.removeChild(_sprite);
 		FlxG.stage.removeChild(_text);
-		FlxG.switchState(Type.createInstance(nextState, []));
-		@:privateAccess Main.instance.coolGame._gameJustStarted = true;
+		FlxG.switchState(InitialState.new);
 	}
 }
