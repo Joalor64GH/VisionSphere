@@ -38,7 +38,7 @@ class VideoState extends FlxState
 		add(bg);
 
 		skipTxt = new FlxText(FlxG.width / 1.5, FlxG.height - 50, FlxG.width, 'Hold any key to skip.', 32);
-		skipTxt.setFormat(Paths.getFont('vcr.ttf'), 32, FlxColor.WHITE, LEFT);
+		skipTxt.setFormat(Paths.font('vcr.ttf'), 32, FlxColor.WHITE, LEFT);
 
 		if (GlobalVideo.isWebm)
 		{
@@ -141,8 +141,6 @@ class VideoState extends FlxState
 	{
 		if (vidSound != null)
 			vidSound.destroy();
-
-		close();
 
 		if (onComplete != null)
 			onComplete();
