@@ -1,6 +1,6 @@
 package frontend.video;
 
-import frontend.video.*;
+import frontend.video.WebmHandler;
 
 class GlobalVideo
 {
@@ -10,7 +10,6 @@ class GlobalVideo
 
 	public static var daAlpha1:Float = 0.2;
 	public static var daAlpha2:Float = 1;
-	}
 	
 	public static function setWebm(vid:WebmHandler):Void
 	{
