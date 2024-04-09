@@ -21,7 +21,7 @@ import flixel.input.gamepad.FlxGamepad;
 import lime.app.Application;
 
 import frontend.Menu;
-import frontend.Event;
+
 import frontend.objects.Alphabet;
 import frontend.objects.AttachedSprite;
 import frontend.objects.AbsoluteSprite;
