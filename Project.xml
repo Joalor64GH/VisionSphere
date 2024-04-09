@@ -4,7 +4,7 @@
 	<!-- [ Application Settings ] -->
 
 	<app title="VisionSphere" file="VisionSphere" main="Main" />
-	<app version="0.7.0" company="Joalor64GH" package="com.joalor64.visionsphere"/>
+	<app version="0.7.5" company="Joalor64GH" package="com.joalor64.visionsphere"/>
 
 	<!-- [ Window Settings ] -->
 
@@ -20,7 +20,6 @@
 
 	<define name="MODS_ALLOWED" if="desktop" /> <!-- DO NOT MOVE THIS! IF YOU DO, THE MODS FOLDER WONT EXIST AND IDK WHY -->
 	<define name="CRASH_HANDLER" if="desktop release" />
-	<define name="WEBM_ALLOWED" if="desktop" />
 
 	<source path="source" />
 	<assets path="assets" />
@@ -37,6 +36,7 @@
 	<haxelib name="hscript" />
 	<haxelib name="djFlixel" />
 
+	<haxelib name="extension-webm" if="desktop" />
 	<haxelib name="hxcpp-debug-server" if="desktop debug" />
 
 	<!-- [ Defines ] -->

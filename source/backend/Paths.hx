@@ -105,7 +105,7 @@ class Paths
 		#if MODS_ALLOWED
 		if (FileSystem.exists(modsVideo(key))) return modsVideo(key);
 		#end
-		return getPath('video/$key.mp4');
+		return getPath('video/$key.webm');
 	}
 
 	static public function sound(key:String):Sound
@@ -296,7 +296,7 @@ class Paths
 		return modFolders('data/$key.json');
 
 	inline static public function modsVideo(key:String)
-		return modFolders('videos/$key.mp4');
+		return modFolders('videos/$key.webm');
 
 	inline static public function modsSounds(path:String, key:String)
 		return modFolders('$path/$key.ogg');

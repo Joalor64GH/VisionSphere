@@ -39,6 +39,13 @@
         "dir": null,
         "ref": "master",
         "url": "https://github.com/john32b/djFlixel"
+      },
+      {
+        "name": "extension-webm",
+        "type": "git",
+        "dir": null,
+        "ref": "master",
+        "url": "https://github.com/KadeDev/extension-webm"
       }
     ]
   }

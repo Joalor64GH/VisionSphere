@@ -106,7 +106,7 @@ class Phone extends FlxState
         {
             if (FlxG.random.bool(30))
             {
-                FlxG.switchState(new VideoState('asterisk', () -> {
+                FlxG.switchState(new VideoState('paint', () -> {
                     #if (sys || cpp)
                     Sys.exit(0);
                     #else

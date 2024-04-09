@@ -31,6 +31,9 @@ jobs:
       - name: Install Libraries
         run: |
           haxe -cp ./compileData -D analyzer-optimize -main Libraries --interp
+      - name: Rebuild extension-webm
+        run: |
+          haxelib run lime rebuild extension-webm windows
       - name: Create Version Tag
         run: echo "${{github.run_id}}" > VERSION
       - name: Compile

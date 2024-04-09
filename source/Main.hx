@@ -9,6 +9,7 @@ import haxe.io.Path;
 
 import frontend.objects.ToastCore;
 import frontend.debug.Info;
+import frontend.video.*;
 
 import backend.MacroUtil;
 
@@ -68,6 +69,16 @@ class Main extends openfl.display.Sprite
 
 		fpsDisplay = new Info(10, 10, 0xFFFFFF);
 		addChild(fpsDisplay);
+
+		var ourSource:String = "assets/videos/daWeirdVid/dontDelete.webm";
+
+		var str1:String = "WEBM SHIT"; 
+		var webmHandle = new WebmHandler();
+		webmHandle.source(ourSource);
+		webmHandle.makePlayer();
+		webmHandle.webm.name = str1;
+		addChild(webmHandle.webm);
+		GlobalVideo.setWebm(webmHandle);
 
 		#if windows
 		Lib.current.stage.addEventListener(openfl.events.KeyboardEvent.KEY_DOWN, (evt:openfl.events.KeyboardEvent) ->
