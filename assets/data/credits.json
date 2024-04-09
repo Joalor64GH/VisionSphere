@@ -32,11 +32,14 @@
         {
             "sectionName": "Special Thanks",
 
-            "name": "Sirox228",
+            "name": "KadeDev",
             "iconData": ["face", 280, -5, 0.9],
-            "textData": ["Event System", "fixed their code btw"],
-            "urlData": [["GitHub", "https://github.com/Sirox228/"]],
-            "colors": [56, 117, 201]
+            "textData": ["extension-webm", "The one and only freelance developer"],
+            "urlData": [
+                ["GitHub", "https://github.com/Sirox228/"],
+                ["Newgrounds", "https://kadedevl.newgrounds.com/"]
+            ],
+            "colors": [71, 119, 69]
         },
         {
             "name": "MAJigsaw77",

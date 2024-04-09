@@ -58,7 +58,7 @@ class ModSetupTabs extends FlxUITabMenu
     {
         super(null, [{name: "Setup Mod Folder", label: "Setup Mod Folder"}], true);
 
-        screenCenter();
+        setPosition(50, 50);
         scrollFactor.set();
         
         resize(400, 400);
@@ -71,23 +71,23 @@ class ModSetupTabs extends FlxUITabMenu
 
         final _sep:Int = 35;
 
-        modFolderInput = new FlxUIInputText(25, 25, 350, "template-mod");
+        modFolderInput = new FlxUIInputText(25, 25, 350, "my-mod");
         addToGroup(modFolderInput, "Mod Folder:", true);
 
-        modNameInput = new FlxUIInputText(25, 25 + _sep, 350, "Template Mod");
+        modNameInput = new FlxUIInputText(25, 25 + _sep, 350, "Name");
         addToGroup(modNameInput, "Mod Name:", true);
 
-        modDescInput = new FlxUIInputText(25, 25 + _sep * 2, 350, "hello world");
+        modDescInput = new FlxUIInputText(25, 25 + _sep * 2, 350, "Description");
         modDescInput.lines = 999;
         addToGroup(modDescInput, "Mod Description:", true);
 
-        modColorInputR = new FlxUIInputText(25, 25 + _sep * 3, 350, "red");
+        modColorInputR = new FlxUIInputText(25, 25 + _sep * 3, 350, "0-255");
         addToGroup(modColorInputR, "Mod Color (Red):", true);
 
-        modColorInputG = new FlxUIInputText(25, 25 + _sep * 4, 350, "green");
+        modColorInputG = new FlxUIInputText(25, 25 + _sep * 4, 350, "0-255");
         addToGroup(modColorInputG, "Mod Color (Green):", true);
 
-        modColorInputB = new FlxUIInputText(25, 25 + _sep * 5, 350, "blue");
+        modColorInputB = new FlxUIInputText(25, 25 + _sep * 5, 350, "0-255");
         addToGroup(modColorInputB, "Mod Color (Blue):", true);
 
         createButton = new FlxUIButton(310, 350, "Create Folder", () -> {
@@ -126,7 +126,7 @@ class ModSetupTabs extends FlxUITabMenu
             }
 
             if (FileSystem.exists('mods/$modFolder')) {
-                FlxG.state.openSubState(new PromptSubState("Mod folder\n$modFolder\nalready exists\n\nAre you sure you want to\noverwrite this folder?", 
+                FlxG.state.openSubState(new PromptSubState("Mod folder" + modFolder + "already exists!\n\n\nAre you sure you want to\noverwrite this folder?", 
                     createFunc, () -> {
                         FlxG.state.closeSubState();
                     }));

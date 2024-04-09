@@ -99,11 +99,6 @@ class MenuState extends FlxState
                 changeText();
         }
 
-        #if debug
-        if (Input.is('e'))
-            FlxG.switchState(TestState.new);
-        #end
-
         dateText.text = DateTools.format(Date.now(), "%F") + ' / ' + DateTools.format(Date.now(), SaveData.timeFormat);
     }
 

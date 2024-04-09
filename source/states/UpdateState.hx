@@ -1,7 +1,5 @@
 package states;
 
-import openfl.Lib;
-
 class UpdateState extends FlxState
 {
     public static var mustUpdate:Bool = false;

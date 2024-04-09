@@ -26,7 +26,7 @@ class VideoState extends FlxState
 	{
 		super();
 		
-		leSource = source;
+		leSource = "assets/videos/" + source + ".webm";
 		callback = callBack;
 	}
 	
