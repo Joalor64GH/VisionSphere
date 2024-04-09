@@ -5,11 +5,12 @@ import frontend.video.*;
 class GlobalVideo
 {
 	private static var webm:WebmHandler;
-
+	
 	public static var isWebm:Bool = false;
 
 	public static var daAlpha1:Float = 0.2;
 	public static var daAlpha2:Float = 1;
+	}
 	
 	public static function setWebm(vid:WebmHandler):Void
 	{
@@ -24,8 +25,7 @@ class GlobalVideo
 	
 	public static function get():Dynamic
 	{
-		if (isWebm)
-			return getWebm();
+		return getWebm();
 	}
 	
 	public static function calc(ind:Int):Dynamic

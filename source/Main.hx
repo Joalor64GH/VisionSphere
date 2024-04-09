@@ -71,7 +71,6 @@ class Main extends openfl.display.Sprite
 		addChild(fpsDisplay);
 
 		var ourSource:String = "assets/videos/daWeirdVid/dontDelete.webm";
-
 		var str1:String = "WEBM SHIT"; 
 		var webmHandle = new WebmHandler();
 		webmHandle.source(ourSource);

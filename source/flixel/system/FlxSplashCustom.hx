@@ -3,12 +3,15 @@ package flixel.system;
 import openfl.display.Graphics;
 import openfl.display.Sprite;
 
+import openfl.text.TextField;
+import openfl.text.TextFormat;
+import openfl.text.TextFormatAlign;
+
 class FlxSplashCustom extends FlxState
 {
 	var _sprite:Sprite;
 	var _gfx:Graphics;
-	
-	var _text:FlxText;
+	var _text:TextField;
 
 	var _times:Array<Float>;
 	var _colors:Array<Int>;
@@ -27,14 +30,17 @@ class FlxSplashCustom extends FlxState
 			new FlxTimer().start(time, timerCallback);
 
 		_sprite = new Sprite();
-		add(_sprite);
-
+		FlxG.stage.addChild(_sprite);
 		_gfx = _sprite.graphics;
 
-		_text = new FlxText(0, 0, 0, "");
-		_text.setFormat(Paths.font('vcr.ttf'), 32, FlxColor.WHITE, FlxTextAlign.CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		_text.screenCenter(XY);
-		add(_text);
+		_text = new TextField();
+		_text.selectable = false;
+		_text.embedFonts = true;
+		var dtf = new TextFormat(FlxAssets.FONT_DEFAULT, 24, 0xffffff);
+		dtf.align = TextFormatAlign.CENTER;
+		_text.defaultTextFormat = dtf;
+		_text.text = "";
+		FlxG.stage.addChild(_text);
 
 		FlxG.sound.load(Paths.sound("flixel")).play();
 
@@ -71,7 +77,7 @@ class FlxSplashCustom extends FlxState
 	function timerCallback(Timer:FlxTimer):Void
 	{
 		_functions[_curPart]();
-		_text.color = _colors[_curPart];
+		_text.textColor = _colors[_curPart];
 		_curPart++;
 
 		if (_curPart == 5)
@@ -151,6 +157,8 @@ class FlxSplashCustom extends FlxState
 
 	function onComplete(Tween:FlxTween):Void
 	{
+		FlxG.stage.removeChild(_sprite);
+		FlxG.stage.removeChild(_text);
 		FlxG.switchState(InitialState.new);
 	}
 }
