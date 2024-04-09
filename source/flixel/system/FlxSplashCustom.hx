@@ -54,7 +54,7 @@ class FlxSplashCustom extends FlxState
 		FlxTween.tween(skipTxt, {alpha: 1}, 1);
 	}
 
-	override public function update(elapsed:Float)
+	override public function update(elapsed:Float):Void
 	{
 		if (FlxG.keys.justPressed.ENTER)
 			onComplete(null);
@@ -100,7 +100,7 @@ class FlxSplashCustom extends FlxState
 		_gfx.lineTo(-37, 0);
 		_gfx.lineTo(0, -37);
 		_gfx.endFill();
-        _text.text = "Made";
+		_text.text = "Made";
 	}
 
 	function drawTwo():Void
@@ -113,7 +113,7 @@ class FlxSplashCustom extends FlxState
 		_gfx.lineTo(-50, -25);
 		_gfx.lineTo(-50, -50);
 		_gfx.endFill();
-        _text.text += " with";
+		_text.text += " with";
 	}
 
 	function drawThree():Void
@@ -126,7 +126,7 @@ class FlxSplashCustom extends FlxState
 		_gfx.lineTo(50, -25);
 		_gfx.lineTo(50, -50);
 		_gfx.endFill();
-        _text.text += " Haxe";
+		_text.text += " Haxe";
 	}
 
 	function drawFour():Void
@@ -139,7 +139,7 @@ class FlxSplashCustom extends FlxState
 		_gfx.lineTo(-50, 25);
 		_gfx.lineTo(-50, 50);
 		_gfx.endFill();
-        _text.text += "Flix";
+		_text.text += "Flix";
 	}
 
 	function drawFive():Void
@@ -152,7 +152,7 @@ class FlxSplashCustom extends FlxState
 		_gfx.lineTo(50, 25);
 		_gfx.lineTo(50, 50);
 		_gfx.endFill();
-        _text.text += "el";
+		_text.text += "el";
 	}
 
 	function onComplete(Tween:FlxTween):Void
