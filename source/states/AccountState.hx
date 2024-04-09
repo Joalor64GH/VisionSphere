@@ -86,8 +86,19 @@ class AccountState extends FlxState
 
         if (Input.is('exit')) 
         {
-            FlxG.switchState(OptionsState.new);
+            FlxG.switchState(MenuState.new);
             FlxG.sound.play(Paths.sound('cancel'));
+        }
+
+        var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
+
+        if (gamepad != null) 
+        {
+            if (Input.gamepadIs('gamepad_right') || Input.gamepadIs('gamepad_left'))
+                switchProfile(Input.gamepadIs('gamepad_right') ? 1 : -1);
+
+            if (Input.gamepadIs('gamepad_exit'))
+                FlxG.switchState(MenuState.new);
         }
     }
 

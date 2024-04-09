@@ -180,6 +180,59 @@ class CreditsState extends FlxState
             Paths.clearUnusedMemory();
         }
 
+        var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
+
+        if (gamepad != null) 
+        {
+            var controlArray:Array<Bool> = [
+                gamepad.justPressed.DPAD_UP,
+                gamepad.justPressed.DPAD_DOWN,
+                Input.gamepadIs('gamepad_up'),
+                Input.gamepadIs('gamepad_down'),
+                gamepad.justPressed.LEFT_STICK_DIGITAL_UP,
+                gamepad.justPressed.LEFT_STICK_DIGITAL_DOWN
+            ];
+        
+            if (controlArray.contains(true))
+            {
+                for (i in 0...controlArray.length)
+                {
+                    if (controlArray[i] == true)
+                    {
+                        if (i > 1)
+                        {
+                            if (i == 2 || i == 4)
+                                curSelected--;
+                            else if (i == 3 || i == 5)
+                                curSelected++;
+                            FlxG.sound.play(Paths.sound('scroll'));
+                        }
+                        if (curSelected < 0)
+                            curSelected = credData.users.length - 1;
+                        if (curSelected >= credData.users.length)
+                            curSelected = 0;
+                        changeSelection();
+                    }
+                }
+            }
+
+            if (Input.gamepadIs('gamepad_left') || Input.gamepadIs('gamepad_right'))
+            {
+                FlxG.sound.play(Paths.sound('scroll'));
+                updateSocial(Input.gamepadIs('gamepad_left') ? -1 : 1);
+            }
+
+            if (Input.gamepadIs('gamepad_accept') && credData.users[curSelected].urlData[curSocial][1] != null)
+                CoolUtil.browserLoad(credData.users[curSelected].urlData[curSocial][1]);
+
+            if (Input.is('gamepad_exit'))
+            {
+                FlxG.sound.play(Paths.sound('cancel'));
+                FlxG.switchState(OptionsState.new);
+                Paths.clearUnusedMemory();
+            }
+        }
+
         updateBottomMarker();
     }
 

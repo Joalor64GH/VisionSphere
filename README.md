@@ -7,7 +7,7 @@ A gaming console made in HaxeFlixel. Mostly based on Sega Dreamcast.
 
 > [!IMPORTANT]
 > Check out the progress of the project below! <br>
-> ![](https://geps.dev/progress/70)
+> ![](https://geps.dev/progress/75)
 
 > [!WARNING]
 > This project is currently in development, and stuff may be unstable or not work at the moment. <br>
@@ -18,9 +18,9 @@ A gaming console made in HaxeFlixel. Mostly based on Sega Dreamcast.
 > **!!** - High Priority <br>
 > **??** - Low Priority
 
-* [ ] Add 10 Games (7/10) **[!!]**
-* [ ] WebM Video Support **[!!]**
+* [ ] Add 10 Games (8/10) **[!!]**
 * [ ] Controller Support for Real (controls menu for now) **[!!]**
+* [X] WebM Video Support [how did i do that]
 
 ## Wanna build?
 > [!TIP]
