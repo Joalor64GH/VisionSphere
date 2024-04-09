@@ -105,8 +105,11 @@ class Paths
 		#if MODS_ALLOWED
 		if (FileSystem.exists(modsVideo(key))) return modsVideo(key);
 		#end
-		return getPath('video/$key.webm');
+		return getPath('videos/$key.webm');
 	}
+
+	inline static public function videoSound(key:String)
+		return getPath('videos/$key.ogg');
 
 	static public function sound(key:String):Sound
 		return returnSound('sounds', key);
@@ -171,11 +174,8 @@ class Paths
 				return true;
 		}
 		#end
-
-		if (Assets.exists(getPath(key, false)))
-			return true;
 		
-		return false;
+		return (Assets.exists(getPath(key, false))) ? true : false;
 	}
 
 	inline static public function exists(asset:String)

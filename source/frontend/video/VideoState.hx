@@ -1,160 +1,150 @@
 package frontend.video;
 
 import flixel.sound.FlxSound;
-
-import openfl.utils.Assets;
+import frontend.video.*;
 
 using StringTools;
 
 class VideoState extends FlxState
 {
-	public var leSource:String = "";
-	public var callback:Void->Void;
-	public var fuckingVolume:Float = 1;
-	public var notDone:Bool = true;
-	public var vidSound:FlxSound;
-	public var useSound:Bool = false;
-	public var soundMultiplier:Float = 1;
-	public var prevSoundMultiplier:Float = 1;
-	public var videoFrames:Int = 0;
-	public var defaultText:String = "";
-	public var doShit:Bool = false;
-	public var autoPause:Bool = false;
-	public var musicPaused:Bool = false;
+	var leSource:String = "";
 
-	public function new(source:String, callBack:Void->Void)
+	var vidSound:FlxSound = null;
+
+	var holdTimer:Int = 0;
+	var crashMoment:Int = 0;
+	var itsTooLate:Bool = false;
+	var skipTxt:FlxText;
+
+	var onComplete:Void->Void;
+
+	public function new(source:String, ?onComplete:Void->Void):Void
 	{
 		super();
 		
-		leSource = "assets/videos/" + source + ".webm";
-		callback = callBack;
+		this.leSource = source;
+		this.onComplete = onComplete;
 	}
 	
-	override function create()
+	override public function create():Void
 	{
 		super.create();
 
-		FlxG.autoPause = false;
-		doShit = false;
-		
-		if (GlobalVideo.isWebm)
-			videoFrames = Std.parseInt(Assets.getText(leSource.replace(".webm", ".txt")));
-		
-		fuckingVolume = FlxG.sound.music.volume;
-		FlxG.sound.music.volume = 0;
-		
-		var bg:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
+		if (FlxG.sound.music != null)
+			FlxG.sound.music.pause();
+
+		var bg:FlxSprite = new FlxSprite();
+		bg.makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
 		add(bg);
 
+		skipTxt = new FlxText(FlxG.width / 1.5, FlxG.height - 50, FlxG.width, 'Hold any key to skip.', 32);
+		skipTxt.setFormat(Paths.getFont('vcr.ttf'), 32, FlxColor.WHITE, LEFT);
+
 		if (GlobalVideo.isWebm)
 		{
-			if (Assets.exists(leSource.replace(".webm", ".ogg"), MUSIC) || Assets.exists(leSource.replace(".webm", ".ogg"), SOUND))
-			{
-				useSound = true;
-				vidSound = FlxG.sound.play(leSource.replace(".webm", ".ogg"));
-			}
+			if (Paths.fileExists('videos/$leSource.ogg'))
+				vidSound = FlxG.sound.play(Paths.videoSound(leSource), 1, false, null, true);
 		}
 
-		GlobalVideo.get().source(leSource);
-		GlobalVideo.get().clearPause();
+		var ourVideo:Dynamic = GlobalVideo.get();
+		ourVideo.source(Paths.video(leSource));
+
+		if (ourVideo == null)
+		{
+			end();
+			return;
+		}
+
+		ourVideo.clearPause();
+
 		if (GlobalVideo.isWebm)
-			GlobalVideo.get().updatePlayer();
-		GlobalVideo.get().show();
+			ourVideo.updatePlayer();
+
+		ourVideo.show();
+
 		if (GlobalVideo.isWebm)
-			GlobalVideo.get().restart();
+			ourVideo.restart();
 		else
-			GlobalVideo.get().play();
-		
-		vidSound.time = vidSound.length * soundMultiplier;
-		doShit = true;
+			ourVideo.play();
+
+		add(skipTxt);
 	}
-	
-	override function update(elapsed:Float)
+
+	override public function update(elapsed:Float):Void
 	{
-		super.update(elapsed);
-		
-		if (useSound)
+		var ourVideo:Dynamic = GlobalVideo.get();
+
+		if (ourVideo == null)
 		{
-			var wasFuckingHit = GlobalVideo.get().webm.wasHitOnce;
-			soundMultiplier = GlobalVideo.get().webm.renderedCount / videoFrames;
-			
-			if (soundMultiplier > 1)
-				soundMultiplier = 1;
-
-			if (soundMultiplier < 0)
-				soundMultiplier = 0;
-			
-			if (doShit)
-			{
-				var compareShit:Float = 50;
-				if (vidSound.time >= (vidSound.length * soundMultiplier) + compareShit || vidSound.time <= (vidSound.length * soundMultiplier) - compareShit)
-					vidSound.time = vidSound.length * soundMultiplier;
-			}
-
-			if (wasFuckingHit)
-			{
-				if (soundMultiplier == 0)
-				{
-					if (prevSoundMultiplier != 0)
-					{
-						vidSound.pause();
-						vidSound.time = 0;
-					}
-				} else {
-					if (prevSoundMultiplier == 0)
-					{
-						vidSound.resume();
-						vidSound.time = vidSound.length * soundMultiplier;
-					}
-				}
-				prevSoundMultiplier = soundMultiplier;
-			}
+			end();
+			return;
 		}
-		
-		if (notDone)
+
+		ourVideo.update(elapsed);
+
+		if (ourVideo.ended || ourVideo.stopped)
+		{
+			skipTxt.visible = false;
+
+			ourVideo.hide();
+			ourVideo.stop();
+		}
+
+		if (crashMoment > 0) crashMoment--;
+
+		if (Input.is('any') && crashMoment <= 0 || itsTooLate && Input.is('any'))
+		{
+			holdTimer++;
+
+			crashMoment = 16;
+			itsTooLate = true;
+	
 			FlxG.sound.music.volume = 0;
-		
-		GlobalVideo.get().update(elapsed);
-
-		if (Input.is('r'))
-			GlobalVideo.get().restart();
-		
-		if (Input.is('p'))
-		{
-			trace("PRESSED PAUSE");
-			GlobalVideo.get().togglePause();
-			if (GlobalVideo.get().paused)
-				GlobalVideo.get().alpha();
-			else 
-				GlobalVideo.get().unalpha();
-		}
-		
-		if (Input.is('accept') || GlobalVideo.get().ended || GlobalVideo.get().stopped)
-		{
-			GlobalVideo.get().hide();
-			GlobalVideo.get().stop();
-		}
-		
-		if (Input.is('accept') || GlobalVideo.get().ended)
-		{
-			notDone = false;
-			FlxG.sound.music.volume = fuckingVolume;
-			if (musicPaused)
+			ourVideo.alpha();
+	
+			if (holdTimer > 100)
 			{
-				musicPaused = false;
-				FlxG.sound.music.resume();
+				skipTxt.visible = false;
+				ourVideo.stop();
+
+				end();
+				return;
 			}
-			FlxG.autoPause = true;
-			if (callback != null)
-				callback();
+		}
+		else if (!ourVideo.paused)
+		{
+			ourVideo.unalpha();
+
+			holdTimer = 0;
+			itsTooLate = false;
 		}
 		
-		if (GlobalVideo.get().played || GlobalVideo.get().restarted)
-			GlobalVideo.get().show();
-		
-		GlobalVideo.get().restarted = false;
-		GlobalVideo.get().played = false;
-		GlobalVideo.get().stopped = false;
-		GlobalVideo.get().ended = false;
+		if (ourVideo.ended)
+		{
+			end();
+			return;
+		}
+
+		if (ourVideo.played || ourVideo.restarted)
+			ourVideo.show();
+
+		ourVideo.restarted = false;
+		ourVideo.played = false;
+
+		ourVideo.stopped = false;
+		ourVideo.ended = false;
+
+		super.update(elapsed);
+	}
+
+	public function end():Void
+	{
+		if (vidSound != null)
+			vidSound.destroy();
+
+		close();
+
+		if (onComplete != null)
+			onComplete();
 	}
 }
