@@ -83,17 +83,11 @@ class PreferencesState extends FlxState
             }
         }
 
-        if (Input.is('exit') || Input.is('backspace')) 
+        if (Input.is('exit')) 
         {
             FlxG.switchState(OptionsState.new);
             FlxG.sound.play(Paths.sound('cancel'));
-            if (!Input.is('backspace'))
-            {
-                SaveData.saveSettings();
-                trace('settings saved!');
-            }
-            else
-                trace('settings not saved!');
+            SaveData.saveSettings();
         }
 
         if (Input.is('right') || Input.is('left'))
@@ -108,7 +102,6 @@ class PreferencesState extends FlxState
             }
         }
         
-        // i know i could've used another function, but this still works
         if (options[curSelected] == "Framerate")
         {
             if (Input.is('right') || Input.is('left'))
@@ -120,6 +113,71 @@ class PreferencesState extends FlxState
                     SaveData.framerate -= (SaveData.framerate == 60) ? 0 : 10;
                 
                 Main.updateFramerate(SaveData.framerate);
+            }
+        }
+
+        var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
+
+        if (gamepad != null)
+        {
+            if (Input.gamepadIs('gamepad_up') || Input.gamepadIs('gamepad_down'))
+            {
+                FlxG.sound.play(Paths.sound('scroll'));
+                changeSelection(Input.gamepadIs('gamepad_up') ? -1 : 1);
+            }
+
+            if (Input.gamepadIs('gamepad_accept'))
+            {
+                FlxG.sound.play(Paths.sound('confirm'));
+                switch (options[curSelected])
+                {
+                    #if desktop
+                    case "Fullscreen":
+                        SaveData.fullscreen = !SaveData.fullscreen;
+                        FlxG.fullscreen = SaveData.fullscreen;
+                    #end
+                    case "FPS Counter":
+                        SaveData.fpsCounter = !SaveData.fpsCounter;
+                        if (Main.fpsDisplay != null)
+                            Main.fpsDisplay.visible = SaveData.fpsCounter;
+                    case "Language":
+                        openSubState(new LanguageSubState());
+                    case "Colorblind Filter":
+                        openSubState(new FilterSubState());
+                }
+            }
+
+            if (Input.gamepadIs('gamepad_exit'))
+            {
+                FlxG.switchState(OptionsState.new);
+                FlxG.sound.play(Paths.sound('cancel'));
+                SaveData.saveSettings();
+            }
+
+            if (Input.gamepadIs('gamepad_right') || Input.gamepadIs('gamepad_left'))
+            {
+                FlxG.sound.play(Paths.sound('scroll'));
+                switch (options[curSelected])
+                {
+                    case "Theme":
+                        switchTheme(Input.gamepadIs('gamepad_right') ? 1 : -1);
+                    case "Time Format":
+                        switchTime(Input.gamepadIs('gamepad_right') ? 1 : -1);
+                }
+            }
+        
+            if (options[curSelected] == "Framerate")
+            {
+                if (Input.gamepadIs('gamepad_right') || Input.gamepadIs('gamepad_left'))
+                {
+                    FlxG.sound.play(Paths.sound('scroll'));
+                    if (!Input.gamepadIs('gamepad_left'))
+                        SaveData.framerate += (SaveData.framerate == 240) ? 0 : 10;
+                    else
+                        SaveData.framerate -= (SaveData.framerate == 60) ? 0 : 10;
+                
+                    Main.updateFramerate(SaveData.framerate);
+                }
             }
         }
 

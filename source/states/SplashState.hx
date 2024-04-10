@@ -61,7 +61,6 @@ class SplashState extends FlxState
             FlxTween.tween(haxeflixel, {alpha: 0}, 0.1, {ease: FlxEase.expoInOut});
             FlxTween.tween(text, {x: -1500, angle: 10, alpha: 0}, 0.1, {ease: FlxEase.expoInOut});
             FlxTween.tween(text, {alpha: 0}, 0.1, {ease: FlxEase.expoInOut});
-
             FlxTween.tween(logo, {alpha: 1}, 1, {ease: FlxEase.quadOut});
         });
 
@@ -79,6 +78,19 @@ class SplashState extends FlxState
             {
                 FlxG.switchState(MenuState.new);
             });
+        }
+
+        var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
+
+        if (gamepad != null)
+        {
+            if (Input.gamepadIs('a') || Input.gamepadIs('start'))
+            {
+                FlxG.camera.fade(FlxColor.BLACK, 0.33, false, () ->
+                {
+                    FlxG.switchState(MenuState.new);
+                });
+            }
         }
     }
 }

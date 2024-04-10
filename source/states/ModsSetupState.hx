@@ -11,7 +11,7 @@ import flixel.addons.ui.FlxUITabMenu;
  * @see https://github.com/MaybeMaru/Maru-Funkin/
  */
 
-typedef ModFolder = {
+typedef Mod = {
     var name:String;
     var description:String;
     var restart:Bool;
@@ -38,7 +38,7 @@ class ModSetupTabs extends FlxUITabMenu
 
     var focusList:Array<FlxUIInputText> = [];
 
-    var DEFAULT_MOD:ModFolder = {
+    var DEFAULT_MOD:Mod = {
         name: "Template",
         description: "Hello, world!",
         restart: false,
@@ -162,9 +162,6 @@ class ModsSetupState extends FlxState
 
     override function create()
     {
-        Paths.clearStoredMemory();
-        Paths.clearUnusedMemory();
-
         var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('theme/' + SaveData.theme));
         add(bg);
 
@@ -225,6 +222,17 @@ class ModsSetupState extends FlxState
         {
             FlxG.switchState(ModsState.new);
             FlxG.sound.play(Paths.sound('cancel'));
+        }
+
+        var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
+
+        if (gamepad != null)
+        {
+            if (Input.gamepadIs('gamepad_exit')) 
+            {
+                FlxG.switchState(ModsState.new);
+                FlxG.sound.play(Paths.sound('cancel'));
+            }
         }
     }
 }

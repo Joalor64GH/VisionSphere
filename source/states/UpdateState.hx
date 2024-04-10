@@ -9,9 +9,6 @@ class UpdateState extends FlxState
     {
         super.create();
 
-        Paths.clearStoredMemory();
-        Paths.clearUnusedMemory();
-
         FlxG.camera.fade(FlxColor.BLACK, 0.33, true);
 
         var text:FlxText = new FlxText(0, 0, FlxG.width, 
@@ -38,9 +35,28 @@ class UpdateState extends FlxState
         {
             FlxG.camera.fade(FlxColor.BLACK, 0.5, false, () ->
             {
-                FlxG.switchState(new states.SplashState());
+                FlxG.switchState(SplashState.new);
             });
             FlxG.sound.play(Paths.sound('cancel'));
+        }
+
+        var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
+
+        if (gamepad != null)
+        {
+            if (Input.gamepadIs('start'))
+            {
+                FlxG.sound.play(Paths.sound('confirm'));
+                CoolUtil.browserLoad("https://github.com/Joalor64GH/VisionSphere/actions/");
+            }
+            else if (Input.gamepadIs('back'))
+            {
+                FlxG.camera.fade(FlxColor.BLACK, 0.5, false, () ->
+                {
+                    FlxG.switchState(SplashState.new);
+                });
+                FlxG.sound.play(Paths.sound('cancel'));
+            }
         }
     }
 

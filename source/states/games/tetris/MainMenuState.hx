@@ -11,6 +11,8 @@ class MainMenuState extends FlxState
     {
         super.create();
 
+        FlxG.camera.fade(FlxColor.BLACK, 0.33, true);
+
         var daLogo:FlxSprite = new FlxSprite(0, 30).loadGraphic(Paths.image('game/teturisu/logo'));
         daLogo.screenCenter(X);
         add(daLogo);

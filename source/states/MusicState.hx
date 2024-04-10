@@ -14,6 +14,7 @@ typedef Song = {
 
 class MusicState extends states.MusicState.BeatState
 {
+    var bg:FlxSprite;
     var disc:FlxSprite;
     
     var songTxt:Alphabet;
@@ -24,8 +25,6 @@ class MusicState extends states.MusicState.BeatState
 
     var curSelected:Int = 0;
     var musicData:BasicData;
-
-    var bg:FlxSprite;
 
     override public function create()
     {
@@ -104,6 +103,47 @@ class MusicState extends states.MusicState.BeatState
                 {
                     FlxG.sound.music.pause();
                     disc.angularVelocity = 0;
+                }
+            }
+        }
+
+        var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
+
+        if (gamepad != null)
+        {
+            if (Input.gamepadIs('right_stick_click'))
+                FlxG.resetState();
+
+            if (Input.gamepadIs('gamepad_exit'))
+            {
+                FlxG.switchState(MenuState.new);
+                FlxG.sound.music.volume = 0;
+            }
+
+            if (Input.gamepadIs('gamepad_left') || Input.gamepadIs('gamepad_right'))
+            {
+                new FlxTimer().start(0.01, (timer) -> 
+                {
+                    FlxG.sound.play(Paths.sound('scroll'));
+                });
+                changeSong(Input.gamepadIs('left') ? -1 : 1);
+            }
+
+            if (FlxG.sound.music != null)
+            {
+                states.MusicState.Conductor.songPosition = FlxG.sound.music.time;
+                if ((Input.gamepadIs('gamepad_accept') || Input.gamepadIs('start')) && loaded)
+                {
+                    if (!FlxG.sound.music.playing)
+                    {
+                        FlxG.sound.music.play();
+                        disc.angularVelocity = 30;
+                    }
+                    else 
+                    {
+                        FlxG.sound.music.pause();
+                        disc.angularVelocity = 0;
+                    }
                 }
             }
         }

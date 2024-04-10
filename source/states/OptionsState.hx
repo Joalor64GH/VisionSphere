@@ -90,6 +90,60 @@ class OptionsState extends FlxState
             FlxG.switchState(MenuState.new);
             FlxG.sound.play(Paths.sound('cancel'));
         }
+
+        var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
+
+        if (gamepad != null)
+        {
+            if (Input.gamepadIs('gamepad_up') || Input.gamepadIs('gamepad_down'))
+            {
+                FlxG.sound.play(Paths.sound('scroll'));
+                changeSelection(Input.gamepadIs('gamepad_up') ? -1 : 1);
+            }
+
+            if (Input.gamepadIs('gamepad_accept'))
+            {
+                FlxG.sound.play(Paths.sound('confirm'));
+                switch (options[curSelected])
+                {
+                    case "Preferences":
+                        FlxG.switchState(PreferencesState.new);
+                    case "Controls":
+                        openSubState(new ControlsSubState());
+                    case "Credits":
+                        FlxG.switchState(CreditsState.new);
+                    case "System Information":
+                        openSubState(new SystemInfoSubState());
+                    case "Restart":
+                        openSubState(new PromptSubState("Are you sure?", () -> {
+                            FlxG.camera.fade(FlxColor.BLACK, 0.5, false, FlxG.resetGame, false);
+                        }, () -> {
+                            closeSubState();
+                        }));
+                    case "Shut Down":
+                        openSubState(new PromptSubState("Are you sure?", () -> {
+                            FlxG.camera.fade(FlxColor.BLACK, 0.5, false, () ->
+                            {
+                                #if (sys || cpp)
+                                Sys.exit(0);
+                                #else
+                                openfl.system.System.exit(0);
+                                #end
+                            });
+                        }, () -> {
+                            closeSubState();
+                        }));
+                    case "Exit":
+                        FlxG.switchState(MenuState.new);
+                }
+            }
+
+            if (Input.gamepadIs('gamepad_exit')) 
+            {
+                FlxG.switchState(MenuState.new);
+                FlxG.sound.play(Paths.sound('cancel'));
+            }
+        }
     }
 
     override function closeSubState() 

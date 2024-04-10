@@ -259,10 +259,11 @@ class ModsState extends FlxState
 			curSelected = 0;
 
 		bg.color = (mods.length < 1) ? defaultColor : mods[curSelected].color;
-
 		intendedColor = bg.color;
+		
 		changeSelection();
 		updatePosition();
+
 		FlxG.sound.play(Paths.sound('scroll'));
 
 		super.create();
@@ -361,6 +362,31 @@ class ModsState extends FlxState
 
 		if (Input.is('seven'))
 			FlxG.switchState(ModsSetupState.new);
+
+		var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
+
+		if (gamepad != null) 
+		{
+			if (canExit && Input.gamepadIs('gamepad_exit'))
+			{
+				if (colorTween != null)
+					colorTween.cancel();
+			
+				saveTxt();
+				FlxG.sound.play(Paths.sound('cancel'));
+
+				if (needaReset)
+					FlxG.camera.fade(FlxColor.BLACK, 0.5, false, FlxG.resetGame, false);
+				else
+					FlxG.switchState(MenuState.new);
+			}
+
+			if (Input.gamepadIs('gamepad_up') || Input.gamepadIs('gamepad_down'))
+				changeSelection(Input.gamepadIs('gamepad_up') ? -1 : 1);
+
+			if (Input.gamepadIs('start'))
+				FlxG.switchState(ModsSetupState.new);
+		}
 		
 		updatePosition(elapsed);
 		super.update(elapsed);

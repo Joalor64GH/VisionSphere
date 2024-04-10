@@ -33,7 +33,7 @@
             "sectionName": "Special Thanks",
 
             "name": "KadeDev",
-            "iconData": ["face", 280, -5, 0.9],
+            "iconData": ["kade", 280, -5, 0.9],
             "textData": ["extension-webm", "The one and only freelance developer"],
             "urlData": [
                 ["GitHub", "https://github.com/Sirox228/"],

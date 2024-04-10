@@ -2,8 +2,7 @@ package states;
 
 import flixel.addons.display.FlxBackdrop;
 
-typedef Game = 
-{
+typedef Game = {
     var img:String;
     var desc:String;
     var title:String;
@@ -55,7 +54,7 @@ class PlayState extends FlxState
             {img: "math", desc: "An endless math problem game!", title: "The Simple Math Game"},
             {img: "teturisu", desc: "It's tetris in Haxeflixel lol.", title: "Teturisu"},
             {img: "reaction", desc: "Can you click the right square?", title: "The Reaction Game"},
-            {img: "blank", desc: "testing", title: "The Phone"}
+            {img: "blank", desc: "New phone, who dis?", title: "The Phone"}
         ];
 
         for (data in games)
@@ -136,6 +135,50 @@ class PlayState extends FlxState
                         FlxG.switchState(new states.games.Phone());
                 }
             });
+        }
+
+        var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
+
+        if (gamepad != null) 
+        {
+            if (Input.gamepadIs('gamepad_exit')) 
+            {
+                FlxG.switchState(MenuState.new);
+                FlxG.sound.play(Paths.sound('cancel'));
+            }
+
+            if (Input.gamepadIs('gamepad_left') || Input.is('gamepad_right'))
+            {
+                FlxG.sound.play(Paths.sound('scroll'));
+                changeSelection(Input.is('left') ? -1 : 1);
+            }
+
+            if (Input.gamepadIs('gamepad_accept'))
+            {
+                FlxG.sound.play(Paths.sound('confirm'));
+                FlxG.camera.fade(FlxColor.BLACK, 0.5, false, () -> 
+                {
+                    switch (currentIndex)
+                    {
+                        case 0:
+                            FlxG.switchState(new states.games.clicker.MainMenuState());
+                        case 1:
+                            FlxG.switchState(new states.games.DVDScreensaver());
+                        case 2:
+                            FlxG.switchState(new states.games.jta.MainMenuState());
+                        case 3:
+                            FlxG.switchState(new states.games.Painter());
+                        case 4:
+                            FlxG.switchState(new states.games.TheSimpleMathGame.MainMenuState());
+                        case 5:
+                            FlxG.switchState(new states.games.tetris.MainMenuState());
+                        case 6:
+                            FlxG.switchState(new states.games.ReactionGame());
+                        case 7:
+                            FlxG.switchState(new states.games.Phone());
+                    }
+                });
+            }
         }
     }
 
