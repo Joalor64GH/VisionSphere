@@ -8,13 +8,11 @@ using StringTools;
 class VideoState extends FlxState
 {
 	var leSource:String = "";
-
 	var vidSound:FlxSound = null;
 
 	var holdTimer:Int = 0;
 	var crashMoment:Int = 0;
 	var itsTooLate:Bool = false;
-	var skipTxt:FlxText;
 
 	var onComplete:Void->Void;
 
@@ -36,9 +34,6 @@ class VideoState extends FlxState
 		var bg:FlxSprite = new FlxSprite();
 		bg.makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
 		add(bg);
-
-		skipTxt = new FlxText(FlxG.width / 1.5, FlxG.height - 50, FlxG.width, 'Hold any key to skip.', 32);
-		skipTxt.setFormat(Paths.font('vcr.ttf'), 32, FlxColor.WHITE, LEFT);
 
 		if (GlobalVideo.isWebm)
 		{
@@ -66,8 +61,6 @@ class VideoState extends FlxState
 			ourVideo.restart();
 		else
 			ourVideo.play();
-
-		add(skipTxt);
 	}
 
 	override public function update(elapsed:Float):Void
@@ -84,8 +77,6 @@ class VideoState extends FlxState
 
 		if (ourVideo.ended || ourVideo.stopped)
 		{
-			skipTxt.visible = false;
-
 			ourVideo.hide();
 			ourVideo.stop();
 		}
@@ -104,7 +95,6 @@ class VideoState extends FlxState
 	
 			if (holdTimer > 100)
 			{
-				skipTxt.visible = false;
 				ourVideo.stop();
 
 				end();

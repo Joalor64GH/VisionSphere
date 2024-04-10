@@ -104,22 +104,21 @@ class Phone extends FlxState
         
         if (Input.is('accept') && code.text != '')
         {
-            if (FlxG.random.bool(30))
+            switch (code.text) 
             {
-                FlxG.switchState(new VideoState('paint', () -> {
-                    #if (sys || cpp)
-                    Sys.exit(0);
-                    #else
-                    openfl.system.System.exit(0);
-                    #end
-                }));
-                canSelect = false;
-            }
-            else 
-            {
-                code.text = '';
-                if (canSelect)
-                    FlxG.camera.shake(0.015, 0.2);
+                case '1026':
+                    FlxG.switchState(new VideoState('paint', () -> {
+                        #if (sys || cpp)
+                        Sys.exit(0);
+                        #else
+                        openfl.system.System.exit(0);
+                        #end
+                    }));
+                    canSelect = false;
+                default:
+                    code.text = '';
+                    if (canSelect)
+                        FlxG.camera.shake(0.015, 0.2);
             }
         }
     }
