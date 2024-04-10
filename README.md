@@ -20,6 +20,7 @@ A gaming console made in HaxeFlixel. Mostly based on Sega Dreamcast.
 
 * [ ] Add 10 Games (8/10) **[!!]**
 * [ ] Controller Support for Real (controls menu for now) **[!!]**
+* [ ] Rhythmo Remake!! [will do testing in another repo]
 * [X] WebM Video Support [how did i do that]
 
 ## Wanna build?
