@@ -1,29 +1,35 @@
 package backend;
 
 import sys.io.File;
+import sys.io.Process;
 import sys.FileSystem;
-
-import haxe.macro.Expr;
-import haxe.macro.Context;
 
 class MacroUtil
 {
+    public static macro function getFlag(flag:String):haxe.macro.Expr
+    {
+        if (haxe.macro.Context.defined(flag))
+            return macro $v{haxe.macro.Context.definedValue(flag)};
+        else
+            return macro $v{""};
+    }
+
     /**
      * @author Leather128
      * @see https://github.com/Leather128/FabricEngine/
      */
     
-    public static macro function get_commit_id():Expr.ExprOf<String>
+    public static macro function get_commit_id():haxe.macro.Expr.ExprOf<String>
     {
         try {
-            var daProcess = new sys.io.Process('git', ['log', '--format=%h', '-n', '1']);
+            var daProcess = new Process('git', ['log', '--format=%h', '-n', '1']);
             daProcess.exitCode(true);
             return macro $v{daProcess.stdout.readLine()};
         } catch(e) {}
         return macro $v{"-"};
     }
 
-    public static macro function get_build_num():Expr.ExprOf<Int>
+    public static macro function get_build_num():haxe.macro.Expr.ExprOf<Int>
     {
         try {
             var buildNumber:Int = Std.parseInt(File.getContent(FileSystem.fullPath('build.txt')));
@@ -38,26 +44,26 @@ class MacroUtil
      * @see https://github.com/Cool-Team-Development/Simple-Clicker-Game/
      */
 
-    static macro function getDefine(key:String):Expr
+    static macro function getDefine(key:String):haxe.macro.Expr
     {
-        return macro $v{Context.definedValue(key)};
+        return macro $v{haxe.macro.Context.definedValue(key)};
     }
 
-    static macro function setDefine(key:String, value:String):Expr
+    static macro function setDefine(key:String, value:String):haxe.macro.Expr
     {
         haxe.macro.Compiler.define(key, value);
         return macro null;
     }
 
-    static macro function isDefined(key:String):Expr
+    static macro function isDefined(key:String):haxe.macro.Expr
     {
-        return macro $v{Context.defined(key)};
+        return macro $v{haxe.macro.Context.defined(key)};
     }
 
-    static macro function getDefines():Expr
+    static macro function getDefines():haxe.macro.Expr
     {
-        var defines:Map<String, String> = Context.getDefines();
-        var map:Array<Expr> = [];
+        var defines:Map<String, String> = haxe.macro.Context.getDefines();
+        var map:Array<haxe.macro.Expr> = [];
         for (key in defines.keys())
             map.push(macro $v{key} => $v{Std.string(defines.get(key))});
 
