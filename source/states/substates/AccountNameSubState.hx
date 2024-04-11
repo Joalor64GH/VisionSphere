@@ -46,5 +46,20 @@ class AccountNameSubState extends FlxSubState
         }
         else if (Input.is('exit'))
             close();
+
+        var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
+
+        if (gamepad != null)
+        {
+            if (Input.gamepadIs('gamepad_accept') && input.text != '')
+            {
+                trace('changed username to: ' + input.text);
+                SaveData.username = input.text;
+                SaveData.saveSettings();
+                close();
+            }
+            else if (Input.gamepadIs('gamepad_exit'))
+                close();
+        }
     }
 }

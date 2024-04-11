@@ -113,6 +113,75 @@ class FilterSubState extends FlxSubState
             close();
         }
 
+        var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
+
+        if (gamepad != null)
+        {
+            if (Input.gamepadIs('gamepad_up') || Input.is('gamepad_down'))
+            {
+                FlxG.sound.play(Paths.sound('scroll'));
+                changeSelection(Input.gamepadIs('gamepad_up') ? -1 : 1);
+            }
+
+            if (Input.gamepadIs('gamepad_accept'))
+            {
+                SaveData.saveSettings();
+                FlxG.sound.play(Paths.sound('confirm'));
+                switch(curSelected)
+                {
+                    case 0:
+                        SaveData.colorBlindFilter = -1;
+                        Colorblind.updateColorBlindFilter(SaveData.colorBlindFilter);
+                    case 1:
+                        SaveData.colorBlindFilter = 0;
+                        Colorblind.updateColorBlindFilter(SaveData.colorBlindFilter);
+                    case 2:
+                        SaveData.colorBlindFilter = 1;
+                        Colorblind.updateColorBlindFilter(SaveData.colorBlindFilter);
+                    case 3:
+                        SaveData.colorBlindFilter = 2;
+                        Colorblind.updateColorBlindFilter(SaveData.colorBlindFilter);
+                    case 4:
+                        SaveData.colorBlindFilter = 3;
+                        Colorblind.updateColorBlindFilter(SaveData.colorBlindFilter);
+                    case 5:
+                        SaveData.colorBlindFilter = 4;
+                        Colorblind.updateColorBlindFilter(SaveData.colorBlindFilter);
+                    case 6:
+                        SaveData.colorBlindFilter = 5;
+                        Colorblind.updateColorBlindFilter(SaveData.colorBlindFilter);
+                    case 7:
+                        SaveData.colorBlindFilter = 6;
+                        Colorblind.updateColorBlindFilter(SaveData.colorBlindFilter);
+                    case 8:
+                        SaveData.colorBlindFilter = 7;
+                        Colorblind.updateColorBlindFilter(SaveData.colorBlindFilter);
+                    case 9:
+                        SaveData.colorBlindFilter = 8;
+                        Colorblind.updateColorBlindFilter(SaveData.colorBlindFilter);
+                    case 10:
+                        SaveData.colorBlindFilter = 9;
+                        Colorblind.updateColorBlindFilter(SaveData.colorBlindFilter);
+                    case 11:
+                        SaveData.colorBlindFilter = 10;
+                        Colorblind.updateColorBlindFilter(SaveData.colorBlindFilter);
+                    case 12:
+                        SaveData.colorBlindFilter = 11;
+                        Colorblind.updateColorBlindFilter(SaveData.colorBlindFilter);
+                    case 13:
+                        SaveData.colorBlindFilter = 12;
+                        Colorblind.updateColorBlindFilter(SaveData.colorBlindFilter, FlxG.random.float(0, 1));
+                }
+
+                close();
+            }
+            else if (Input.gamepadIs('gamepad_exit'))
+            {
+                FlxG.sound.play(Paths.sound('cancel'));
+                close();
+            }
+        }
+
         for (num => item in coolGrp.members)
         {
             item.targetY = num - curSelected;

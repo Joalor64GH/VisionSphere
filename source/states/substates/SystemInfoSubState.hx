@@ -34,5 +34,16 @@ class SystemInfoSubState extends FlxSubState
             FlxG.sound.play(Paths.sound("cancel"));
             close();
         }
+
+        var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
+
+        if (gamepad != null)
+        {
+            if (Input.gamepadIs('gamepad_exit')) 
+            {
+                FlxG.sound.play(Paths.sound("cancel"));
+                close();
+            }
+        }
     }
 }

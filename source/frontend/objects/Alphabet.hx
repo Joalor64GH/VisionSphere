@@ -398,7 +398,7 @@ class AlphaCharacter extends FlxSprite
 		var alphaAnim:String = lowercase;
 		if (curLetter != null && curLetter.anim != null) alphaAnim = curLetter.anim;
 
-		var anim:String = alphaAnim + suffix + " instance 100";
+		var anim:String = alphaAnim + suffix;
 		animation.addByPrefix(anim, anim, 24);
 		animation.play(anim, true);
 		if (animation.curAnim == null)

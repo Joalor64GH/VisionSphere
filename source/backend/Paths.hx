@@ -5,6 +5,7 @@ import flixel.graphics.frames.FlxAtlasFrames;
 
 import openfl.media.Sound;
 import openfl.utils.Assets;
+import openfl.display.BitmapData;
 
 using StringTools;
 
@@ -75,6 +76,34 @@ class Paths
 			}
 		}
 		localTrackedAssets = [];
+	}
+
+	private static var trackedBitmaps:Map<String, BitmapData> = new Map();
+
+	public static function setBitmap(id:String, ?bitmap:BitmapData):BitmapData
+	{
+		if (!trackedBitmaps.exists(id) && bitmap != null)
+			trackedBitmaps.set(id, bitmap);
+		pushTracked(id);
+		return trackedBitmaps.get(id);
+	}
+
+	public static function disposeBitmap(id:String)
+	{
+		var obj:Null<BitmapData> = trackedBitmaps.get(id);
+		if (obj != null)
+		{
+			obj.dispose();
+			obj.disposeImage();
+			obj = null;
+			trackedBitmaps.remove(id);
+		}
+	}
+
+	public static function pushTracked(file:String)
+	{
+		if (!localTrackedAssets.contains(file))
+			localTrackedAssets.push(file);
 	}
 
 	public static function getPath(file:String, ?modsAllowed:Bool = false):String
@@ -217,7 +246,7 @@ class Paths
 
 	public static function getGraphic(path:String):FlxGraphic
 	{
-		return FlxGraphic.fromBitmapData(openfl.display.BitmapData.fromFile(path), false, path);
+		return FlxGraphic.fromBitmapData(BitmapData.fromFile(path), false, path);
 	}
 
 	public static function returnGraphic(key:String)
@@ -297,6 +326,9 @@ class Paths
 
 	inline static public function modsVideo(key:String)
 		return modFolders('videos/$key.webm');
+	
+	inline static public function modsVideoSound(key:String)
+		return modFolders('videos/$key.ogg');
 
 	inline static public function modsSounds(path:String, key:String)
 		return modFolders('$path/$key.ogg');

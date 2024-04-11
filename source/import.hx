@@ -1,4 +1,5 @@
 #if !macro
+// Default Imports
 #if (sys || desktop)
 import sys.io.File;
 import sys.FileSystem;
@@ -9,10 +10,11 @@ import haxe.Json;
 import openfl.Lib;
 
 import flixel.*;
+import flixel.util.*;
+
 import flixel.math.FlxMath;
 import flixel.text.FlxText;
-import flixel.util.FlxColor;
-import flixel.util.FlxTimer;
+
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.group.FlxGroup.FlxTypedGroup;
@@ -20,6 +22,7 @@ import flixel.input.gamepad.FlxGamepad;
 
 import lime.app.Application;
 
+// Game Imports
 import frontend.Menu;
 
 import frontend.objects.Alphabet;
@@ -37,4 +40,5 @@ import states.substates.*;
 
 using backend.CoolUtil;
 using StringTools;
+using Globals;
 #end
