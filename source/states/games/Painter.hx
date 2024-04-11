@@ -99,7 +99,13 @@ class Painter extends FlxState
     {
         super.update(elapsed);
 
-        if (Input.is('accept'))
+        var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
+
+        var restart = Input.is('r') || (gamepad != null ? Input.gamepadIs('right_stick_click') : false);
+        var accept = Input.is('accept') || (gamepad != null ? Input.gamepadIs('gamepad_accept') : false);
+        var exit = Input.is('exit') || (gamepad != null ? Input.gamepadIs('gamepad_exit') : false);
+
+        if (accept)
         {
             enabled = !enabled;
 
@@ -150,9 +156,9 @@ class Painter extends FlxState
         for (px in pxGroup.members)
             px.alpha = FlxG.mouse.pressedRight ? 0.5 : 1;
 
-        if (Input.is('r'))
+        if (restart)
             FlxG.resetState();
-        else if (Input.is('exit')) 
+        else if (exit) 
         {
             FlxG.camera.fade(FlxColor.BLACK, 0.5, false, () ->
             {

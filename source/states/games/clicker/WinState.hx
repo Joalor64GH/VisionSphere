@@ -3,10 +3,7 @@ package states.games.clicker;
 class WinState extends FlxState
 {
     override public function create()
-    {
-        Paths.clearStoredMemory();
-        Paths.clearUnusedMemory();
-        
+    {   
         var winSpr:FlxSprite = new FlxSprite().loadGraphic(Paths.image('game/2048/win'));
         winSpr.screenCenter();
         add(winSpr);
@@ -17,7 +14,6 @@ class WinState extends FlxState
         add(text);
 
         FlxG.camera.fade(FlxColor.BLACK, 0.33, true);
-        
         FlxG.sound.play(Paths.sound('2048/win'));
 
         super.create();
@@ -27,7 +23,11 @@ class WinState extends FlxState
     {
         super.update(elapsed);
 
-        if (Input.is('any') || FlxG.mouse.justPressed)
+        var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
+
+        var any = Input.is('any') || (gamepad != null ? Input.gamepadIs('any') : false);
+
+        if (any || FlxG.mouse.justPressed)
         {
             FlxG.camera.fade(FlxColor.BLACK, 0.33, false, () ->
             {

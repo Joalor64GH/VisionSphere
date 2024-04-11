@@ -5,10 +5,7 @@ import flixel.ui.FlxButton;
 class MainMenuState extends FlxState
 {
     override public function create()
-    {
-        Paths.clearStoredMemory();
-        Paths.clearUnusedMemory();
-        
+    {   
         var logo:FlxSprite = new FlxSprite().loadGraphic(Paths.image('game/2048/logo'));
         logo.screenCenter(X);
         add(logo);
@@ -54,7 +51,12 @@ class MainMenuState extends FlxState
     {
         super.update(elapsed);
 
-        if (Input.is('exit')) 
+        var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
+
+        var secret = Input.is('o') || (gamepad != null ? Input.gamepadIs('y') : false);
+        var exit = Input.is('exit') || (gamepad != null ? Input.gamepadIs('gamepad_exit') : false);
+
+        if (exit) 
         {
             FlxG.camera.fade(FlxColor.BLACK, 0.5, false, () ->
             {
@@ -64,7 +66,7 @@ class MainMenuState extends FlxState
             FlxG.sound.play(Paths.sound('cancel'));
         }
 
-        if (Input.is('o')) // the original version bleh
+        if (secret) // the original version bleh
             CoolUtil.browserLoad('https://github.com/Joalor64GH/2048-Clicker');
     }
 }

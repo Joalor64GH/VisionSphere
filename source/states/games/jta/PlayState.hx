@@ -38,11 +38,6 @@ class PlayState extends FlxState
     {
         super.create();
 
-        Paths.clearStoredMemory();
-        Paths.clearUnusedMemory();
-
-        openfl.system.System.gc();
-
         FlxG.camera.zoom = 2.95;
 
         coinSnd = FlxG.sound.load(Paths.sound('jta/coin'), 1);
@@ -74,6 +69,15 @@ class PlayState extends FlxState
     {
         super.update(elapsed);
 
+        var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
+
+        var up = Input.is('up') || (gamepad != null ? Input.gamepadIs('gamepad_up') : false);
+        var down = Input.is('down') || (gamepad != null ? Input.gamepadIs('gamepad_down') : false);
+        var left = Input.is('left', PRESSED) || (gamepad != null ? Input.gamepadIs('gamepad_left', PRESSED) : false);
+        var right = Input.is('right', PRESSED) || (gamepad != null ? Input.gamepadIs('gamepad_right', PRESSED) : false);
+        var exit = Input.is('exit') || (gamepad != null ? Input.gamepadIs('gamepad_exit') : false);
+        var restart = Input.is('r') || (gamepad != null ? Input.gamepadIs('right_stick_click') : false);
+
         FlxG.collide(player, walls);
         FlxG.camera.follow(player, LOCKON);
 
@@ -82,7 +86,7 @@ class PlayState extends FlxState
         FlxG.overlap(player, spike, touchSpike);
 
         player.animation.play((player.velocity.x != 0) ? "walk" : "idle");
-        player.velocity.x = Input.is('left', PRESSED) ? -150 : Input.is('right', PRESSED) ? 150 : 0;
+        player.velocity.x = left ? -150 : right ? 150 : 0;
 
         if (player.velocity.x != 0)
             player.flipX = player.velocity.x < 0;
@@ -93,7 +97,7 @@ class PlayState extends FlxState
         if (player.isTouching(DOWN) && !jumping)
             jumpTimer = 0;
 
-        if (jumpTimer >= 0 && Input.is('up'))
+        if (jumpTimer >= 0 && up)
         {
             jumping = true;
             jumpTimer += elapsed;
@@ -108,7 +112,7 @@ class PlayState extends FlxState
         if (jumpTimer > 0 && jumpTimer < 0.25)
             player.velocity.y = -300;
 
-        if (Input.is('exit'))
+        if (exit)
         {
             FlxG.camera.fade(FlxColor.BLACK, 0.33, false, () ->
             {
@@ -117,7 +121,7 @@ class PlayState extends FlxState
             FlxG.sound.play(Paths.sound('jta/exit'));
         }
 
-        if (Input.is('r'))
+        if (restart)
             FlxG.resetState();
     }
 

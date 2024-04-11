@@ -65,23 +65,36 @@ class PlayState extends FlxState
 
         gameOver = !GameGrid.isRowEmpty(0) && !GameGrid.isRowEmpty(1);
 
+        var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
+
+        var up = Input.is('up') || (gamepad != null ? Input.gamepadIs('gamepad_up') : false);
+        var down = Input.is('down') || (gamepad != null ? Input.gamepadIs('gamepad_down') : false);
+        var left = Input.is('left') || (gamepad != null ? Input.gamepadIs('gamepad_left') : false);
+        var right = Input.is('right') || (gamepad != null ? Input.gamepadIs('gamepad_right') : false);
+        var accept = Input.is('enter') || (gamepad != null ? Input.gamepadIs('a') : false);
+        var accept_alt = Input.is('space') || (gamepad != null ? )
+        var exit = Input.is('exit') || (gamepad != null ? Input.gamepadIs('gamepad_exit') : false);
+
+        var counterclockwise = Input.is('z') || (gamepad != null ? Input.gamepadIs('left_shoulder'));
+        var hold = Input.is('c') || (gamepad != null ? Input.gamepadIs('right_shoulder'));
+
         if (!gameOver)
         {
-            if (Input.is('left'))
+            if (left)
             {
                 curPiece.move(0, -1);
                 if (!doesFit())
                     curPiece.move(0, 1);
                 grid.updateSprites();
             }
-            if (Input.is('right'))
+            if (right)
             {
                 curPiece.move(0, 1);
                 if (!doesFit())
                     curPiece.move(0, -1);
                 grid.updateSprites();
             }
-            if (Input.is('down'))
+            if (down)
             {
                 curPiece.move(1, 0);
                 if (!doesFit()) 
@@ -91,23 +104,23 @@ class PlayState extends FlxState
                 }
                 grid.updateSprites();
             }
-            if (Input.is('up'))
+            if (up)
             {
                 curPiece.rotateClockwise();
                 if (!doesFit())
                     curPiece.rotateCounterClockwise();
                 grid.updateSprites();
             }
-            if (Input.is('z'))
+            if (counterclockwise)
             {
                 curPiece.rotateCounterClockwise();
                 if (!doesFit())
                     curPiece.rotateClockwise();
                 grid.updateSprites();
             }
-            if (Input.is('c'))
+            if (hold)
                 heldPiece = curPiece;
-            if (Input.is('enter') || Input.is('space'))
+            if (accept || accept_alt)
             {
                 curPiece.move(getDropDistance(), 0);
                 placePiece();
@@ -132,7 +145,7 @@ class PlayState extends FlxState
             openSubState(new states.games.tetris.GameOverSubState());
         }
 
-        if (Input.is('exit')) 
+        if (exit) 
         {
             FlxG.resetState();
             FlxG.switchState(new states.games.tetris.MainMenuState());

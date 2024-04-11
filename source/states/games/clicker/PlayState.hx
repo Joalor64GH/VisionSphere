@@ -63,7 +63,13 @@ class PlayState extends FlxState
         if (clicks == 38 || clicks >= 38)
             win = true;
 
-        if (Input.is('w') && win)
+        var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
+
+        var winner = Input.is('w') || (gamepad != null ? Input.gamepadIs('start') : false);
+        var clicker = FlxG.mouse.justPressed || (gamepad != null ? Input.gamepadIs('a') : false);
+        var exit = Input.is('exit') || (gamepad != null ? Input.gamepadIs('gamepad_exit') : false);
+
+        if (winner && win)
         {
             FlxG.camera.fade(FlxColor.BLACK, 0.33, false, () ->
             {
@@ -71,7 +77,7 @@ class PlayState extends FlxState
                 FlxG.switchState(new states.games.clicker.WinState());
             });
         }
-        else if (Input.is('exit'))
+        else if (exit)
         {
             FlxG.camera.fade(FlxColor.BLACK, 0.33, false, () ->
             {
@@ -80,10 +86,10 @@ class PlayState extends FlxState
             });
         }
 
-        if (FlxG.mouse.justPressed) 
+        if (clicker) 
         {
             click();
-            clicks += 1;
+            clicks++;
         }
     }
 

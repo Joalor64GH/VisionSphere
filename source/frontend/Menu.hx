@@ -66,11 +66,17 @@ class Menu extends FlxSubState
 
     public override function update(elapsed:Float)
     {
+        var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
+
+        var up = Input.is('up') || (gamepad != null ? Input.gamepadIs('gamepad_up') : false);
+        var down = Input.is('down') || (gamepad != null ? Input.gamepadIs('gamepad_down') : false);
+        var accept = Input.is('accept') || (gamepad != null ? Input.gamepadIs('gamepad_accept') : false);
+
         if (ready)
         {
             cursor.x += Math.sin(uhhhh);
             cursor.setGraphicSize(Std.int(cursor.width += Math.sin(uhhhh)));
-            uhhhh += 1;
+            uhhhh++;
 
             if (currentOption < 0)
             {
@@ -83,17 +89,17 @@ class Menu extends FlxSubState
                 FlxTween.tween(cursor, {y: optionsT.y}, 0.2, {ease: FlxEase.quadInOut});
             }
 
-            if (Input.is('up') && !justPressedEnter && currentOption >= 0 && currentOption <= maxOptions)
+            if (up && !justPressedEnter && currentOption >= 0 && currentOption <= maxOptions)
             {
                 currentOption--;
                 FlxTween.tween(cursor, {y: cursor.y - 40}, 0.2, {ease: FlxEase.quadInOut});
             }
-            else if (Input.is('down') && !justPressedEnter && currentOption >= 0 && currentOption <= maxOptions)
+            else if (down && !justPressedEnter && currentOption >= 0 && currentOption <= maxOptions)
             {
                 currentOption++;
                 FlxTween.tween(cursor, {y: cursor.y + 40}, 0.2, {ease: FlxEase.quadInOut});
             }
-            else if (Input.is('accept') && !justPressedEnter && currentOption >= 0 && currentOption <= maxOptions)
+            else if (accept && !justPressedEnter && currentOption >= 0 && currentOption <= maxOptions)
             {
                 if (flashTimer != null)
                 {

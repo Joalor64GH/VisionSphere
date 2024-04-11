@@ -24,7 +24,11 @@ class GameOverSubState extends FlxSubState
     {
         super.update(elapsed);
 
-        if (Input.is('any'))
+        var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
+
+        var any = Input.is('any') || (gamepad != null ? Input.gamepadIs('any') : false);
+
+        if (any)
         {
             FlxG.camera.fade(FlxColor.BLACK, 0.33, false, () ->
             {

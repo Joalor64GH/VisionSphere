@@ -7,10 +7,7 @@ class LevelSelectState extends FlxState
     var curSelected:Int = 0;
 
     override public function create()
-    {
-        Paths.clearStoredMemory();
-        Paths.clearUnusedMemory();
-        
+    {   
         var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('game/jta/bgLevelSelect'));
         bg.screenCenter();
         add(bg);
@@ -33,16 +30,22 @@ class LevelSelectState extends FlxState
 
     override public function update(elapsed:Float)
     {
-        if (Input.is('up') || Input.is('down'))
+        var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
+
+        var up = Input.is('up') || (gamepad != null ? Input.gamepadIs('gamepad_up') : false);
+        var down = Input.is('down') || (gamepad != null ? Input.gamepadIs('gamepad_down') : false);
+        var accept = Input.is('enter') || (gamepad != null ? Input.gamepadIs('a') : false);
+        var exit = Input.is('escape') || (gamepad != null ? Input.gamepadIs('b') : false);
+
+        if (up || down)
         {
             FlxG.sound.play(Paths.sound('scroll'));
-            changeSelection(Input.is('up') ? -1 : 1);
+            changeSelection(up ? -1 : 1);
         }
 
-        if (Input.is('enter'))
+        if (accept)
         {
             FlxG.sound.play(Paths.sound('jta/play'));
-            
             FlxG.camera.fade(FlxColor.BLACK, 0.33, false, () -> 
             {
                 switch (levels[curSelected])
@@ -57,24 +60,19 @@ class LevelSelectState extends FlxState
             });
         }
 
-        if (Input.is('exit'))
+        if (exit)
         {
+            FlxG.sound.play(Paths.sound('jta/exit'));
             FlxG.camera.fade(FlxColor.BLACK, 0.33, false, () ->
             {
                 FlxG.switchState(new states.games.jta.MainMenuState());
             });
-            FlxG.sound.play(Paths.sound('jta/exit'));
         }
     }
 
     private function changeSelection(change:Int = 0)
     {
-        curSelected += change;
-
-        if (curSelected < 0)
-            curSelected = lvlGrp.length - 1;
-        if (curSelected >= lvlGrp.length)
-            curSelected = 0;
+        curSelected = FlxMath.wrap(curSelected + change, 0, levels.length - 1);
 
         lvlGrp.forEach((txt:FlxText) ->
         {

@@ -87,7 +87,12 @@ class Phone extends FlxState
 
         super.update(elapsed);
 
-        if (Input.is('exit') && canSelect) 
+        var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
+
+        var accept = Input.is('accept') || (gamepad != null ? Input.gamepadIs('gamepad_accept') : false);
+        var exit = Input.is('exit') || (gamepad != null ? Input.gamepadIs('gamepad_exit') : false);
+
+        if (exit && canSelect) 
         {
             FlxG.camera.fade(FlxColor.BLACK, 0.5, false, () ->
             {
@@ -102,7 +107,7 @@ class Phone extends FlxState
                     if (FlxG.mouse.justPressed)
                         code.text += selection;
         
-        if (Input.is('accept') && code.text != '')
+        if (accept && code.text != '')
         {
             switch (code.text) 
             {

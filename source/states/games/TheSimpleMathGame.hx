@@ -10,9 +10,6 @@ class MainMenuState extends FlxState
 {
     override public function create()
     {
-        Paths.clearStoredMemory();
-        Paths.clearUnusedMemory();
-
         var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('game/math/background'));
         add(bg);
 
@@ -82,7 +79,11 @@ class MainMenuState extends FlxState
     {
         super.update(elapsed);
 
-        if (Input.is('exit')) 
+        var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
+
+        var exit = Input.is('exit') || (gamepad != null ? Input.gamepadIs('gamepad_exit') : false);
+
+        if (exit) 
         {
             FlxG.camera.fade(FlxColor.BLACK, 0.5, false, () ->
             {
@@ -106,9 +107,6 @@ class GameOverState extends FlxState
     override public function create()
     {
         super.create();
-
-        Paths.clearStoredMemory();
-        Paths.clearUnusedMemory();
 
         var text:FlxText = new FlxText(0, 0, 0, "Game Over!\nYour final score is $finalScore" + ".\nGood Job!", 12);
         text.setFormat(Paths.font('vcr.ttf'), 64, FlxColor.WHITE, FlxTextAlign.CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
@@ -166,9 +164,6 @@ class PlayState extends FlxState
 
     override public function create()
     {
-        Paths.clearStoredMemory();
-        Paths.clearUnusedMemory();
-
         var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('game/math/background'));
         add(bg);
 
@@ -214,21 +209,28 @@ class PlayState extends FlxState
 
         scoreTxt.text = 'Score: $score';
 
-        if (Input.is('accept') && input.text != '')
+        var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
+
+        var end = Input.is('end') || (gamepad != null ? Input.gamepadIs('back') : false);
+        var accept = Input.is('accept') || (gamepad != null ? Input.gamepadIs('gamepad_accept') : false);
+        var accept_alt = Input.is('space') || (gamepad != null ? Input.gamepadIs('start') : false);
+        var exit = Input.is('exit') || (gamepad != null ? Input.gamepadIs('gamepad_exit') : false);
+
+        if (accept && input.text != '')
             checkAnswer();
 
-        if (Input.is('space'))
+        if (accept_alt)
             generateQuestion();
 
-        if (Input.is('exit'))
+        if (exit)
             FlxG.switchState(new states.games.TheSimpleMathGame.MainMenuState());
 
-        if (Input.is('end')) // end game
+        if (end) // end game
             FlxG.switchState(new states.games.TheSimpleMathGame.GameOverState(score));
 
         if (timed == true)
         {
-            timeLeft -= 1;
+            timeLeft--;
 
             timeTxt.text = 'Time Left: $timeLeft';
 

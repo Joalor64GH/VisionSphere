@@ -115,6 +115,6 @@ class Localization
             }
         }
 
-        return Reflect.field(languageData, key) ?? 'missing key';
+        return Reflect.field(languageData, key) ?? 'missing key: $key';
     }
 }

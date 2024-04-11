@@ -33,7 +33,13 @@ class ReactionGame extends FlxState
 
         text.screenCenter(X);
 
-        if (Input.is('exit'))
+        var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
+
+        var any = Input.is('any') || (gamepad != null ? Input.gamepadIs('any') : false);
+        var restart = Input.is('r') || (gamepad != null ? Input.gamepadIs('right_stick_click') : false);
+        var exit = Input.is('exit') || (gamepad != null ? Input.gamepadIs('gamepad_exit') : false);
+
+        if (exit)
         {
             FlxG.sound.play(Paths.sound('cancel'));
             FlxG.camera.fade(FlxColor.BLACK, 0.5, false, () -> 
@@ -42,7 +48,7 @@ class ReactionGame extends FlxState
             });
         }
 
-        if (Input.is('any') && !anyPressed && allowInputs && !gameEnded)
+        if (any && !anyPressed && allowInputs && !gameEnded)
         {
             anyPressed = true;
             text.text = "Get ready...";
@@ -52,7 +58,7 @@ class ReactionGame extends FlxState
             });
         }
 
-        if (Input.is('r') && gameEnded)
+        if (restart && gameEnded)
         {
             FlxG.camera.fade(FlxColor.BLACK, 0.33, false, () -> 
             {

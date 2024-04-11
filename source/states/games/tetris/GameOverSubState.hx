@@ -20,19 +20,27 @@ class GameOverSubState extends FlxSubState
     {
         super.update(elapsed);
 
-        if (Input.is('r'))
+        var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
+
+        var restart = Input.is('r') || (gamepad != null ? Input.gamepadIs('right_stick_click') : false);
+        var exit = Input.is('escape') || (gamepad != null ? Input.gamepadIs('b') : false);
+
+        if (restart)
         {
             close();
-            FlxG.resetState();
             FlxG.sound.play(Paths.sound('confirm'));
+            FlxG.camera.fade(FlxColor.BLACK, 0.33, false, () ->
+            {
+                FlxG.resetState();
+            });
         }
-        else if (Input.is('escape'))
+        else if (exit)
         {
+            FlxG.sound.play(Paths.sound('cancel'));
             FlxG.camera.fade(FlxColor.BLACK, 0.33, false, () ->
             {
                 FlxG.switchState(new states.games.tetris.MainMenuState());
             });
-            FlxG.sound.play(Paths.sound('cancel'));
         }
     }
 }

@@ -6,9 +6,6 @@ class DVDScreensaver extends FlxState
 
     override public function create()
     {
-        Paths.clearStoredMemory();
-        Paths.clearUnusedMemory();
-
         dvdLogo = new FlxSprite(0, 0).loadGraphic(Paths.image('game/dvd/dvd'));
         dvdLogo.setGraphicSize(200, 5);
         dvdLogo.scale.y = dvdLogo.scale.x;
@@ -26,7 +23,11 @@ class DVDScreensaver extends FlxState
     {
         super.update(elapsed);
 
-        if (Input.is('exit')) 
+        var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
+
+        var exit = Input.is('exit') || (gamepad != null ? Input.gamepadIs('gamepad_exit') : false);
+
+        if (exit) 
         {
             FlxG.camera.fade(FlxColor.BLACK, 0.5, false, () ->
             {

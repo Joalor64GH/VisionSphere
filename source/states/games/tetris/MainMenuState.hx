@@ -39,10 +39,16 @@ class MainMenuState extends FlxState
     {
         super.update(elapsed);
 
-        if (Input.is('left') || Input.is('right'))
+        var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
+
+        var left = Input.is('left') || (gamepad != null ? Input.gamepadIs('gamepad_left') : false);
+        var right = Input.is('right') || (gamepad != null ? Input.gamepadIs('gamepad_right') : false);
+        var accept = Input.is('accept') || (gamepad != null ? Input.gamepadIs('gamepad_accept') : false);
+
+        if (left || right)
             changeSelection();
 
-        if (Input.is('accept'))
+        if (accept)
         {
             FlxG.camera.fade(FlxColor.BLACK, 0.5, false, () ->
             {
