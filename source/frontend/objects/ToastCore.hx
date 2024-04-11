@@ -7,8 +7,6 @@ import openfl.display.Sprite;
 import openfl.text.TextField;
 import openfl.text.TextFormat;
 
-using StringTools;
-
 /**
 	@author Firubii
 **/

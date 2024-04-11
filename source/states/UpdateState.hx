@@ -26,37 +26,23 @@ class UpdateState extends FlxState
     {
         super.update(elapsed);
 
-        if (Input.is('accept'))
+        var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
+
+        var accept = Input.is('accept') || (gamepad != null ? Input.gamepadIs('gamepad_accept') : false);
+        var exit = Input.is('exit') || (gamepad != null ? Input.gamepadIs('gamepad_exit') : false);
+
+        if (accept)
         {
             FlxG.sound.play(Paths.sound('confirm'));
             CoolUtil.browserLoad("https://github.com/Joalor64GH/VisionSphere/actions/");
         }
-        else if (Input.is('exit'))
+        else if (exit)
         {
             FlxG.camera.fade(FlxColor.BLACK, 0.5, false, () ->
             {
                 FlxG.switchState(SplashState.new);
             });
             FlxG.sound.play(Paths.sound('cancel'));
-        }
-
-        var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
-
-        if (gamepad != null)
-        {
-            if (Input.gamepadIs('start'))
-            {
-                FlxG.sound.play(Paths.sound('confirm'));
-                CoolUtil.browserLoad("https://github.com/Joalor64GH/VisionSphere/actions/");
-            }
-            else if (Input.gamepadIs('back'))
-            {
-                FlxG.camera.fade(FlxColor.BLACK, 0.5, false, () ->
-                {
-                    FlxG.switchState(SplashState.new);
-                });
-                FlxG.sound.play(Paths.sound('cancel'));
-            }
         }
     }
 

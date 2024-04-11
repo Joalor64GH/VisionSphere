@@ -164,23 +164,28 @@ class CreditsState extends FlxState
             }
         }
 
-        if (Input.is('left') || Input.is('right'))
+        var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
+
+        var left = Input.is('left') || (gamepad != null ? Input.gamepadIs('gamepad_left') : false);
+        var right = Input.is('right') || (gamepad != null ? Input.gamepadIs('gamepad_right') : false);
+        var accept = Input.is('accept') || (gamepad != null ? Input.gamepadIs('gamepad_accept') : false);
+        var exit = Input.is('exit') || (gamepad != null ? Input.gamepadIs('gamepad_exit') : false);
+
+        if (left || right)
         {
             FlxG.sound.play(Paths.sound('scroll'));
-            updateSocial(Input.is('left') ? -1 : 1);
+            updateSocial(left ? -1 : 1);
         }
 
-        if (Input.is('accept') && credData.users[curSelected].urlData[curSocial][1] != null)
+        if (accept && credData.users[curSelected].urlData[curSocial][1] != null)
             CoolUtil.browserLoad(credData.users[curSelected].urlData[curSocial][1]);
 
-        if (Input.is('exit'))
+        if (exit)
         {
             FlxG.sound.play(Paths.sound('cancel'));
             FlxG.switchState(OptionsState.new);
             Paths.clearUnusedMemory();
         }
-
-        var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
 
         if (gamepad != null) 
         {
@@ -214,22 +219,6 @@ class CreditsState extends FlxState
                         changeSelection();
                     }
                 }
-            }
-
-            if (Input.gamepadIs('gamepad_left') || Input.gamepadIs('gamepad_right'))
-            {
-                FlxG.sound.play(Paths.sound('scroll'));
-                updateSocial(Input.gamepadIs('gamepad_left') ? -1 : 1);
-            }
-
-            if (Input.gamepadIs('gamepad_accept') && credData.users[curSelected].urlData[curSocial][1] != null)
-                CoolUtil.browserLoad(credData.users[curSelected].urlData[curSocial][1]);
-
-            if (Input.is('gamepad_exit'))
-            {
-                FlxG.sound.play(Paths.sound('cancel'));
-                FlxG.switchState(OptionsState.new);
-                Paths.clearUnusedMemory();
             }
         }
 

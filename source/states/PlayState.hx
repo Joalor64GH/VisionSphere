@@ -23,7 +23,6 @@ class GameThumbnail extends FlxSprite
 class PlayState extends FlxState
 {
     var currentIndex:Int = 0;
-    
     var itemGrp:FlxTypedGroup<GameThumbnail>;
 
     var paths:Array<String> = [];
@@ -98,19 +97,26 @@ class PlayState extends FlxState
         checker.x -= 0.45;
         checker.y -= 0.16;
 
-        if (Input.is('exit')) 
+        var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
+
+        var left = Input.is('left') || (gamepad != null ? Input.gamepadIs('gamepad_left') : false);
+        var right = Input.is('right') || (gamepad != null ? Input.gamepadIs('gamepad_right') : false);
+        var accept = Input.is('accept') || (gamepad != null ? Input.gamepadIs('gamepad_accept') : false);
+        var exit = Input.is('exit') || (gamepad != null ? Input.gamepadIs('gamepad_exit') : false);
+
+        if (exit) 
         {
             FlxG.switchState(MenuState.new);
             FlxG.sound.play(Paths.sound('cancel'));
         }
 
-        if (Input.is('left') || Input.is('right'))
+        if (left || right)
         {
             FlxG.sound.play(Paths.sound('scroll'));
-            changeSelection(Input.is('left') ? -1 : 1);
+            changeSelection(left ? -1 : 1);
         }
 
-        if (Input.is('accept'))
+        if (accept)
         {
             FlxG.sound.play(Paths.sound('confirm'));
             FlxG.camera.fade(FlxColor.BLACK, 0.5, false, () -> 
@@ -135,50 +141,6 @@ class PlayState extends FlxState
                         FlxG.switchState(new states.games.Phone());
                 }
             });
-        }
-
-        var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
-
-        if (gamepad != null) 
-        {
-            if (Input.gamepadIs('gamepad_exit')) 
-            {
-                FlxG.switchState(MenuState.new);
-                FlxG.sound.play(Paths.sound('cancel'));
-            }
-
-            if (Input.gamepadIs('gamepad_left') || Input.is('gamepad_right'))
-            {
-                FlxG.sound.play(Paths.sound('scroll'));
-                changeSelection(Input.is('left') ? -1 : 1);
-            }
-
-            if (Input.gamepadIs('gamepad_accept'))
-            {
-                FlxG.sound.play(Paths.sound('confirm'));
-                FlxG.camera.fade(FlxColor.BLACK, 0.5, false, () -> 
-                {
-                    switch (currentIndex)
-                    {
-                        case 0:
-                            FlxG.switchState(new states.games.clicker.MainMenuState());
-                        case 1:
-                            FlxG.switchState(new states.games.DVDScreensaver());
-                        case 2:
-                            FlxG.switchState(new states.games.jta.MainMenuState());
-                        case 3:
-                            FlxG.switchState(new states.games.Painter());
-                        case 4:
-                            FlxG.switchState(new states.games.TheSimpleMathGame.MainMenuState());
-                        case 5:
-                            FlxG.switchState(new states.games.tetris.MainMenuState());
-                        case 6:
-                            FlxG.switchState(new states.games.ReactionGame());
-                        case 7:
-                            FlxG.switchState(new states.games.Phone());
-                    }
-                });
-            }
         }
     }
 

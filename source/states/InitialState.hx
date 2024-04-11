@@ -97,13 +97,19 @@ class InitialState extends FlxState
     {
         super.update(elapsed);
 
-        if (Input.is('up') || Input.is('down'))
+        var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
+
+        var up = Input.is('up') || (gamepad != null ? Input.gamepadIs('gamepad_up') : false);
+        var down = Input.is('down') || (gamepad != null ? Input.gamepadIs('gamepad_down') : false);
+        var accept = Input.is('accept') || (gamepad != null ? Input.gamepadIs('gamepad_accept') : false);
+
+        if (up || down)
         {
             FlxG.sound.play(Paths.sound('scroll'));
-            changeSelection(Input.is('up') ? -1 : 1);
+            changeSelection(up ? -1 : 1);
         }
 
-        if (Input.is('accept'))
+        if (accept)
         {
             FlxG.sound.play(Paths.sound('confirm'));
             switch (options[curSelected])
@@ -130,47 +136,6 @@ class InitialState extends FlxState
                         openfl.system.System.exit(0);
                         #end
                     });
-            }
-        }
-
-        var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
-
-        if (gamepad != null) 
-        {
-            if (Input.gamepadIs('gamepad_up') || Input.gamepadIs('gamepad_down'))
-            {
-                FlxG.sound.play(Paths.sound('scroll'));
-                changeSelection(Input.is('up') ? -1 : 1);
-            }
-
-            if (Input.gamepadIs('gamepad_accept'))
-            {
-                FlxG.sound.play(Paths.sound('confirm'));
-                switch (options[curSelected])
-                {
-                    case "Play":
-                        FlxG.camera.fade(FlxColor.BLACK, 0.33, false, () ->
-                        {
-                            #if desktop
-                            UpdateState.updateCheck();
-                            FlxG.switchState((UpdateState.mustUpdate) ? UpdateState.new : SplashState.new);
-                            #else
-                            trace('Sorry! No update support on: ' + backend.system.PlatformUtil.getPlatform() + '!');
-                            FlxG.switchState(SplashState.new);
-                            #end
-                        });
-                    case "Website":
-                        CoolUtil.browserLoad('https://github.com/Joalor64GH/VisionSphere');
-                    case "Exit":
-                        FlxG.camera.fade(FlxColor.BLACK, 0.5, false, () ->
-                        {
-                            #if (sys || cpp)
-                            Sys.exit(0);
-                            #else
-                            openfl.system.System.exit(0);
-                            #end
-                        });
-                }
             }
         }
     }

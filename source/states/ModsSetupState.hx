@@ -184,8 +184,7 @@ class ModsSetupState extends FlxState
 
     public static function setupModFolder(name:String)
     {
-        for (k in modFolderDirs.keys())
-        {
+        for (k in modFolderDirs.keys()) {
             var keyArr = modFolderDirs.get(k);
             createFolderWithTxt('$name/$k');
             for (i in keyArr) createFolderWithTxt('$name/$k/$i');
@@ -217,22 +216,15 @@ class ModsSetupState extends FlxState
         super.update(elapsed);
 
         if (modTab.getFocus()) return;
-        
-        if (Input.is('exit')) 
-        {
-            FlxG.switchState(ModsState.new);
-            FlxG.sound.play(Paths.sound('cancel'));
-        }
 
         var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
 
-        if (gamepad != null)
+        var exit = Input.is('exit') || (gamepad != null ? Input.gamepadIs('gamepad_exit') : false);
+        
+        if (exit) 
         {
-            if (Input.gamepadIs('gamepad_exit')) 
-            {
-                FlxG.switchState(ModsState.new);
-                FlxG.sound.play(Paths.sound('cancel'));
-            }
+            FlxG.switchState(ModsState.new);
+            FlxG.sound.play(Paths.sound('cancel'));
         }
     }
 }

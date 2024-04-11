@@ -1,8 +1,6 @@
 package backend;
 
-import openfl.utils.Assets;
-
-using StringTools;
+import openfl.Assets;
 
 class CoolUtil
 {

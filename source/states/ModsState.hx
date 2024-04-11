@@ -5,8 +5,6 @@ import flixel.ui.FlxButton;
 import openfl.display.BitmapData;
 import openfl.geom.Rectangle;
 
-using StringTools;
-
 class ModsState extends FlxState
 {
 	static var changedAThing:Bool = false;

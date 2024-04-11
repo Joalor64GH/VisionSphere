@@ -4,8 +4,6 @@ import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.group.FlxSpriteGroup;
 import flixel.math.FlxPoint;
 
-using StringTools;
-
 enum Alignment
 {
 	LEFT;

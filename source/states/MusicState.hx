@@ -34,11 +34,6 @@ class MusicState extends BeatState
 
     override public function create()
     {
-        Paths.clearStoredMemory();
-        Paths.clearUnusedMemory();
-        
-        openfl.system.System.gc();
-
         super.create();
 
         musicData = Json.parse(Paths.getTextFromFile('data/music.json'));
@@ -82,28 +77,37 @@ class MusicState extends BeatState
 
         camZooming = (FlxG.sound.music.playing) ? true : false;
 
-        if (Input.is('r'))
+        var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
+
+        var left = Input.is('left') || (gamepad != null ? Input.gamepadIs('gamepad_left') : false);
+        var right = Input.is('right') || (gamepad != null ? Input.gamepadIs('gamepad_right') : false);
+        var accept = Input.is('accept') || (gamepad != null ? Input.gamepadIs('gamepad_accept') : false);
+        var accept_alt = Input.is('space') || (gamepad != null ? Input.gamepadIs('start') : false);
+        var exit = Input.is('exit') || (gamepad != null ? Input.gamepadIs('gamepad_exit') : false);
+        var restart = Input.is('r') || (gamepad != null ? Input.gamepadIs('right_stick_click') : false);
+
+        if (restart)
             FlxG.resetState();
 
-        if (Input.is('exit'))
+        if (exit)
         {
             FlxG.switchState(MenuState.new);
             FlxG.sound.music.volume = 0;
         }
 
-        if (Input.is('left') || Input.is('right'))
+        if (left || right)
         {
             new FlxTimer().start(0.01, (timer) -> 
             {
                 FlxG.sound.play(Paths.sound('scroll'));
             });
-            changeSong(Input.is('left') ? -1 : 1);
+            changeSong(left ? -1 : 1);
         }
 
         if (FlxG.sound.music != null)
         {
             Conductor.songPosition = FlxG.sound.music.time;
-            if ((Input.is('accept') || Input.is('space')) && loaded)
+            if ((accept || accept_alt) && loaded)
             {
                 if (!FlxG.sound.music.playing)
                 {
@@ -115,48 +119,6 @@ class MusicState extends BeatState
                 {
                     FlxG.sound.music.pause();
                     disc.angularVelocity = 0;
-                }
-            }
-        }
-
-        var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
-
-        if (gamepad != null)
-        {
-            if (Input.gamepadIs('right_stick_click'))
-                FlxG.resetState();
-
-            if (Input.gamepadIs('gamepad_exit'))
-            {
-                FlxG.switchState(MenuState.new);
-                FlxG.sound.music.volume = 0;
-            }
-
-            if (Input.gamepadIs('gamepad_left') || Input.gamepadIs('gamepad_right'))
-            {
-                new FlxTimer().start(0.01, (timer) -> 
-                {
-                    FlxG.sound.play(Paths.sound('scroll'));
-                });
-                changeSong(Input.gamepadIs('left') ? -1 : 1);
-            }
-
-            if (FlxG.sound.music != null)
-            {
-                Conductor.songPosition = FlxG.sound.music.time;
-                if ((Input.gamepadIs('gamepad_accept') || Input.gamepadIs('start')) && loaded)
-                {
-                    if (!FlxG.sound.music.playing)
-                    {
-                        FlxG.sound.music.play();
-                        disc.angularVelocity = 30;
-                        timeBar.value = (Conductor.songPosition / FlxG.sound.music.length);
-                    }
-                    else 
-                    {
-                        FlxG.sound.music.pause();
-                        disc.angularVelocity = 0;
-                    }
                 }
             }
         }

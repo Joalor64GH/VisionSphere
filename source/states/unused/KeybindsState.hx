@@ -1,23 +1,14 @@
 package states.unused;
 
-import flixel.input.keyboard.FlxKey;
-
-using StringTools;
-
 class KeybindsState extends FlxState
 {
     var grpControls:FlxTypedGroup<Alphabet>;
-    var controlsStrings:Array<String> = [];
+    var controlsStrings:Array<String> = ["unused"];
     var curSelected:Int = 0;
 
     override public function create()
     {
-        Paths.clearStoredMemory();
-        Paths.clearUnusedMemory();
-        
         trace("this is old and scuffed why are you here");
-        
-        controlsStrings = CoolUtil.getText(Paths.txt('controls'));
 
         var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('theme/' + SaveData.theme));
         add(bg);
@@ -27,13 +18,10 @@ class KeybindsState extends FlxState
 
         for (i in 0...controlsStrings.length)
         {
-            if (controlsStrings[i].indexOf('set') != -1)
-            {
-                var controlLabel:Alphabet = new Alphabet(90, 320, controlsStrings[i].substring(3) + ': ' + controlsStrings[i + 1], true);
-                controlLabel.isMenuItem = true;
-                controlLabel.targetY = i;
-                grpControls.add(controlLabel);
-            }
+            var controlLabel:Alphabet = new Alphabet(90, 320, controlsStrings[i], true);
+            controlLabel.isMenuItem = true;
+            controlLabel.targetY = i;
+            grpControls.add(controlLabel);
         }
 
         changeSelection();

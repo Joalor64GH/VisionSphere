@@ -72,25 +72,17 @@ class SplashState extends FlxState
             });
         });
 
-        if (Input.is('enter') || Input.is('space'))
+        var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
+
+        var accept = Input.is('enter') || (gamepad != null ? Input.gamepadIs('a') : false);
+        var accept_alt = Input.is('space') || (gamepad != null ? Input.gamepadIs('start') : false);
+
+        if (accept || accept_alt)
         {
             FlxG.camera.fade(FlxColor.BLACK, 0.33, false, () ->
             {
                 FlxG.switchState(MenuState.new);
             });
-        }
-
-        var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
-
-        if (gamepad != null)
-        {
-            if (Input.gamepadIs('a') || Input.gamepadIs('start'))
-            {
-                FlxG.camera.fade(FlxColor.BLACK, 0.33, false, () ->
-                {
-                    FlxG.switchState(MenuState.new);
-                });
-            }
         }
     }
 }

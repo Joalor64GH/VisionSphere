@@ -81,24 +81,20 @@ class AccountState extends FlxState
         if (FlxG.mouse.overlaps(usernameTxt) && FlxG.mouse.pressed)
             openSubState(new AccountNameSubState());
 
-        if (Input.is('right') || Input.is('left'))
-            switchProfile(Input.is('right') ? 1 : -1);
+        var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
 
-        if (Input.is('exit')) 
+        var left = Input.is('left') || (gamepad != null ? Input.gamepadIs('gamepad_left') : false);
+        var right = Input.is('right') || (gamepad != null ? Input.gamepadIs('gamepad_right') : false);
+        var accept = Input.is('accept') || (gamepad != null ? Input.gamepadIs('gamepad_accept') : false);
+        var exit = Input.is('exit') || (gamepad != null ? Input.gamepadIs('gamepad_exit') : false);
+
+        if (right || left)
+            switchProfile(right ? 1 : -1);
+
+        if (exit) 
         {
             FlxG.switchState(MenuState.new);
             FlxG.sound.play(Paths.sound('cancel'));
-        }
-
-        var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
-
-        if (gamepad != null) 
-        {
-            if (Input.gamepadIs('gamepad_right') || Input.gamepadIs('gamepad_left'))
-                switchProfile(Input.gamepadIs('gamepad_right') ? 1 : -1);
-
-            if (Input.gamepadIs('gamepad_exit'))
-                FlxG.switchState(MenuState.new);
         }
     }
 

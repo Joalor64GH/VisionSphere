@@ -29,21 +29,14 @@ class SystemInfoSubState extends FlxSubState
     {
         super.update(elapsed);
 
-        if (Input.is('exit')) 
+        var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
+
+        var exit = Input.is('exit') || (gamepad != null ? Input.gamepadIs('gamepad_exit') : false);
+
+        if (exit) 
         {
             FlxG.sound.play(Paths.sound("cancel"));
             close();
-        }
-
-        var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
-
-        if (gamepad != null)
-        {
-            if (Input.gamepadIs('gamepad_exit')) 
-            {
-                FlxG.sound.play(Paths.sound("cancel"));
-                close();
-            }
         }
     }
 }

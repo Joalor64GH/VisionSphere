@@ -56,13 +56,22 @@ class PreferencesState extends FlxState
 
         updateText();
 
-        if (Input.is('up') || Input.is('down'))
+        var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
+
+        var up = Input.is('up') || (gamepad != null ? Input.gamepadIs('gamepad_up') : false);
+        var down = Input.is('down') || (gamepad != null ? Input.gamepadIs('gamepad_down') : false);
+        var left = Input.is('left') || (gamepad != null ? Input.gamepadIs('gamepad_left') : false);
+        var right = Input.is('right') || (gamepad != null ? Input.gamepadIs('gamepad_right') : false);
+        var accept = Input.is('accept') || (gamepad != null ? Input.gamepadIs('gamepad_accept') : false);
+        var exit = Input.is('exit') || (gamepad != null ? Input.gamepadIs('gamepad_exit') : false);
+
+        if (up || down)
         {
             FlxG.sound.play(Paths.sound('scroll'));
-            changeSelection(Input.is('up') ? -1 : 1);
+            changeSelection(up ? -1 : 1);
         }
 
-        if (Input.is('accept'))
+        if (accept)
         {
             FlxG.sound.play(Paths.sound('confirm'));
             switch (options[curSelected])
@@ -83,101 +92,36 @@ class PreferencesState extends FlxState
             }
         }
 
-        if (Input.is('exit')) 
+        if (exit) 
         {
             FlxG.switchState(OptionsState.new);
             FlxG.sound.play(Paths.sound('cancel'));
             SaveData.saveSettings();
         }
 
-        if (Input.is('right') || Input.is('left'))
+        if (right || left)
         {
             FlxG.sound.play(Paths.sound('scroll'));
             switch (options[curSelected])
             {
                 case "Theme":
-                    switchTheme(Input.is('right') ? 1 : -1);
+                    switchTheme(right ? 1 : -1);
                 case "Time Format":
-                    switchTime(Input.is('right') ? 1 : -1);
+                    switchTime(right ? 1 : -1);
             }
         }
         
         if (options[curSelected] == "Framerate")
         {
-            if (Input.is('right') || Input.is('left'))
+            if (right || left)
             {
                 FlxG.sound.play(Paths.sound('scroll'));
-                if (!Input.is('left'))
+                if (!left)
                     SaveData.framerate += (SaveData.framerate == 240) ? 0 : 10;
                 else
                     SaveData.framerate -= (SaveData.framerate == 60) ? 0 : 10;
                 
                 Main.updateFramerate(SaveData.framerate);
-            }
-        }
-
-        var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
-
-        if (gamepad != null)
-        {
-            if (Input.gamepadIs('gamepad_up') || Input.gamepadIs('gamepad_down'))
-            {
-                FlxG.sound.play(Paths.sound('scroll'));
-                changeSelection(Input.gamepadIs('gamepad_up') ? -1 : 1);
-            }
-
-            if (Input.gamepadIs('gamepad_accept'))
-            {
-                FlxG.sound.play(Paths.sound('confirm'));
-                switch (options[curSelected])
-                {
-                    #if desktop
-                    case "Fullscreen":
-                        SaveData.fullscreen = !SaveData.fullscreen;
-                        FlxG.fullscreen = SaveData.fullscreen;
-                    #end
-                    case "FPS Counter":
-                        SaveData.fpsCounter = !SaveData.fpsCounter;
-                        if (Main.fpsDisplay != null)
-                            Main.fpsDisplay.visible = SaveData.fpsCounter;
-                    case "Language":
-                        openSubState(new LanguageSubState());
-                    case "Colorblind Filter":
-                        openSubState(new FilterSubState());
-                }
-            }
-
-            if (Input.gamepadIs('gamepad_exit'))
-            {
-                FlxG.switchState(OptionsState.new);
-                FlxG.sound.play(Paths.sound('cancel'));
-                SaveData.saveSettings();
-            }
-
-            if (Input.gamepadIs('gamepad_right') || Input.gamepadIs('gamepad_left'))
-            {
-                FlxG.sound.play(Paths.sound('scroll'));
-                switch (options[curSelected])
-                {
-                    case "Theme":
-                        switchTheme(Input.gamepadIs('gamepad_right') ? 1 : -1);
-                    case "Time Format":
-                        switchTime(Input.gamepadIs('gamepad_right') ? 1 : -1);
-                }
-            }
-        
-            if (options[curSelected] == "Framerate")
-            {
-                if (Input.gamepadIs('gamepad_right') || Input.gamepadIs('gamepad_left'))
-                {
-                    FlxG.sound.play(Paths.sound('scroll'));
-                    if (!Input.gamepadIs('gamepad_left'))
-                        SaveData.framerate += (SaveData.framerate == 240) ? 0 : 10;
-                    else
-                        SaveData.framerate -= (SaveData.framerate == 60) ? 0 : 10;
-                
-                    Main.updateFramerate(SaveData.framerate);
-                }
             }
         }
 

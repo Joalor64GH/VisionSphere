@@ -3,8 +3,6 @@ package frontend.video;
 import flixel.sound.FlxSound;
 import frontend.video.*;
 
-using StringTools;
-
 class VideoState extends FlxState
 {
 	var leSource:String = "";

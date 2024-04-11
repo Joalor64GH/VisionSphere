@@ -37,29 +37,19 @@ class AccountNameSubState extends FlxSubState
 
         input.hasFocus = true;
 
-        if (Input.is('accept') && input.text != '')
+        var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
+
+        var accept = Input.is('accept') || (gamepad != null ? Input.gamepadIs('gamepad_accept') : false);
+        var exit = Input.is('exit') || (gamepad != null ? Input.gamepadIs('gamepad_exit') : false);
+
+        if (accept && input.text != '')
         {
             trace('changed username to: ' + input.text);
             SaveData.username = input.text;
             SaveData.saveSettings();
             close();
         }
-        else if (Input.is('exit'))
+        else if (exit)
             close();
-
-        var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
-
-        if (gamepad != null)
-        {
-            if (Input.gamepadIs('gamepad_accept') && input.text != '')
-            {
-                trace('changed username to: ' + input.text);
-                SaveData.username = input.text;
-                SaveData.saveSettings();
-                close();
-            }
-            else if (Input.gamepadIs('gamepad_exit'))
-                close();
-        }
     }
 }

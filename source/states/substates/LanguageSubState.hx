@@ -88,13 +88,20 @@ class LanguageSubState extends FlxSubState
     {
         super.update(elapsed);
 
-        if (Input.is('up') || Input.is('down'))
+        var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
+
+        var up = Input.is('up') || (gamepad != null ? Input.gamepadIs('gamepad_up') : false);
+        var down = Input.is('down') || (gamepad != null ? Input.gamepadIs('gamepad_down') : false);
+        var accept = Input.is('accept') || (gamepad != null ? Input.gamepadIs('gamepad_accept') : false);
+        var exit = Input.is('exit') || (gamepad != null ? Input.gamepadIs('gamepad_exit') : false);
+
+        if (up || down)
         {
             FlxG.sound.play(Paths.sound('scroll'));
-            changeSelection(Input.is('up') ? -1 : 1);
+            changeSelection(up ? -1 : 1);
         }
 
-        if (Input.is('accept'))
+        if (accept)
         {
             SaveData.saveSettings();
             SaveData.lang = langStrings[curSelected].code;
@@ -102,35 +109,10 @@ class LanguageSubState extends FlxSubState
             FlxG.sound.play(Paths.sound('confirm'));
             close();
         }
-        else if (Input.is('exit'))
+        else if (exit)
         {
             FlxG.sound.play(Paths.sound('cancel'));
             close();
-        }
-
-        var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
-
-        if (gamepad != null)
-        {
-            if (Input.gamepadIs('gamepad_up') || Input.gamepadIs('gamepad_down'))
-            {
-                FlxG.sound.play(Paths.sound('scroll'));
-                changeSelection(Input.gamepadIs('gamepad_up') ? -1 : 1);
-            }
-
-            if (Input.gamepadIs('gamepad_accept'))
-            {
-                SaveData.saveSettings();
-                SaveData.lang = langStrings[curSelected].code;
-                Localization.switchLanguage(SaveData.lang);
-                FlxG.sound.play(Paths.sound('confirm'));
-                close();
-            }
-            else if (Input.gamepadIs('gamepad_exit'))
-            {
-                FlxG.sound.play(Paths.sound('cancel'));
-                close();
-            }
         }
 
         for (num => item in coolGrp.members)
