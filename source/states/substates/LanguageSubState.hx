@@ -112,13 +112,13 @@ class LanguageSubState extends FlxSubState
 
         if (gamepad != null)
         {
-            if (Input.gamapadIs('gamepad_up') || Input.gamapadIs('gamepad_down'))
+            if (Input.gamepadIs('gamepad_up') || Input.gamepadIs('gamepad_down'))
             {
                 FlxG.sound.play(Paths.sound('scroll'));
-                changeSelection(Input.gamapadIs('gamepad_up') ? -1 : 1);
+                changeSelection(Input.gamepadIs('gamepad_up') ? -1 : 1);
             }
 
-            if (Input.gamapadIs('gamepad_accept'))
+            if (Input.gamepadIs('gamepad_accept'))
             {
                 SaveData.saveSettings();
                 SaveData.lang = langStrings[curSelected].code;
@@ -126,7 +126,7 @@ class LanguageSubState extends FlxSubState
                 FlxG.sound.play(Paths.sound('confirm'));
                 close();
             }
-            else if (Input.gamapadIs('gamepad_exit'))
+            else if (Input.gamepadIs('gamepad_exit'))
             {
                 FlxG.sound.play(Paths.sound('cancel'));
                 close();
