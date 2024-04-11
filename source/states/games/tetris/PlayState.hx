@@ -75,8 +75,8 @@ class PlayState extends FlxState
         var accept_alt = Input.is('space') || (gamepad != null ? Input.gamepadIs('start') : false);
         var exit = Input.is('exit') || (gamepad != null ? Input.gamepadIs('gamepad_exit') : false);
 
-        var counterclockwise = Input.is('z') || (gamepad != null ? Input.gamepadIs('left_shoulder'));
-        var hold = Input.is('c') || (gamepad != null ? Input.gamepadIs('right_shoulder'));
+        var counterclockwise = Input.is('z') || (gamepad != null ? Input.gamepadIs('left_shoulder') : false);
+        var hold = Input.is('c') || (gamepad != null ? Input.gamepadIs('right_shoulder') : false);
 
         if (!gameOver)
         {
