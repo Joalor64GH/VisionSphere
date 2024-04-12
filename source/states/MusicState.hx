@@ -149,6 +149,8 @@ class MusicState extends BeatState
     {
         loaded = false;
 
+        timeBar.value = 0;
+
         if (FlxG.sound.music != null)
             FlxG.sound.music.stop();
 

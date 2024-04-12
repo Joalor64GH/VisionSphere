@@ -1,6 +1,8 @@
 #!/bin/sh
 # Setup for Linux devices
 # Make you've installed Haxe prior to running this file
+echo "Installing dependencies"
 haxe -cp compileData -D analyzer-optimize -main Libraries --interp
-# Rebuild extension-webm
+echo "Rebulding extension-webm"
 haxelib lime run rebuild extension-webm linux
+echo "Done!"

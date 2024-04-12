@@ -1,5 +1,8 @@
 @echo off
 color 0a
+
+echo Oh gosh oh gee you've really done it now
+pause >nul
 cd ..
 @echo on
 echo Installing dependencies
