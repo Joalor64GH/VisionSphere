@@ -107,13 +107,15 @@ class MusicState extends BeatState
         if (FlxG.sound.music != null)
         {
             Conductor.songPosition = FlxG.sound.music.time;
+            if (FlxG.sound.music.playing) 
+                timeBar.value = (Conductor.songPosition / FlxG.sound.music.length);
+
             if ((accept || accept_alt) && loaded)
             {
                 if (!FlxG.sound.music.playing)
                 {
                     FlxG.sound.music.play();
                     disc.angularVelocity = 30;
-                    timeBar.value = (Conductor.songPosition / FlxG.sound.music.length);
                 }
                 else 
                 {
