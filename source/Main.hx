@@ -11,7 +11,7 @@ import frontend.objects.ToastCore;
 import frontend.debug.Info;
 import frontend.video.*;
 
-import backend.MacroUtil;
+import macros.MacroUtil;
 
 #if linux
 @:cppInclude('./external/gamemode_client.h')

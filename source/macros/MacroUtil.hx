@@ -1,4 +1,4 @@
-package backend;
+package macros;
 
 import sys.io.File;
 import sys.io.Process;

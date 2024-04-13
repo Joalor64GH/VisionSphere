@@ -341,7 +341,14 @@ class ModsState extends FlxState
 			noModsTxt.alpha = 1 - Math.sin((Math.PI * noModsSine) / 180);
 		}
 
-		if (canExit && Input.is('exit'))
+		var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
+
+        var up = Input.is('up') || (gamepad != null ? Input.gamepadIs('gamepad_up') : false);
+        var down = Input.is('down') || (gamepad != null ? Input.gamepadIs('gamepad_down') : false);
+        var exit = Input.is('exit') || (gamepad != null ? Input.gamepadIs('gamepad_exit') : false);
+		var setup = Input.is('seven') || (gamepad != null ? Input.gamepadIs('x') : false);
+
+		if (canExit && exit)
 		{
 			if (colorTween != null)
 				colorTween.cancel();
@@ -355,36 +362,11 @@ class ModsState extends FlxState
 				FlxG.switchState(MenuState.new);
 		}
 
-		if (Input.is('up') || Input.is('down'))
-			changeSelection(Input.is('up') ? -1 : 1);
+		if (up || down)
+			changeSelection(up ? -1 : 1);
 
-		if (Input.is('seven'))
+		if (setup)
 			FlxG.switchState(ModsSetupState.new);
-
-		var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
-
-		if (gamepad != null) 
-		{
-			if (canExit && Input.gamepadIs('gamepad_exit'))
-			{
-				if (colorTween != null)
-					colorTween.cancel();
-			
-				saveTxt();
-				FlxG.sound.play(Paths.sound('cancel'));
-
-				if (needaReset)
-					FlxG.camera.fade(FlxColor.BLACK, 0.5, false, FlxG.resetGame, false);
-				else
-					FlxG.switchState(MenuState.new);
-			}
-
-			if (Input.gamepadIs('gamepad_up') || Input.gamepadIs('gamepad_down'))
-				changeSelection(Input.gamepadIs('gamepad_up') ? -1 : 1);
-
-			if (Input.gamepadIs('start'))
-				FlxG.switchState(ModsSetupState.new);
-		}
 		
 		updatePosition(elapsed);
 		super.update(elapsed);
