@@ -19,11 +19,8 @@ class TestState extends FlxState
     override function update(elapsed:Float)
     {
         super.update(elapsed);
-
-        if (bckDrp.x + bckDrp.width < 0)
-            bckDrp.x = FlxG.width;
         
-        bckDrp.y = FlxG.height / 2 + Math.sin(FlxG.elapsed * 2) * 50;
+        bckDrp.y = FlxG.height / 2 + Math.cos(FlxG.elapsed * 2) * 50;
 
         if (Input.is('exit'))
             FlxG.switchState(MenuState.new);
