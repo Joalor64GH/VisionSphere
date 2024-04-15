@@ -22,6 +22,14 @@ import macros.MacroUtil;
 
 class Main extends openfl.display.Sprite
 {
+	final config:Dynamic = {
+		gameDimensions: [1280, 720],
+		initialState: InitialState,
+		defaultFPS: 60,
+		skipSplash: true,
+		startFullscreen: false
+	};
+
 	public static var buildNum(default, never):Int = MacroUtil.get_build_num();
 	public static var commitId(default, never):String = MacroUtil.get_commit_id();
 
@@ -64,7 +72,8 @@ class Main extends openfl.display.Sprite
 			openfl.system.System.gc();
 		});
 
-		coolGame = new VSGame(1280, 720, InitialState, 60, 60, true, false);
+		coolGame = new VSGame(config.gameDimensions[0], config.gameDimensions[1], config.initialState, 
+			config.defaultFPS, config.defaultFPS, config.skipSplash, config.startFullscreen);
 		addChild(coolGame);
 
 		fpsDisplay = new Info(10, 10, 0xFFFFFF);
@@ -141,8 +150,7 @@ class VSGame extends flixel.FlxGame
 	}
 
 	override function create(_):Void {
-		try 
-		{
+		try {
 			super.create(_);
 			
 			removeChild(soundTray);
