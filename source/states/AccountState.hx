@@ -15,7 +15,7 @@ class AccountState extends FlxState
         Paths.clearStoredMemory();
         Paths.clearUnusedMemory();
 
-        var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('theme/' + SaveData.theme));
+        var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('theme/${SaveData.getData('theme')}'));
         add(bg);
 
         for (i in 0...profiles.length)
@@ -39,7 +39,7 @@ class AccountState extends FlxState
             icon.visible = true;
         }
 
-        profileSpr = new FlxSprite(0, 90).loadGraphic(Paths.image('menu/profile/' + SaveData.profile));
+        profileSpr = new FlxSprite(0, 90).loadGraphic(Paths.image('menu/profile/${SaveData.getData('profile')}'));
         profileSpr.screenCenter(X);
         profileSpr.scale.set(1.4, 1.4);
         add(profileSpr);

@@ -162,7 +162,7 @@ class ModsSetupState extends FlxState
 
     override function create()
     {
-        var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('theme/' + SaveData.theme));
+        var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('theme/${SaveData.getData('theme')}'));
         add(bg);
 
         modTab = new ModSetupTabs();

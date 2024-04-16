@@ -13,7 +13,7 @@ class ChatState extends FlxState // this is broken and idk why
 
     override public function create()
     {
-        var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('theme/' + SaveData.theme));
+        var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('theme/${SaveData.getData('theme')}'));
         add(bg);
         
         mess = new MsgGroup(25, FlxG.height - 70);

@@ -45,8 +45,7 @@ class AccountNameSubState extends FlxSubState
         if (accept && input.text != '')
         {
             trace('changed username to: ' + input.text);
-            SaveData.username = input.text;
-            SaveData.saveSettings();
+            SaveData.saveData('username', input.text);
             close();
         }
         else if (exit)

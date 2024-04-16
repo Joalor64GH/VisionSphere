@@ -3,7 +3,6 @@ package states;
 class PreferencesState extends FlxState
 {
     var bg:FlxSprite;
-    
     var times:Array<String> = ['%r', '%T'];
     var themes:Array<String> = ['daylight', 'night', 'dreamcast', 'ps3', 'xp'];
     var options:Array<String> = [
@@ -29,7 +28,7 @@ class PreferencesState extends FlxState
         Paths.clearStoredMemory();
         Paths.clearUnusedMemory();
 
-        bg = new FlxSprite().loadGraphic(Paths.image('theme/' + SaveData.theme));
+        bg = new FlxSprite().loadGraphic(Paths.image('theme/${SaveData.getData('theme')}'));
         add(bg);
 
         group = new FlxTypedGroup<Alphabet>();
@@ -78,13 +77,13 @@ class PreferencesState extends FlxState
             {
                 #if desktop
                 case "Fullscreen":
-                    SaveData.fullscreen = !SaveData.fullscreen;
+                    SaveData.saveData('fullscreen', !SaveData.getData('fullscreen'));
                     FlxG.fullscreen = SaveData.fullscreen;
                 #end
                 case "FPS Counter":
-                    SaveData.fpsCounter = !SaveData.fpsCounter;
+                    SaveData.saveData('fpsCounter', !SaveData.getData('fpsCounter'));
                     if (Main.fpsDisplay != null)
-                        Main.fpsDisplay.visible = SaveData.fpsCounter;
+                        Main.fpsDisplay.visible = SaveData.getData('fpsCounter');
                 case "Language":
                     openSubState(new LanguageSubState());
                 case "Colorblind Filter":
@@ -96,7 +95,6 @@ class PreferencesState extends FlxState
         {
             FlxG.switchState(OptionsState.new);
             FlxG.sound.play(Paths.sound('cancel'));
-            SaveData.saveSettings();
         }
 
         if (right || left)
@@ -117,11 +115,11 @@ class PreferencesState extends FlxState
             {
                 FlxG.sound.play(Paths.sound('scroll'));
                 if (!left)
-                    SaveData.framerate += (SaveData.framerate == 240) ? 0 : 10;
+                    SaveData.getData('framerate') += (SaveData.getData('framerate') == 240) ? 0 : 10;
                 else
-                    SaveData.framerate -= (SaveData.framerate == 60) ? 0 : 10;
+                    SaveData.getData('framerate') -= (SaveData.getData('framerate') == 60) ? 0 : 10;
                 
-                Main.updateFramerate(SaveData.framerate);
+                Main.updateFramerate(SaveData.getData('framerate'));
             }
         }
 
@@ -145,24 +143,24 @@ class PreferencesState extends FlxState
 
     private function switchTheme(direction:Int = 0)
     {
-        var currentThemeIndex:Int = themes.indexOf(SaveData.theme);
+        var currentThemeIndex:Int = themes.indexOf(SaveData.getData('theme'));
         var newThemeIndex:Int = (currentThemeIndex + direction) % themes.length;
         if (newThemeIndex < 0)
             newThemeIndex += themes.length;
 
-        SaveData.theme = themes[newThemeIndex];
+        SaveData.saveData('theme', themes[newThemeIndex]);
 
-        bg.loadGraphic(Paths.image('theme/' + SaveData.theme));
+        bg.loadGraphic(Paths.image('theme/${SaveData.getData('theme')}'));
     }
 
     private function switchTime(direction:Int = 0)
     {
-        var currentTimeIndex:Int = times.indexOf(SaveData.timeFormat);
+        var currentTimeIndex:Int = times.indexOf(SaveData.getData('timeFormat'));
         var newTimeIndex:Int = (currentTimeIndex + direction) % times.length;
         if (newTimeIndex < 0)
             newTimeIndex += times.length;
 
-        SaveData.timeFormat = times[newTimeIndex];
+        SaveData.saveData('timeFormat', times[newTimeIndex]);
     }
 
     function updateText()

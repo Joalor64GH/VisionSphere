@@ -21,7 +21,7 @@ class MenuState extends FlxState
         Paths.clearStoredMemory();
         Paths.clearUnusedMemory();
 
-        var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('theme/' + SaveData.theme));
+        var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('theme/${SaveData.getData('theme')}'));
         add(bg);
 
         var bar:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menu/bar'));
@@ -54,7 +54,7 @@ class MenuState extends FlxState
         add(btnMods);
         #end
 
-        var btnProfile:ClickableSprite = new ClickableSprite(0, 0, 'menu/profile/' + SaveData.profile, () -> 
+        var btnProfile:ClickableSprite = new ClickableSprite(0, 0, 'menu/profile/${SaveData.getData('profile')}', () -> 
         {
             FlxG.switchState(AccountState.new);
             FlxG.sound.play(Paths.sound('confirm'));

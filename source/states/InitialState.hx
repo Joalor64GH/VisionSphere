@@ -28,11 +28,11 @@ class InitialState extends FlxState
         Paths.clearUnusedMemory();
 
         Localization.loadLanguages();
-        Localization.switchLanguage(SaveData.lang);
+        Localization.switchLanguage(SaveData.getData('lang'));
 
-        Main.updateFramerate(SaveData.framerate);
+        Main.updateFramerate(SaveData.getData('framerate'));
 
-        Colorblind.updateColorBlindFilter(SaveData.colorBlindFilter);
+        Colorblind.updateColorBlindFilter(SaveData.getData('colorBlindFilter'));
 
         FlxG.sound.muteKeys = [NUMPADZERO];
         FlxG.sound.volumeDownKeys = [NUMPADMINUS];
