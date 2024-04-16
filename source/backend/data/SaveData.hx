@@ -28,6 +28,14 @@ class SaveData
             if (getData(option[0]) == null)
                 saveData(option[0], option[1]);
 
+        for (i in 0...5)
+            if (getData('keyboardBinds')[i] == null)
+                saveData('keyboardBinds', ['LEFT', 'DOWN', 'UP', 'RIGHT', 'ENTER', 'ESCAPE']);
+
+        for (i in 0...5)
+            if (getData('gamepadBinds')[i] == null)
+                saveData('gamepadBinds', ['DPAD_LEFT', 'DPAD_DOWN', 'DPAD_UP', 'DPAD_RIGHT', 'A', 'B']);
+        
         FlxG.save.bind('VisionSphere', 'Joalor64');
     }
 
