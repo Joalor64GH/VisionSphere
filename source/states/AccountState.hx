@@ -44,7 +44,7 @@ class AccountState extends FlxState
         profileSpr.scale.set(1.4, 1.4);
         add(profileSpr);
 
-        usernameTxt = new FlxText(0, profileSpr.y + 385, 0, SaveData.username, 12);
+        usernameTxt = new FlxText(0, profileSpr.y + 385, 0, SaveData.getData('username'), 12);
         usernameTxt.setFormat(Paths.font('vcr.ttf'), 64, FlxColor.WHITE, FlxTextAlign.CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
         usernameTxt.screenCenter(X);
         usernameTxt.borderSize = 4;
@@ -63,7 +63,7 @@ class AccountState extends FlxState
     {
         super.update(elapsed);
 
-        usernameTxt.text = SaveData.username;
+        usernameTxt.text = SaveData.getData('username');
 
         for (icon in icons)
         {
@@ -100,13 +100,13 @@ class AccountState extends FlxState
 
     private function switchProfile(direction:Int = 0)
     {
-        var currentProfileIndex:Int = profiles.indexOf(SaveData.profile);
+        var currentProfileIndex:Int = profiles.indexOf(SaveData.getData('profile'));
         var newProfileIndex:Int = (currentProfileIndex + direction) % profiles.length;
         if (newProfileIndex < 0)
             newProfileIndex += profiles.length;
 
-        SaveData.profile = profiles[newProfileIndex];
+        SaveData.saveData('profile', profiles[newProfileIndex]);
 
-        profileSpr.loadGraphic(Paths.image('menu/profile/' + SaveData.profile));
+        profileSpr.loadGraphic(Paths.image('menu/profile/${SaveData.getData('profile')}'));
     }
 }

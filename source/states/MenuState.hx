@@ -104,7 +104,7 @@ class MenuState extends FlxState
                 changeText();
         }
 
-        dateText.text = DateTools.format(Date.now(), "%F") + ' / ' + DateTools.format(Date.now(), SaveData.timeFormat);
+        dateText.text = DateTools.format(Date.now(), "%F") + ' / ' + DateTools.format(Date.now(), SaveData.getData('timeFormat'));
     }
 
     private function changeText()
