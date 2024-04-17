@@ -15,15 +15,15 @@ import flixel.input.gamepad.FlxGamepadInputID;
 class Input
 {
     public static var actionMap:Map<String, FlxKey> = [
-        "left" => SaveData.getData('leftKey'),
-        "down" => SaveData.getData('downKey'),
-        "up" => SaveData.getData('upKey'),
-        "right" => SaveData.getData('rightKey'),
-        "accept" => SaveData.getData('acceptKey'),
-        "exit" => SaveData.getData('exitKey')
+        "left" => SaveData.leftKey,
+        "down" => SaveData.downKey,
+        "up" => SaveData.upKey,
+        "right" => SaveData.rightKey,
+        "accept" => SaveData.acceptKey,
+        "exit" => SaveData.exitKey
     ];
 
-    public static function is(action:String, ?state:FlxInputState = JUST_PRESSED, ?exact:Bool = false):Bool
+    public static function is(action:String, ?state:flixel.input.FlxInput.FlxInputState = JUST_PRESSED, ?exact:Bool = false):Bool
     {
         if (!exact)
         {
@@ -64,12 +64,12 @@ class Input
     }
 
     public static var controllerMap:Map<String, FlxGamepadInputID> = [
-        "gamepad_left" => SaveData.getData('gamepadLeftKey'),
-        "gamepad_down" => SaveData.getData('gamepadDownKey'),
-        "gamepad_up" => SaveData.getData('gamepadUpKey'),
-        "gamepad_right" => SaveData.getData('gamepadRightKey'),
-        "gamepad_accept" => SaveData.getData('gamepadAcceptKey'),
-        "gamepad_exit" => SaveData.getData('gamepadExitKey')
+        "gamepad_left" => SaveData.gamepadLeftKey,
+        "gamepad_right" => SaveData.gamepadRightKey,
+        "gamepad_down" => SaveData.gamepadDownKey,
+        "gamepad_up" => SaveData.gamepadUpKey,
+        "gamepad_accept" => SaveData.gamepadAcceptKey,
+        "gamepad_exit" => SaveData.gamepadExitKey
     ];
 
     public static function gamepadIs(key:String, ?state:FlxInputState = JUST_PRESSED):Bool

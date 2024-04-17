@@ -15,7 +15,7 @@ class AccountState extends FlxState
         Paths.clearStoredMemory();
         Paths.clearUnusedMemory();
 
-        var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('theme/${SaveData.getData('theme')}'));
+        var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('theme/' + SaveData.theme));
         add(bg);
 
         for (i in 0...profiles.length)
@@ -39,12 +39,12 @@ class AccountState extends FlxState
             icon.visible = true;
         }
 
-        profileSpr = new FlxSprite(0, 90).loadGraphic(Paths.image('menu/profile/${SaveData.getData('profile')}'));
+        profileSpr = new FlxSprite(0, 90).loadGraphic(Paths.image('menu/profile/' + SaveData.profile));
         profileSpr.screenCenter(X);
         profileSpr.scale.set(1.4, 1.4);
         add(profileSpr);
 
-        usernameTxt = new FlxText(0, profileSpr.y + 385, 0, SaveData.getData('username'), 12);
+        usernameTxt = new FlxText(0, profileSpr.y + 385, 0, SaveData.username, 12);
         usernameTxt.setFormat(Paths.font('vcr.ttf'), 64, FlxColor.WHITE, FlxTextAlign.CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
         usernameTxt.screenCenter(X);
         usernameTxt.borderSize = 4;
@@ -63,7 +63,7 @@ class AccountState extends FlxState
     {
         super.update(elapsed);
 
-        usernameTxt.text = SaveData.getData('username');
+        usernameTxt.text = SaveData.username;
 
         for (icon in icons)
         {
@@ -100,13 +100,13 @@ class AccountState extends FlxState
 
     private function switchProfile(direction:Int = 0)
     {
-        var currentProfileIndex:Int = profiles.indexOf(SaveData.getData('profile'));
+        var currentProfileIndex:Int = profiles.indexOf(SaveData.profile);
         var newProfileIndex:Int = (currentProfileIndex + direction) % profiles.length;
         if (newProfileIndex < 0)
             newProfileIndex += profiles.length;
 
-        SaveData.saveData('profile', profiles[newProfileIndex]);
+        SaveData.profile = profiles[newProfileIndex];
 
-        profileSpr.loadGraphic(Paths.image('menu/profile/${SaveData.getData('profile')}'));
+        profileSpr.loadGraphic(Paths.image('menu/profile/' + SaveData.profile));
     }
 }

@@ -56,7 +56,6 @@ class ControlsSubState extends FlxSubState
             if (FlxG.mouse.justPressed) 
             {
                 keyboardMode = !keyboardMode;
-                
                 if (gamepad != null)
                     FlxG.sound.play(Paths.sound('confirm'));
                 else if (gamepad == null)
@@ -94,17 +93,17 @@ class ControlsSubState extends FlxSubState
             switch (init)
             {
                 case 0:
-                    text1.text = 'LEFT KEY: ${SaveData.getData('leftKey')}';
+                    text1.text = "LEFT KEY: " + SaveData.leftKey;
                 case 1:
-                    text1.text = 'DOWN KEY: ${SaveData.getData('downKey')}';
+                    text1.text = "RIGHT KEY: " + SaveData.rightKey;
                 case 2:
-                    text1.text = 'UP KEY: ${SaveData.getData('upKey')}';
+                    text1.text = "DOWN KEY: " + SaveData.downKey;
                 case 3:
-                    text1.text = 'RIGHT KEY: ${SaveData.getData('rightKey')}';
+                    text1.text = "UP KEY: " + SaveData.upKey;
                 case 4:
-                    text1.text = 'ACCEPT KEY: ${SaveData.getData('acceptKey')}';
+                    text1.text = "ACCEPT KEY: " + SaveData.acceptKey;
                 case 5:
-                    text1.text = 'EXIT KEY: ${SaveData.getData('exitKey')}';
+                    text1.text = "EXIT KEY: " + SaveData.exitKey;
             }
 
             if (inChange)
@@ -114,23 +113,23 @@ class ControlsSubState extends FlxSubState
                     switch (init)
                     {
                         case 0:
-                            SaveData.saveData('leftKey', FlxG.keys.getIsDown()[0].ID.toString());
-                            Input.actionMap.set("left", SaveData.getData('leftKey'));
+                            SaveData.leftKey = FlxG.keys.getIsDown()[0].ID.toString();
+                            Input.actionMap.set("left", SaveData.leftKey);
                         case 1:
-                            SaveData.saveData('downKey', FlxG.keys.getIsDown()[0].ID.toString());
-                            Input.actionMap.set("down", SaveData.getData('downKey'));
+                            SaveData.rightKey = FlxG.keys.getIsDown()[0].ID.toString();
+                            Input.actionMap.set("right", SaveData.rightKey);
                         case 2:
-                            SaveData.saveData('upKey', FlxG.keys.getIsDown()[0].ID.toString());
-                            Input.actionMap.set("up", SaveData.getData('upKey'));
+                            SaveData.downKey = FlxG.keys.getIsDown()[0].ID.toString();
+                            Input.actionMap.set("down", SaveData.downKey);
                         case 3:
-                            SaveData.saveData('rightKey', FlxG.keys.getIsDown()[0].ID.toString());
-                            Input.actionMap.set("right", SaveData.getData('rightKey'));
+                            SaveData.upKey = FlxG.keys.getIsDown()[0].ID.toString();
+                            Input.actionMap.set("up", SaveData.upKey);
                         case 4:
-                            SaveData.saveData('acceptKey', FlxG.keys.getIsDown()[0].ID.toString());
-                            Input.actionMap.set("accept", SaveData.getData('acceptKey'));
+                            SaveData.acceptKey = FlxG.keys.getIsDown()[0].ID.toString();
+                            Input.actionMap.set("accept", SaveData.acceptKey);
                         case 5:
-                            SaveData.saveData('exitKey', FlxG.keys.getIsDown()[0].ID.toString());
-                            Input.actionMap.set("exit", SaveData.getData('exitKey'));
+                            SaveData.exitKey = FlxG.keys.getIsDown()[0].ID.toString();
+                            Input.actionMap.set("exit", SaveData.exitKey);
                     }
                     FlxG.sound.play(Paths.sound('scroll'));
                     text2.text = "";
@@ -138,75 +137,78 @@ class ControlsSubState extends FlxSubState
                 }
             }
         }
-        else if (!keyboardMode && gamepad != null)
+        else if (!keyboardMode)
         {
-            if (Input.gamepadIs('gamepad_exit') && !inChange) 
-                close();
-
-            if (Input.gamepadIs('gamepad_accept'))
+            if (gamepad != null)
             {
-                inChange = true;
-                text2.text = "PRESS ANY KEY TO CONTINUE";
-            }
+                if (Input.gamepadIs('gamepad_exit') && !inChange) 
+                    close();
 
-            if (Input.gamepadIs('gamepad_left') && !inChange)
-            {
-                FlxG.sound.play(Paths.sound('scroll'));
-                (init == 0) ? init = 5 : init--;
-            }
-
-            if (Input.gamepadIs('gamepad_right') && !inChange)
-            {
-                FlxG.sound.play(Paths.sound('scroll'));
-                (init == 5) ? init = 0 : init++;
-            }
-
-            switch (init)
-            {
-                case 0:
-                    text1.text = 'LEFT KEY: ${SaveData.getData('gamepadLeftKey')}';
-                case 1:
-                    text1.text = 'DOWN KEY: ${SaveData.getData('gamepadDownKey')}';
-                case 2:
-                    text1.text = 'UP KEY: ${SaveData.getData('gamepadUpKey')}';
-                case 3:
-                    text1.text = 'RIGHT KEY: ${SaveData.getData('gamepadRightKey')}';
-                case 4:
-                    text1.text = 'ACCEPT KEY: ${SaveData.getData('gamepadAcceptKey')}';
-                case 5:
-                    text1.text = 'EXIT KEY: ${SaveData.getData('gamepadExitKey')}';
-            }
-
-            if (inChange)
-            {
-                var keyPressed:FlxGamepadInputID = gamepad.firstJustPressedID();
-                if (!Input.gamepadIs('gamepad_accept') && !Input.gamepadIs('gamepad_exit') 
-                    && gamepad.anyJustPressed([ANY]) && keyPressed.toString() != NONE) 
+                if (Input.gamepadIs('gamepad_accept'))
                 {
-                    switch (init)
-                    {
-                        case 0:
-                            SaveData.saveData('gamepadLeftKey', keyPressed);
-                            Input.controllerMap.set("gamepad_left", SaveData.getData('gamepadLeftKey'));
-                        case 1:
-                            SaveData.saveData('gamepadDownKey', keyPressed);
-                            Input.controllerMap.set("gamepad_down", SaveData.getData('gamepadDownKey'));
-                        case 2:
-                            SaveData.saveData('gamepadUpKey', keyPressed);
-                            Input.controllerMap.set("gamepad_up", SaveData.getData('gamepadUpKey'));
-                        case 3:
-                            SaveData.saveData('gamepadRightKey', keyPressed);
-                            Input.controllerMap.set("gamepad_right", SaveData.getData('gamepadRightKey'));
-                        case 4:
-                            SaveData.saveData('gamepadAcceptKey', keyPressed);
-                            Input.controllerMap.set("gamepad_accept", SaveData.getData('gamepadAcceptKey'));
-                        case 5:
-                            SaveData.saveData('gamepadExitKey', keyPressed);
-                            Input.controllerMap.set("gamepad_exit", SaveData.getData('gamepadExitKey'));
-                    }
+                    inChange = true;
+                    text2.text = "PRESS ANY KEY TO CONTINUE";
+                }
+
+                if (Input.gamepadIs('gamepad_left') && !inChange)
+                {
                     FlxG.sound.play(Paths.sound('scroll'));
-                    text2.text = "";
-                    inChange = false;
+                    (init == 0) ? init = 5 : init--;
+                }
+
+                if (Input.gamepadIs('gamepad_right') && !inChange)
+                {
+                    FlxG.sound.play(Paths.sound('scroll'));
+                    (init == 5) ? init = 0 : init++;
+                }
+
+                switch (init)
+                {
+                    case 0:
+                        text1.text = "LEFT KEY: " + SaveData.gamepadLeftKey;
+                    case 1:
+                        text1.text = "RIGHT KEY: " + SaveData.gamepadRightKey;
+                    case 2:
+                        text1.text = "DOWN KEY: " + SaveData.gamepadDownKey;
+                    case 3:
+                        text1.text = "UP KEY: " + SaveData.gamepadUpKey;
+                    case 4:
+                        text1.text = "ACCEPT KEY: " + SaveData.gamepadAcceptKey;
+                    case 5:
+                        text1.text = "EXIT KEY: " + SaveData.gamepadExitKey;
+                }
+
+                if (inChange)
+                {
+                    var keyPressed:FlxGamepadInputID = gamepad.firstJustPressedID();
+                    if (!Input.gamepadIs('gamepad_accept') && !Input.gamepadIs('gamepad_exit') 
+                        && gamepad.anyJustPressed([ANY]) && keyPressed.toString() != NONE) 
+                    {
+                        switch (init)
+                        {
+                            case 0:
+                                SaveData.gamepadLeftKey = keyPressed;
+                                Input.controllerMap.set("gamepad_left", SaveData.gamepadLeftKey);
+                            case 1:
+                                SaveData.rightKey = keyPressed;
+                                Input.controllerMap.set("gamepad_right", SaveData.gamepadRightKey);
+                            case 2:
+                                SaveData.downKey = keyPressed;
+                                Input.controllerMap.set("gamepad_down", SaveData.gamepadDownKey);
+                            case 3:
+                                SaveData.upKey = keyPressed;
+                                Input.controllerMap.set("gamepad_up", SaveData.gamepadUpKey);
+                            case 4:
+                                SaveData.acceptKey = keyPressed;
+                                Input.controllerMap.set("gamepad_accept", SaveData.gamepadAcceptKey);
+                            case 5:
+                                SaveData.exitKey = keyPressed;
+                                Input.controllerMap.set("gamepad_exit", SaveData.gamepadExitKey);
+                        }
+                        FlxG.sound.play(Paths.sound('scroll'));
+                        text2.text = "";
+                        inChange = false;
+                    }
                 }
             }
         }

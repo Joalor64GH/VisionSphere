@@ -42,7 +42,7 @@ class SplashState extends FlxState
         daText.setFormat(Paths.font('vcr.ttf'), 26, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
         add(daText);
 
-        Main.toast.create('Hello, ${SaveData.getData('username')}!', 0xFFFFFF00, "What's up?");
+        Main.toast.create('Hello, ' + SaveData.username + '!', 0xFFFFFF00, "What's up?");
 
         FlxTween.tween(haxeflixel, {alpha: 1}, 1.5, {ease: FlxEase.quadOut});
         FlxTween.tween(text, {alpha: 1}, 2, {ease: FlxEase.quadOut});

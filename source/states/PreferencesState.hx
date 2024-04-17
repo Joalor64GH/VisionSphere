@@ -3,6 +3,7 @@ package states;
 class PreferencesState extends FlxState
 {
     var bg:FlxSprite;
+    
     var times:Array<String> = ['%r', '%T'];
     var themes:Array<String> = ['daylight', 'night', 'dreamcast', 'ps3', 'xp'];
     var options:Array<String> = [
@@ -28,7 +29,7 @@ class PreferencesState extends FlxState
         Paths.clearStoredMemory();
         Paths.clearUnusedMemory();
 
-        bg = new FlxSprite().loadGraphic(Paths.image('theme/${SaveData.getData('theme')}'));
+        bg = new FlxSprite().loadGraphic(Paths.image('theme/' + SaveData.theme));
         add(bg);
 
         group = new FlxTypedGroup<Alphabet>();
@@ -77,13 +78,13 @@ class PreferencesState extends FlxState
             {
                 #if desktop
                 case "Fullscreen":
-                    SaveData.saveData('fullscreen', !SaveData.getData('fullscreen'));
-                    FlxG.fullscreen = SaveData.getData('fullscreen');
+                    SaveData.fullscreen = !SaveData.fullscreen;
+                    FlxG.fullscreen = SaveData.fullscreen;
                 #end
                 case "FPS Counter":
-                    SaveData.saveData('fpsCounter', !SaveData.getData('fpsCounter'));
+                    SaveData.fpsCounter = !SaveData.fpsCounter;
                     if (Main.fpsDisplay != null)
-                        Main.fpsDisplay.visible = SaveData.getData('fpsCounter');
+                        Main.fpsDisplay.visible = SaveData.fpsCounter;
                 case "Language":
                     openSubState(new LanguageSubState());
                 case "Colorblind Filter":
@@ -95,6 +96,7 @@ class PreferencesState extends FlxState
         {
             FlxG.switchState(OptionsState.new);
             FlxG.sound.play(Paths.sound('cancel'));
+            SaveData.saveSettings();
         }
 
         if (right || left)
@@ -114,12 +116,10 @@ class PreferencesState extends FlxState
             if (right || left)
             {
                 FlxG.sound.play(Paths.sound('scroll'));
-
-                var value:Int = SaveData.getData('framerate');
-                if (!left) value += (value == 240) ? 0 : 10;
-                else value -= (value == 60) ? 0 : 10;
+                if (!left) SaveData.framerate += (SaveData.framerate == 240) ? 0 : 10;
+                else SaveData.framerate -= (SaveData.framerate == 60) ? 0 : 10;
                 
-                Main.updateFramerate(value);
+                Main.updateFramerate(SaveData.framerate);
             }
         }
 
@@ -143,24 +143,24 @@ class PreferencesState extends FlxState
 
     private function switchTheme(direction:Int = 0)
     {
-        var currentThemeIndex:Int = themes.indexOf(SaveData.getData('theme'));
+        var currentThemeIndex:Int = themes.indexOf(SaveData.theme);
         var newThemeIndex:Int = (currentThemeIndex + direction) % themes.length;
         if (newThemeIndex < 0)
             newThemeIndex += themes.length;
 
-        SaveData.saveData('theme', themes[newThemeIndex]);
+        SaveData.theme = themes[newThemeIndex];
 
-        bg.loadGraphic(Paths.image('theme/${SaveData.getData('theme')}'));
+        bg.loadGraphic(Paths.image('theme/' + SaveData.theme));
     }
 
     private function switchTime(direction:Int = 0)
     {
-        var currentTimeIndex:Int = times.indexOf(SaveData.getData('timeFormat'));
+        var currentTimeIndex:Int = times.indexOf(SaveData.timeFormat);
         var newTimeIndex:Int = (currentTimeIndex + direction) % times.length;
         if (newTimeIndex < 0)
             newTimeIndex += times.length;
 
-        SaveData.saveData('timeFormat', times[newTimeIndex]);
+        SaveData.timeFormat = times[newTimeIndex];
     }
 
     function updateText()
@@ -176,13 +176,13 @@ class PreferencesState extends FlxState
             case "Colorblind Filter":
                 daText.text = "In case you're colorblind.";
             case "Time Format":
-                daText.text = 'Use LEFT/RIGHT to change the time format. Current Format: ${SaveData.getData('timeFormat')}';
+                daText.text = "Use LEFT/RIGHT to change the time format. Current Format: " + SaveData.timeFormat;
             case "Language":
                 daText.text = "Changes the current language.";
             case "Theme":
                 daText.text = "Use LEFT/RIGHT to change the theme.";
             case "Framerate":
-                daText.text = 'Use LEFT/RIGHT to change the framerate (Max 240). Current Framerate: ${SaveData.getData('framerate')}';
+                daText.text = "Use LEFT/RIGHT to change the framerate (Max 240). Current Framerate: " + SaveData.framerate;
             default:
                 daText.text = "";
         }

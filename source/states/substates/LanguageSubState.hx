@@ -29,6 +29,7 @@ class LanguageSubState extends FlxSubState
             langStrings.push(new Locale(data[0], data[1]));
         }
         
+        // load and push mod languages
         #if MODS_ALLOWED
         var filesPushed:Array<String> = [];
         var foldersToCheck:Array<String> = [Paths.mods('data/')];
@@ -102,8 +103,9 @@ class LanguageSubState extends FlxSubState
 
         if (accept)
         {
-            SaveData.saveData('lang', langStrings[curSelected].code);
-            Localization.switchLanguage(SaveData.getData('lang'));
+            SaveData.saveSettings();
+            SaveData.lang = langStrings[curSelected].code;
+            Localization.switchLanguage(SaveData.lang);
             FlxG.sound.play(Paths.sound('confirm'));
             close();
         }
