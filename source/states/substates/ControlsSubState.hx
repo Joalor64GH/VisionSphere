@@ -56,6 +56,7 @@ class ControlsSubState extends FlxSubState
             if (FlxG.mouse.justPressed) 
             {
                 keyboardMode = !keyboardMode;
+                
                 if (gamepad != null)
                     FlxG.sound.play(Paths.sound('confirm'));
                 else if (gamepad == null)
@@ -137,78 +138,75 @@ class ControlsSubState extends FlxSubState
                 }
             }
         }
-        else if (!keyboardMode)
+        else if (!keyboardMode && gamepad != null)
         {
-            if (gamepad != null)
+            if (Input.gamepadIs('gamepad_exit') && !inChange) 
+                close();
+
+            if (Input.gamepadIs('gamepad_accept'))
             {
-                if (Input.gamepadIs('gamepad_exit') && !inChange) 
-                    close();
+                inChange = true;
+                text2.text = "PRESS ANY KEY TO CONTINUE";
+            }
 
-                if (Input.gamepadIs('gamepad_accept'))
-                {
-                    inChange = true;
-                    text2.text = "PRESS ANY KEY TO CONTINUE";
-                }
+            if (Input.gamepadIs('gamepad_left') && !inChange)
+            {
+                FlxG.sound.play(Paths.sound('scroll'));
+                (init == 0) ? init = 5 : init--;
+            }
 
-                if (Input.gamepadIs('gamepad_left') && !inChange)
-                {
-                    FlxG.sound.play(Paths.sound('scroll'));
-                    (init == 0) ? init = 5 : init--;
-                }
+            if (Input.gamepadIs('gamepad_right') && !inChange)
+            {
+                FlxG.sound.play(Paths.sound('scroll'));
+                (init == 5) ? init = 0 : init++;
+            }
 
-                if (Input.gamepadIs('gamepad_right') && !inChange)
-                {
-                    FlxG.sound.play(Paths.sound('scroll'));
-                    (init == 5) ? init = 0 : init++;
-                }
+            switch (init)
+            {
+                case 0:
+                    text1.text = 'LEFT KEY: ${Input.gBinds[0]}';
+                case 1:
+                    text1.text = 'DOWN KEY: ${Input.gBinds[1]}';
+                case 2:
+                    text1.text = 'UP KEY: ${Input.gBinds[2]}';
+                case 3:
+                    text1.text = 'RIGHT KEY: ${Input.gBinds[3]}';
+                case 4:
+                    text1.text = 'ACCEPT KEY: ${Input.gBinds[4]}';
+                case 5:
+                    text1.text = 'EXIT KEY: ${Input.gBinds[5]}';
+            }
 
-                switch (init)
+            if (inChange)
+            {
+                var keyPressed:FlxGamepadInputID = gamepad.firstJustPressedID();
+                if (!Input.gamepadIs('gamepad_accept') && !Input.gamepadIs('gamepad_exit') 
+                    && gamepad.anyJustPressed([ANY]) && keyPressed.toString() != NONE) 
                 {
-                    case 0:
-                        text1.text = 'LEFT KEY: ${Input.gBinds[0]}';
-                    case 1:
-                        text1.text = 'DOWN KEY: ${Input.gBinds[1]}';
-                    case 2:
-                        text1.text = 'UP KEY: ${Input.gBinds[2]}';
-                    case 3:
-                        text1.text = 'RIGHT KEY: ${Input.gBinds[3]}';
-                    case 4:
-                        text1.text = 'ACCEPT KEY: ${Input.gBinds[4]}';
-                    case 5:
-                        text1.text = 'EXIT KEY: ${Input.gBinds[5]}';
-                }
-
-                if (inChange)
-                {
-                    var keyPressed:FlxGamepadInputID = gamepad.firstJustPressedID();
-                    if (!Input.gamepadIs('gamepad_accept') && !Input.gamepadIs('gamepad_exit') 
-                        && gamepad.anyJustPressed([ANY]) && keyPressed.toString() != NONE) 
+                    switch (init)
                     {
-                        switch (init)
-                        {
-                            case 0:
-                                SaveData.saveData(Input.gBinds[0], keyPressed);
-                                Input.controllerMap.set("gamepad_left", Input.gBinds[0]);
-                            case 1:
-                                SaveData.saveData(Input.gBinds[1], keyPressed);
-                                Input.controllerMap.set("gamepad_down", Input.gBinds[1]);
-                            case 2:
-                                SaveData.saveData(Input.gBinds[2], keyPressed);
-                                Input.controllerMap.set("gamepad_up", Input.gBinds[2]);
-                            case 3:
-                                SaveData.saveData(Input.gBinds[3], keyPressed);
-                                Input.controllerMap.set("gamepad_right", Input.gBinds[3]);
-                            case 4:
-                                SaveData.saveData(Input.gBinds[4], keyPressed);
-                                Input.controllerMap.set("gamepad_accept", Input.gBinds[4]);
-                            case 5:
-                                SaveData.saveData(Input.gBinds[5], keyPressed);
-                                Input.controllerMap.set("gamepad_exit", Input.gBinds[5]);
-                        }
-                        FlxG.sound.play(Paths.sound('scroll'));
-                        text2.text = "";
-                        inChange = false;
+                        case 0:
+                            SaveData.saveData(Input.gBinds[0], keyPressed);
+                            Input.controllerMap.set("gamepad_left", Input.gBinds[0]);
+                        case 1:
+                            SaveData.saveData(Input.gBinds[1], keyPressed);
+                            Input.controllerMap.set("gamepad_down", Input.gBinds[1]);
+                        case 2:
+                            SaveData.saveData(Input.gBinds[2], keyPressed);
+                            Input.controllerMap.set("gamepad_up", Input.gBinds[2]);
+                        case 3:
+                            SaveData.saveData(Input.gBinds[3], keyPressed);
+                            Input.controllerMap.set("gamepad_right", Input.gBinds[3]);
+                        case 4:
+                            SaveData.saveData(Input.gBinds[4], keyPressed);
+                            Input.controllerMap.set("gamepad_accept", Input.gBinds[4]);
+                        case 5:
+                            SaveData.saveData(Input.gBinds[5], keyPressed);
+                            Input.controllerMap.set("gamepad_exit", Input.gBinds[5]);
                     }
+                    FlxG.sound.play(Paths.sound('scroll'));
+                    text2.text = "";
+                    inChange = false;
                 }
             }
         }

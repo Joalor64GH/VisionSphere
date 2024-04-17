@@ -30,6 +30,8 @@ class Main extends openfl.display.Sprite
 		startFullscreen: false
 	};
 
+	public static var hasWifi:Bool = true;
+
 	public static var buildNum(default, never):Int = MacroUtil.get_build_num();
 	public static var commitId(default, never):String = MacroUtil.get_commit_id();
 
@@ -122,6 +124,29 @@ class Main extends openfl.display.Sprite
 
 		toast = new ToastCore();
 		addChild(toast);
+	}
+
+	public static function checkInternet()
+	{
+		trace('checking internet rq');
+		var http = new haxe.Http('https://www.google.com/');
+		http.onStatus = (status:Int) -> {
+			switch (status) {
+				case 200:
+					hasWifi = true;
+					trace('success!');
+				default:
+					hasWifi = false;
+					trace('offline lol');
+			}
+		}
+
+		http.onError = (e) -> {
+			hasWifi = false;
+			trace('something happened, so we offline by default lol');
+		}
+
+		http.request();		
 	}
 
 	public static function updateFramerate(newFramerate:Int)
@@ -228,8 +253,7 @@ class VSGame extends flixel.FlxGame
 
 		final msg:String = fileStack.join('\n');
 
-		if (!FileSystem.exists("crash/"))
-			FileSystem.createDirectory("crash/");
+		if (!FileSystem.exists("crash/")) FileSystem.createDirectory("crash/");
 		File.saveContent(path, '${msg}\n');
 
 		final funcThrew:String = '${func != null ? ' thrown at "${func}" function' : ""}';
