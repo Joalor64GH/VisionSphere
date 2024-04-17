@@ -18,8 +18,18 @@ class SaveData
         ["colorBlindFilter", -1],
         ["framerate", 60],
         // controls
-        ["keyboardBinds", ['LEFT', 'DOWN', 'UP', 'RIGHT', 'ENTER', 'ESCAPE']],
-        ["gamepadBinds", ['DPAD_LEFT', 'DPAD_DOWN', 'DPAD_UP', 'DPAD_RIGHT', 'A', 'B']]
+        ["leftKey", 'LEFT'],
+        ["downKey", 'DOWN'],
+        ["upKey", 'UP'],
+        ["rightKey", 'RIGHT'],
+        ["acceptKey", 'ENTER'],
+        ["exitKey", 'ESCAPE'],
+        ["gamepadLeftKey", 'DPAD_LEFT'],
+        ["gamepadDownKey", 'DPAD_DOWN'],
+        ["gamepadUpKey", 'DPAD_UP'],
+        ["gamepadRightKey", 'DPAD_RIGHT'],
+        ["gamepadAcceptKey", 'DPAD_A'],
+        ["gamepadExitKey", 'DPAD_B']
     ];
     
     static public function init()

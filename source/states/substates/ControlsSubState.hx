@@ -94,17 +94,17 @@ class ControlsSubState extends FlxSubState
             switch (init)
             {
                 case 0:
-                    text1.text = 'LEFT KEY: ${Input.kBinds[0]}';
+                    text1.text = 'LEFT KEY: ${SaveData.getData('leftKey')}';
                 case 1:
-                    text1.text = 'DOWN KEY: ${Input.kBinds[1]}';
+                    text1.text = 'DOWN KEY: ${SaveData.getData('downKey')}';
                 case 2:
-                    text1.text = 'UP KEY: ${Input.kBinds[2]}';
+                    text1.text = 'UP KEY: ${SaveData.getData('upKey')}';
                 case 3:
-                    text1.text = 'RIGHT KEY: ${Input.kBinds[3]}';
+                    text1.text = 'RIGHT KEY: ${SaveData.getData('rightKey')}';
                 case 4:
-                    text1.text = 'ACCEPT KEY: ${Input.kBinds[4]}';
+                    text1.text = 'ACCEPT KEY: ${SaveData.getData('acceptKey')}';
                 case 5:
-                    text1.text = 'EXIT KEY: ${Input.kBinds[5]}';
+                    text1.text = 'EXIT KEY: ${SaveData.getData('exitKey')}';
             }
 
             if (inChange)
@@ -114,23 +114,23 @@ class ControlsSubState extends FlxSubState
                     switch (init)
                     {
                         case 0:
-                            SaveData.saveData(Input.kBinds[0], FlxG.keys.getIsDown()[0].ID.toString());
-                            Input.actionMap.set("left", Input.kBinds[0]);
+                            SaveData.saveData('leftKey', FlxG.keys.getIsDown()[0].ID.toString());
+                            Input.actionMap.set("left", SaveData.getData('leftKey'));
                         case 1:
-                            SaveData.saveData(Input.kBinds[1], FlxG.keys.getIsDown()[0].ID.toString());
-                            Input.actionMap.set("down", Input.kBinds[1]);
+                            SaveData.saveData('downKey', FlxG.keys.getIsDown()[0].ID.toString());
+                            Input.actionMap.set("down", SaveData.getData('downKey'));
                         case 2:
-                            SaveData.saveData(Input.kBinds[2], FlxG.keys.getIsDown()[0].ID.toString());
-                            Input.actionMap.set("up", Input.kBinds[2]);
+                            SaveData.saveData('upKey', FlxG.keys.getIsDown()[0].ID.toString());
+                            Input.actionMap.set("up", SaveData.getData('upKey'));
                         case 3:
-                            SaveData.saveData(Input.kBinds[3], FlxG.keys.getIsDown()[0].ID.toString());
-                            Input.actionMap.set("right", Input.kBinds[3]);
+                            SaveData.saveData('rightKey', FlxG.keys.getIsDown()[0].ID.toString());
+                            Input.actionMap.set("right", SaveData.getData('rightKey'));
                         case 4:
-                            SaveData.saveData(Input.kBinds[4], FlxG.keys.getIsDown()[0].ID.toString());
-                            Input.actionMap.set("accept", Input.kBinds[4]);
+                            SaveData.saveData('acceptKey', FlxG.keys.getIsDown()[0].ID.toString());
+                            Input.actionMap.set("accept", SaveData.getData('acceptKey'));
                         case 5:
-                            SaveData.saveData(Input.kBinds[5], FlxG.keys.getIsDown()[0].ID.toString());
-                            Input.actionMap.set("exit", Input.kBinds[5]);
+                            SaveData.saveData('exitKey', FlxG.keys.getIsDown()[0].ID.toString());
+                            Input.actionMap.set("exit", SaveData.getData('exitKey'));
                     }
                     FlxG.sound.play(Paths.sound('scroll'));
                     text2.text = "";
@@ -164,17 +164,17 @@ class ControlsSubState extends FlxSubState
             switch (init)
             {
                 case 0:
-                    text1.text = 'LEFT KEY: ${Input.gBinds[0]}';
+                    text1.text = 'LEFT KEY: ${SaveData.getData('gamepadLeftKey')}';
                 case 1:
-                    text1.text = 'DOWN KEY: ${Input.gBinds[1]}';
+                    text1.text = 'DOWN KEY: ${SaveData.getData('gamepadDownKey')}';
                 case 2:
-                    text1.text = 'UP KEY: ${Input.gBinds[2]}';
+                    text1.text = 'UP KEY: ${SaveData.getData('gamepadUpKey')}';
                 case 3:
-                    text1.text = 'RIGHT KEY: ${Input.gBinds[3]}';
+                    text1.text = 'RIGHT KEY: ${SaveData.getData('gamepadRightKey')}';
                 case 4:
-                    text1.text = 'ACCEPT KEY: ${Input.gBinds[4]}';
+                    text1.text = 'ACCEPT KEY: ${SaveData.getData('gamepadAcceptKey')}';
                 case 5:
-                    text1.text = 'EXIT KEY: ${Input.gBinds[5]}';
+                    text1.text = 'EXIT KEY: ${SaveData.getData('gamepadExitKey')}';
             }
 
             if (inChange)
@@ -186,23 +186,23 @@ class ControlsSubState extends FlxSubState
                     switch (init)
                     {
                         case 0:
-                            SaveData.saveData(Input.gBinds[0], keyPressed);
-                            Input.controllerMap.set("gamepad_left", Input.gBinds[0]);
+                            SaveData.saveData('gamepadLeftKey', keyPressed);
+                            Input.controllerMap.set("gamepad_left", SaveData.getData('gamepadLeftKey'));
                         case 1:
-                            SaveData.saveData(Input.gBinds[1], keyPressed);
-                            Input.controllerMap.set("gamepad_down", Input.gBinds[1]);
+                            SaveData.saveData('gamepadDownKey', keyPressed);
+                            Input.controllerMap.set("gamepad_down", SaveData.getData('gamepadDownKey'));
                         case 2:
-                            SaveData.saveData(Input.gBinds[2], keyPressed);
-                            Input.controllerMap.set("gamepad_up", Input.gBinds[2]);
+                            SaveData.saveData('gamepadUpKey', keyPressed);
+                            Input.controllerMap.set("gamepad_up", SaveData.getData('gamepadUpKey'));
                         case 3:
-                            SaveData.saveData(Input.gBinds[3], keyPressed);
-                            Input.controllerMap.set("gamepad_right", Input.gBinds[3]);
+                            SaveData.saveData('gamepadRightKey', keyPressed);
+                            Input.controllerMap.set("gamepad_right", SaveData.getData('gamepadRightKey'));
                         case 4:
-                            SaveData.saveData(Input.gBinds[4], keyPressed);
-                            Input.controllerMap.set("gamepad_accept", Input.gBinds[4]);
+                            SaveData.saveData('gamepadAcceptKey', keyPressed);
+                            Input.controllerMap.set("gamepad_accept", SaveData.getData('gamepadAcceptKey'));
                         case 5:
-                            SaveData.saveData(Input.gBinds[5], keyPressed);
-                            Input.controllerMap.set("gamepad_exit", Input.gBinds[5]);
+                            SaveData.saveData('gamepadExitKey', keyPressed);
+                            Input.controllerMap.set("gamepad_exit", SaveData.getData('gamepadExitKey'));
                     }
                     FlxG.sound.play(Paths.sound('scroll'));
                     text2.text = "";
