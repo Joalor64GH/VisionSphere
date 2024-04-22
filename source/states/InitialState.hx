@@ -18,8 +18,6 @@ class InitialState extends FlxState
 
     override function create()
     {
-        backend.IncludeAll.init();
-        
         SaveData.init();
 
         #if MODS_ALLOWED
