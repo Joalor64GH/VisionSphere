@@ -51,6 +51,7 @@
 	<haxedef name="HXCPP_STACK_LINE" if="CRASH_HANDLER" />
 	<haxedef name="HXCPP_GC_BIG_BLOCKS" />
 	<haxedef name="no-deprecation-warnings" />
+	<haxedef name="message.reporting" value="pretty" />
 
 	<!-- [ Flags ] -->
 
