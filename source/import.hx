@@ -41,4 +41,8 @@ import states.substates.*;
 using backend.CoolUtil;
 using StringTools;
 using Globals;
+
+#if !debug
+@:noDebug
+#end
 #end
