@@ -18,6 +18,8 @@ class InitialState extends FlxState
 
     override function create()
     {
+        backend.IncludeAll.init();
+        
         SaveData.init();
 
         #if MODS_ALLOWED
@@ -117,13 +119,19 @@ class InitialState extends FlxState
                 case "Play":
                     FlxG.camera.fade(FlxColor.BLACK, 0.33, false, () ->
                     {
-                        #if desktop
-                        UpdateState.updateCheck();
-                        FlxG.switchState((UpdateState.mustUpdate) ? UpdateState.new : SplashState.new);
-                        #else
-                        trace('Sorry! No update support on: ' + backend.system.PlatformUtil.getPlatform() + '!');
-                        FlxG.switchState(SplashState.new);
-                        #end
+                        Main.checkInternet();
+                        if (Main.hasWifi) 
+                        {
+                            #if desktop
+                            UpdateState.updateCheck();
+                            FlxG.switchState((UpdateState.mustUpdate) ? UpdateState.new : SplashState.new);
+                            #else
+                            trace('Sorry! No update support on: ' + backend.system.PlatformUtil.getPlatform() + '!');
+                            FlxG.switchState(SplashState.new);
+                            #end
+                        }
+                        else
+                            FlxG.switchState(SplashState.new);
                     });
                 case "Website":
                     CoolUtil.browserLoad('https://github.com/Joalor64GH/VisionSphere');
