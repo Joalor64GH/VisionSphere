@@ -1,5 +1,9 @@
 package backend;
 
+#if openfl
+import openfl.system.Capabilities;
+#end
+
 /**
  * A simple localization system.
  * Please credit me if you use it!
@@ -10,12 +14,21 @@ class Localization
 {
     private static var data:Map<String, Dynamic>;
     private static var currentLanguage:String;
-    private static var DEFAULT_LANGUAGE:String = "en";
 
-    public static function loadLanguages():Bool
+    public static var DEFAULT_LANGUAGE:String = "en";
+    public static var systemLanguage(get, never):String;
+
+    public static function get_systemLanguage()
     {
-        var allLoaded:Bool = true;
+        #if openfl
+        return Capabilities.language;
+        #else
+        return throw "This is only for OpenFl!";
+        #end
+    }
 
+    public static function loadLanguages()
+    {
         data = new Map<String, Dynamic>();
 
         var foldersToCheck:Array<String> = [Paths.getPath('data/')];
@@ -37,18 +50,10 @@ class Localization
 
                 for (language in languages) {
                     var languageData:Dynamic = loadLanguageData(language.trim());
-                    if (languageData != null) {
-                        trace("successfully loaded language: " + language + "!");
-                        data.set(language, languageData);
-                    } else {
-                        trace("oh no! failed to load language: " + language + "!");
-                        allLoaded = false;
-                    }
+                    data.set(language, languageData);
                 }
             }
         }
-
-        return allLoaded;
     }
 
     private static function loadLanguageData(language:String):Dynamic
@@ -81,40 +86,30 @@ class Localization
         return Json.parse(jsonContent);
     }
 
-    public static function switchLanguage(newLanguage:String):Bool
+    public static function switchLanguage(newLanguage:String)
     {
-        if (newLanguage == currentLanguage) {
-            trace("hey! you're already using the language: " + newLanguage);
-            return true;
-        }
+        if (newLanguage == currentLanguage)
+            return;
 
         var languageData:Dynamic = loadLanguageData(newLanguage);
 
-        if (languageData != null) {
-            trace("yay! successfully loaded data for: " + newLanguage);
-            currentLanguage = newLanguage;
-            data.set(newLanguage, languageData);
-            return true;
-        } else {
-            trace("whoops! failed to load data for: " + newLanguage);
-            return false;
-        }
-
-        return false;
+        currentLanguage = newLanguage;
+        data.set(newLanguage, languageData);
+        trace('Language switched to $newLanguage');
     }
 
-    public static function get(key:String, language:String = "en"):String
+    public static function get(key:String, ?language:String):String
     {
-        var targetLanguage:String = language.toLowerCase();
+        var targetLanguage:String = language ?? currentLanguage;
         var languageData = data.get(targetLanguage);
-        if (data != null) {
-            if (data.exists(targetLanguage)) {
-                if (languageData != null && Reflect.hasField(languageData, key)) {
-                    return Reflect.field(languageData, key);
-                }
-            }
-        }
 
-        return Reflect.field(languageData, key) ?? 'missing key: $key';
+        if (data == null)
+            return null;
+
+        if (data.exists(targetLanguage))
+            if (Reflect.hasField(languageData, key))
+                return Reflect.field(languageData, key);
+
+        return null;
     }
 }
