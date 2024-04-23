@@ -46,6 +46,10 @@
         "dir": null,
         "ref": "master",
         "url": "https://github.com/KadeDev/extension-webm"
+      },
+      {
+        "name": "yaml",
+        "type": "haxelib"
       }
     ]
   }

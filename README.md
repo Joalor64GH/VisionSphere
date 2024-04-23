@@ -19,8 +19,7 @@ A gaming console made in HaxeFlixel. Mostly based on Sega Dreamcast.
 > **??** - Low Priority
 
 * [ ] Add 10 Games (8/10) **[!!]**
-* [X] Controller Support for Real [yay]
-* [X] WebM Video Support [how did i do that]
+* [ ] Weather API Thing
 
 ## Wanna build?
 > [!TIP]

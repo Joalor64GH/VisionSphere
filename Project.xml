@@ -4,7 +4,7 @@
 	<!-- [ Application Settings ] -->
 
 	<app title="VisionSphere" file="VisionSphere" main="Main" />
-	<app version="0.7.5" company="Joalor64GH" package="com.joalor64.visionsphere"/>
+	<app version="0.8.0" company="Joalor64GH" package="com.joalor64.visionsphere"/>
 
 	<!-- [ Window Settings ] -->
 
@@ -36,6 +36,7 @@
 	<haxelib name="hscript" />
 	<haxelib name="djFlixel" />
 
+	<haxelib name="yaml" />
 	<haxelib name="extension-webm" if="desktop" />
 	<haxelib name="hxcpp-debug-server" if="desktop debug" />
 

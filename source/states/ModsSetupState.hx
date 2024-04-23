@@ -126,10 +126,12 @@ class ModSetupTabs extends FlxUITabMenu
             }
 
             if (FileSystem.exists('mods/$modFolder')) {
-                FlxG.state.openSubState(new PromptSubState('Mod folder $modFolder  already exists!\n\n\nAre you sure you want to\noverwrite this folder?', 
-                    createFunc, () -> {
-                        FlxG.state.closeSubState();
-                    }));
+                FlxG.state.openSubState(new PromptSubState('Mod folder $modFolder already exists!\n\n\n\nAre you sure you want to\noverwrite this folder?', () -> {
+                    createFunc();
+                    FlxG.state.closeSubState();
+                }, () -> {
+                    FlxG.state.closeSubState();
+                }));
             }
             else
                 createFunc();
