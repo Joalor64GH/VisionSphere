@@ -233,7 +233,7 @@ class CreditsState extends FlxState
             item.alpha = (item.targetY == 0) ? 1 : 0.6;
         }
 
-        if (credData.users[curSelected].sectionName.length != null)
+        if (credData.users[curSelected].sectionName.length < 1)
         {
             var textValue = credData.users[curSelected].sectionName;
             if (credData.users[curSelected].sectionName == null)
