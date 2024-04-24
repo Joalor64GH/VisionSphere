@@ -14,6 +14,7 @@ using StringTools;
  * @see https://github.com/ShadowMario/FNF-PsychEngine/
  */
 
+@:access(openfl.display.BitmapData)
 class Paths
 {
 	#if MODS_ALLOWED
@@ -38,44 +39,40 @@ class Paths
 	{
 		for (key in currentTrackedAssets.keys()) 
 		{
-			if (!localTrackedAssets.contains(key)) {
-				var obj = currentTrackedAssets.get(key);
-				@:privateAccess
-				if (obj != null) 
-				{
-					Assets.cache.removeBitmapData(key);
-					FlxG.bitmap._cache.remove(key);
-					obj.destroy();
-					currentTrackedAssets.remove(key);
-				}
+			if (!localTrackedAssets.contains(key))
+			{
+				destroyGraphic(currentTrackedAssets.get(key));
+				currentTrackedAssets.remove(key);
 			}
 		}
 		openfl.system.System.gc();
 	}
 
+	@:access(flixel.system.frontEnds.BitmapFrontEnd._cache)
 	public static function clearStoredMemory() 
 	{
-		@:privateAccess
 		for (key in FlxG.bitmap._cache.keys())
 		{
-			var obj = FlxG.bitmap._cache.get(key);
-			if (obj != null && !currentTrackedAssets.exists(key)) 
-			{
-				Assets.cache.removeBitmapData(key);
-				FlxG.bitmap._cache.remove(key);
-				obj.destroy();
-			}
+			if (!currentTrackedAssets.exists(key))
+				destroyGraphic(FlxG.bitmap.get(key));
 		}
 
-		for (key in currentTrackedSounds.keys()) 
+		for (key => asset in currentTrackedSounds) 
 		{
-			if (!localTrackedAssets.contains(key) && key != null) 
+			if (!localTrackedAssets.contains(key) && asset != null) 
 			{
 				Assets.cache.clear(key);
 				currentTrackedSounds.remove(key);
 			}
 		}
 		localTrackedAssets = [];
+	}
+
+	inline static function destroyGraphic(graphic:FlxGraphic)
+	{
+		if (graphic != null && graphic.bitmap != null && graphic.bitmap.__texture != null)
+			graphic.bitmap.__texture.dispose();
+		FlxG.bitmap.remove(graphic);
 	}
 
 	private static var trackedBitmaps:Map<String, BitmapData> = new Map();
@@ -343,10 +340,9 @@ class Paths
 		return modFolders('images/$key.txt');
 
 	static public function modFolders(key:String) {
-		if (currentModDirectory != null && currentModDirectory.length > 0) {
+		if (currentModDirectory != null && currentModDirectory.length > 0)
 			if (FileSystem.exists(mods('$currentModDirectory/$key')))
 				return mods('$currentModDirectory/$key');
-		}
 
 		for (mod in getGlobalMods())
 			if (FileSystem.exists(mods('$mod/$key')))
