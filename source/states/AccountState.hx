@@ -44,7 +44,7 @@ class AccountState extends FlxState
         profileSpr.scale.set(1.4, 1.4);
         add(profileSpr);
 
-        usernameTxt = new FlxText(0, profileSpr.y + 385, 0, SaveData.username, 12);
+        usernameTxt = new FlxText(0, profileSpr.y + 385, FlxG.width, SaveData.username, 12);
         usernameTxt.setFormat(Paths.font('vcr.ttf'), 64, FlxColor.WHITE, FlxTextAlign.CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
         usernameTxt.screenCenter(X);
         usernameTxt.borderSize = 4;
@@ -106,7 +106,8 @@ class AccountState extends FlxState
             newProfileIndex += profiles.length;
 
         SaveData.profile = profiles[newProfileIndex];
-
+        SaveData.saveSettings();
+        
         profileSpr.loadGraphic(Paths.image('menu/profile/' + SaveData.profile));
     }
 }

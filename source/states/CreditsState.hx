@@ -67,8 +67,11 @@ class CreditsState extends FlxState
             name.targetY = i;
             credsGrp.add(name);
 
-            var icon:AbsoluteSprite = new AbsoluteSprite("menu/credits/" + credData.users[i].iconData[0], name, credData.users[i].iconData[1], credData.users[i].iconData[2]);
-            
+            //var icon:AbsoluteSprite = new AbsoluteSprite("menu/credits/" + credData.users[i].iconData[0], name, credData.users[i].iconData[1], credData.users[i].iconData[2]);
+
+            var offsetX = name.width + credData.users[i].iconData[1];
+            var icon:AbsoluteSprite = new AbsoluteSprite("menu/credits/" + credData.users[i].iconData[0], name, offsetX, credData.users[i].iconData[2]);
+
             if (credData.users[i].iconData[3] != null)
                 icon.setGraphicSize(Std.int(icon.width * credData.users[i].iconData[3]));
             if (credData.users[i].iconData.length <= 1 || credData.users[i].iconData == null)
@@ -95,7 +98,8 @@ class CreditsState extends FlxState
         topMarker.alpha = 0;
         add(topMarker);
 
-        centerMarker = new FlxText(8, 8, 0, "< PLATFORM >").setFormat(Paths.font('vcr.ttf'), 32, FlxColor.WHITE);
+        centerMarker = new FlxText(0, 8, FlxG.width, "< PLATFORM >").setFormat(Paths.font('vcr.ttf'), 32, FlxColor.WHITE);
+        centerMarker.alignment = CENTER;
         centerMarker.screenCenter(X);
         centerMarker.alpha = 0;
         add(centerMarker);
@@ -105,7 +109,7 @@ class CreditsState extends FlxState
         rightMarker.alpha = 0;
         add(rightMarker);
 
-        bottomMarker = new FlxText(5, FlxG.height - 24, 0, "", 32);
+        bottomMarker = new FlxText(0, FlxG.height - 24, 0, "", 32);
         bottomMarker.setFormat(Paths.font('vcr.ttf'), 20, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
         bottomMarker.textField.background = true;
         bottomMarker.textField.backgroundColor = FlxColor.BLACK;
@@ -129,8 +133,6 @@ class CreditsState extends FlxState
 
         rightMarker.y = topBar.y + 5;
         rightMarker.x = FlxG.width - (rightMarker.width + 16);
-
-        bottomMarker.screenCenter(X);
 
         var controlArray:Array<Bool> = [
             FlxG.keys.justPressed.UP,
@@ -221,8 +223,6 @@ class CreditsState extends FlxState
                 }
             }
         }
-
-        updateBottomMarker();
     }
 
     function changeSelection(change:Int = 0)
@@ -257,6 +257,8 @@ class CreditsState extends FlxState
             }
         }
 
+        updateBottomMarker();
+
         // resets social because dumb
         curSocial = 0;
         updateSocial();
@@ -269,7 +271,7 @@ class CreditsState extends FlxState
         
         curSocial += huh;
         if (curSocial < 0)
-            curSocial = credData.users[curSelected].urlData[0].length - 1;
+            curSocial = credData.users[curSelected].urlData.length - 1;
         if (curSocial >= credData.users[curSelected].urlData.length)
             curSocial = 0;
 
@@ -294,5 +296,6 @@ class CreditsState extends FlxState
             fullText += ' - "' + textData[1] + '"';
         
         bottomMarker.text = fullText;
+        bottomMarker.screenCenter(X);
     }
 }
