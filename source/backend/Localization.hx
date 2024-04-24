@@ -44,8 +44,8 @@ class Localization
 
         for (folder in foldersToCheck) {
             var path:String = folder + "languagesList.txt";
-            if (FileSystem.exists(path)) {
-                var listContent:String = File.getContent(path);
+            if (FileAssets.exists(path)) {
+                var listContent:String = getFile(path);
                 var languages:Array<String> = listContent.split('\n');
 
                 for (language in languages) {
@@ -64,22 +64,22 @@ class Localization
         #if MODS_ALLOWED
         var modPath:String = Paths.modFolders("languages/" + language + ".json");
         
-        if (FileSystem.exists(modPath)) {
-            jsonContent = File.getContent(modPath);
+        if (FileAssets.exists(modPath)) {
+            jsonContent = getFile(modPath);
             currentLanguage = language;
-        } else if (FileSystem.exists(path)) {
-            jsonContent = File.getContent(path);
+        } else if (FileAssets.exists(path)) {
+            jsonContent = getFile(path);
             currentLanguage = language;
         }
         #else
-        if (FileSystem.exists(path)) {
-            jsonContent = File.getContent(path);
+        if (FileAssets.exists(path)) {
+            jsonContent = getFile(path);
             currentLanguage = language;
         } 
         #end
         else {
             trace("oops! file not found for: " + language + "!");
-            jsonContent = File.getContent(Paths.getPath("languages/" + DEFAULT_LANGUAGE + ".json"));
+            jsonContent = getFile(Paths.getPath("languages/" + DEFAULT_LANGUAGE + ".json"));
             currentLanguage = DEFAULT_LANGUAGE;
         }
 
@@ -112,4 +112,15 @@ class Localization
 
         return null;
     }
+
+    private static function getFile(file:String)
+    {
+        #if sys
+        File.getContent(file);
+        #else
+        Assets.getText(file);
+        #end
+    }
 }
+
+typedef FileAssets = #if sys FileSystem; #else Assets; #end

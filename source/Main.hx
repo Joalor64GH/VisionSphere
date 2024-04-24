@@ -12,6 +12,7 @@ import frontend.debug.Info;
 import frontend.video.*;
 
 import macros.MacroUtil;
+
 import frontend.Colorblind;
 
 #if linux
@@ -152,26 +153,24 @@ class Main extends openfl.display.Sprite
 		http.request();		
 	}
 
-	private static function initConfig() {
+	private static function initConfig() 
+	{
 		SaveData.init();
 
-        #if MODS_ALLOWED
-        Paths.pushGlobalMods();
-        #end
-
-        Paths.clearStoredMemory();
-        Paths.clearUnusedMemory();
+		#if MODS_ALLOWED
+		Paths.pushGlobalMods();
+		#end
 
         Localization.loadLanguages();
-        Localization.switchLanguage(SaveData.lang);
+		Localization.switchLanguage(SaveData.lang);
 
-        updateFramerate(SaveData.framerate);
+		updateFramerate(SaveData.framerate);
 
-        Colorblind.updateColorBlindFilter(SaveData.colorBlindFilter);
+		Colorblind.updateColorBlindFilter(SaveData.colorBlindFilter);
 
-        FlxG.sound.muteKeys = [NUMPADZERO];
-        FlxG.sound.volumeDownKeys = [NUMPADMINUS];
-        FlxG.sound.volumeUpKeys = [NUMPADPLUS];		
+		FlxG.sound.muteKeys = [NUMPADZERO];
+		FlxG.sound.volumeDownKeys = [NUMPADMINUS];
+		FlxG.sound.volumeUpKeys = [NUMPADPLUS];
 	}
 
 	public static function updateFramerate(newFramerate:Int)

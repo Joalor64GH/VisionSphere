@@ -1,7 +1,5 @@
 package backend;
 
-import openfl.Assets;
-
 class CoolUtil
 {
     inline public static function getText(path:String):Array<String> {

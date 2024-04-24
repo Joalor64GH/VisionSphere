@@ -1,6 +1,7 @@
 package backend.data;
 
 /**
+ * TO-DO: Rewrite this to be simpler
  * A simple save data class based on psych engine lol
  * @see https://github.com/ShadowMario/FNF-PsychEngine/
  */
@@ -103,7 +104,7 @@ class SaveData
         if (FlxG.save.data.gamepadExitKey != null)
             gamepadExitKey = FlxG.save.data.gamepadExitKey;
 
-        //this code below is resetting your save that's why i took it out!
-        //FlxG.save.bind('VisionSphere', 'Joalor64');
+        // this code below is resetting your save that's why i took it out!
+        // FlxG.save.bind('VisionSphere', 'Joalor64');
     }
 }

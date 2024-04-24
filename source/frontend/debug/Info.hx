@@ -1,7 +1,5 @@
 package frontend.debug;
 
-import backend.data.SaveData; 
-
 class Info extends openfl.text.TextField
 {
 	var times:Array<Float> = [];
@@ -19,7 +17,7 @@ class Info extends openfl.text.TextField
 		defaultTextFormat = new openfl.text.TextFormat(Paths.font((font != null) ? font : 'vcr.ttf'), 18, 0xFFFFFF);
 
 		visible = SaveData.fpsCounter;
-		alpha =  0.8; // to see things from the back better
+		alpha = 0.8; // to see things from the back better
 
 		addEventListener(openfl.events.Event.ENTER_FRAME, (_) ->
 		{

@@ -67,7 +67,7 @@ class CreditsState extends FlxState
             name.targetY = i;
             credsGrp.add(name);
 
-            //var icon:AbsoluteSprite = new AbsoluteSprite("menu/credits/" + credData.users[i].iconData[0], name, credData.users[i].iconData[1], credData.users[i].iconData[2]);
+            // var icon:AbsoluteSprite = new AbsoluteSprite("menu/credits/" + credData.users[i].iconData[0], name, credData.users[i].iconData[1], credData.users[i].iconData[2]);
 
             var offsetX = name.width + credData.users[i].iconData[1];
             var icon:AbsoluteSprite = new AbsoluteSprite("menu/credits/" + credData.users[i].iconData[0], name, offsetX, credData.users[i].iconData[2]);
@@ -129,6 +129,7 @@ class CreditsState extends FlxState
 
         topBar.y = FlxMath.lerp(topBar.y, 0, elapsed * 6);
         topMarker.y = topBar.y + 5;
+        
         centerMarker.y = topBar.y + 5;
 
         rightMarker.y = topBar.y + 5;
@@ -269,11 +270,7 @@ class CreditsState extends FlxState
         if (credData.users[curSelected].urlData[curSocial][0] == null)
             return;
         
-        curSocial += huh;
-        if (curSocial < 0)
-            curSocial = credData.users[curSelected].urlData.length - 1;
-        if (curSocial >= credData.users[curSelected].urlData.length)
-            curSocial = 0;
+        curSocial = FlxMath.wrap(curSelected + huh, 0, credData.users[curSelected].urlData.length - 1);
 
         if (credData.users[curSelected].urlData[curSocial][0] != null)
         {

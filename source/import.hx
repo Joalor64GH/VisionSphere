@@ -8,6 +8,7 @@ import sys.FileSystem;
 import haxe.Json;
 
 import openfl.Lib;
+import openfl.Assets;
 
 import flixel.*;
 import flixel.util.*;
@@ -32,6 +33,7 @@ import frontend.objects.AbsoluteSprite;
 import backend.Paths;
 import backend.CoolUtil;
 import backend.Localization;
+
 import backend.data.Input;
 import backend.data.SaveData;
 
