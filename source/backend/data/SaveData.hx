@@ -103,6 +103,7 @@ class SaveData
         if (FlxG.save.data.gamepadExitKey != null)
             gamepadExitKey = FlxG.save.data.gamepadExitKey;
 
-        FlxG.save.bind('VisionSphere', 'Joalor64');
+        //this code below is resetting your save that's why i took it out!
+        //FlxG.save.bind('VisionSphere', 'Joalor64');
     }
 }

@@ -1,7 +1,5 @@
 package states;
 
-import frontend.Colorblind;
-
 import djFlixel.gfx.BoxScroller;
 import djFlixel.gfx.pal.Pal_DB32;
 
@@ -18,26 +16,6 @@ class InitialState extends FlxState
 
     override function create()
     {
-        SaveData.init();
-
-        #if MODS_ALLOWED
-        Paths.pushGlobalMods();
-        #end
-
-        Paths.clearStoredMemory();
-        Paths.clearUnusedMemory();
-
-        Localization.loadLanguages();
-        Localization.switchLanguage(SaveData.lang);
-
-        Main.updateFramerate(SaveData.framerate);
-
-        Colorblind.updateColorBlindFilter(SaveData.colorBlindFilter);
-
-        FlxG.sound.muteKeys = [NUMPADZERO];
-        FlxG.sound.volumeDownKeys = [NUMPADMINUS];
-        FlxG.sound.volumeUpKeys = [NUMPADPLUS];
-
         var colors = FlxColor.gradient(0xFF0080FF, 0xFF200050, 12);
         var parallaxes:Array<BoxScroller> = [];
         var h0 = 48;

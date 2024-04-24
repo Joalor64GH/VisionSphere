@@ -12,6 +12,7 @@ import frontend.debug.Info;
 import frontend.video.*;
 
 import macros.MacroUtil;
+import frontend.Colorblind;
 
 #if linux
 @:cppInclude('./external/gamemode_client.h')
@@ -24,7 +25,7 @@ class Main extends openfl.display.Sprite
 {
 	final config:Dynamic = {
 		gameDimensions: [1280, 720],
-		initialState: () -> new InitialState(),
+		initialState: InitialState,
 		defaultFPS: 60,
 		skipSplash: true,
 		startFullscreen: false
@@ -77,6 +78,8 @@ class Main extends openfl.display.Sprite
 		coolGame = new VSGame(config.gameDimensions[0], config.gameDimensions[1], config.initialState, 
 			config.defaultFPS, config.defaultFPS, config.skipSplash, config.startFullscreen);
 		addChild(coolGame);
+
+		initConfig();
 
 		fpsDisplay = new Info(10, 10, 0xFFFFFF);
 		addChild(fpsDisplay);
@@ -147,6 +150,28 @@ class Main extends openfl.display.Sprite
 		}
 
 		http.request();		
+	}
+
+	private static function initConfig() {
+		SaveData.init();
+
+        #if MODS_ALLOWED
+        Paths.pushGlobalMods();
+        #end
+
+        Paths.clearStoredMemory();
+        Paths.clearUnusedMemory();
+
+        Localization.loadLanguages();
+        Localization.switchLanguage(SaveData.lang);
+
+        updateFramerate(SaveData.framerate);
+
+        Colorblind.updateColorBlindFilter(SaveData.colorBlindFilter);
+
+        FlxG.sound.muteKeys = [NUMPADZERO];
+        FlxG.sound.volumeDownKeys = [NUMPADMINUS];
+        FlxG.sound.volumeUpKeys = [NUMPADPLUS];		
 	}
 
 	public static function updateFramerate(newFramerate:Int)
