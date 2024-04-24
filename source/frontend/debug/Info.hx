@@ -34,7 +34,7 @@ class Info extends openfl.text.TextField
 			
 			text = (visible) ? 
 				'FPS: ${times.length}' + '\nMemory: ${FlxStringUtil.formatBytes(mem)} / ${FlxStringUtil.formatBytes(memPeak)}' 
-					+ \nVisionSphere v${Lib.application.meta.get('version')}' : '';
+					+ '\nVisionSphere v${Lib.application.meta.get('version')}' : '';
 		});
 	}
 }
