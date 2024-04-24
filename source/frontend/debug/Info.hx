@@ -1,5 +1,7 @@
 package frontend.debug;
 
+import flixel.util.FlxStringUtil;
+
 class Info extends openfl.text.TextField
 {
 	var times:Array<Float> = [];
@@ -25,14 +27,14 @@ class Info extends openfl.text.TextField
 			times.push(now);
 			while (times[0] < now - 1000) times.shift();
 
-			var mem:Float = openfl.system.System.totalMemory;
+			var mem:Float = System.totalMemory;
 			var memPeak:Float = 0;
 
 			if (mem > memPeak) memPeak = mem;
 			
 			text = (visible) ? 
-				"FPS: " + times.length + "\nMemory: " + flixel.util.FlxStringUtil.formatBytes(mem) + " / " + flixel.util.FlxStringUtil.formatBytes(memPeak)
-				+ "\nVisionSphere v" + Lib.application.meta.get('version') : "";
+				'FPS: ${times.length}' + '\nMemory: ${FlxStringUtil.formatBytes(mem)} / ${FlxStringUtil.formatBytes(memPeak)}' 
+					+ \nVisionSphere v${Lib.application.meta.get('version')}' : '';
 		});
 	}
 }

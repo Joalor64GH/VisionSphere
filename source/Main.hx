@@ -22,7 +22,7 @@ import frontend.Colorblind;
 ')
 #end
 
-class Main extends openfl.display.Sprite
+class Main extends Sprite
 {
 	final config:Dynamic = {
 		gameDimensions: [1280, 720],
@@ -161,7 +161,7 @@ class Main extends openfl.display.Sprite
 		Paths.pushGlobalMods();
 		#end
 
-        Localization.loadLanguages();
+		Localization.loadLanguages();
 		Localization.switchLanguage(SaveData.lang);
 
 		updateFramerate(SaveData.framerate);
@@ -188,7 +188,7 @@ class Main extends openfl.display.Sprite
 	}
 }
 
-class VSGame extends flixel.FlxGame
+class VSGame extends FlxGame
 {
 	var _viewingCrash:Bool = false;
 

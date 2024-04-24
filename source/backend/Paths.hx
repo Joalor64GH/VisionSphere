@@ -4,10 +4,7 @@ import flixel.graphics.FlxGraphic;
 import flixel.graphics.frames.FlxAtlasFrames;
 
 import openfl.media.Sound;
-import openfl.utils.Assets;
 import openfl.display.BitmapData;
-
-using StringTools;
 
 /**
  * @author ShadowMario

@@ -11,11 +11,11 @@ class SystemInfoSubState extends FlxSubState
         add(bg);
 
         var info:FlxText = new FlxText(0, 0, 0, 
-            "VisionSphere Version: " + Lib.application.meta.get('version')
-            + "\nVersion ID: " + CoolUtil.getText('VERSION')
-            + "\nCommit ID: " + Main.commitId
-            + "\nBuild Number: " + Main.buildNum
-            + "\nHaxeFlixel Version:" + FlxG.VERSION
+            'VisionSphere Version: ${Lib.application.meta.get('version')}'
+            + '\nVersion ID: ${CoolUtil.getText('VERSION')}'
+            + '\nCommit ID: ${Main.commitId}'
+            + '\nBuild Number: ${Main.buildNum}'
+            + '\nHaxeFlixel Version: ${FlxG.VERSION}'
             + "\nHaxe Version: 4.3.3"
             + "\nOpenFL Version: 9.3.3"
             + "\nLime Version: 8.1.2"
