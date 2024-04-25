@@ -13,7 +13,7 @@ class UpdateState extends FlxState
 
         var text:FlxText = new FlxText(0, 0, FlxG.width, 
             "Hey! You're running an outdated version of VisionSphere!"
-            + '\nThe version you're currently running is v${Lib.application.meta.get('version')}!'
+            + '\nYour current version is v${Lib.application.meta.get('version')}!'
             + '\nPress ENTER to update to v${updateVersion}! Otherwise, press ESCAPE.'
             + "\nThanks for playing!",
             32);
