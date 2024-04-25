@@ -15,7 +15,7 @@ class SystemInfoSubState extends FlxSubState
             + '\nVersion ID: ${CoolUtil.getText('VERSION')}'
             + '\nCommit ID: ${Main.commitId}'
             + '\nBuild Number: ${Main.buildNum}'
-            + '\nHaxeFlixel Version: ${FlxG.VERSION}'
+            + "\nHaxeFlixel Version: 5.8.0"
             + "\nHaxe Version: 4.3.3"
             + "\nOpenFL Version: 9.3.3"
             + "\nLime Version: 8.1.2"
