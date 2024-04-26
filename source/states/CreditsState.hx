@@ -273,7 +273,7 @@ class CreditsState extends FlxState
             }
         } catch(e) {}
 
-        rightMarker.text = sectionName ?? antSectionName;
+        rightMarker.text = sectionName ?? altSectionName;
     }
 
     function updateSocial(huh:Int = 0)
