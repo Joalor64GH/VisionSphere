@@ -257,17 +257,23 @@ class CreditsState extends FlxState
         updateSocial();
     }
 
-    var currentSection:String = "";
     function updateSectionName()
     {
         var sectionName = credData.users[curSelected].sectionName;
+        var altSectionName = '';
+        try {
+            for (i in 0...curSelected)
+            {
+                var hisAlt = credData.users[curSelected - (i + 1)].sectionName;
+                if (hisAlt != null && hisAlt.length >= 1)
+                {
+                    altSectionName = hisAlt;
+                    break;
+                }
+            }
+        } catch(e) {}
 
-        var sectionAnt:String = null;
-        if (curSelected != 0)
-            sectionAnt = credData.users[curSelected - 1].sectionName;
-        if (sectionName.length > 0 || sectionName != null)
-            currentSection = sectionName;
-        rightMarker.text = sectionName ?? (sectionAnt ?? currentSection);
+        rightMarker.text = sectionName ?? altSectionName;
     }
 
     function updateSocial(huh:Int = 0)
