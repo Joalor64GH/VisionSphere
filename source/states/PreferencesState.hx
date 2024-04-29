@@ -78,11 +78,11 @@ class PreferencesState extends FlxState
             {
                 #if desktop
                 case "Fullscreen":
-                    SaveData.settings.set("fullscreen", !SaveData.settings.get("fullscreen"))
+                    SaveData.settings.set("fullscreen", !SaveData.settings.get("fullscreen"));
                     FlxG.fullscreen = SaveData.settings.get("fullscreen");
                 #end
                 case "FPS Counter":
-                    SaveData.settings.set("fpsCounter", !SaveData.settings.get("fpsCounter"))
+                    SaveData.settings.set("fpsCounter", !SaveData.settings.get("fpsCounter"));
                     if (Main.fpsDisplay != null)
                         Main.fpsDisplay.visible = SaveData.settings.get("fpsCounter");
                 case "Language":
@@ -116,10 +116,9 @@ class PreferencesState extends FlxState
             if (right || left)
             {
                 FlxG.sound.play(Paths.sound('scroll'));
-                var value:Int = SaveData.settings.get("framerate")
+                var value:Int = SaveData.settings.get("framerate");
                 if (!left) value += (value == 240) ? 0 : 10;
                 else value -= (value == 60) ? 0 : 10;
-                
                 Main.updateFramerate(value);
             }
         }
@@ -177,13 +176,13 @@ class PreferencesState extends FlxState
             case "Colorblind Filter":
                 daText.text = "In case you're colorblind.";
             case "Time Format":
-                daText.text = "Use LEFT/RIGHT to change the time format. Current Format: " + SaveData.timeFormat;
+                daText.text = 'Use LEFT/RIGHT to change the time format. Current Format: ${SaveData.settings.get("timeFormat")}';
             case "Language":
                 daText.text = 'Changes the current language. Current language: ${SaveData.settings.get("lang")}';
             case "Theme":
                 daText.text = "Use LEFT/RIGHT to change the theme.";
             case "Framerate":
-                daText.text = "Use LEFT/RIGHT to change the framerate (Max 240). Current Framerate: " + SaveData.settings.get("framerate");
+                daText.text = 'Use LEFT/RIGHT to change the framerate (Max 240). Current Framerate: ${SaveData.settings.get("framerate")}';
             default:
                 daText.text = "";
         }

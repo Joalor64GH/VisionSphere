@@ -6,7 +6,8 @@ import states.unused.chat.Message;
 
 import flixel.addons.ui.FlxInputText;
 
-class ChatState extends FlxState // this is broken and idk why
+// this is broken and idk why
+class ChatState extends FlxState
 {
     private var mess:MsgGroup;
     private var txtInput:FlxInputText;
@@ -30,13 +31,18 @@ class ChatState extends FlxState // this is broken and idk why
     {
         super.update(elapsed);
 
-        if (Input.is('exit'))
+        var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
+
+        var accept = Input.is('accept') || (gamepad != null ? Input.gamepadIs('gamepad_accept') : false);
+        var exit = Input.is('exit') || (gamepad != null ? Input.gamepadIs('gamepad_exit') : false);
+
+        if (exit)
         {
             FlxG.sound.play(Paths.sound('cancel'));
             FlxG.switchState(MenuState.new);
         }
 
-        if (txtInput.hasFocus && Input.is('accept'))
+        if (txtInput.hasFocus && accept)
         {
             mess.addMessage(new Message(8, 0, "you", txtInput.text, FlxColor.WHITE, true));
 

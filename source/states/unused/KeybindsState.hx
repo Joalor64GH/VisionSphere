@@ -33,13 +33,19 @@ class KeybindsState extends FlxState
     {
         super.update(elapsed);
 
-        if (Input.is('up') || Input.is('down'))
+        var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
+
+        var up = Input.is('up') || (gamepad != null ? Input.gamepadIs('gamepad_up') : false);
+        var down = Input.is('down') || (gamepad != null ? Input.gamepadIs('gamepad_down') : false);
+        var exit = Input.is('exit') || (gamepad != null ? Input.gamepadIs('gamepad_exit') : false);
+
+        if (up || down)
         {
             FlxG.sound.play(Paths.sound('scroll'));
             changeSelection(Input.is('up') ? -1 : 1);
         }
 
-        if (Input.is('exit'))
+        if (exit)
         {
             FlxG.sound.play(Paths.sound('cancel'));
             FlxG.switchState(MenuState.new);
