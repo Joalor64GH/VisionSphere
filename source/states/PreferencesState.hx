@@ -160,7 +160,7 @@ class PreferencesState extends FlxState
         if (newTimeIndex < 0)
             newTimeIndex += times.length;
 
-        SaveData.settings.get("timeFormat", times[newTimeIndex]);
+        SaveData.settings.set("timeFormat", times[newTimeIndex]);
     }
 
     function updateText()
