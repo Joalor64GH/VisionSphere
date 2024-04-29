@@ -161,7 +161,7 @@ class Main extends Sprite
 		Paths.pushGlobalMods();
 		#end
 
-        Localization.loadLanguages();
+		Localization.loadLanguages();
 		Localization.switchLanguage(SaveData.settings.get("lang"));
 
 		FlxG.game.focusLostFramerate = 60;
