@@ -69,47 +69,47 @@ class FilterSubState extends FlxSubState
             switch(curSelected)
             {
                 case 0:
-                    SaveData.colorBlindFilter = -1;
-                    Colorblind.updateColorBlindFilter(SaveData.colorBlindFilter);
+                    SaveData.settings.set("colorBlindFilter", -1);
+                    Colorblind.updateColorBlindFilter(SaveData.settings.get("colorBlindFilter"));
                 case 1:
-                    SaveData.colorBlindFilter = 0;
-                    Colorblind.updateColorBlindFilter(SaveData.colorBlindFilter);
+                    SaveData.settings.set("colorBlindFilter", 0);
+                    Colorblind.updateColorBlindFilter(SaveData.settings.get("colorBlindFilter"));
                 case 2:
-                    SaveData.colorBlindFilter = 1;
-                    Colorblind.updateColorBlindFilter(SaveData.colorBlindFilter);
+                    SaveData.settings.set("colorBlindFilter", 1);
+                    Colorblind.updateColorBlindFilter(SaveData.settings.get("colorBlindFilter"));
                 case 3:
-                    SaveData.colorBlindFilter = 2;
-                    Colorblind.updateColorBlindFilter(SaveData.colorBlindFilter);
+                    SaveData.settings.set("colorBlindFilter", 2);
+                    Colorblind.updateColorBlindFilter(SaveData.settings.get("colorBlindFilter"));
                 case 4:
-                    SaveData.colorBlindFilter = 3;
-                    Colorblind.updateColorBlindFilter(SaveData.colorBlindFilter);
+                    SaveData.settings.set("colorBlindFilter", 3);
+                    Colorblind.updateColorBlindFilter(SaveData.settings.get("colorBlindFilter"));
                 case 5:
-                    SaveData.colorBlindFilter = 4;
-                    Colorblind.updateColorBlindFilter(SaveData.colorBlindFilter);
+                    SaveData.settings.set("colorBlindFilter", 4);
+                    Colorblind.updateColorBlindFilter(SaveData.settings.get("colorBlindFilter"));
                 case 6:
-                    SaveData.colorBlindFilter = 5;
-                    Colorblind.updateColorBlindFilter(SaveData.colorBlindFilter);
+                    SaveData.settings.set("colorBlindFilter", 5);
+                    Colorblind.updateColorBlindFilter(SaveData.settings.get("colorBlindFilter"));
                 case 7:
-                    SaveData.colorBlindFilter = 6;
-                    Colorblind.updateColorBlindFilter(SaveData.colorBlindFilter);
+                    SaveData.settings.set("colorBlindFilter", 6);
+                    Colorblind.updateColorBlindFilter(SaveData.settings.get("colorBlindFilter"));
                 case 8:
-                    SaveData.colorBlindFilter = 7;
-                    Colorblind.updateColorBlindFilter(SaveData.colorBlindFilter);
+                    SaveData.settings.set("colorBlindFilter", 7);
+                    Colorblind.updateColorBlindFilter(SaveData.settings.get("colorBlindFilter"));
                 case 9:
-                    SaveData.colorBlindFilter = 8;
-                    Colorblind.updateColorBlindFilter(SaveData.colorBlindFilter);
+                    SaveData.settings.set("colorBlindFilter", 8);
+                    Colorblind.updateColorBlindFilter(SaveData.settings.get("colorBlindFilter"));
                 case 10:
-                    SaveData.colorBlindFilter = 9;
-                    Colorblind.updateColorBlindFilter(SaveData.colorBlindFilter);
+                    SaveData.settings.set("colorBlindFilter", 9);
+                    Colorblind.updateColorBlindFilter(SaveData.settings.get("colorBlindFilter"));
                 case 11:
-                    SaveData.colorBlindFilter = 10;
-                    Colorblind.updateColorBlindFilter(SaveData.colorBlindFilter);
+                    SaveData.settings.set("colorBlindFilter", 10);
+                    Colorblind.updateColorBlindFilter(SaveData.settings.get("colorBlindFilter"));
                 case 12:
-                    SaveData.colorBlindFilter = 11;
-                    Colorblind.updateColorBlindFilter(SaveData.colorBlindFilter);
+                    SaveData.settings.set("colorBlindFilter", 11);
+                    Colorblind.updateColorBlindFilter(SaveData.settings.get("colorBlindFilter"));
                 case 13:
-                    SaveData.colorBlindFilter = 12;
-                    Colorblind.updateColorBlindFilter(SaveData.colorBlindFilter, FlxG.random.float(0, 1));
+                    SaveData.settings.set("colorBlindFilter", 12);
+                    Colorblind.updateColorBlindFilter(SaveData.settings.get("colorBlindFilter"), FlxG.random.float(0, 1));
             }
             close();
         }

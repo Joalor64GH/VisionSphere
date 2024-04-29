@@ -162,11 +162,11 @@ class Main extends openfl.display.Sprite
 		#end
 
         Localization.loadLanguages();
-		Localization.switchLanguage(SaveData.lang);
+		Localization.switchLanguage(SaveData.settings.get("lang"));
 
 		FlxG.game.focusLostFramerate = 60;
 
-		Colorblind.updateColorBlindFilter(SaveData.colorBlindFilter);
+		Colorblind.updateColorBlindFilter(SaveData.settings.get("colorBlindFilter"));
 
 		FlxG.sound.muteKeys = [NUMPADZERO];
 		FlxG.sound.volumeDownKeys = [NUMPADMINUS];

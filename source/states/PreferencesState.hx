@@ -29,7 +29,7 @@ class PreferencesState extends FlxState
         Paths.clearStoredMemory();
         Paths.clearUnusedMemory();
 
-        bg = new FlxSprite().loadGraphic(Paths.image('theme/' + SaveData.theme));
+        bg = new FlxSprite().loadGraphic(Paths.image('theme/'${SaveData.settings.get("theme")}));
         add(bg);
 
         group = new FlxTypedGroup<Alphabet>();
@@ -78,13 +78,13 @@ class PreferencesState extends FlxState
             {
                 #if desktop
                 case "Fullscreen":
-                    SaveData.fullscreen = !SaveData.fullscreen;
-                    FlxG.fullscreen = SaveData.fullscreen;
+                    SaveData.settings.set("fullscreen", !SaveData.settings.get("fullscreen"))
+                    FlxG.fullscreen = SaveData.settings.get("fullscreen");
                 #end
                 case "FPS Counter":
-                    SaveData.fpsCounter = !SaveData.fpsCounter;
+                    SaveData.settings.set("fpsCounter", !SaveData.settings.get("fpsCounter"))
                     if (Main.fpsDisplay != null)
-                        Main.fpsDisplay.visible = SaveData.fpsCounter;
+                        Main.fpsDisplay.visible = SaveData.settings.get("fpsCounter");
                 case "Language":
                     openSubState(new LanguageSubState());
                 case "Colorblind Filter":
@@ -116,10 +116,11 @@ class PreferencesState extends FlxState
             if (right || left)
             {
                 FlxG.sound.play(Paths.sound('scroll'));
-                if (!left) SaveData.framerate += (SaveData.framerate == 240) ? 0 : 10;
-                else SaveData.framerate -= (SaveData.framerate == 60) ? 0 : 10;
+                var value:Int = SaveData.settings.get("framerate")
+                if (!left) value += (value == 240) ? 0 : 10;
+                else value -= (value == 60) ? 0 : 10;
                 
-                Main.updateFramerate(SaveData.framerate);
+                Main.updateFramerate(value);
             }
         }
 
@@ -143,24 +144,24 @@ class PreferencesState extends FlxState
 
     private function switchTheme(direction:Int = 0)
     {
-        var currentThemeIndex:Int = themes.indexOf(SaveData.theme);
+        var currentThemeIndex:Int = themes.indexOf(SaveData.settings.get("theme"));
         var newThemeIndex:Int = (currentThemeIndex + direction) % themes.length;
         if (newThemeIndex < 0)
             newThemeIndex += themes.length;
 
-        SaveData.theme = themes[newThemeIndex];
+        SaveData.settings.set("theme", themes[newThemeIndex]);
 
-        bg.loadGraphic(Paths.image('theme/' + SaveData.theme));
+        bg.loadGraphic(Paths.image('theme/'${SaveData.settings.get("theme")}));
     }
 
     private function switchTime(direction:Int = 0)
     {
-        var currentTimeIndex:Int = times.indexOf(SaveData.timeFormat);
+        var currentTimeIndex:Int = times.indexOf(SaveData.settings.get("timeFormat"));
         var newTimeIndex:Int = (currentTimeIndex + direction) % times.length;
         if (newTimeIndex < 0)
             newTimeIndex += times.length;
 
-        SaveData.timeFormat = times[newTimeIndex];
+        SaveData.settings.get("timeFormat", times[newTimeIndex]);
     }
 
     function updateText()
@@ -178,11 +179,11 @@ class PreferencesState extends FlxState
             case "Time Format":
                 daText.text = "Use LEFT/RIGHT to change the time format. Current Format: " + SaveData.timeFormat;
             case "Language":
-                daText.text = "Changes the current language.";
+                daText.text = "Changes the current language. Current Language:" + SaveData.settings.get("lang");
             case "Theme":
                 daText.text = "Use LEFT/RIGHT to change the theme.";
             case "Framerate":
-                daText.text = "Use LEFT/RIGHT to change the framerate (Max 240). Current Framerate: " + SaveData.framerate;
+                daText.text = "Use LEFT/RIGHT to change the framerate (Max 240). Current Framerate: " + SaveData.settings.get("framerate");
             default:
                 daText.text = "";
         }

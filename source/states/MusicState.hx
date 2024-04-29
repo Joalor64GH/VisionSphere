@@ -41,7 +41,7 @@ class MusicState extends BeatState
         if (musicData.bg != null && musicData.bg.length > 0)
             bg = new FlxSprite().loadGraphic(Paths.image(musicData.bg));
         else
-            bg = new FlxSprite().loadGraphic(Paths.image('theme/' + SaveData.theme));
+            bg = new FlxSprite().loadGraphic(Paths.image('theme/'${SaveData.settings.get("theme")}));
         add(bg);
 
         var musplayer:FlxSprite = new FlxSprite(0, 0).loadGraphic(Paths.image('music/musplayer'));
