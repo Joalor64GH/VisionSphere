@@ -164,7 +164,7 @@ class Main extends openfl.display.Sprite
         Localization.loadLanguages();
 		Localization.switchLanguage(SaveData.lang);
 
-		updateFramerate(SaveData.framerate);
+		FlxG.game.focusLostFramerate = 60;
 
 		Colorblind.updateColorBlindFilter(SaveData.colorBlindFilter);
 
