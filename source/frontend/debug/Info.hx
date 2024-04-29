@@ -18,7 +18,7 @@ class Info extends openfl.text.TextField
 		selectable = false;
 		defaultTextFormat = new openfl.text.TextFormat(Paths.font((font != null) ? font : 'vcr.ttf'), 18, 0xFFFFFF);
 
-		visible = SaveData.fpsCounter;
+		visible = SaveData.settings.fpsCounter;
 		alpha = 0.8; // to see things from the back better
 
 		addEventListener(openfl.events.Event.ENTER_FRAME, (_) ->

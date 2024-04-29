@@ -1,7 +1,5 @@
 package states.substates;
 
-import flixel.input.gamepad.FlxGamepadInputID;
-
 /**
  * @author khuonghoanghuy
  * @see https://github.com/khuonghoanghuy/FNF-Pop-Engine-Rewrite/
