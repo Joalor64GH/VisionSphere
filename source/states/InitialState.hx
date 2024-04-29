@@ -117,7 +117,7 @@ class InitialState extends FlxState
                         #if (sys || cpp)
                         Sys.exit(0);
                         #else
-                        openfl.system.System.exit(0);
+                        System.exit(0);
                         #end
                     });
             }

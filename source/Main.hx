@@ -168,9 +168,9 @@ class Main extends openfl.display.Sprite
 
 		Colorblind.updateColorBlindFilter(SaveData.settings.get("colorBlindFilter"));
 
-		FlxG.sound.muteKeys = [NUMPADZERO];
-		FlxG.sound.volumeDownKeys = [NUMPADMINUS];
-		FlxG.sound.volumeUpKeys = [NUMPADPLUS];
+		FlxG.sound.muteKeys = [NUMPADZERO, ZERO];
+		FlxG.sound.volumeDownKeys = [NUMPADMINUS, MINUS];
+		FlxG.sound.volumeUpKeys = [NUMPADPLUS, PLUS];
 	}
 
 	public static function updateFramerate(newFramerate:Int)
@@ -188,7 +188,7 @@ class Main extends openfl.display.Sprite
 	}
 }
 
-class VSGame extends flixel.FlxGame
+class VSGame extends FlxGame
 {
 	var _viewingCrash:Bool = false;
 

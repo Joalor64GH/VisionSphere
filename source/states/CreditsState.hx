@@ -104,8 +104,8 @@ class CreditsState extends FlxState
         centerMarker.alpha = 0;
         add(centerMarker);
 
-        rightMarker = new FlxText(8, 8, 0, "VISIONSPHERE").setFormat(Paths.font('vcr.ttf'), 32, FlxColor.WHITE);
-        rightMarker.x = FlxG.width - (rightMarker.width + 16);
+        rightMarker = new FlxText(-8, 8, FlxG.width, "VISIONSPHERE").setFormat(Paths.font('vcr.ttf'), 32, FlxColor.WHITE);
+        rightMarker.alignment = RIGHT;
         rightMarker.alpha = 0;
         add(rightMarker);
 
@@ -128,12 +128,10 @@ class CreditsState extends FlxState
         super.update(elapsed);
 
         topBar.y = FlxMath.lerp(topBar.y, 0, elapsed * 6);
-        topMarker.y = topBar.y + 5;
-        
-        centerMarker.y = topBar.y + 5;
 
+        topMarker.y = topBar.y + 5;
+        centerMarker.y = topBar.y + 5;
         rightMarker.y = topBar.y + 5;
-        rightMarker.x = FlxG.width - (rightMarker.width + 16);
 
         var controlArray:Array<Bool> = [
             FlxG.keys.justPressed.UP,
@@ -234,13 +232,7 @@ class CreditsState extends FlxState
             item.alpha = (item.targetY == 0) ? 1 : 0.6;
         }
 
-        if (credData.users[curSelected].sectionName.length < 1)
-        {
-            var textValue = credData.users[curSelected].sectionName;
-            if (credData.users[curSelected].sectionName == null)
-                textValue = "";
-            rightMarker.text = textValue;
-        }
+        updateSectionName();
 
         if (credData.tweenColor)
         {
@@ -263,6 +255,25 @@ class CreditsState extends FlxState
         // resets social because dumb
         curSocial = 0;
         updateSocial();
+    }
+
+    function updateSectionName()
+    {
+        var sectionName = credData.users[curSelected].sectionName;
+        var altSectionName = '';
+        try {
+            for (i in 0...curSelected)
+            {
+                var hisAlt = credData.users[curSelected - (i + 1)].sectionName;
+                if (hisAlt != null && hisAlt.length >= 1)
+                {
+                    altSectionName = hisAlt;
+                    break;
+                }
+            }
+        } catch(e) {}
+
+        rightMarker.text = sectionName ?? altSectionName;
     }
 
     function updateSocial(huh:Int = 0)
