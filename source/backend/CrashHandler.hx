@@ -13,7 +13,7 @@ import openfl.ui.Keyboard;
  * @see https://github.com/crowplexus/Forever-Engine/
  */
 
-class CrashHandler extends openfl.display.Sprite 
+class CrashHandler extends Sprite 
 {
 	var errorTitle:RotatableTextField;
 	var loggedError:TextField;
@@ -217,7 +217,7 @@ class CrashHandler extends openfl.display.Sprite
 				#if (sys || cpp)
 				Sys.exit(0);
 				#else
-				openfl.system.System.exit(0);
+				System.exit(0);
 				#end
 		}
 	}

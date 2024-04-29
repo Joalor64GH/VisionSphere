@@ -179,7 +179,7 @@ class PreferencesState extends FlxState
             case "Time Format":
                 daText.text = "Use LEFT/RIGHT to change the time format. Current Format: " + SaveData.timeFormat;
             case "Language":
-                daText.text = "Changes the current language. Current Language:" + SaveData.settings.get("lang");
+                daText.text = 'Changes the current language. Current language: ${SaveData.settings.get("lang")}';
             case "Theme":
                 daText.text = "Use LEFT/RIGHT to change the theme.";
             case "Framerate":

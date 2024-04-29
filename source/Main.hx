@@ -22,7 +22,7 @@ import frontend.Colorblind;
 ')
 #end
 
-class Main extends openfl.display.Sprite
+class Main extends Sprite
 {
 	final config:Dynamic = {
 		gameDimensions: [1280, 720],
