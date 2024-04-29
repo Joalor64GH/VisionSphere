@@ -36,7 +36,7 @@ class PlayState extends FlxState
 
     override public function create()
     {
-        var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('theme/'${SaveData.settings.get("theme")}));
+        var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('theme/${SaveData.settings.get("theme")}'));
         add(bg);
 
         checker.scrollFactor.set(0.07, 0);

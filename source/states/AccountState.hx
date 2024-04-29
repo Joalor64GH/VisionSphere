@@ -15,7 +15,7 @@ class AccountState extends FlxState
         Paths.clearStoredMemory();
         Paths.clearUnusedMemory();
 
-        var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('theme/'${SaveData.settings.get("theme")}));
+        var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('theme/${SaveData.settings.get("theme")}'));
         add(bg);
 
         for (i in 0...profiles.length)

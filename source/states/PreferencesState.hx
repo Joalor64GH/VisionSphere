@@ -29,7 +29,7 @@ class PreferencesState extends FlxState
         Paths.clearStoredMemory();
         Paths.clearUnusedMemory();
 
-        bg = new FlxSprite().loadGraphic(Paths.image('theme/'${SaveData.settings.get("theme")}));
+        bg = new FlxSprite().loadGraphic(Paths.image('theme/${SaveData.settings.get("theme")}'));
         add(bg);
 
         group = new FlxTypedGroup<Alphabet>();
@@ -151,7 +151,7 @@ class PreferencesState extends FlxState
 
         SaveData.settings.set("theme", themes[newThemeIndex]);
 
-        bg.loadGraphic(Paths.image('theme/'${SaveData.settings.get("theme")}));
+        bg.loadGraphic(Paths.image('theme/${SaveData.settings.get("theme")}'));
     }
 
     private function switchTime(direction:Int = 0)
