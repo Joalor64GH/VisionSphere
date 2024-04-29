@@ -1,35 +1,23 @@
 package backend.data;
 
-typedef SaveSettings = {
-	var timeFormat:String;
-	var theme:String;
-	var lang:String;
-	var username:String;
-	var profile:String;
-	var framerate:Int;
-	var colorBlindFilter:Int;
-	var fpsCounter:Bool;
+@:structInit class SaveSettings = {
+	public var timeFormat:String = '%r';
+	public var theme:String = 'daylight';
+	public var lang:String = 'en';
+	public var username:String = 'user';
+	public var profile:String = 'blue';
+	public var framerate:Int = 60;
+	public var colorBlindFilter:Int = -1;
+	public var fpsCounter:Bool = true;
 	#if desktop
-	var fullscreen:Bool;
+	public var fullscreen:Bool = false;
 	#end
-	var keyboardBinds:Array<FlxKey>;
-	var gamepadBinds:Array<FlxGamepadInputID>;
+	public var keyboardBinds:Array<FlxKey> = [LEFT, DOWN, UP, RIGHT, ENTER, ESCAPE];
+	public var gamepadBinds:Array<FlxGamepadInputID> = [DPAD_LEFT, DPAD_DOWN, DPAD_UP, DPAD_RIGHT, A, B];
 }
 
 class SaveDataV2 {
-	public static var settings:SaveSettings = {
-		timeFormat: '%r',
-		theme: 'daylight',
-		lang: 'en',
-		username: 'user',
-		profile: 'blue',
-		framerate: 60,
-		colorBlindFilter: -1,
-		fpsCounter: true,
-		fullscreen: false,
-		keyboardBinds: [LEFT, DOWN, UP, RIGHT, ENTER, ESCAPE],
-		gamepadBinds: [DPAD_LEFT, DPAD_DOWN, DPAD_UP, DPAD_RIGHT, A, B]
-	};
+	public static var settings:SaveSettings = {};
 
 	public static function init() {
 		for (key in Reflect.fields(settings))
