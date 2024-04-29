@@ -1,13 +1,13 @@
 package backend.data;
 
 typedef SaveSettings = {
-	var timeFormat:TimeFormatSetting;
-	var theme:ThemeSetting;
-	var lang:String; // i would use an enum for this, but i still want softcoded languages!!
+	var timeFormat:String;
+	var theme:String;
+	var lang:String;
 	var username:String;
 	var profile:String;
 	var framerate:Int;
-	var colorBlindFilter:ColorblindFilterSetting;
+	var colorBlindFilter:Int;
 	var fpsCounter:Bool;
 	#if desktop
 	var fullscreen:Bool;
@@ -16,38 +16,37 @@ typedef SaveSettings = {
 	var gamepadBinds:Array<FlxGamepadInputID>;
 }
 
-enum abstract TimeFormatSetting(String) {
-	var TWELVEHOUR = "%r";
-	var TWENTYFOURHOUR = "%T";
-}
+class SaveDataV2 {
+	public static var settings:SaveSettings = {
+		timeFormat: '%r',
+		theme: 'daylight',
+		lang: 'en',
+		username: 'user',
+		profile: 'blue',
+		framerate: 60,
+		colorBlindFilter: -1,
+		fpsCounter: true,
+		fullscreen: false,
+		keyboardBinds: [LEFT, DOWN, UP, RIGHT, ENTER, ESCAPE],
+		gamepadBinds: [DPAD_LEFT, DPAD_DOWN, DPAD_UP, DPAD_RIGHT, A, B]
+	};
 
-enum abstract ThemeSetting(String) {
-	var DAY = "daylight";
-	var NIGHT = "night";
-	var SEGA = "dreamcast";
-	var PLAYSTATION = "ps3";
-	var WINDOWS = "xp";
-	var XBOX = "xbox360";
-}
+	public static function init() {
+		for (key in Reflect.fields(settings))
+			Reflect.setField(settings, key, Reflect.field(FlxG.save.data, key));
+		
+		if (Main.fpsDisplay != null)
+			Main.fpsDisplay.visible = settings.fpsCounter;
+		
+		Main.updateFramerate(settings.framerate);
+	}
 
-enum abstract ColorblindFilterSetting(Int) {
-	var OFF = -1;
-	var DEUT = 0;
-	var DEUT_MILD = 1;
-	var PROTA = 2;
-	var PROTA_MILD = 3;
-	var TRITA = 4;
-	var TRITA_MILD = 5;
-	var ACHROMA = 6;
-	var GAMEBOY = 7;
-	var VIRTUAL = 8;
-	var MONO = 9;
-	var INVERT = 10;
-	var WHY_THO = 11;
-	var RANDOM = 12;
-}
+	public static function saveSettings() {
+		for (key in Reflect.fields(settings))
+			Reflect.setField(FlxG.save.data, key, Reflect.field(settings, key));
+			
+		FlxG.save.flush();
 
-class SaveDataV2 
-{
-    // wip
+		trace('settings saved!');
+	}
 }
