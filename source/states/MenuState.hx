@@ -54,7 +54,7 @@ class MenuState extends FlxState
         add(btnMods);
         #end
 
-        var btnProfile:ClickableSprite = new ClickableSprite(0, 0, 'menu/profile/' + SaveData.profile, () -> 
+        var btnProfile:ClickableSprite = new ClickableSprite(0, 0, 'menu/profile/' + SaveData.settings.profile, () -> 
         {
             FlxG.switchState(AccountState.new);
             FlxG.sound.play(Paths.sound('confirm'));

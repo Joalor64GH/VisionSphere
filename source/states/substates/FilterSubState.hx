@@ -64,7 +64,7 @@ class FilterSubState extends FlxSubState
 
         if (accept)
         {
-            SaveData.settings.saveSettings();
+            SaveData.saveSettings();
             FlxG.sound.play(Paths.sound('confirm'));
             switch(curSelected)
             {
