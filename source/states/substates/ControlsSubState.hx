@@ -190,19 +190,19 @@ class ControlsSubState extends FlxSubState
                                 SaveData.gamepadLeftKey = keyPressed;
                                 Input.controllerMap.set("gamepad_left", SaveData.gamepadLeftKey);
                             case 1:
-                                SaveData.rightKey = keyPressed;
+                                SaveData.gamepadRightKey = keyPressed;
                                 Input.controllerMap.set("gamepad_right", SaveData.gamepadRightKey);
                             case 2:
-                                SaveData.downKey = keyPressed;
+                                SaveData.gamepadDownKey = keyPressed;
                                 Input.controllerMap.set("gamepad_down", SaveData.gamepadDownKey);
                             case 3:
-                                SaveData.upKey = keyPressed;
+                                SaveData.gamepadUpKey = keyPressed;
                                 Input.controllerMap.set("gamepad_up", SaveData.gamepadUpKey);
                             case 4:
-                                SaveData.acceptKey = keyPressed;
+                                SaveData.gamepadAcceptKey = keyPressed;
                                 Input.controllerMap.set("gamepad_accept", SaveData.gamepadAcceptKey);
                             case 5:
-                                SaveData.exitKey = keyPressed;
+                                SaveData.gamepadExitKey = keyPressed;
                                 Input.controllerMap.set("gamepad_exit", SaveData.gamepadExitKey);
                         }
                         FlxG.sound.play(Paths.sound('scroll'));
