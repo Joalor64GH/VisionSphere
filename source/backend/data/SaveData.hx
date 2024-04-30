@@ -1,6 +1,6 @@
 package backend.data;
 
-@:structInit class SaveSettings = {
+@:structInit class SaveSettings {
 	public var timeFormat:String = '%r';
 	public var theme:String = 'daylight';
 	public var lang:String = 'en';
@@ -27,13 +27,13 @@ class SaveData {
 			Main.fpsDisplay.visible = settings.fpsCounter;
 		
 		Main.updateFramerate(settings.framerate);
-
-        FlxG.save.flush();
 	}
 
 	public static function saveSettings() {
 		for (key in Reflect.fields(settings))
 			Reflect.setField(FlxG.save.data, key, Reflect.field(settings, key));
+
+		FlxG.save.flush();
 
 		trace('settings saved!');
 	}
