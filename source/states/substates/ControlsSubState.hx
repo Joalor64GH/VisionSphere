@@ -91,17 +91,17 @@ class ControlsSubState extends FlxSubState
             switch (init)
             {
                 case 0:
-                    text1.text = "LEFT KEY: " + SaveData.settings.keyboardBinds[0];
+                    text1.text = "LEFT KEY: " + SaveData.settings.keyboardBinds[0].toString();
                 case 1:
-                    text1.text = "RIGHT KEY: " + SaveData.settings.keyboardBinds[1];
+                    text1.text = "RIGHT KEY: " + SaveData.settings.keyboardBinds[1].toString();
                 case 2:
-                    text1.text = "DOWN KEY: " + SaveData.settings.keyboardBinds[2];
+                    text1.text = "DOWN KEY: " + SaveData.settings.keyboardBinds[2].toString();
                 case 3:
-                    text1.text = "UP KEY: " + SaveData.settings.keyboardBinds[3];
+                    text1.text = "UP KEY: " + SaveData.settings.keyboardBinds[3].toString();
                 case 4:
-                    text1.text = "ACCEPT KEY: " + SaveData.settings.keyboardBinds[4];
+                    text1.text = "ACCEPT KEY: " + SaveData.settings.keyboardBinds[4].toString();
                 case 5:
-                    text1.text = "EXIT KEY: " + SaveData.settings.keyboardBinds[5];
+                    text1.text = "EXIT KEY: " + SaveData.settings.keyboardBinds[5].toString();
             }
 
             if (inChange)
@@ -163,17 +163,17 @@ class ControlsSubState extends FlxSubState
                 switch (init)
                 {
                     case 0:
-                        text1.text = "LEFT KEY: " + SaveData.settings.gamepadBinds[0];
+                        text1.text = "LEFT KEY: " + SaveData.settings.gamepadBinds[0].toString();
                     case 1:
-                        text1.text = "DOWN KEY: " + SaveData.settings.gamepadBinds[1];
+                        text1.text = "DOWN KEY: " + SaveData.settings.gamepadBinds[1].toString();
                     case 2:
-                        text1.text = "UP KEY: " + SaveData.settings.gamepadBinds[2];
+                        text1.text = "UP KEY: " + SaveData.settings.gamepadBinds[2].toString();
                     case 3:
-                        text1.text = "RIGHT KEY: " + SaveData.settings.gamepadBinds[3];
+                        text1.text = "RIGHT KEY: " + SaveData.settings.gamepadBinds[3].toString();
                     case 4:
-                        text1.text = "ACCEPT KEY: " + SaveData.settings.gamepadBinds[4];
+                        text1.text = "ACCEPT KEY: " + SaveData.settings.gamepadBinds[4].toString();
                     case 5:
-                        text1.text = "EXIT KEY: " + SaveData.settings.gamepadBinds[5];
+                        text1.text = "EXIT KEY: " + SaveData.settings.gamepadBinds[5].toString();
                 }
 
                 if (inChange)
