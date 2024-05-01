@@ -63,7 +63,7 @@ class Main extends Sprite
 			FlxG.bitmap.dumpCache();
 			FlxG.bitmap.clearUnused();
 			Paths.clearStoredMemory();
-			openfl.system.System.gc();
+			System.gc();
 		});
 
 		FlxG.signals.postStateSwitch.add(() -> {
@@ -72,7 +72,7 @@ class Main extends Sprite
 			cpp.NativeGc.enable(false);
 			#end
 			Paths.clearUnusedMemory();
-			openfl.system.System.gc();
+			System.gc();
 		});
 
 		coolGame = new VSGame(config.gameDimensions[0], config.gameDimensions[1], config.initialState, 
@@ -210,9 +210,9 @@ class Main extends Sprite
 		#end
 
 		Localization.loadLanguages();
-		Localization.switchLanguage(SaveData.lang);
+		Localization.switchLanguage(SaveData.settings.lang);
 
-		Colorblind.updateColorBlindFilter(SaveData.colorBlindFilter);
+		Colorblind.updateColorBlindFilter(SaveData.settings.colorBlindFilter);
 
 		FlxG.sound.muteKeys = [NUMPADZERO, ZERO];
 		FlxG.sound.volumeDownKeys = [NUMPADMINUS, MINUS];

@@ -29,7 +29,7 @@ class PreferencesState extends FlxState
         Paths.clearStoredMemory();
         Paths.clearUnusedMemory();
 
-        bg = new FlxSprite().loadGraphic(Paths.image('theme/' + SaveData.theme));
+        bg = new FlxSprite().loadGraphic(Paths.image('theme/' + SaveData.settings.theme));
         add(bg);
 
         group = new FlxTypedGroup<Alphabet>();
@@ -78,13 +78,13 @@ class PreferencesState extends FlxState
             {
                 #if desktop
                 case "Fullscreen":
-                    SaveData.fullscreen = !SaveData.fullscreen;
-                    FlxG.fullscreen = SaveData.fullscreen;
+                    SaveData.settings.fullscreen = !SaveData.settings.fullscreen;
+                    FlxG.fullscreen = SaveData.settings.fullscreen;
                 #end
                 case "FPS Counter":
-                    SaveData.fpsCounter = !SaveData.fpsCounter;
+                    SaveData.settings.fpsCounter = !SaveData.settings.fpsCounter;
                     if (Main.fpsDisplay != null)
-                        Main.fpsDisplay.visible = SaveData.fpsCounter;
+                        Main.fpsDisplay.visible = SaveData.settings.fpsCounter;
                 case "Language":
                     openSubState(new LanguageSubState());
                 case "Colorblind Filter":
@@ -116,10 +116,10 @@ class PreferencesState extends FlxState
             if (right || left)
             {
                 FlxG.sound.play(Paths.sound('scroll'));
-                if (!left) SaveData.framerate += (SaveData.framerate == 240) ? 0 : 10;
-                else SaveData.framerate -= (SaveData.framerate == 60) ? 0 : 10;
+                if (!left) SaveData.settings.framerate += (SaveData.settings.framerate == 240) ? 0 : 10;
+                else SaveData.settings.framerate -= (SaveData.settings.framerate == 60) ? 0 : 10;
                 
-                Main.updateFramerate(SaveData.framerate);
+                Main.updateFramerate(SaveData.settings.framerate);
             }
         }
 
@@ -143,24 +143,24 @@ class PreferencesState extends FlxState
 
     private function switchTheme(direction:Int = 0)
     {
-        var currentThemeIndex:Int = themes.indexOf(SaveData.theme);
+        var currentThemeIndex:Int = themes.indexOf(SaveData.settings.theme);
         var newThemeIndex:Int = (currentThemeIndex + direction) % themes.length;
         if (newThemeIndex < 0)
             newThemeIndex += themes.length;
 
-        SaveData.theme = themes[newThemeIndex];
+        SaveData.settings.theme = themes[newThemeIndex];
 
-        bg.loadGraphic(Paths.image('theme/' + SaveData.theme));
+        bg.loadGraphic(Paths.image('theme/' + SaveData.settings.theme));
     }
 
     private function switchTime(direction:Int = 0)
     {
-        var currentTimeIndex:Int = times.indexOf(SaveData.timeFormat);
+        var currentTimeIndex:Int = times.indexOf(SaveData.settings.timeFormat);
         var newTimeIndex:Int = (currentTimeIndex + direction) % times.length;
         if (newTimeIndex < 0)
             newTimeIndex += times.length;
 
-        SaveData.timeFormat = times[newTimeIndex];
+        SaveData.settings.timeFormat = times[newTimeIndex];
     }
 
     function updateText()
@@ -176,13 +176,13 @@ class PreferencesState extends FlxState
             case "Colorblind Filter":
                 daText.text = "In case you're colorblind.";
             case "Time Format":
-                daText.text = "Use LEFT/RIGHT to change the time format. Current Format: " + SaveData.timeFormat;
+                daText.text = "Use LEFT/RIGHT to change the time format. Current Format: " + SaveData.settings.timeFormat;
             case "Language":
-                daText.text = 'Changes the current language. Current language: ${SaveData.lang}';
+                daText.text = 'Changes the current language. Current language: ${SaveData.settings.lang}';
             case "Theme":
                 daText.text = "Use LEFT/RIGHT to change the theme.";
             case "Framerate":
-                daText.text = "Use LEFT/RIGHT to change the framerate (Max 240). Current Framerate: " + SaveData.framerate;
+                daText.text = "Use LEFT/RIGHT to change the framerate (Max 240). Current Framerate: " + SaveData.settings.framerate;
             default:
                 daText.text = "";
         }

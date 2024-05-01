@@ -103,8 +103,8 @@ class LanguageSubState extends FlxSubState
 
         if (accept)
         {
-            SaveData.lang = langStrings[curSelected].code;
-            Localization.switchLanguage(SaveData.lang);
+            SaveData.settings.lang = langStrings[curSelected].code;
+            Localization.switchLanguage(SaveData.settings.lang);
             SaveData.saveSettings();
             FlxG.sound.play(Paths.sound('confirm'));
             close();
