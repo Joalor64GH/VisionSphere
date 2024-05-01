@@ -138,7 +138,7 @@ class CreditsState extends FlxState
         var up1 = FlxG.keys.justPressed.UP || (gamepad != null ? gamepad.justPressed.DPAD_UP : false);
         var up2 = Input.is('up') || (gamepad != null ? Input.gamepadIs('gamepad_up') : false);
         var up3 = FlxG.mouse.wheel == 1 || (gamepad != null ? gamepad.justPressed.LEFT_STICK_DIGITAL_UP : false);
-        var down1 = FlxG.keys.justPressed.DOWN || (gamepad != null ? gamepad.justPressed.DPAD_DOWN) : false);
+        var down1 = FlxG.keys.justPressed.DOWN || (gamepad != null ? gamepad.justPressed.DPAD_DOWN : false);
         var down2 = Input.is('down') || (gamepad != null ? Input.gamepadIs('gamepad_down') : false);
         var down3 = FlxG.mouse.wheel == -1 || (gamepad != null ? gamepad.justPressed.LEFT_STICK_DIGITAL_DOWN : false);
         var left = Input.is('left') || (gamepad != null ? Input.gamepadIs('gamepad_left') : false);
