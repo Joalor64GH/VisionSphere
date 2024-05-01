@@ -24,7 +24,7 @@ import frontend.Colorblind;
 
 class Main extends Sprite
 {
-	final config:Dynamic = {
+	public final config:Dynamic = {
 		gameDimensions: [1280, 720],
 		initialState: InitialState,
 		defaultFPS: 60,
@@ -42,6 +42,8 @@ class Main extends Sprite
 	public static var instance:Main;
 
 	private var coolGame:VSGame;
+
+	var focusMusicTween:FlxTween;
 
 	public static function main():Void
 		Lib.current.addChild(new Main());
@@ -94,6 +96,9 @@ class Main extends Sprite
 		addChild(webmHandle.webm);
 		GlobalVideo.setWebm(webmHandle);
 
+		Application.current.window.onFocusOut.add(onWindowFocusOut);
+		Application.current.window.onFocusIn.add(onWindowFocusIn);
+
 		#if windows
 		Lib.current.stage.addEventListener(openfl.events.KeyboardEvent.KEY_DOWN, (evt:openfl.events.KeyboardEvent) ->
 		{
@@ -128,6 +133,50 @@ class Main extends Sprite
 
 		toast = new ToastCore();
 		addChild(toast);
+	}
+
+	var oldVol:Float = 1.0;
+	var newVol:Float = 0.3;
+
+	var focused:Bool = true;
+
+	function onWindowFocusOut()
+	{
+		focused = false;
+
+		if (Type.getClass(FlxG.state) != PlayState)
+		{
+			oldVol = FlxG.sound.volume;
+			newVol = (oldVol > 0.3) ? 0.3 : (oldVol > 0.1) ? 0.1 : 0;
+
+			trace("Game unfocused");
+
+			if (focusMusicTween != null)
+				focusMusicTween.cancel();
+			focusMusicTween = FlxTween.tween(FlxG.sound, {volume: newVol}, 0.5);
+
+			FlxG.drawFramerate = 30;
+		}
+	}
+
+	function onWindowFocusIn()
+	{
+		new FlxTimer().start(0.2, (timer) ->
+		{
+			focused = true;
+		});
+
+		if (Type.getClass(FlxG.state) != PlayState)
+		{
+			trace("Game focused");
+
+			if (focusMusicTween != null)
+				focusMusicTween.cancel();
+
+			focusMusicTween = FlxTween.tween(FlxG.sound, {volume: oldVol}, 0.5);
+
+			FlxG.drawFramerate = config.defaultFPS;
+		}
 	}
 
 	public static function checkInternet()
@@ -275,7 +324,8 @@ class VSGame extends FlxGame
 
 		final msg:String = fileStack.join('\n');
 
-		if (!FileSystem.exists("crash/")) FileSystem.createDirectory("crash/");
+		if (!FileSystem.exists("crash/")) 
+			FileSystem.createDirectory("crash/");
 		File.saveContent(path, '${msg}\n');
 
 		final funcThrew:String = '${func != null ? ' thrown at "${func}" function' : ""}';
