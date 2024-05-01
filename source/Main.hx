@@ -24,7 +24,7 @@ import frontend.Colorblind;
 
 class Main extends Sprite
 {
-	final config:Dynamic = {
+	public final config:Dynamic = {
 		gameDimensions: [1280, 720],
 		initialState: InitialState,
 		defaultFPS: 60,
@@ -147,15 +147,7 @@ class Main extends Sprite
 		if (Type.getClass(FlxG.state) != PlayState)
 		{
 			oldVol = FlxG.sound.volume;
-			if (oldVol > 0.3)
-				newVol = 0.3;
-			else
-			{
-				if (oldVol > 0.1)
-					newVol = 0.1;
-				else
-					newVol = 0;
-			}
+			newVol = (oldVol > 0.3) ? 0.3 : (oldVol > 0.1) ? 0.1 : 0;
 
 			trace("Game unfocused");
 
@@ -183,7 +175,7 @@ class Main extends Sprite
 
 			focusMusicTween = FlxTween.tween(FlxG.sound, {volume: oldVol}, 0.5);
 
-			FlxG.drawFramerate = framerate;
+			FlxG.drawFramerate = config.defaultFPS;
 		}
 	}
 
@@ -332,7 +324,8 @@ class VSGame extends FlxGame
 
 		final msg:String = fileStack.join('\n');
 
-		if (!FileSystem.exists("crash/")) FileSystem.createDirectory("crash/");
+		if (!FileSystem.exists("crash/")) 
+			FileSystem.createDirectory("crash/");
 		File.saveContent(path, '${msg}\n');
 
 		final funcThrew:String = '${func != null ? ' thrown at "${func}" function' : ""}';
