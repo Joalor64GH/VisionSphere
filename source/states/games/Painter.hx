@@ -1,6 +1,5 @@
 package states.games;
 
-import flixel.FlxCamera;
 import flixel.ui.FlxButton;
 import flixel.math.FlxPoint;
 import flixel.addons.ui.FlxUISlider;
@@ -13,7 +12,7 @@ import openfl.utils.ByteArray;
 
 /*
  * @author CaptainBaldi
- * @see https://github.com/CaptainBaldi/HaxeFlixel-PixelPainter
+ * @see https://github.com/UmbratheUmbreon/HaxeFlixel-PixelPainter
  */
 
 class Painter extends FlxState
@@ -35,9 +34,6 @@ class Painter extends FlxState
     override function create():Void
     {
         super.create();
-
-        Paths.clearStoredMemory();
-        Paths.clearUnusedMemory();
 
         camHUD = new FlxCamera();
         camHUD.bgColor.alpha = 0;

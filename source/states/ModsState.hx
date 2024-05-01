@@ -390,11 +390,7 @@ class ModsState extends FlxState
 		
 		if (noMods) return;
 
-		curSelected += change;
-		if (curSelected < 0)
-			curSelected = mods.length - 1;
-		else if (curSelected >= mods.length)
-			curSelected = 0;
+		curSelected = FlxMath.wrap(curSelected + change, 0, mods.length - 1);
 
 		var newColor:Int = mods[curSelected].color;
 		if (newColor != intendedColor) {

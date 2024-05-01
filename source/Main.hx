@@ -43,6 +43,8 @@ class Main extends Sprite
 
 	private var coolGame:VSGame;
 
+	var focusMusicTween:FlxTween;
+
 	public static function main():Void
 		Lib.current.addChild(new Main());
 
@@ -94,6 +96,9 @@ class Main extends Sprite
 		addChild(webmHandle.webm);
 		GlobalVideo.setWebm(webmHandle);
 
+		Application.current.window.onFocusOut.add(onWindowFocusOut);
+		Application.current.window.onFocusIn.add(onWindowFocusIn);
+
 		#if windows
 		Lib.current.stage.addEventListener(openfl.events.KeyboardEvent.KEY_DOWN, (evt:openfl.events.KeyboardEvent) ->
 		{
@@ -130,6 +135,58 @@ class Main extends Sprite
 		addChild(toast);
 	}
 
+	var oldVol:Float = 1.0;
+	var newVol:Float = 0.3;
+
+	var focused:Bool = true;
+
+	function onWindowFocusOut()
+	{
+		focused = false;
+
+		if (Type.getClass(FlxG.state) != PlayState)
+		{
+			oldVol = FlxG.sound.volume;
+			if (oldVol > 0.3)
+				newVol = 0.3;
+			else
+			{
+				if (oldVol > 0.1)
+					newVol = 0.1;
+				else
+					newVol = 0;
+			}
+
+			trace("Game unfocused");
+
+			if (focusMusicTween != null)
+				focusMusicTween.cancel();
+			focusMusicTween = FlxTween.tween(FlxG.sound, {volume: newVol}, 0.5);
+
+			FlxG.drawFramerate = 30;
+		}
+	}
+
+	function onWindowFocusIn()
+	{
+		new FlxTimer().start(0.2, (timer) ->
+		{
+			focused = true;
+		});
+
+		if (Type.getClass(FlxG.state) != PlayState)
+		{
+			trace("Game focused");
+
+			if (focusMusicTween != null)
+				focusMusicTween.cancel();
+
+			focusMusicTween = FlxTween.tween(FlxG.sound, {volume: oldVol}, 0.5);
+
+			FlxG.drawFramerate = framerate;
+		}
+	}
+
 	public static function checkInternet()
 	{
 		trace('checking internet rq');
@@ -163,8 +220,6 @@ class Main extends Sprite
 
 		Localization.loadLanguages();
 		Localization.switchLanguage(SaveData.lang);
-
-		updateFramerate(SaveData.framerate);
 
 		Colorblind.updateColorBlindFilter(SaveData.colorBlindFilter);
 
