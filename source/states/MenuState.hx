@@ -89,7 +89,7 @@ class MenuState extends FlxState
 
         #if debug // transition test
         if (Input.is('t'))
-            Main.switchState(TestState.new);
+            Main.switchState(() -> new TestState());
         #end
 
         if (isTweening)

@@ -13,6 +13,6 @@ class TestState extends FlxState
         super.update(elapsed);
 
         if (Input.is('exit'))
-            Main.switchState(MenuState.new);
+            Main.switchState(() -> new MenuState());
     }
 }
