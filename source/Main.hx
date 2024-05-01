@@ -1,7 +1,6 @@
 package;
 
-import openfl.display.Bitmap;
-import openfl.display.BitmapData;
+import flixel.addons.transition.FlxTransitionableState;
 
 import haxe.Exception;
 import haxe.CallStack;
@@ -42,8 +41,6 @@ class Main extends Sprite
 	public static var instance:Main;
 
 	private var coolGame:VSGame;
-
-	var focusMusicTween:FlxTween;
 
 	public static function main():Void
 		Lib.current.addChild(new Main());
@@ -105,7 +102,7 @@ class Main extends Sprite
 			if (evt.keyCode == openfl.ui.Keyboard.F2)
 			{
 				var sp = Lib.current.stage;
-				var position = new openfl.geom.Rectangle(0, 0, Lib.current.stage.stageWidth, Lib.current.stage.stageHeight);
+				var position = new Rectangle(0, 0, Lib.current.stage.stageWidth, Lib.current.stage.stageHeight);
 
 				var image:BitmapData = new BitmapData(Std.int(position.width), Std.int(position.height), false, 0xFEFEFE);
 				image.draw(sp, true);
@@ -139,6 +136,8 @@ class Main extends Sprite
 	var newVol:Float = 0.3;
 
 	var focused:Bool = true;
+
+	var focusMusicTween:FlxTween;
 
 	function onWindowFocusOut()
 	{
@@ -218,6 +217,22 @@ class Main extends Sprite
 		FlxG.sound.muteKeys = [NUMPADZERO, ZERO];
 		FlxG.sound.volumeDownKeys = [NUMPADMINUS, MINUS];
 		FlxG.sound.volumeUpKeys = [NUMPADPLUS, PLUS];
+	}
+
+	public static function switchState(target:FlxState)
+	{
+		if (!FlxTransitionableState.skipNextTransIn)
+		{
+			FlxG.state.openSubState(new TransitionSubState(0.35, false));
+			TransitionSubState.finishCallback = () -> 
+			{
+				FlxG.switchState(target);
+			};
+			return;
+		}
+		FlxTransitionableState.skipNextTransIn = false;
+		FlxTransitionableState.skipNextTransOut = false;
+		FlxG.switchState(target);
 	}
 
 	public static function updateFramerate(newFramerate:Int)
@@ -364,7 +379,7 @@ class VSSoundTray extends flixel.system.ui.FlxSoundTray
 		_bar.x = 2.5;
 		addChild(_bar);
 
-		final tmp:Bitmap = new Bitmap(openfl.Assets.getBitmapData("assets/images/soundtray.png", false), null, true);
+		final tmp:Bitmap = new Bitmap(Assets.getBitmapData("assets/images/soundtray.png", false), null, true);
 		addChild(tmp);
 
 		screenCenter();

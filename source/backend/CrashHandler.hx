@@ -310,7 +310,7 @@ class RotatableTextField extends TextField
 		__setTransformDirty();
 	}
 
-	public inline function rotateWithTrig(cos:Float, sin:Float):openfl.geom.Matrix {
+	public inline function rotateWithTrig(cos:Float, sin:Float):Matrix {
 		var a1:Float = __transform.a * cos - __transform.b * sin;
 		__transform.b = __transform.a * sin + __transform.b * cos;
 		__transform.a = a1;

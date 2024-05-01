@@ -133,15 +133,20 @@ class CreditsState extends FlxState
         centerMarker.y = topBar.y + 5;
         rightMarker.y = topBar.y + 5;
 
-        var controlArray:Array<Bool> = [
-            FlxG.keys.justPressed.UP,
-            FlxG.keys.justPressed.DOWN,
-            Input.is('up'),
-            Input.is('down'),
-            FlxG.mouse.wheel == 1,
-            FlxG.mouse.wheel == -1
-        ];
-        
+        var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
+
+        var up1 = FlxG.keys.justPressed.UP || (gamepad != null ? gamepad.justPressed.DPAD_UP : false);
+        var up2 = Input.is('up') || (gamepad != null ? Input.gamepadIs('gamepad_up') : false);
+        var up3 = FlxG.mouse.wheel == 1 || (gamepad != null ? gamepad.justPressed.LEFT_STICK_DIGITAL_UP : false);
+        var down1 = FlxG.keys.justPressed.DOWN || (gamepad != null ? gamepad.justPressed.DPAD_DOWN) : false);
+        var down2 = Input.is('down') || (gamepad != null ? Input.gamepadIs('gamepad_down') : false);
+        var down3 = FlxG.mouse.wheel == -1 || (gamepad != null ? gamepad.justPressed.LEFT_STICK_DIGITAL_DOWN : false);
+        var left = Input.is('left') || (gamepad != null ? Input.gamepadIs('gamepad_left') : false);
+        var right = Input.is('right') || (gamepad != null ? Input.gamepadIs('gamepad_right') : false);
+        var accept = Input.is('accept') || (gamepad != null ? Input.gamepadIs('gamepad_accept') : false);
+        var exit = Input.is('exit') || (gamepad != null ? Input.gamepadIs('gamepad_exit') : false);
+
+        var controlArray:Array<Bool> = [up1, down1, up2, down2, up3, down3];
         if (controlArray.contains(true))
         {
             for (i in 0...controlArray.length)
@@ -165,13 +170,6 @@ class CreditsState extends FlxState
             }
         }
 
-        var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
-
-        var left = Input.is('left') || (gamepad != null ? Input.gamepadIs('gamepad_left') : false);
-        var right = Input.is('right') || (gamepad != null ? Input.gamepadIs('gamepad_right') : false);
-        var accept = Input.is('accept') || (gamepad != null ? Input.gamepadIs('gamepad_accept') : false);
-        var exit = Input.is('exit') || (gamepad != null ? Input.gamepadIs('gamepad_exit') : false);
-
         if (left || right)
         {
             FlxG.sound.play(Paths.sound('scroll'));
@@ -186,41 +184,6 @@ class CreditsState extends FlxState
             FlxG.sound.play(Paths.sound('cancel'));
             FlxG.switchState(OptionsState.new);
             Paths.clearUnusedMemory();
-        }
-
-        if (gamepad != null) 
-        {
-            var controlArray:Array<Bool> = [
-                gamepad.justPressed.DPAD_UP,
-                gamepad.justPressed.DPAD_DOWN,
-                Input.gamepadIs('gamepad_up'),
-                Input.gamepadIs('gamepad_down'),
-                gamepad.justPressed.LEFT_STICK_DIGITAL_UP,
-                gamepad.justPressed.LEFT_STICK_DIGITAL_DOWN
-            ];
-        
-            if (controlArray.contains(true))
-            {
-                for (i in 0...controlArray.length)
-                {
-                    if (controlArray[i] == true)
-                    {
-                        if (i > 1)
-                        {
-                            if (i == 2 || i == 4)
-                                curSelected--;
-                            else if (i == 3 || i == 5)
-                                curSelected++;
-                            FlxG.sound.play(Paths.sound('scroll'));
-                        }
-                        if (curSelected < 0)
-                            curSelected = credData.users.length - 1;
-                        if (curSelected >= credData.users.length)
-                            curSelected = 0;
-                        changeSelection();
-                    }
-                }
-            }
         }
     }
 

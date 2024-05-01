@@ -1,9 +1,5 @@
 package states;
 
-import openfl.geom.Point;
-import openfl.geom.Rectangle;
-import openfl.display.BitmapData;
-
 typedef BasicData = {
     var ?bg:String;
     var songs:Array<Song>;

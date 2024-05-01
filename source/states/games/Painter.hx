@@ -4,8 +4,6 @@ import flixel.ui.FlxButton;
 import flixel.math.FlxPoint;
 import flixel.addons.ui.FlxUISlider;
 
-import openfl.display.Bitmap;
-import openfl.display.BitmapData;
 import openfl.display.JPEGEncoderOptions;
 import openfl.display.PNGEncoderOptions;
 import openfl.utils.ByteArray;

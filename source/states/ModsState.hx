@@ -2,9 +2,6 @@ package states;
 
 import flixel.ui.FlxButton;
 
-import openfl.display.BitmapData;
-import openfl.geom.Rectangle;
-
 class ModsState extends FlxState
 {
 	static var changedAThing:Bool = false;
