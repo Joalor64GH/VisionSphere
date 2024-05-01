@@ -87,11 +87,6 @@ class MenuState extends FlxState
     {
         super.update(elapsed);
 
-        #if debug // transition test
-        if (Input.is('t'))
-            Main.switchState(() -> new TestState());
-        #end
-
         if (isTweening)
             timer = 0;
         else 

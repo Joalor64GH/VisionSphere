@@ -219,11 +219,11 @@ class Main extends Sprite
 		FlxG.sound.volumeUpKeys = [NUMPADPLUS, PLUS];
 	}
 
-	public static function switchState(target:FlxState)
+	public static function switchState(curState:FlxState, target:FlxState)
 	{
 		if (!FlxTransitionableState.skipNextTransIn)
 		{
-			FlxG.state.openSubState(new TransitionSubState(0.35, false));
+			curState.openSubState(new TransitionSubState(0.35, false));
 			TransitionSubState.finishCallback = () -> 
 			{
 				FlxG.switchState(target);
