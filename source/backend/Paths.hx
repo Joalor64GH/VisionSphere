@@ -41,7 +41,7 @@ class Paths
 				currentTrackedAssets.remove(key);
 			}
 		}
-		openfl.system.System.gc();
+		System.gc();
 	}
 
 	@:access(flixel.system.frontEnds.BitmapFrontEnd._cache)
