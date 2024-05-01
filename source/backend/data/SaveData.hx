@@ -1,5 +1,6 @@
 package backend.data;
 
+// i could have used enumerators, but i wanna keep it simple!
 @:structInit class SaveSettings {
 	public var timeFormat:String = '%r';
 	public var theme:String = 'daylight';
@@ -21,7 +22,8 @@ class SaveData {
 
 	public static function init() {
 		for (key in Reflect.fields(settings))
-			Reflect.setField(settings, key, Reflect.field(FlxG.save.data, key));
+			if (Reflect.field(FlxG.save.data, key) != null)
+				Reflect.setField(settings, key, Reflect.field(FlxG.save.data, key));
 		
 		if (Main.fpsDisplay != null)
 			Main.fpsDisplay.visible = settings.fpsCounter;
