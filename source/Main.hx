@@ -379,7 +379,7 @@ class VSSoundTray extends flixel.system.ui.FlxSoundTray
 		_bar.x = 2.5;
 		addChild(_bar);
 
-		final tmp:Bitmap = new Bitmap(Assets.getBitmapData("assets/images/soundtray.png", false), null, true);
+		final tmp:Bitmap = new Bitmap(Assets.getBitmapData("assets/images/objects/soundtray.png", false), null, true);
 		addChild(tmp);
 
 		screenCenter();

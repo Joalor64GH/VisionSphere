@@ -18,9 +18,6 @@ class MenuState extends FlxState
     {
         super.create();
 
-        Paths.clearStoredMemory();
-        Paths.clearUnusedMemory();
-
         var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('theme/' + SaveData.settings.theme));
         add(bg);
 
@@ -32,7 +29,7 @@ class MenuState extends FlxState
 
         if (FlxG.random.bool(30)) // oooh banana
         {
-            var banana:FlxSprite = new FlxSprite(5, FlxG.height - 120).loadGraphic(Paths.image('banan'), true, 102, 103);
+            var banana:FlxSprite = new FlxSprite(5, FlxG.height - 120).loadGraphic(Paths.image('menu/banan'), true, 102, 103);
             banana.animation.add('rotate', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14], 14);
             banana.animation.play('rotate');
             add(banana);
@@ -89,6 +86,11 @@ class MenuState extends FlxState
     override public function update(elapsed:Float)
     {
         super.update(elapsed);
+
+        #if debug // transition test
+        if (Input.is('t'))
+            Main.switchState(TestState.new);
+        #end
 
         if (isTweening)
             timer = 0;

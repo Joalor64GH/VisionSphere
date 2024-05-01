@@ -37,7 +37,7 @@ class ModsState extends FlxState
 		Paths.clearStoredMemory();
 		Paths.clearUnusedMemory();
 
-		bg = new FlxSprite().loadGraphic(Paths.image('desatBG'));
+		bg = new FlxSprite().loadGraphic(Paths.image('menu/desatBG'));
 		add(bg);
 
 		noModsTxt = new FlxText(0, 0, FlxG.width, "NO MODS INSTALLED\nPRESS BACK TO EXIT AND INSTALL A MOD\n...OR PRESS 7 TO ACCESS THE MOD SETUP MENU", 48);

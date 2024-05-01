@@ -28,7 +28,7 @@ class Menu extends FlxSubState
 
     public override function create()
     {
-        openfl.system.System.gc();
+        System.gc();
 
         instance = this;
 
@@ -52,7 +52,7 @@ class Menu extends FlxSubState
 
         maxOptions = options.length - 1;
 
-        cursor = new FlxSprite().loadGraphic(Paths.image('arrow'), false, 512, 512, false);
+        cursor = new FlxSprite().loadGraphic(Paths.image('menu/arrow'), false, 512, 512, false);
         cursor.setGraphicSize(45);
         cursor.updateHitbox();
         cursor.x = optionsT.x + optionsT.width;

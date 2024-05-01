@@ -17,10 +17,8 @@ import openfl.geom.*;
 
 import flixel.*;
 import flixel.util.*;
-
 import flixel.math.FlxMath;
 import flixel.text.FlxText;
-
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.group.FlxGroup.FlxTypedGroup;

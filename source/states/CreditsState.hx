@@ -49,7 +49,7 @@ class CreditsState extends FlxState
         if (credData.menuBG != null && credData.menuBG.length > 0)
             menuBG = new FlxSprite().loadGraphic(Paths.image(credData.menuBG));
         else
-            menuBG = new FlxSprite().loadGraphic(Paths.image('desatBG'));
+            menuBG = new FlxSprite().loadGraphic(Paths.image('menu/desatBG'));
         add(menuBG);
 
         var finalColor:FlxColor = FlxColor.fromRGB(credData.menuBGColor[0], credData.menuBGColor[1], credData.menuBGColor[2]);

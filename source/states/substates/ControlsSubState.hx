@@ -14,6 +14,9 @@ class ControlsSubState extends FlxSubState
     var text1:FlxText;
     var text2:FlxText;
 
+    var kbIcons:FlxSprite;
+    var gpIcons:FlxSprite;
+
     public function new()
     {
         super();
@@ -22,7 +25,14 @@ class ControlsSubState extends FlxSubState
         bg.alpha = 0.65;
         add(bg);
 
-        controllerSpr = new FlxSprite(50, 40).loadGraphic(Paths.image('controllertype'), true, 82, 60);
+        var title:FlxSprite = new FlxSprite();
+        title.frames = Paths.getSparrowAtlas('menu/controls/title');
+        title.animation.addByPrefix('idle', 'Controls', 12);
+        title.animation.play('idle');
+        title.screenCenter(X);
+        add(title);
+
+        controllerSpr = new FlxSprite(50, -40).loadGraphic(Paths.image('menu/controls/controllertype'), true, 82, 60);
         controllerSpr.animation.add('keyboard', [0], 1, false);
         controllerSpr.animation.add('gamepad', [1], 1, false);
         add(controllerSpr);
@@ -93,11 +103,11 @@ class ControlsSubState extends FlxSubState
                 case 0:
                     text1.text = "LEFT KEY: " + SaveData.settings.keyboardBinds[0].toString();
                 case 1:
-                    text1.text = "RIGHT KEY: " + SaveData.settings.keyboardBinds[1].toString();
+                    text1.text = "DOWN KEY: " + SaveData.settings.keyboardBinds[1].toString();
                 case 2:
-                    text1.text = "DOWN KEY: " + SaveData.settings.keyboardBinds[2].toString();
+                    text1.text = "UP KEY: " + SaveData.settings.keyboardBinds[2].toString();
                 case 3:
-                    text1.text = "UP KEY: " + SaveData.settings.keyboardBinds[3].toString();
+                    text1.text = "RIGHT KEY: " + SaveData.settings.keyboardBinds[3].toString();
                 case 4:
                     text1.text = "ACCEPT KEY: " + SaveData.settings.keyboardBinds[4].toString();
                 case 5:

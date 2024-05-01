@@ -59,6 +59,17 @@
             "colors": [26, 184, 28]
         },
         {
+            "name": "GuineaPigUuhh",
+            "iconData": ["face", 0, -5],
+            "textData": ["Simple code fixes + additions", "I program for fun and look for friends."],
+            "urlData": [
+                ["GitHub", "https://github.com/GuineaPigUuhh/"],
+                ["Gamebanana", "https://gamebanana.com/members/2300290"],
+                ["YT", "https://www.youtube.com/channel/UCdOS2LIS1up0eeE3KNqlgqg"]
+            ],
+            "colors": [23, 23, 130]
+        },
+        {
             "name": "Github Contributors",
             "iconData": ["github", 0, 0],
             "textData": ["Thanks!", ""],

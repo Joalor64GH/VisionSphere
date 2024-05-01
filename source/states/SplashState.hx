@@ -13,10 +13,10 @@ class SplashState extends FlxState
         Paths.clearStoredMemory();
         Paths.clearUnusedMemory();
 
-        var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('titleBG'));
+        var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('splash/titleBG'));
         add(bg);
 
-        haxeflixel = new FlxSprite().loadGraphic(Paths.image('haxeflixel'));
+        haxeflixel = new FlxSprite().loadGraphic(Paths.image('splash/haxeflixel'));
         haxeflixel.screenCenter(XY);
         haxeflixel.scale.set(0.45, 0.45);
         haxeflixel.alpha = 0;
@@ -28,13 +28,13 @@ class SplashState extends FlxState
         text.alpha = 0;
         add(text);
 
-        logo = new FlxSprite().loadGraphic(Paths.image('logo'));
+        logo = new FlxSprite().loadGraphic(Paths.image('splash/logo'));
         logo.screenCenter(XY);
         logo.scale.set(0.6, 0.6);
         logo.alpha = 0;
         add(logo);
 
-        var spinner:FlxSprite = new FlxSprite(FlxG.width - 91, FlxG.height - 91).loadGraphic(Paths.image("loader"));
+        var spinner:FlxSprite = new FlxSprite(FlxG.width - 91, FlxG.height - 91).loadGraphic(Paths.image("splash/loader"));
         spinner.angularVelocity = 30;
         add(spinner);
 

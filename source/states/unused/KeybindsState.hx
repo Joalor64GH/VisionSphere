@@ -10,7 +10,7 @@ class KeybindsState extends FlxState
     {
         trace("this is old and scuffed why are you here");
 
-        var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('theme/' + SaveData.theme));
+        var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('theme/' + SaveData.settings.theme));
         add(bg);
 
         grpControls = new FlxTypedGroup<Alphabet>();

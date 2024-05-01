@@ -7,7 +7,7 @@ A gaming console made in HaxeFlixel. Mostly based on Sega Dreamcast.
 
 > [!IMPORTANT]
 > Check out the progress of the project below! <br>
-> ![](https://geps.dev/progress/75)
+> ![](https://geps.dev/progress/80)
 
 > [!WARNING]
 > This project is currently in development, and stuff may be unstable or not work at the moment. <br>
@@ -19,8 +19,7 @@ A gaming console made in HaxeFlixel. Mostly based on Sega Dreamcast.
 > **??** - Low Priority
 
 * [ ] Add 10 Games (8/10) **[!!]**
-* [ ] Actually Rewrite Save Data System
-* [ ] Weather API Thing
+* [X] Actually Rewrite Save Data System
 
 ## Wanna build?
 > [!TIP]

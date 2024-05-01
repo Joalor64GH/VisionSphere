@@ -22,7 +22,7 @@ class InitialState extends FlxState
         var inc = FlxG.height / (colors.length - 1);
         for (i in 0...colors.length)
         {
-            var b = new BoxScroller("assets/images/stripe.png", 0, 0, FlxG.width);
+            var b = new BoxScroller("assets/images/splash/stripe.png", 0, 0, FlxG.width);
             b.scale.set(3.5, 3.5);
             b.color = colors[i];
             b.autoScrollX = -(0.2 + (i * 0.15)) * (1 + (i * 0.06));
@@ -42,7 +42,7 @@ class InitialState extends FlxState
         em.lifespan.set(99);
         add(em);
 
-        smallLogo = new FlxSprite(0, 0).loadGraphic(Paths.image('logo_small'));
+        smallLogo = new FlxSprite(0, 0).loadGraphic(Paths.image('splash/logo_small'));
         smallLogo.screenCenter(X);
         smallLogo.alpha = 0;
         add(smallLogo);
@@ -158,7 +158,7 @@ class Balls extends FlxParticle
     {
         super();
 
-        loadGraphic(Paths.image("baller"), true, 16, 16, true);
+        loadGraphic(Paths.image("splash/baller"), true, 16, 16, true);
         animation.add("main", [0, 1, 2, 3, 4, 5, 6], 14);
 
         lifespan = 0;
