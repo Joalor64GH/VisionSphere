@@ -58,13 +58,13 @@ class ControlsSubState extends FlxSubState {
 		add(binds);
 
 		for (bind in kbBinds) {
-			var key = new KeyIcon(0, text1.y + 150, bind);
+			var key = new KeyIcon(text1.x, text1.y + 150, bind);
 			key.x -= key.iconWidth;
 			binds.add(key);
 		}
 
 		for (bind in gpBinds) {
-			var control = new ControllerIcon(0, text1.y + 250, bind);
+			var control = new ControllerIcon(text1.x, text1.y + 250, bind);
 			control.x -= control.iconWidth;
 			binds.add(control);
 		}
@@ -230,13 +230,13 @@ class ControlsSubState extends FlxSubState {
 		});
 
 		for (bind in kbBinds) {
-			var key = new KeyIcon(0, text1.y + 150, bind);
+			var key = new KeyIcon(text1.x, text1.y + 150, bind);
 			key.x -= key.iconWidth;
 			binds.add(key);
 		}
 
 		for (bind in gpBinds) {
-			var control = new ControllerIcon(0, text1.y + 250, bind);
+			var control = new ControllerIcon(text1.x, text1.y + 250, bind);
 			control.x -= control.iconWidth;
 			binds.add(control);
 		}
