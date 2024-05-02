@@ -19,17 +19,8 @@ class ControlsSubState extends FlxSubState {
 
 	var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
 
-	var modelStr:String = "";
-
 	public function new() {
 		super();
-
-		switch (gamepad.model) {
-			case PS4: modelStr = "ps";
-			case XINPUT: modelStr = "x";
-			case SWITCH_PRO: modelStr = "nin";
-			default: modelStr = "";
-		}
 
 		for (i in 0...6) {
 			kbBinds.push(SaveData.settings.keyboardBinds[i]);
@@ -78,7 +69,7 @@ class ControlsSubState extends FlxSubState {
 		}
 
 		for (bind in gpBinds) {
-			var control = new ControllerIcon(0, text1.y + 250, bind, modelStr);
+			var control = new ControllerIcon(0, text1.y + 250, bind, gamepad.model);
 			control.x -= control.iconWidth;
 			control.screenCenter(X);
 			binds.add(control);
