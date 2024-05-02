@@ -69,7 +69,7 @@ class ControlsSubState extends FlxSubState {
 		}
 
 		for (bind in gpBinds) {
-			var control = new ControllerIcon(0, text1.y + 250, bind, gamepad.model);
+			var control = new ControllerIcon(0, text1.y + 250, bind, gamepad.model.toString());
 			control.x -= control.iconWidth;
 			control.screenCenter(X);
 			binds.add(control);
@@ -243,6 +243,7 @@ class ControlsSubState extends FlxSubState {
 }
 
 /**
+ * Icons for inputs
  * @author ThatRozebudDude
  * @see https://github.com/ThatRozebudDude/FPS-Plus-Public/
  */
@@ -378,9 +379,9 @@ class ControllerIcon extends FlxSpriteGroup {
 
 	function createGraphics() {
 		var postfix:String = "0";
-		if (xSkinKeys.contains(key) && skin == "x") postfix = "_x";
-		if (psSkinKeys.contains(key) && skin == "ps") postfix = "_ps";
-		if (ninSkinKeys.contains(key) && skin == "nin") postfix = "_nin";
+		if (xSkinKeys.contains(key) && skin == "XINPUT") postfix = "_x";
+		if (psSkinKeys.contains(key) && skin == "PS4") postfix = "_ps";
+		if (ninSkinKeys.contains(key) && skin == "SWITCH_PRO") postfix = "_nin";
 		loadKeyGraphic(key.toString().toLowerCase() + postfix);
 	}
 
