@@ -5,8 +5,7 @@ package states.substates;
  * @see https://github.com/khuonghoanghuy/FNF-Pop-Engine-Rewrite/
  */
 
-class ControlsSubState extends FlxSubState 
-{
+class ControlsSubState extends FlxSubState {
 	var init:Int = 0;
 	var inChange:Bool = false;
 	var keyboardMode:Bool = true;
@@ -64,12 +63,12 @@ class ControlsSubState extends FlxSubState
 			binds.add(key);
 		}
 
-        for (bind in gpBinds) {
-            var control = new ControllerIcon(0, text1.y + 250, bind, getModel());
-            control.x -= control.iconWidth;
-            control.screenCenter(X);
-            binds.add(control);
-        }
+		for (bind in gpBinds) {
+			var control = new ControllerIcon(0, text1.y + 250, bind, getModel());
+			control.x -= control.iconWidth;
+			control.screenCenter(X);
+			binds.add(control);
+		}
 	}
 
 	override public function update(elapsed:Float) {
@@ -148,7 +147,7 @@ class ControlsSubState extends FlxSubState
 							SaveData.settings.keyboardBinds[5] = FlxG.keys.getIsDown()[0].ID.toString();
 							Input.actionMap.set("exit", SaveData.settings.keyboardBinds[5]);
 					}
-                    refreshControls();
+					refreshControls();
 					FlxG.sound.play(Paths.sound('scroll'));
 					text2.text = "";
 					inChange = false;
@@ -213,7 +212,7 @@ class ControlsSubState extends FlxSubState
 								SaveData.settings.gamepadBinds[5] = keyPressed;
 								Input.controllerMap.set("gamepad_exit", SaveData.settings.gamepadBinds[5]);
 						}
-                        refreshControls();
+						refreshControls();
 						FlxG.sound.play(Paths.sound('scroll'));
 						text2.text = "";
 						inChange = false;
@@ -223,37 +222,33 @@ class ControlsSubState extends FlxSubState
 		}
 	}
 
-    private function refreshControls() {
-        for (bind in kbBinds) {
+	private function refreshControls() {
+		for (bind in kbBinds) {
 			var key = new KeyIcon(0, text1.y + 150, bind);
 			key.x -= key.iconWidth;
 			key.screenCenter(X);
 			binds.add(key);
 		}
 
-        for (bind in gpBinds) {
-            var control = new ControllerIcon(0, text1.y + 250, bind);
-            control.x -= control.iconWidth;
-            control.screenCenter(X);
-            binds.add(control);
-        }
-    }
+		for (bind in gpBinds) {
+			var control = new ControllerIcon(0, text1.y + 250, bind);
+			control.x -= control.iconWidth;
+			control.screenCenter(X);
+			binds.add(control);
+		}
+	}
 
-    private function getModel():String {
-        var modelStr:String = "";
-        var curController = FlxG.gamepads.lastActive;
-        switch (curController.model) {
-            case PS4:
-                modelStr = "ps";
-            case XINPUT:
-                modelStr = "x";
-            case SWITCH_PRO:
-                modelStr = "nin";
-            default:
-                modelStr = "";
-        }
-        return modelStr;
-    }
+	private function getModel():String {
+		var modelStr:String = "";
+		var curController = FlxG.gamepads.lastActive;
+		switch (curController.model) {
+			case PS4: modelStr = "ps";
+			case XINPUT: modelStr = "x";
+			case SWITCH_PRO: modelStr = "nin";
+			default: modelStr = "";
+		}
+		return modelStr;
+	}
 }
 
 /**
@@ -261,8 +256,7 @@ class ControlsSubState extends FlxSubState
  * @see https://github.com/ThatRozebudDude/FPS-Plus-Public/
  */
 
-class KeyIcon extends FlxSpriteGroup 
-{
+class KeyIcon extends FlxSpriteGroup {
 	static final customGraphicKeys:Array<FlxKey> = [
 		ALT, BACKSPACE, BREAK, CAPSLOCK, CONTROL, DELETE, DOWN, END, ENTER, ESCAPE, F1, F2, F3, F4, F5, F6, F7, F8, F9, F10, F11, F12, GRAVEACCENT, HOME,
 		INSERT, LEFT, MENU, NUMLOCK, PAGEUP, PAGEDOWN, PRINTSCREEN, RIGHT, SCROLL_LOCK, SHIFT, SPACE, TAB, UP, WINDOWS
@@ -367,8 +361,7 @@ class KeyIcon extends FlxSpriteGroup
 	}
 }
 
-class ControllerIcon extends FlxSpriteGroup 
-{
+class ControllerIcon extends FlxSpriteGroup {
 	static final psSkinKeys:Array<FlxGamepadInputID> = [
 		A, B, X, Y, BACK, DPAD_DOWN, DPAD_LEFT, DPAD_UP, DPAD_RIGHT, LEFT_SHOULDER, LEFT_TRIGGER, RIGHT_SHOULDER, RIGHT_TRIGGER, LEFT_STICK_CLICK,
 		RIGHT_STICK_CLICK, START, GUIDE

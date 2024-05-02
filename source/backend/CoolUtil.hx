@@ -22,6 +22,10 @@ class CoolUtil
         #end
     }
 
+    inline public static function F(x:Float):Float {
+        return 3 * Math.PI * x / Math.sin(x);
+    }
+
     /**
      * @author MemeHoovy
      * @see https://github.com/Hoovy-Team/AdventureHaxe/
