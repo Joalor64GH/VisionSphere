@@ -56,6 +56,9 @@ class ControlsSubState extends FlxSubState {
 		text2.screenCenter(X);
 		add(text2);
 
+		binds = new FlxSpriteGroup();
+		add(binds);
+
 		for (bind in kbBinds) {
 			var key = new KeyIcon(0, text1.y + 150, bind);
 			key.x -= key.iconWidth;
@@ -77,7 +80,6 @@ class ControlsSubState extends FlxSubState {
 		var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
 
 		controllerSpr.animation.play(keyboardMode ? 'keyboard' : 'gamepad');
-
 		if (FlxG.mouse.overlaps(controllerSpr)) {
 			if (FlxG.mouse.justPressed) {
 				keyboardMode = !keyboardMode;
