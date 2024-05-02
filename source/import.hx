@@ -17,10 +17,11 @@ import openfl.geom.*;
 
 import flixel.*;
 import flixel.util.*;
-import flixel.math.FlxMath;
+import flixel.math.*;
 import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
+import flixel.group.FlxSpriteGroup;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.input.gamepad.FlxGamepadInputID;
 import flixel.input.gamepad.FlxGamepad;

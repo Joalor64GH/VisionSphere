@@ -244,7 +244,11 @@ class CreditsState extends FlxState
         if (credData.users[curSelected].urlData[curSocial][0] == null)
             return;
         
-        curSocial = FlxMath.wrap(curSelected + huh, 0, credData.users[curSelected].urlData.length - 1);
+        curSocial += huh;
+        if (curSocial < 0)
+            curSocial = credData.users[curSelected].urlData.length - 1;
+        if (curSocial >= credData.users[curSelected].urlData.length)
+            curSocial = 0;
 
         if (credData.users[curSelected].urlData[curSocial][0] != null)
         {

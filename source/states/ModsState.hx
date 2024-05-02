@@ -34,9 +34,6 @@ class ModsState extends FlxState
 
 	override function create()
 	{
-		Paths.clearStoredMemory();
-		Paths.clearUnusedMemory();
-
 		bg = new FlxSprite().loadGraphic(Paths.image('menu/desatBG'));
 		add(bg);
 

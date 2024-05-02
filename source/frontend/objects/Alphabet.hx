@@ -1,8 +1,6 @@
 package frontend.objects;
 
 import flixel.graphics.frames.FlxAtlasFrames;
-import flixel.group.FlxSpriteGroup;
-import flixel.math.FlxPoint;
 
 enum Alignment
 {
@@ -350,6 +348,7 @@ class AlphaCharacter extends FlxSprite
 	];
 
 	var parent:Alphabet;
+	
 	public var alignOffset:Float = 0;
 	public var letterOffset:Array<Float> = [0, 0];
 	public var spawnPos:FlxPoint = new FlxPoint();

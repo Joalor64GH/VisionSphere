@@ -32,7 +32,7 @@ class CoolUtil
     }
 
     inline public static function hypotenuse(a:Float, b:Float) {
-        return Math.sqrt(a * 2 + b * 2);
+        return Math.sqrt((a * a) + (b * b));
     }
 
     /**
