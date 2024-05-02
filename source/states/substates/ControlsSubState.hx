@@ -17,8 +17,19 @@ class ControlsSubState extends FlxSubState {
 	var gpBinds:Array<FlxGamepadInputID> = [];
 	var binds:FlxSpriteGroup;
 
+	var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
+
+	var modelStr:String = "";
+
 	public function new() {
 		super();
+
+		switch (gamepad.model) {
+			case PS4: modelStr = "ps";
+			case XINPUT: modelStr = "x";
+			case SWITCH_PRO: modelStr = "nin";
+			default: modelStr = "";
+		}
 
 		for (i in 0...6) {
 			kbBinds.push(SaveData.settings.keyboardBinds[i]);
@@ -67,7 +78,7 @@ class ControlsSubState extends FlxSubState {
 		}
 
 		for (bind in gpBinds) {
-			var control = new ControllerIcon(0, text1.y + 250, bind, getModel());
+			var control = new ControllerIcon(0, text1.y + 250, bind, modelStr);
 			control.x -= control.iconWidth;
 			control.screenCenter(X);
 			binds.add(control);
@@ -77,9 +88,8 @@ class ControlsSubState extends FlxSubState {
 	override public function update(elapsed:Float) {
 		super.update(elapsed);
 
-		var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
-
 		controllerSpr.animation.play(keyboardMode ? 'keyboard' : 'gamepad');
+		
 		if (FlxG.mouse.overlaps(controllerSpr)) {
 			if (FlxG.mouse.justPressed) {
 				keyboardMode = !keyboardMode;
@@ -238,18 +248,6 @@ class ControlsSubState extends FlxSubState {
 			control.screenCenter(X);
 			binds.add(control);
 		}
-	}
-
-	private function getModel():String {
-		var modelStr:String = "";
-		var curController = FlxG.gamepads.lastActive;
-		switch (curController.model) {
-			case PS4: modelStr = "ps";
-			case XINPUT: modelStr = "x";
-			case SWITCH_PRO: modelStr = "nin";
-			default: modelStr = "";
-		}
-		return modelStr;
 	}
 }
 
