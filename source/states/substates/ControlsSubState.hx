@@ -17,7 +17,6 @@ class ControlsSubState extends FlxSubState
 	var kbBinds:Array<FlxKey> = [];
 	var gpBinds:Array<FlxGamepadInputID> = [];
 	var binds:FlxSpriteGroup;
-	var arrow:FlxSprite;
 
 	public function new() {
 		super();
@@ -58,13 +57,19 @@ class ControlsSubState extends FlxSubState
 		text2.screenCenter(X);
 		add(text2);
 
-		// i have no idea what im doing
 		for (bind in kbBinds) {
 			var key = new KeyIcon(0, text1.y + 150, bind);
 			key.x -= key.iconWidth;
 			key.screenCenter(X);
 			binds.add(key);
 		}
+
+        for (bind in gpBinds) {
+            var control = new ControllerIcon(0, text1.y + 250, bind, getModel());
+            control.x -= control.iconWidth;
+            control.screenCenter(X);
+            binds.add(control);
+        }
 	}
 
 	override public function update(elapsed:Float) {
@@ -73,7 +78,7 @@ class ControlsSubState extends FlxSubState
 		var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
 
 		controllerSpr.animation.play(keyboardMode ? 'keyboard' : 'gamepad');
-        
+
 		if (FlxG.mouse.overlaps(controllerSpr)) {
 			if (FlxG.mouse.justPressed) {
 				keyboardMode = !keyboardMode;
@@ -143,6 +148,7 @@ class ControlsSubState extends FlxSubState
 							SaveData.settings.keyboardBinds[5] = FlxG.keys.getIsDown()[0].ID.toString();
 							Input.actionMap.set("exit", SaveData.settings.keyboardBinds[5]);
 					}
+                    refreshControls();
 					FlxG.sound.play(Paths.sound('scroll'));
 					text2.text = "";
 					inChange = false;
@@ -207,6 +213,7 @@ class ControlsSubState extends FlxSubState
 								SaveData.settings.gamepadBinds[5] = keyPressed;
 								Input.controllerMap.set("gamepad_exit", SaveData.settings.gamepadBinds[5]);
 						}
+                        refreshControls();
 						FlxG.sound.play(Paths.sound('scroll'));
 						text2.text = "";
 						inChange = false;
@@ -215,6 +222,38 @@ class ControlsSubState extends FlxSubState
 			}
 		}
 	}
+
+    private function refreshControls() {
+        for (bind in kbBinds) {
+			var key = new KeyIcon(0, text1.y + 150, bind);
+			key.x -= key.iconWidth;
+			key.screenCenter(X);
+			binds.add(key);
+		}
+
+        for (bind in gpBinds) {
+            var control = new ControllerIcon(0, text1.y + 250, bind);
+            control.x -= control.iconWidth;
+            control.screenCenter(X);
+            binds.add(control);
+        }
+    }
+
+    private function getModel():String {
+        var modelStr:String = "";
+        var curController = FlxG.gamepads.lastActive;
+        switch (curController.model) {
+            case PS4:
+                modelStr = "ps";
+            case XINPUT:
+                modelStr = "x";
+            case SWITCH_PRO:
+                modelStr = "nin";
+            default:
+                modelStr = "";
+        }
+        return modelStr;
+    }
 }
 
 /**
