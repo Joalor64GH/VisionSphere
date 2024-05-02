@@ -69,7 +69,7 @@ class ControlsSubState extends FlxSubState {
 		}
 
 		for (bind in gpBinds) {
-			var control = new ControllerIcon(0, text1.y + 250, bind, gamepad.model.toString());
+			var control = new ControllerIcon(0, text1.y + 250, bind);
 			control.x -= control.iconWidth;
 			control.screenCenter(X);
 			binds.add(control);
