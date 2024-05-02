@@ -17,8 +17,6 @@ class ControlsSubState extends FlxSubState {
 	var gpBinds:Array<FlxGamepadInputID> = [];
 	var binds:FlxSpriteGroup;
 
-	var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
-
 	public function new() {
 		super();
 
@@ -49,13 +47,11 @@ class ControlsSubState extends FlxSubState {
 		add(instructionsTxt);
 
 		text1 = new FlxText(0, 0, 0, "", 64);
-		text1.screenCenter(XY);
 		text1.setFormat(Paths.font('vcr.ttf'), 64, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(text1);
 
 		text2 = new FlxText(5, FlxG.height - 54, 0, "", 32);
 		text2.setFormat(Paths.font('vcr.ttf'), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		text2.screenCenter(X);
 		add(text2);
 
 		binds = new FlxSpriteGroup();
@@ -64,14 +60,12 @@ class ControlsSubState extends FlxSubState {
 		for (bind in kbBinds) {
 			var key = new KeyIcon(0, text1.y + 150, bind);
 			key.x -= key.iconWidth;
-			key.screenCenter(X);
 			binds.add(key);
 		}
 
 		for (bind in gpBinds) {
 			var control = new ControllerIcon(0, text1.y + 250, bind);
 			control.x -= control.iconWidth;
-			control.screenCenter(X);
 			binds.add(control);
 		}
 	}
@@ -79,8 +73,12 @@ class ControlsSubState extends FlxSubState {
 	override public function update(elapsed:Float) {
 		super.update(elapsed);
 
+		text1.screenCenter(XY);
+		text2.screenCenter(X);
+
+		var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
+
 		controllerSpr.animation.play(keyboardMode ? 'keyboard' : 'gamepad');
-		
 		if (FlxG.mouse.overlaps(controllerSpr)) {
 			if (FlxG.mouse.justPressed) {
 				keyboardMode = !keyboardMode;
@@ -226,24 +224,26 @@ class ControlsSubState extends FlxSubState {
 	}
 
 	private function refreshControls() {
+		binds.forEachAlive((b) -> {
+			remove(b);
+			b.destroy();
+		});
+
 		for (bind in kbBinds) {
 			var key = new KeyIcon(0, text1.y + 150, bind);
 			key.x -= key.iconWidth;
-			key.screenCenter(X);
 			binds.add(key);
 		}
 
 		for (bind in gpBinds) {
 			var control = new ControllerIcon(0, text1.y + 250, bind);
 			control.x -= control.iconWidth;
-			control.screenCenter(X);
 			binds.add(control);
 		}
 	}
 }
 
 /**
- * Icons for inputs
  * @author ThatRozebudDude
  * @see https://github.com/ThatRozebudDude/FPS-Plus-Public/
  */
