@@ -3,7 +3,6 @@ package states;
 class PreferencesState extends FlxState
 {
     var bg:FlxSprite;
-    
     var times:Array<String> = ['%r', '%T'];
     var themes:Array<String> = ['daylight', 'night', 'dreamcast', 'ps3', 'xp', 'xbox360'];
     var options:Array<String> = [
@@ -25,9 +24,6 @@ class PreferencesState extends FlxState
     override public function create()
     {
         super.create();
-
-        Paths.clearStoredMemory();
-        Paths.clearUnusedMemory();
 
         bg = new FlxSprite().loadGraphic(Paths.image('theme/' + SaveData.settings.theme));
         add(bg);

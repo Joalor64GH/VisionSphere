@@ -89,8 +89,7 @@ class MenuState extends FlxState
 
         if (isTweening)
             timer = 0;
-        else 
-        {
+        else {
             timer += elapsed;
             if (timer >= 3)
                 changeText();

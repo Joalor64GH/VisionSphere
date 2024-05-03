@@ -224,6 +224,14 @@ class ControlsSubState extends FlxSubState {
 	}
 
 	private function refreshControls() {
+		kbBinds = [];
+		gpBinds = [];
+
+		for (i in 0...6) {
+			kbBinds.push(SaveData.settings.keyboardBinds[i]);
+			gpBinds.push(SaveData.settings.gamepadBinds[i]);
+		}
+
 		binds.forEachAlive((b) -> {
 			remove(b);
 			b.destroy();

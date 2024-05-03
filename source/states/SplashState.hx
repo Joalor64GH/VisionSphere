@@ -10,9 +10,6 @@ class SplashState extends FlxState
     {
         super.create();
 
-        Paths.clearStoredMemory();
-        Paths.clearUnusedMemory();
-
         var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('splash/titleBG'));
         add(bg);
 
