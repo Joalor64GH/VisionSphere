@@ -53,7 +53,7 @@ class PlayState extends FlxState
             {img: "math", desc: "An endless math problem game!", title: "The Simple Math Game"},
             {img: "teturisu", desc: "It's tetris in Haxeflixel lol.", title: "Teturisu"},
             {img: "reaction", desc: "Can you click the right square?", title: "The Reaction Game"},
-            {img: "blank", desc: "New phone, who dis?", title: "The Phone"}
+            {img: "phone", desc: "New phone, who dis?", title: "The Phone"}
         ];
 
         for (data in games)
