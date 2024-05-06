@@ -339,9 +339,14 @@ class VSGame extends FlxGame
 
 		final msg:String = fileStack.join('\n');
 
-		if (!FileSystem.exists("crash/")) 
-			FileSystem.createDirectory("crash/");
-		File.saveContent(path, '${msg}\n');
+		try 
+		{
+			if (!FileSystem.exists("crash/")) 
+				FileSystem.createDirectory("crash/");
+			File.saveContent(path, '${msg}\n');
+		} 
+		catch (e:Exception)
+			trace('Couldn\'t save error message "${e.message}"');
 
 		final funcThrew:String = '${func != null ? ' thrown at "${func}" function' : ""}';
 
