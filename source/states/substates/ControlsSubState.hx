@@ -57,17 +57,19 @@ class ControlsSubState extends FlxSubState {
 		binds = new FlxSpriteGroup();
 		add(binds);
 
+		var bindPos = text1.x + 1150;
+
 		for (bind in kbBinds) {
-			var key = new KeyIcon(text1.x, text1.y + 150, bind);
-			key.x += key.iconWidth * 20;
-			key.screenCenter(X);
+			var key = new KeyIcon(bindPos, text1.y + 150, bind);
+			key.x -= key.iconWidth;
+			bindPos -= key.iconWidth + 10;
 			binds.add(key);
 		}
 
 		for (bind in gpBinds) {
-			var control = new ControllerIcon(text1.x, text1.y + 250, bind);
-			control.x += control.iconWidth * 20;
-			control.screenCenter(X);
+			var control = new ControllerIcon(bindPos, text1.y + 250, bind);
+			control.x -= control.iconWidth;
+			bindPos -= control.iconWidth + 10;
 			binds.add(control);
 		}
 	}
@@ -239,17 +241,19 @@ class ControlsSubState extends FlxSubState {
 			b.destroy();
 		});
 
+		var bindPos = text1.x + 1150;
+
 		for (bind in kbBinds) {
-			var key = new KeyIcon(text1.x, text1.y + 150, bind);
-			key.x += key.iconWidth * 20;
-			key.screenCenter(X);
+			var key = new KeyIcon(bindPos, text1.y + 150, bind);
+			key.x -= key.iconWidth;
+			bindPos -= key.iconWidth + 10;
 			binds.add(key);
 		}
 
 		for (bind in gpBinds) {
-			var control = new ControllerIcon(text1.x, text1.y + 250, bind);
-			control.x += control.iconWidth * 20;
-			control.screenCenter(X);
+			var control = new ControllerIcon(bindPos, text1.y + 250, bind);
+			control.x -= control.iconWidth;
+			bindPos -= control.iconWidth + 10;
 			binds.add(control);
 		}
 	}
