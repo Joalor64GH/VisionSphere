@@ -229,6 +229,7 @@ class ControlsState extends FlxState {
 
 		for (bind in kbBinds) {
 			var key = new KeyIcon(bindPos, text1.y + 150, bind);
+			key.screenCenter(X);
 			key.x -= key.iconWidth;
 			bindPos -= key.iconWidth + 10;
 			binds.add(key);
@@ -236,6 +237,7 @@ class ControlsState extends FlxState {
 
 		for (bind in gpBinds) {
 			var control = new ControllerIcon(bindPos, text1.y + 250, bind);
+			control.screenCenter(X);
 			control.x -= control.iconWidth;
 			bindPos -= control.iconWidth + 10;
 			binds.add(control);
