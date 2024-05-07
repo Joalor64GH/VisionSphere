@@ -60,7 +60,7 @@ class OptionsState extends FlxState
                 case "Preferences":
                     FlxG.switchState(PreferencesState.new);
                 case "Controls":
-                    openSubState(new ControlsSubState());
+                    FlxG.switchState(ControlsState.new);
                 case "Credits":
                     FlxG.switchState(CreditsState.new);
                 case "System Information":

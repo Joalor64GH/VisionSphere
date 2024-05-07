@@ -1,11 +1,11 @@
-package states.substates;
+package states;
 
 /**
  * @author khuonghoanghuy
  * @see https://github.com/khuonghoanghuy/FNF-Pop-Engine-Rewrite/
  */
 
-class ControlsSubState extends FlxSubState {
+class ControlsState extends FlxState {
 	var init:Int = 0;
 	var inChange:Bool = false;
 	var keyboardMode:Bool = true;
@@ -17,12 +17,11 @@ class ControlsSubState extends FlxSubState {
 	var gpBinds:Array<FlxGamepadInputID> = [];
 	var binds:FlxSpriteGroup;
 
-	public function new() {
-		super();
+	override function create() {
+		super.create();
 
-		var bg:FlxSprite = new FlxSprite().makeGraphic(1280, 720, FlxColor.BLACK);
-		bg.alpha = 0.65;
-		add(bg);
+		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('theme/' + SaveData.settings.theme));
+        add(bg);
 
 		var title:FlxSprite = new FlxSprite();
 		title.frames = Paths.getSparrowAtlas('menu/controls/title');
@@ -79,7 +78,7 @@ class ControlsSubState extends FlxSubState {
 
 		if (keyboardMode) {
 			if ((Input.is('exit') || Input.is('backspace')) && !inChange)
-				close();
+				FlxG.switchState(OptionsState.new);
 
 			if (Input.is('accept')) {
 				inChange = true;
@@ -142,7 +141,7 @@ class ControlsSubState extends FlxSubState {
 		} else if (!keyboardMode) {
 			if (gamepad != null) {
 				if (Input.gamepadIs('gamepad_exit') || Input.gamepadIs('x') && !inChange)
-					close();
+					FlxG.switchState(OptionsState.new);
 
 				if (Input.gamepadIs('gamepad_accept')) {
 					inChange = true;
@@ -216,6 +215,9 @@ class ControlsSubState extends FlxSubState {
 			kbBinds.push(SaveData.settings.keyboardBinds[i]);
 			gpBinds.push(SaveData.settings.gamepadBinds[i]);
 		}
+
+		kbBinds.reverse();
+		gpBinds.reverse();
 
 		binds.forEachAlive((b) -> {
 			remove(b);
@@ -362,23 +364,29 @@ class ControllerIcon extends FlxSpriteGroup {
 
 	public var key:FlxGamepadInputID;
 
-	public var skin:String;
-
 	public var iconWidth:Float = 80;
 	public var iconHeight:Float = 80;
 
-	public function new(_x:Float, _y:Float, _key:FlxGamepadInputID, ?_skin = "") {
+	public function new(_x:Float, _y:Float, _key:FlxGamepadInputID) {
 		super(_x, _y);
 		key = _key;
-		skin = _skin;
 		createGraphics();
 	}
 
 	function createGraphics() {
-		var postfix:String = "0";
-		if (xSkinKeys.contains(key) && skin == "XINPUT") postfix = "_x";
-		if (psSkinKeys.contains(key) && skin == "PS4") postfix = "_ps";
-		if (ninSkinKeys.contains(key) && skin == "SWITCH_PRO") postfix = "_nin";
+		var postfix:String;
+		var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
+
+		switch (gamepad.model) {
+			case XINPUT:
+				if (xSkinKeys.contains(key)) postfix = "_x";
+			case PS4:
+				if (psSkinKeys.contains(key)) postfix = "_ps";
+			case SWITCH_PRO:
+				if (ninSkinKeys.contains(key)) postfix = "_nin";
+			default:
+				postfix = "0";
+		}
 		loadKeyGraphic(key.toString().toLowerCase() + postfix);
 	}
 
