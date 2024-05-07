@@ -17,11 +17,6 @@ class ControlsState extends FlxState {
 	var gpBinds:Array<FlxGamepadInputID> = [];
 	var binds:FlxSpriteGroup;
 
-    var controllerButtonSkin:String = "";
-    var prevControllerButtonSkin:String = "";
-	
-	var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
-
 	override function create() {
 		super.create();
 
@@ -66,7 +61,7 @@ class ControlsState extends FlxState {
 		text1.screenCenter(XY);
 		text2.screenCenter(X);
 
-		updateCurrentController();
+		var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
 
 		controllerSpr.animation.play(keyboardMode ? 'keyboard' : 'gamepad');
 		if (FlxG.mouse.overlaps(controllerSpr)) {
@@ -246,21 +241,6 @@ class ControlsState extends FlxState {
 			binds.add(control);
 		}
 	}
-
-	private function updateCurrentController() {
-        switch (gamepad.model) {
-            case PS4:
-                controllerButtonSkin = "ps";
-            case XINPUT:
-                controllerButtonSkin = "x";
-            case SWITCH_PRO:
-                controllerButtonSkin = "nin";
-            default:
-                controllerButtonSkin = "";
-        }
-        if (prevControllerButtonSkin != controllerButtonSkin)
-            prevControllerButtonSkin = controllerButtonSkin;
-    }
 }
 
 /**
