@@ -10,6 +10,7 @@ class ControlsState extends FlxState {
 	var inChange:Bool = false;
 	var keyboardMode:Bool = true;
 	var controllerSpr:FlxSprite;
+	
 	var text1:FlxText;
 	var text2:FlxText;
 
@@ -51,7 +52,6 @@ class ControlsState extends FlxState {
 		binds = new FlxSpriteGroup();
 		add(binds);
 
-		updateCurrentController();
 		refreshControls();
 	}
 
