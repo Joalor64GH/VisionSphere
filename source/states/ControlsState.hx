@@ -10,6 +10,7 @@ class ControlsState extends FlxState {
 	var inChange:Bool = false;
 	var keyboardMode:Bool = true;
 	var controllerSpr:FlxSprite;
+	
 	var text1:FlxText;
 	var text2:FlxText;
 
@@ -59,8 +60,6 @@ class ControlsState extends FlxState {
 
 		text1.screenCenter(XY);
 		text2.screenCenter(X);
-		
-		binds.screenCenter(X);
 
 		var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
 
@@ -333,7 +332,8 @@ class KeyIcon extends FlxSpriteGroup {
 	function generateDefaultKeyIcon(text:String, isKeypad:Bool, yOffset:Float) {
 		var keyBg = loadKeyGraphic("key" + (isKeypad ? "_kp" : "0"));
 
-		var text = new Alphabet(0, 0, text, false);
+		var text = new FlxText(0, 0, 80, text, 80);
+		text.setFormat(Paths.font("vcr.ttf"), 80, FlxColor.BLACK, FlxTextAlign.CENTER);
 		text.y = (keyBg.height / 2) - (text.height / 2) + yOffset;
 		text.text += "\n\n";
 		add(text);
