@@ -17,6 +17,11 @@ class ControlsState extends FlxState {
 	var gpBinds:Array<FlxGamepadInputID> = [];
 	var binds:FlxSpriteGroup;
 
+    var controllerButtonSkin:String = "";
+    var prevControllerButtonSkin:String = "";
+	
+	var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
+
 	override function create() {
 		super.create();
 
@@ -51,6 +56,7 @@ class ControlsState extends FlxState {
 		binds = new FlxSpriteGroup();
 		add(binds);
 
+		updateCurrentController();
 		refreshControls();
 	}
 
@@ -60,7 +66,7 @@ class ControlsState extends FlxState {
 		text1.screenCenter(XY);
 		text2.screenCenter(X);
 
-		var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
+		updateCurrentController();
 
 		controllerSpr.animation.play(keyboardMode ? 'keyboard' : 'gamepad');
 		if (FlxG.mouse.overlaps(controllerSpr)) {
@@ -240,6 +246,21 @@ class ControlsState extends FlxState {
 			binds.add(control);
 		}
 	}
+
+	private function updateCurrentController() {
+        switch (gamepad.model) {
+            case PS4:
+                controllerButtonSkin = "ps";
+            case XINPUT:
+                controllerButtonSkin = "x";
+            case SWITCH_PRO:
+                controllerButtonSkin = "nin";
+            default:
+                controllerButtonSkin = "";
+        }
+        if (prevControllerButtonSkin != controllerButtonSkin)
+            prevControllerButtonSkin = controllerButtonSkin;
+    }
 }
 
 /**
@@ -364,29 +385,23 @@ class ControllerIcon extends FlxSpriteGroup {
 
 	public var key:FlxGamepadInputID;
 
+	public var skin:String;
+
 	public var iconWidth:Float = 80;
 	public var iconHeight:Float = 80;
 
-	public function new(_x:Float, _y:Float, _key:FlxGamepadInputID) {
+	public function new(_x:Float, _y:Float, _key:FlxGamepadInputID, ?_skin:String = "") {
 		super(_x, _y);
 		key = _key;
+		skin = _skin;
 		createGraphics();
 	}
 
 	function createGraphics() {
-		var postfix:String = "";
-		var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
-
-		switch (gamepad.model) {
-			case XINPUT:
-				if (xSkinKeys.contains(key)) postfix = "_x";
-			case PS4:
-				if (psSkinKeys.contains(key)) postfix = "_ps";
-			case SWITCH_PRO:
-				if (ninSkinKeys.contains(key)) postfix = "_nin";
-			default:
-				postfix = "0";
-		}
+		var postfix:String = "0";
+		if (xSkinKeys.contains(key) && skin == "x") postfix = "_x";
+		if (psSkinKeys.contains(key) && skin == "ps") postfix = "_ps";
+		if (ninSkinKeys.contains(key) && skin == "nin") postfix = "_nin";
 		loadKeyGraphic(key.toString().toLowerCase() + postfix);
 	}
 
