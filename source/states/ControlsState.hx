@@ -10,7 +10,6 @@ class ControlsState extends FlxState {
 	var inChange:Bool = false;
 	var keyboardMode:Bool = true;
 	var controllerSpr:FlxSprite;
-	
 	var text1:FlxText;
 	var text2:FlxText;
 
@@ -225,11 +224,13 @@ class ControlsState extends FlxState {
 			b.destroy();
 		});
 
+		remove(binds);
+		add(binds);
+
 		var bindPos = text1.x + 1150;
 
 		for (bind in kbBinds) {
 			var key = new KeyIcon(bindPos, text1.y + 150, bind);
-			key.screenCenter(Y);
 			key.x -= key.iconWidth;
 			bindPos -= key.iconWidth + 10;
 			binds.add(key);
@@ -237,7 +238,6 @@ class ControlsState extends FlxState {
 
 		for (bind in gpBinds) {
 			var control = new ControllerIcon(bindPos, text1.y + 250, bind);
-			control.screenCenter(Y);
 			control.x -= control.iconWidth;
 			bindPos -= control.iconWidth + 10;
 			binds.add(control);
