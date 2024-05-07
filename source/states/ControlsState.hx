@@ -374,7 +374,7 @@ class ControllerIcon extends FlxSpriteGroup {
 	}
 
 	function createGraphics() {
-		var postfix:String;
+		var postfix:String = "";
 		var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
 
 		switch (gamepad.model) {
