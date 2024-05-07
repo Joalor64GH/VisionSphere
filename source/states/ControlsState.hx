@@ -21,7 +21,7 @@ class ControlsState extends FlxState {
 		super.create();
 
 		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('theme/' + SaveData.settings.theme));
-        add(bg);
+		add(bg);
 
 		var title:FlxSprite = new FlxSprite();
 		title.frames = Paths.getSparrowAtlas('menu/controls/title');

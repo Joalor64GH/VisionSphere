@@ -4,6 +4,7 @@ import flixel.graphics.FlxGraphic;
 import flixel.graphics.frames.FlxAtlasFrames;
 
 import openfl.media.Sound;
+import lime.app.Future;
 
 /**
  * @author ShadowMario
@@ -305,6 +306,49 @@ class Paths
 			#end
 		localTrackedAssets.push(gottenPath);
 		return currentTrackedSounds.get(gottenPath);
+	}
+
+	/**
+	 * @author SanicBTW-Archive
+	 * @see https://github.com/SanicBTW-Archive/HaxeFlixelTemplate/
+	 */
+
+	public static var imgsDone:Int = 0;
+	public static var imgsToBeDone:Int = 0;
+	public static var sndsDone:Int = 0;
+	public static var sndsToBeDone:Int = 0;
+
+	inline static public function precacheImage(key:String)
+	{
+		imgsToBeDone++;
+
+		BitmapData.loadFromFile(key).then((bit) ->
+		{
+			if (!currentTrackedAssets.exists(key))
+			{
+				var newGraphic:FlxGraphic = FlxG.bitmap.add(FlxGraphic.fromBitmapData(bit, false, key), false, key);
+				currentTrackedAssets.set(key, newGraphic);
+			}
+			localTrackedAssets.push(key);
+			imgsDone++;
+
+			return Future.withValue(bit);
+		});
+	}
+
+	inline public static function precacheSound(key:String)
+	{
+		sndsToBeDone++;
+
+		Sound.loadFromFile(key).then((sound) ->
+		{
+			if (!currentTrackedSounds.exists(key))
+				currentTrackedSounds.set(key, sound);
+			localTrackedAssets.push(key);
+			sndsDone++;
+
+			return Future.withValue(sound);
+		});
 	}
 	
 	#if MODS_ALLOWED
