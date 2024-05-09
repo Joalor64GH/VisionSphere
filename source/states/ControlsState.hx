@@ -213,7 +213,7 @@ class ControlsState extends FlxState {
 		}
 	}
 
-	private function refreshControls() {
+	private function refreshControls() { // CAN SOMEONE PLEASE FIX THIS???
 		kbBinds = [];
 		gpBinds = [];
 
