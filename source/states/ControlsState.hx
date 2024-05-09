@@ -241,6 +241,7 @@ class ControlsState extends FlxState {
 			var key = new KeyIcon(bindPos, text1.y + 150, bind);
 			key.x -= key.iconWidth;
 			bindPos -= key.iconWidth + 10;
+			key.setPosition(key.x, key.y);
 			keys.add(key);
 		}
 
@@ -248,6 +249,7 @@ class ControlsState extends FlxState {
 			var control = new ControllerIcon(bindPos, text1.y + 250, bind);
 			control.x -= control.iconWidth;
 			bindPos -= control.iconWidth + 10;
+			control.setPosition(control.x, control.y);
 			controls.add(control);
 		}
 	}
