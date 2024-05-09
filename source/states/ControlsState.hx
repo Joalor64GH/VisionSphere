@@ -239,13 +239,19 @@ class ControlsState extends FlxState {
 
 		for (bind in kbBinds) {
 			var key = new KeyIcon(0, 0, bind);
-			key.setPosition(bindPos - key.iconWidth - (bindPos - key.iconWidth + 10), text1.y + 150);
+			key.x = bindPos;
+			key.y = text1.y + 150;
+			key.x -= key.iconWidth;
+			bindPos -= key.iconWidth + 10;
 			keys.add(key);
 		}
 
 		for (bind in gpBinds) {
 			var control = new ControllerIcon(0, 0, bind);
-			control.setPosition(bindPos - control.iconWidth - (bindPos - control.iconWidth + 10), text1.y + 150);
+			control.x = bindPos;
+			control.y = text1.y + 250;
+			control.x -= control.iconWidth;
+			bindPos -= control.iconWidth + 10;
 			controls.add(control);
 		}
 	}
