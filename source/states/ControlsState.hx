@@ -10,12 +10,15 @@ class ControlsState extends FlxState {
 	var inChange:Bool = false;
 	var keyboardMode:Bool = true;
 	var controllerSpr:FlxSprite;
+	
 	var text1:FlxText;
 	var text2:FlxText;
 
 	var kbBinds:Array<FlxKey> = [];
 	var gpBinds:Array<FlxGamepadInputID> = [];
-	var binds:FlxSpriteGroup;
+	
+	var keys:FlxTypedGroup<KeyIcon>;
+	var controls:FlxTypedGroup<ControllerIcon>;
 
 	override function create() {
 		super.create();
@@ -48,8 +51,11 @@ class ControlsState extends FlxState {
 		text2.setFormat(Paths.font('vcr.ttf'), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(text2);
 
-		binds = new FlxSpriteGroup();
-		add(binds);
+		keys = new FlxTypedGroup<KeyIcon>();
+		add(keys);
+
+		controls = new FlxTypedGroup<ControllerIcon>();
+		add(controls);
 
 		refreshControls();
 	}
@@ -219,13 +225,15 @@ class ControlsState extends FlxState {
 		kbBinds.reverse();
 		gpBinds.reverse();
 
-		binds.forEachAlive((b) -> {
-			remove(b);
-			b.destroy();
+		keys.forEachAlive((x) -> {
+			remove(x);
+			x.destroy();
 		});
 
-		remove(binds);
-		add(binds);
+		controls.forEachAlive((x) -> {
+			remove(x);
+			x.destroy();
+		});
 
 		var bindPos = text1.x + 1150;
 
@@ -233,14 +241,14 @@ class ControlsState extends FlxState {
 			var key = new KeyIcon(bindPos, text1.y + 150, bind);
 			key.x -= key.iconWidth;
 			bindPos -= key.iconWidth + 10;
-			binds.add(key);
+			keys.add(key);
 		}
 
 		for (bind in gpBinds) {
 			var control = new ControllerIcon(bindPos, text1.y + 250, bind);
 			control.x -= control.iconWidth;
 			bindPos -= control.iconWidth + 10;
-			binds.add(control);
+			controls.add(control);
 		}
 	}
 }
