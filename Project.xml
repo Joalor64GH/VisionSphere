@@ -26,7 +26,6 @@
 	<assets path="mods" embed="false" type="template" if="MODS_ALLOWED" />
 	<assets path="compileData/modsList.txt" rename="modsList.txt" if="MODS_ALLOWED" />
 	<assets path="VERSION" embed="false" />
-	<assets path="build.txt" embed="false" />
 
 	<!-- [ Libraries ] -->
 
@@ -51,6 +50,7 @@
 	<haxedef name="HXCPP_CHECK_POINTER" if="CRASH_HANDLER" />
 	<haxedef name="HXCPP_STACK_LINE" if="CRASH_HANDLER" />
 	<haxedef name="HXCPP_GC_BIG_BLOCKS" />
+	
 	<haxedef name="no-deprecation-warnings" />
 	<haxedef name="message.reporting" value="pretty" />
 

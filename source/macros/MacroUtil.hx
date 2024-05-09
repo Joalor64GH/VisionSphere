@@ -32,9 +32,9 @@ class MacroUtil
     public static macro function get_build_num():haxe.macro.Expr.ExprOf<Int>
     {
         try {
-            var buildNumber:Int = Std.parseInt(File.getContent(FileSystem.fullPath('build.txt')));
-            File.saveContent(FileSystem.fullPath('build.txt'), Std.string(buildNumber));
-            return macro $v{buildNumber};
+            var proc = new Process('git', ['rev-list', 'HEAD', '--count'], false);
+            proc.exitCode(true);
+            return macro $v{Std.parseInt(proc.stdout.readLine())};
         } catch(e) {}
         return macro $v{0};
     }
