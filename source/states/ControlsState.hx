@@ -138,7 +138,6 @@ class ControlsState extends FlxState {
 							SaveData.settings.keyboardBinds[5] = FlxG.keys.getIsDown()[0].ID.toString();
 							Input.actionMap.set("exit", SaveData.settings.keyboardBinds[5]);
 					}
-					refreshControls();
 					FlxG.sound.play(Paths.sound('scroll'));
 					text2.text = "";
 					inChange = false;
@@ -203,7 +202,6 @@ class ControlsState extends FlxState {
 								SaveData.settings.gamepadBinds[5] = keyPressed;
 								Input.controllerMap.set("gamepad_exit", SaveData.settings.gamepadBinds[5]);
 						}
-						refreshControls();
 						FlxG.sound.play(Paths.sound('scroll'));
 						text2.text = "";
 						inChange = false;
@@ -211,6 +209,7 @@ class ControlsState extends FlxState {
 				}
 			}
 		}
+		refreshControls();
 	}
 
 	private function refreshControls() { // CAN SOMEONE PLEASE FIX THIS???
