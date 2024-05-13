@@ -20,7 +20,7 @@ class ControlsGroup extends FlxGroup {
         refreshControls();
     }
 
-    public static function refreshControls() {
+    public function refreshControls() {
 		kbBinds = [];
 		gpBinds = [];
 
