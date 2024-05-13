@@ -212,7 +212,7 @@ class ControlsState extends FlxState {
 		refreshControls();
 	}
 
-	private function refreshControls() { // CAN SOMEONE PLEASE FIX THIS???
+	private function refreshControls() {
 		kbBinds = [];
 		gpBinds = [];
 
@@ -234,23 +234,17 @@ class ControlsState extends FlxState {
 			x.destroy();
 		});
 
-		var bindPos = text1.x + 1150 - 10;
-
 		for (bind in kbBinds) {
-			var key = new KeyIcon(0, 0, bind);
-			key.x = bindPos;
-			key.y = text1.y + 150;
+			var key = new KeyIcon((text1.x + 1150 - 10), text1.y + 150, bind);
+			key.screenCenter(Y);
 			key.x -= key.iconWidth;
-			bindPos -= key.iconWidth + 10;
 			keys.add(key);
 		}
 
 		for (bind in gpBinds) {
-			var control = new ControllerIcon(0, 0, bind);
-			control.x = bindPos;
-			control.y = text1.y + 250;
+			var control = new ControllerIcon((text1.x + 1150 - 10), text1.y + 250, bind);
+			control.screenCenter(Y);
 			control.x -= control.iconWidth;
-			bindPos -= control.iconWidth + 10;
 			controls.add(control);
 		}
 	}

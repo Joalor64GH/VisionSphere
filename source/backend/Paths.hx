@@ -15,7 +15,7 @@ import lime.app.Future;
 class Paths
 {
 	#if MODS_ALLOWED
-	public static var ignoreModFolders:Array<String> = [
+	public static final ignoreModFolders:Array<String> = [
 		'_append',
 		'languages',
 		'data',
